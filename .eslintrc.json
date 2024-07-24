@@ -1,9 +1,5 @@
 {
 	"parser": "@typescript-eslint/parser",
-	"parserOptions": {
-		"project": "./tsconfig.json",
-		"tsconfigRootDir": "./"
-	},
 	"extends": [
 		"next/core-web-vitals",
 		"eslint:recommended",
@@ -15,18 +11,9 @@
 		"plugin:import/errors",
 		"plugin:import/warnings",
 		"plugin:import/typescript",
-		"plugin:react-refresh/recommended",
 		"prettier"
 	],
-	"plugins": [
-		"@typescript-eslint",
-		"react",
-		"react-hooks",
-		"jsx-a11y",
-		"import",
-		"react-refresh",
-		"prettier"
-	],
+	"plugins": ["@typescript-eslint", "react", "react-hooks", "jsx-a11y", "import", "prettier"],
 	"rules": {
 		"prettier/prettier": "error",
 		"react/react-in-jsx-scope": "off",
