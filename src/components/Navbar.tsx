@@ -1,11 +1,10 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import logo from "@/assets/images/alanced.png";
 import navback from "@/assets/images/nav_background.png";
 // import { useDispatch, useSelector } from "react-redux";
 // import { LogoutAction } from "../../redux/Auth/AuthAction";
 // import axios from "axios";
-import { useEffect } from "react";
 // import alancedlogo from "@/assets/images/alanced_transparent.png";
 
 // import { timeAgo } from "../../container/freelancer/TimeFunctions";
@@ -115,8 +114,8 @@ const Navbar = () => {
     // dispatch(LogoutAction());
   };
 
-  const [clientnotifications, setClientNotifications] = useState([]); //eslint-disable-line
-  const [freenotifications, setFreeNotifications] = useState([]); //eslint-disable-line
+  // const [clientnotifications, setClientNotifications] = useState([]);
+  // const [freenotifications, setFreeNotifications] = useState([]);
   const [isNotificationsDropdownVisible, setIsNotificationsDropdownVisible] = useState(false);
 
   // const fetchClientNotifications = async () => {
@@ -173,7 +172,7 @@ const Navbar = () => {
     setIsNotificationsDropdownVisible(!isNotificationsDropdownVisible);
   };
   // const unreadclientCount = clientnotifications.filter((notif) => !notif.is_read).length;
-  const unreadclientCount = 0;
+  // const unreadclientCount = 0;
 
   //   const deleteClientNotification = async (notifId) => {
   //     try {
@@ -734,16 +733,16 @@ const Navbar = () => {
                     }}
                   ></FaBell>
 
-                  {loginType === "HIRER" && unreadclientCount > 0 && (
+                  {/* {loginType === "HIRER" && unreadclientCount > 0 && (
                     <span className="absolute right-0 top-1.5 block h-2.5 w-2.5 rounded-full border-2 border-white bg-blue-500"></span>
-                  )}
+                  )} */}
                   {loginType === "FREELANCER" && unreadfreeCount > 0 && (
                     <span className="absolute right-0 top-1.5 block h-2.5 w-2.5 rounded-full border-2 border-white bg-blue-500"></span>
                   )}
 
-                  {loginType === "HIRER" && isNotificationsDropdownVisible && (
+                  {/* {loginType === "HIRER" && isNotificationsDropdownVisible && (
                     <div className="drop absolute right-[-18px] mt-5 w-80 rounded-md bg-white text-left shadow-lg">
-                      {/* {clientnotifications.length > 0 ? (
+                      {clientnotifications.length > 0 ? (
                         <>
                           {clientnotifications.slice(0, 3).map((notif) => (
                             <div
@@ -788,9 +787,9 @@ const Navbar = () => {
                         <div className="p-4">
                           <h4 className="text-md font-bold">No New Notifications</h4>
                         </div>
-                      )} */}
+                      )}
                     </div>
-                  )}
+                  )} */}
 
                   {/* {loginType == "FREELANCER" && isNotificationsDropdownVisible && (
                     <div className="drop absolute right-[-18px] mt-5 w-80 rounded-md bg-white text-left shadow-lg">
@@ -853,7 +852,7 @@ const Navbar = () => {
                   }}
                 >
                   {logindata && logindata.images_logo ? (
-                    <img
+                    <Image
                       src={"https://www.api.alanced.com" + logindata.images_logo}
                       alt="Profile"
                       className="h-8 w-8 cursor-pointer rounded-full border border-gray-400"
@@ -871,7 +870,7 @@ const Navbar = () => {
                     <div className="drop absolute right-[-10px] mt-5 w-[14rem] rounded-md bg-white shadow-lg">
                       <div className="py-1">
                         {logindata && logindata.images_logo ? (
-                          <img
+                          <Image
                             src={"https://www.api.alanced.com" + logindata.images_logo}
                             alt="Profile"
                             className="mx-auto my-5 h-20 w-20 cursor-pointer rounded-full border border-gray-200 p-0.5"
