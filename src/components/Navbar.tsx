@@ -82,24 +82,24 @@ const Navbar = () => {
     displayName = logindata?.first_Name + " " + logindata?.last_Name;
   }
 
-  // eslint-disable-next-line
-  const handleClickOutside = (event: any) => {
-    // eslint-disable-next-line
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      // Clicked outside the dropdown, close it
-      setDropdownVisible(false);
-    }
-  };
+  // // eslint-disable-next-line
+  // const handleClickOutside = (event: any) => {
+  //   // eslint-disable-next-line
+  //   if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+  //     // Clicked outside the dropdown, close it
+  //     setDropdownVisible(false);
+  //   }
+  // };
 
-  useEffect(() => {
-    // Add event listener when the component mounts
-    document.addEventListener("mousedown", handleClickOutside);
+  // useEffect(() => {
+  //   // Add event listener when the component mounts
+  //   document.addEventListener("mousedown", handleClickOutside);
 
-    // Clean up the event listener when the component unmounts
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  //   // Clean up the event listener when the component unmounts
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, []);
 
   const isLoggedIn = Boolean(accessToken || googleUserName);
 
