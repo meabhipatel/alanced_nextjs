@@ -6,6 +6,10 @@ const AboutPage: React.FC = () => {
       <h1 className="font-cardo p-3 text-left text-2xl font-semibold text-blue-600 sm:text-3xl md:text-4xl">
         About Us
       </h1>
+      <div className="relative mb-6 mt-1 w-48">
+        <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
+        <div className="rounded-lg border-b-2 border-gray-600"></div>
+      </div>
       <h2 className="font-inter mb-4 text-left text-lg font-semibold text-[#031136] md:text-xl">
         Welcome to Alanced: Empowering Freelancers Worldwide
       </h2>
