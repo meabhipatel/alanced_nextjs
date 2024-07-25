@@ -172,7 +172,8 @@ const Navbar = () => {
   const toggleNotificationDropdown = () => {
     setIsNotificationsDropdownVisible(!isNotificationsDropdownVisible);
   };
-  const unreadclientCount = clientnotifications.filter((notif) => !notif.is_read).length;
+  // const unreadclientCount = clientnotifications.filter((notif) => !notif.is_read).length;
+  const unreadclientCount = 0;
 
   //   const deleteClientNotification = async (notifId) => {
   //     try {
@@ -266,7 +267,8 @@ const Navbar = () => {
   //     }
   //   };
 
-  const unreadfreeCount = freenotifications.filter((notif) => !notif.is_read).length;
+  // const unreadfreeCount = freenotifications.filter((notif) => !notif.is_read).length;
+  const unreadfreeCount = 0;
 
   //   const getNotificationRedirectPath = (notif) => {
   //     if (notif.type === "bid") {
