@@ -1,9 +1,13 @@
+"use client";
+
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import faq from "@/assets/images/faq.png";
 import { FaQuestionCircle } from "react-icons/fa";
+import { IoChevronDownSharp, IoChevronUpSharp } from "react-icons/io5";
 
 const FAQ = () => {
+  // State and refs
   const [isOpen, setIsOpen] = useState<number | null>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -96,19 +100,25 @@ const FAQ = () => {
                   {faq.question}
                 </h1>
                 <button
-                  className="flex h-6 w-6 items-center justify-center rounded-full border border-gray-200 bg-white"
                   onClick={() => toggleOpen(index)}
+                  onKeyDown={(e) => e.key === "Enter" && toggleOpen(index)}
+                  className="pl-0.4 flex h-6 w-6 flex-shrink-0 cursor-pointer items-center justify-center rounded-full border border-gray-200 bg-white pb-1"
+                  aria-expanded={isOpen === index}
+                  aria-controls={`faq-content-${index}`}
                   aria-label={isOpen === index ? "Collapse" : "Expand"}
                 >
-                  <i
-                    className={`bi ${isOpen === index ? "bi-chevron-up" : "bi-chevron-down"} text-gray-700`}
-                  />
+                  <div className="mt-1">
+                    {isOpen === index ? <IoChevronUpSharp /> : <IoChevronDownSharp />}
+                  </div>
                 </button>
               </div>
               {isOpen === index && (
-                <p className="font-inter py-3 text-left text-sm font-normal text-[#031136] opacity-40">
+                <div
+                  id={`faq-content-${index}`}
+                  className="font-inter py-3 text-left text-sm font-normal text-[#031136] opacity-40"
+                >
                   {faq.answer}
-                </p>
+                </div>
               )}
             </div>
           ))}
