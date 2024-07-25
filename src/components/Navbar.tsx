@@ -84,6 +84,7 @@ const Navbar = () => {
 
   // eslint-disable-next-line
   const handleClickOutside = (event: any) => {
+    // eslint-disable-next-line
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       // Clicked outside the dropdown, close it
       setDropdownVisible(false);
