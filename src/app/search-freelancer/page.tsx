@@ -1,11 +1,11 @@
 import React from "react";
 
-const findTalent = () => {
+const searchFreelancer = () => {
   return (
     <>
-      <span>find talent page</span>
+      <span>search freelancer page</span>
     </>
   );
 };
 
-export default findTalent;
+export default searchFreelancer;
