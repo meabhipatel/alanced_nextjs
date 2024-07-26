@@ -15,7 +15,7 @@
   ],
   "plugins": ["@typescript-eslint", "react", "react-hooks", "jsx-a11y", "import", "prettier"],
   "rules": {
-    "prettier/prettier": ["error", { "singleQuote": false }],
+    // "prettier/prettier": "error",
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
     "@typescript-eslint/no-explicit-any": "error",
