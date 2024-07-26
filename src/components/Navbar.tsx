@@ -20,7 +20,7 @@ import Image from "next/image";
 const Navbar = () => {
   const router = useRouter();
 
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = `localStorage.getItem("accessToken")`;
   // const AccessToken =
   //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUzNDI0MjI2LCJpYXQiOjE3MjE4ODgyMjYsImp0aSI6IjZiNGM3YjlmMmZjZTRlZTQ5OTY4NjFiZDU4Yzc4Yzk0IiwidXNlcl9pZCI6NH0.9IY5P_GoKns52wLXX0ZJMCbgXrx_fmMJK7mFkf54JxU";
   const loginType: "HIRER" | "FREELANCER" = "FREELANCER";
@@ -45,7 +45,7 @@ const Navbar = () => {
     hourly_rate: 0,
     experience_level: "",
   };
-  const googleUserName = localStorage.getItem("googleUserName");
+  const googleUserName = `localStorage.getItem("googleUserName")`;
   const loginMethod = "traditional";
   //   const dispatch = useDispatch();
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -102,17 +102,17 @@ const Navbar = () => {
 
   const isLoggedIn = Boolean(accessToken || googleUserName);
 
-  const handleLogout = () => {
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("googleUserName");
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("loginMethod");
-    localStorage.removeItem("loginType");
-    localStorage.removeItem("jwtToken");
-    localStorage.removeItem("logindata");
+  // const handleLogout = () => {
+  //   localStorage.removeItem("isLoggedIn");
+  //   localStorage.removeItem("googleUserName");
+  //   localStorage.removeItem("accessToken");
+  //   localStorage.removeItem("loginMethod");
+  //   localStorage.removeItem("loginType");
+  //   localStorage.removeItem("jwtToken");
+  //   localStorage.removeItem("logindata");
 
-    // dispatch(LogoutAction());
-  };
+  //   // dispatch(LogoutAction());
+  // };
 
   // const [clientnotifications, setClientNotifications] = useState([]);
   // const [freenotifications, setFreeNotifications] = useState([]);
@@ -856,6 +856,8 @@ const Navbar = () => {
                       src={"https://www.api.alanced.com" + logindata.images_logo}
                       alt="Profile"
                       className="h-8 w-8 cursor-pointer rounded-full border border-gray-400"
+                      width={32}
+                      height={32}
                       // onClick={() => setDropdownVisible(!dropdownVisible)}
                     />
                   ) : (
@@ -874,6 +876,8 @@ const Navbar = () => {
                             src={"https://www.api.alanced.com" + logindata.images_logo}
                             alt="Profile"
                             className="mx-auto my-5 h-20 w-20 cursor-pointer rounded-full border border-gray-200 p-0.5"
+                            width={80}
+                            height={80}
                             // onClick={() => setDropdownVisible(!dropdownVisible)}
                           />
                         ) : (
@@ -910,10 +914,9 @@ const Navbar = () => {
                         <Link
                           href="/"
                           className="flex items-center px-4 py-2 hover:bg-gray-100"
-                          onClick={() => {
-                            window.scrollTo(0, 0);
-                            handleLogout();
-                          }}
+                          // onClick={() => {
+                          //   handleLogout();
+                          // }}
                         >
                           <i className="bi bi-box-arrow-right mr-3"></i>
                           <span className="font-cardo text-[16px] text-[#031136]">Logout</span>
