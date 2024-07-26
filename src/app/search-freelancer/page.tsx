@@ -352,7 +352,7 @@ const FindTalent = () => {
                       />
                       <div className="checkbox-border-gradient mr-3 flex h-5 w-5 items-center justify-center rounded bg-transparent">
                         <span className="checkmark hidden">
-                          {/* <i className="bi bi-check-lg pr-0.5 pt-2"></i> */}
+                          {/* <FaCheck className="text-sm" /> */}
                           <FaCheck className="text-sm" />
                         </span>
                       </div>
@@ -403,7 +403,7 @@ const FindTalent = () => {
                       />
                       <div className="checkbox-border-gradient mr-3 flex h-5 w-5 items-center justify-center rounded bg-transparent">
                         <span className="checkmark hidden">
-                          <i className="bi bi-check-lg pr-0.5 pt-2"></i>
+                          <FaCheck className="text-sm" />
                         </span>
                       </div>
                       <span className="normal-checkbox mr-3 inline-block h-5 w-5 rounded border border-gray-300"></span>
@@ -451,7 +451,7 @@ const FindTalent = () => {
                       />
                       <div className="checkbox-border-gradient mr-3 flex h-5 w-5 items-center justify-center rounded bg-transparent">
                         <span className="checkmark hidden">
-                          <i className="bi bi-check-lg pr-0.5 pt-2"></i>
+                          <FaCheck className="text-sm" />
                         </span>
                       </div>
                       <span className="normal-checkbox mr-3 inline-block h-5 w-5 rounded border border-gray-300"></span>
@@ -499,7 +499,7 @@ const FindTalent = () => {
                       />
                       <div className="checkbox-border-gradient mr-3 flex h-5 w-5 items-center justify-center rounded bg-transparent">
                         <span className="checkmark hidden">
-                          <i className="bi bi-check-lg pr-0.5 pt-2"></i>
+                          <FaCheck className="text-sm" />
                         </span>
                       </div>
                       <span className="normal-checkbox mr-3 inline-block h-5 w-5 rounded border border-gray-300"></span>
