@@ -28,6 +28,7 @@ import Link from "next/link";
 // import { useRouter } from "next/router";
 import Image from "next/image";
 import { errorLog } from "@/utils/errorLog";
+import { FaCheck } from "react-icons/fa6";
 
 const FindTalent = () => {
   // const location = useRouter();
@@ -351,7 +352,8 @@ const FindTalent = () => {
                       />
                       <div className="checkbox-border-gradient mr-3 flex h-5 w-5 items-center justify-center rounded bg-transparent">
                         <span className="checkmark hidden">
-                          <i className="bi bi-check-lg pr-0.5 pt-2"></i>
+                          {/* <FaCheck className="text-sm" /> */}
+                          <FaCheck className="text-sm" />
                         </span>
                       </div>
                       <span className="normal-checkbox mr-3 inline-block h-5 w-5 rounded border border-gray-300"></span>
@@ -401,7 +403,7 @@ const FindTalent = () => {
                       />
                       <div className="checkbox-border-gradient mr-3 flex h-5 w-5 items-center justify-center rounded bg-transparent">
                         <span className="checkmark hidden">
-                          <i className="bi bi-check-lg pr-0.5 pt-2"></i>
+                          <FaCheck className="text-sm" />
                         </span>
                       </div>
                       <span className="normal-checkbox mr-3 inline-block h-5 w-5 rounded border border-gray-300"></span>
@@ -449,7 +451,7 @@ const FindTalent = () => {
                       />
                       <div className="checkbox-border-gradient mr-3 flex h-5 w-5 items-center justify-center rounded bg-transparent">
                         <span className="checkmark hidden">
-                          <i className="bi bi-check-lg pr-0.5 pt-2"></i>
+                          <FaCheck className="text-sm" />
                         </span>
                       </div>
                       <span className="normal-checkbox mr-3 inline-block h-5 w-5 rounded border border-gray-300"></span>
@@ -497,7 +499,7 @@ const FindTalent = () => {
                       />
                       <div className="checkbox-border-gradient mr-3 flex h-5 w-5 items-center justify-center rounded bg-transparent">
                         <span className="checkmark hidden">
-                          <i className="bi bi-check-lg pr-0.5 pt-2"></i>
+                          <FaCheck className="text-sm" />
                         </span>
                       </div>
                       <span className="normal-checkbox mr-3 inline-block h-5 w-5 rounded border border-gray-300"></span>
@@ -530,7 +532,10 @@ const FindTalent = () => {
                     viewFreelancer.map((free, index) => {
                       return (
                         <>
-                          <div key={index} className="relative mt-4 w-full flex-shrink-0 cursor-pointer rounded-lg px-4 py-5 shadow-lg hover:bg-[#F6FAFD] md:px-8">
+                          <div
+                            key={index}
+                            className="relative mt-4 w-full flex-shrink-0 cursor-pointer rounded-lg px-4 py-5 shadow-lg hover:bg-[#F6FAFD] md:px-8"
+                          >
                             <div className="flex items-center">
                               <Image
                                 src={"https://www.api.alanced.com" + free.images_logo}
@@ -677,9 +682,12 @@ const FindTalent = () => {
               )
             ) : (
               <div className="grid w-[70%] grid-cols-2 pl-3.5 md:w-full">
-                {[...Array(6)].map((_,index) => {
+                {[...Array(6)].map((_, index) => {
                   return (
-                    <div key={index} className="relative mt-4 h-[467px] w-[26vw] flex-shrink-0 cursor-pointer rounded-lg border-t border-opacity-30 px-4 py-5 shadow-lg hover:bg-[#F6FAFD] md:px-8">
+                    <div
+                      key={index}
+                      className="relative mt-4 h-[467px] w-[26vw] flex-shrink-0 cursor-pointer rounded-lg border-t border-opacity-30 px-4 py-5 shadow-lg hover:bg-[#F6FAFD] md:px-8"
+                    >
                       {/* <Skeleton
                         height={90}
                         width={90}
