@@ -856,6 +856,8 @@ const Navbar = () => {
                       src={"https://www.api.alanced.com" + logindata.images_logo}
                       alt="Profile"
                       className="h-8 w-8 cursor-pointer rounded-full border border-gray-400"
+                      width={32}
+                      height={32}
                       // onClick={() => setDropdownVisible(!dropdownVisible)}
                     />
                   ) : (
@@ -874,6 +876,8 @@ const Navbar = () => {
                             src={"https://www.api.alanced.com" + logindata.images_logo}
                             alt="Profile"
                             className="mx-auto my-5 h-20 w-20 cursor-pointer rounded-full border border-gray-200 p-0.5"
+                            width={80}
+                            height={80}
                             // onClick={() => setDropdownVisible(!dropdownVisible)}
                           />
                         ) : (
