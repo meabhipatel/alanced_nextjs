@@ -6,6 +6,10 @@ const SafetySecurityPage: React.FC = () => {
       <h1 className="font-cardo p-3 text-left text-2xl font-semibold text-blue-600 sm:text-3xl md:text-4xl">
         Safety and Security at Alanced
       </h1>
+      <div className="relative mb-6 mt-1 w-[570px]">
+        <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
+        <div className="rounded-lg border-b-2 border-gray-600"></div>
+      </div>
       <div className="font-inter sm:text-md space-y-4 text-left text-sm text-[#031136] md:text-lg">
         <p>
           At Alanced, ensuring the safety and security of our users is our top priority. We are
