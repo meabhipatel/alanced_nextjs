@@ -19,6 +19,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta
+          name="google-site-verification"
+          content="WLVA4Hdid84_o9VlZzbl4154ZqFdi-TtOtx_JigH8Hk"
+        />
+      </head>
       <body className={poppins.className}>
         <StoreProvider>
           <AppLayout>{children}</AppLayout>
