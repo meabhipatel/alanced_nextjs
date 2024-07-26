@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import StoreProvider from "./StoreProvider";
+import AppLayout from "./AppLayout";
 
 const poppins = Poppins({ weight: "400", subsets: ["latin"] });
 
@@ -19,10 +19,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta
+          name="google-site-verification"
+          content="WLVA4Hdid84_o9VlZzbl4154ZqFdi-TtOtx_JigH8Hk"
+        />
+      </head>
       <body className={poppins.className}>
-        <Navbar />
-        {children}
-        <Footer />
+        <StoreProvider>
+          <AppLayout>{children}</AppLayout>
+        </StoreProvider>
       </body>
     </html>
   );
