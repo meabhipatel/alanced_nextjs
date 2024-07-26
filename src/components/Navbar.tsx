@@ -20,7 +20,7 @@ import Image from "next/image";
 const Navbar = () => {
   const router = useRouter();
 
-  const accessToken = `localStorage.getItem("accessToken")`;
+  // const accessToken = `localStorage.getItem("accessToken")`;
   // const AccessToken =
   //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUzNDI0MjI2LCJpYXQiOjE3MjE4ODgyMjYsImp0aSI6IjZiNGM3YjlmMmZjZTRlZTQ5OTY4NjFiZDU4Yzc4Yzk0IiwidXNlcl9pZCI6NH0.9IY5P_GoKns52wLXX0ZJMCbgXrx_fmMJK7mFkf54JxU";
   const loginType: "HIRER" | "FREELANCER" = "FREELANCER";
@@ -100,7 +100,8 @@ const Navbar = () => {
   //   };
   // }, []);
 
-  const isLoggedIn = Boolean(accessToken || googleUserName);
+  // const isLoggedIn = Boolean(accessToken || googleUserName);
+  const isLoggedIn = false;
 
   // const handleLogout = () => {
   //   localStorage.removeItem("isLoggedIn");
