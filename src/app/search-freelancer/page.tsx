@@ -17,10 +17,10 @@ import { RxArrowLeft } from "react-icons/rx";
 import { RxArrowRight } from "react-icons/rx";
 {/* <RxArrowRight />; */}
 import axios from "axios";
-import SkillsList from "@/constant/freelancer/allSelectionData/SkillsList";
-import CityList from "@/constant/freelancer/allSelectionData/CityList";
-import LanguageList from "@/constant/freelancer/allSelectionData/LanguageList";
-import ExperienceLevel from "@/constant/freelancer/allSelectionData/ExperienceLevel";
+import SkillsList from "@/constant/allSelectionData/SkillsList";
+import CityList from "@/constant/allSelectionData/CityList";
+import LanguageList from "@/constant/allSelectionData/LanguageList";
+import ExperienceLevel from "@/constant/allSelectionData/ExperienceLevel";
 import Bag from "../../assets/images/experience.png";
 import hero2Image from "../../assets/images/hero2.png";
 import { IoMdSearch } from "react-icons/io";
