@@ -217,7 +217,7 @@ function ProjectList() {
     updatedState[index] = !updatedState[index];
     setExpandedProjects(updatedState);
   };
-  const handleClick = (event: React.MouseEvent<HTMLDivElement>, index: number) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>, index: number) => {
     event.stopPropagation();
 
     handleToggleDescription(index);
