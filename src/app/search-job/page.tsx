@@ -28,7 +28,6 @@ import Link from "next/link";
 import { RxArrowRight , RxArrowLeft } from "react-icons/rx";
 import { FaCheck } from "react-icons/fa6";
 import { errorLog } from "@/utils/errorLog";
-
 interface IProject {
     id: number;
     title: string;
@@ -60,8 +59,10 @@ interface IProject {
     project_id: number;
     project: IProject;
   }
-
-
+  interface Bids {
+    [key: string]: number;
+  }
+  
 function ProjectList() {
   // const location = useLocation();
   // const router = useRouter();
@@ -71,7 +72,6 @@ function ProjectList() {
   // const accessToken = useSelector((state: any) => state?.login?.accessToken) || localStorage.getItem("jwtToken");
   const accessToken = "this is access token";
 
-
   const [categoryFilter, setCategoryFilter] = useState<string[]>([]);
   const [skillFilter, setSkillFilter] = useState<string[]>([]);
   const [expFilter, setExpFilter] = useState<string[]>([]);
@@ -80,7 +80,19 @@ function ProjectList() {
   const [cityFilter, setCityFilter] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-
+  const [AllProposals, setAllProposals] = useState([]);
+  const [viewProject, setViewProject] = useState<IProject[]>([]);
+  const [expandedProjects, setExpandedProjects] = useState<boolean[]>([]);
+  const [bidsCount, setBidsCount] = useState<Bids>({});
+  const [showAll, setShowAll] = useState(false);
+  const [showAllSkills, setShowAllSkills] = useState(false);
+  const [showAllCity, setShowAllCity] = useState(false);
+  const [cate] = useState(CategoryList);
+  const [expe] = useState(ExperienceLevel);
+  const [type] = useState(ProjectRate);
+  const [city] = useState(CityList);
+  const [req_skill] = useState(SkillsList);
+  
   const handleCategoryFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const category = e.target.value;
     if (e.target.checked) {
@@ -131,8 +143,6 @@ function ProjectList() {
     setCurrentPage(1);
   };
 
-  const [viewProject, setViewProject] = useState<IProject[]>([]);
-
   useEffect(() => {
     const queryParameters = [];
 
@@ -173,15 +183,7 @@ function ProjectList() {
       .catch((error) => {
         errorLog(error);
       });
-  }, [categoryFilter, skillFilter, expFilter, rateFilter, searchQuery, cityFilter, currentPage]);
-
-  const [cate] = useState(CategoryList);
-  const [expe] = useState(ExperienceLevel);
-  const [type] = useState(ProjectRate);
-  const [city] = useState(CityList);
-  const [req_skill] = useState(SkillsList);
-
-  
+  }, [categoryFilter, skillFilter, expFilter, rateFilter, searchQuery, cityFilter, currentPage]);  
 
   function timeAgo(postedTimeStr: string) {
     const postedTime = new Date(postedTimeStr);
@@ -210,8 +212,6 @@ function ProjectList() {
     }
   }
 
-  const [expandedProjects, setExpandedProjects] = useState<boolean[]>([]);
-
   const handleToggleDescription = (index: number) => {
     const updatedState = [...expandedProjects];
     updatedState[index] = !updatedState[index];
@@ -222,8 +222,6 @@ function ProjectList() {
 
     handleToggleDescription(index);
   };
-
-  const [AllProposals, setAllProposals] = useState([]);
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -248,14 +246,6 @@ function ProjectList() {
   }, []);
 
   //(=//=//=//=//=//=//=//=//=)filter API integrtion(//=//=//=//=//=//=//=//=//=)
-
-  interface Bids {
-    [key: string]: number;
-  }
-
-  
-
-  const [bidsCount, setBidsCount] = useState<Bids>({});
 
   useEffect(() => {
     const fetchBidsForAllProjects = async () => {
@@ -298,8 +288,7 @@ function ProjectList() {
     window.scrollTo(0, 0);
     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   };
-
-  const [showAll, setShowAll] = useState(false);
+ 
   const initialCategoryCount = 5; // Initial number of categories to show
 
   const [visibleCategories, setVisibleCategories] = useState(cate.slice(0, initialCategoryCount));
@@ -314,7 +303,6 @@ function ProjectList() {
     setShowAll(false);
   };
 
-  const [showAllSkills, setShowAllSkills] = useState(false);
   const initialSkillCount = 5; // Initial number of skills to show
 
   const [visibleSkills, setVisibleSkills] = useState(req_skill.slice(0, initialSkillCount));
@@ -328,8 +316,7 @@ function ProjectList() {
     setVisibleSkills(req_skill.slice(0, initialSkillCount)); // Show the initial count
     setShowAllSkills(false);
   };
-
-  const [showAllCity, setShowAllCity] = useState(false);
+  
   const initialCityCount = 5; // Initial number of cities to show
 
   const [visibleCities, setVisibleCities] = useState(city.slice(0, initialCityCount));
