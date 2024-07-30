@@ -38,11 +38,11 @@ const Login = () => {
     setAuthDetails({ ...authDetails, [e.target.name]: e.target.value });
   };
 
-  const LoginButton = async () => {
+  const handleLogin = async () => {
     if (!authDetails.email || !authDetails.password) {
       toast.error("Email and password Both fields are required");
     } else {
-      localStorage.setItem("loginMethod", "traditional");
+      localStorage.setItem("@loginMethod", "traditional");
       await dispatch(handleLoginAsync(authDetails));
       router.push("/");
       toast.success("You are logged in successfully");
@@ -237,7 +237,7 @@ const Login = () => {
               <button
                 disabled={isLoading}
                 className="focus:shadow-outline-blue mt-4 block w-full rounded-lg border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-2 text-center text-sm font-semibold leading-5 text-white transition-colors duration-150 focus:outline-none"
-                onClick={LoginButton}
+                onClick={handleLogin}
               >
                 {isLoading ? (
                   <div className="mx-auto h-4 w-4 animate-spin rounded-full border-2 border-transparent border-r-white border-t-white"></div>
