@@ -1,62 +1,53 @@
 "use client";
-import React, { useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { LoginAction } from "../../redux/Auth/AuthAction";
-
+import React, { ChangeEvent, useState } from "react";
 import loginHeroImage from "@/assets/images/loginHero.png";
 import logo from "@/assets/images/alanced.png";
-// import { toast } from "react-toastify";
 // import { GoogleLogin } from "@react-oauth/google";
 // import jwt_decode from "jwt-decode";
 // import { useGoogleLogin } from "@react-oauth/google";
 import Image from "next/image";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
+import { IoEyeSharp } from "react-icons/io5";
+import { FaEyeSlash } from "react-icons/fa6";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { handleLoginAsync } from "@/store/features/auth/authApi";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+
+interface IAuthDetails {
+  email: string;
+  password: string;
+}
 
 const Login = () => {
-  // const [authDetails, setAuthDetails] = React.useState();
-  // const dispatch = useDispatch();
+  const router = useRouter();
+  const dispatch = useAppDispatch();
   // const navigate = useNavigate();
-  // const [show, toogleShow] = useState(false);
-  const [inputType, setInputType] = useState("password"); // eslint-disable-line
-  const [rememberMe, setRememberMe] = useState(false); // eslint-disable-line
   // const login = useSelector((state) => state.login.Login);
+  const isLoading = useAppSelector((state) => state.auth.isloading);
+  const [authDetails, setAuthDetails] = useState<IAuthDetails>({ email: "", password: "" });
+  const [inputType, setInputType] = useState("password");
+  const [rememberMe, setRememberMe] = useState(false); // eslint-disable-line
 
-  // const Loader = () => {
-  //   if (login == false || login == true) {
-  //     toogleShow(false);
-  //   }
-  //   return (
-  //     <>
-  //       <div className="mx-auto h-4 w-4 animate-spin rounded-full border-t-2 border-white"></div>
-  //     </>
-  //   );
-  // };
+  const togglePasswordVisibility = () => {
+    setInputType(inputType === "password" ? "text" : "password");
+  };
 
-  // const togglePasswordVisibility = () => {
-  //   setInputType(inputType === "password" ? "text" : "password");
-  // };
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setAuthDetails({ ...authDetails, [e.target.name]: e.target.value });
+  };
 
-  // const onChange = (e) => {
-  //   setAuthDetails({ ...authDetails, [e.target.name]: e.target.value });
-  // };
-
-  // const LoginButton = async () => {
-  //   const uname = document.getElementById("uname").value;
-  //   const upass = document.getElementById("upass").value;
-  //   // const login = await login
-  //   if (uname.trim().length && upass.trim().length != 0) {
-  //     toogleShow(true);
-  //   } else if (!(uname.trim().length && upass.trim().length)) {
-  //     toast.error("Email and password Both fields are required");
-  //     return;
-  //   } else {
-  //     toogleShow(false);
-  //   }
-  //   localStorage.setItem("loginMethod", "traditional");
-  //   toogleShow(true);
-  //   dispatch(LoginAction(authDetails, navigate, rememberMe));
-  // };
+  const LoginButton = async () => {
+    if (!authDetails.email || !authDetails.password) {
+      toast.error("Email and password Both fields are required");
+    } else {
+      localStorage.setItem("loginMethod", "traditional");
+      await dispatch(handleLoginAsync(authDetails));
+      router.push("/");
+      toast.success("You are logged in successfully");
+    }
+  };
 
   // useEffect(() => {
   //   const token = localStorage.getItem("accessToken");
@@ -178,7 +169,7 @@ const Login = () => {
               <div className="float-end flex items-center">
                 <p className="inline-block text-nowrap text-xs">Don&apos;t have an account?</p>
                 <Link href="/sign-up">
-                  <span className="mb-6 ml-4 inline-block min-w-24 rounded bg-gradient-to-r from-[#0909E9] to-[#00D4FF] py-[10px] text-sm font-semibold text-white">
+                  <span className="mb-6 ml-4 inline-block w-24 rounded bg-gradient-to-r from-[#0909E9] to-[#00D4FF] py-[10px] text-center text-sm font-semibold text-white">
                     Sign Up
                   </span>
                 </Link>
@@ -200,7 +191,7 @@ const Login = () => {
                   className="mt-1 w-full rounded-md border px-4 py-2 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
                   placeholder="example@gmail.com"
                   id="email"
-                  // onChange={onchange}
+                  onChange={handleChange}
                   name="email"
                   required
                 />
@@ -219,16 +210,14 @@ const Login = () => {
                     placeholder="•••••••••••"
                     name="password"
                     id="password"
-                    // onChange={onchange}
+                    onChange={handleChange}
                     required
                   />
                   <button
-                    // onClick={togglePasswordVisibility}
+                    onClick={togglePasswordVisibility}
                     className="absolute right-3 top-1/2 -translate-y-1/2 transform"
                   >
-                    <i
-                      className={`fa ${inputType === "password" ? "fa-eye-slash" : "fa-eye"} text-blue-600`}
-                    ></i>
+                    {inputType === "password" ? <IoEyeSharp /> : <FaEyeSlash />}
                   </button>
                 </div>
               </div>
@@ -246,17 +235,15 @@ const Login = () => {
                 </Link>
               </div>
               <button
+                disabled={isLoading}
                 className="focus:shadow-outline-blue mt-4 block w-full rounded-lg border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-2 text-center text-sm font-semibold leading-5 text-white transition-colors duration-150 focus:outline-none"
-
-                // onClick={LoginButton}
+                onClick={LoginButton}
               >
-                {/* {show ? (
-                  <div>
-                    <Loader />
-                  </div>
+                {isLoading ? (
+                  <div className="mx-auto h-4 w-4 animate-spin rounded-full border-2 border-transparent border-r-white border-t-white"></div>
                 ) : (
                   "Sign In"
-                )} */}
+                )}
               </button>
 
               <div className="flex items-center">
