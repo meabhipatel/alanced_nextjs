@@ -72,13 +72,13 @@ const SignupOptions = () => {
         </div>
 
         {selectedOption === "freelancer" ? (
-          <Link href="/freelancer/registration">
+          <Link href="/register">
             <button className="focus:shadow-outline-blue -mt-2 block w-[320px] rounded-lg border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-2 text-center text-sm font-semibold leading-5 text-white transition-colors duration-150 focus:outline-none">
               Join as a Freelancer
             </button>
           </Link>
         ) : (
-          <Link href="/hirer/registration">
+          <Link href="/register">
             <button className="focus:shadow-outline-blue -mt-2 block w-[320px] rounded-lg border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-2 text-center text-sm font-semibold leading-5 text-white transition-colors duration-150 focus:outline-none">
               Join as a Client
             </button>
