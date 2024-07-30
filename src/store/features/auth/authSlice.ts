@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { handleLoginAsync } from "./authApi";
 import { IUserProfile } from "@/interfaces";
+import cookies from "js-cookie";
 
 const userProfileObj = {
   id: 0,
@@ -55,6 +56,12 @@ export const authSlice = createSlice({
     setIsLoggedIn: (state, action: PayloadAction<boolean>) => {
       state.isLoggedIn = action.payload;
     },
+    setUserAuthProfile: (state, action) => {
+      state.isLoggedIn = true;
+      state.userProfile = action.payload.userProfile;
+      state.loginMethod = action.payload.userProfile;
+      state.userType = action.payload.userType;
+    },
   },
   extraReducers(builder) {
     builder.addCase(handleLoginAsync.pending, (state) => {
@@ -63,11 +70,14 @@ export const authSlice = createSlice({
     builder.addCase(handleLoginAsync.fulfilled, (state, actions) => {
       state.isloading = false;
       state.isLoggedIn = true;
-      state.userType = actions.payload.data.type;
+      const userType = actions.payload.data.type;
       const userProfile = actions.payload.data.login_data as IUserProfile;
+      state.userType = userType;
       state.userProfile = userProfile;
+      localStorage.setItem("@userType", JSON.stringify(userType));
       localStorage.setItem("@userProfile", JSON.stringify(userProfile));
       localStorage.setItem("@accessToken", actions.payload.data.token.access);
+      cookies.set("token", actions.payload.data.token.access);
     });
     builder.addCase(handleLoginAsync.rejected, (state, actions) => {
       state.isloading = false;
@@ -77,5 +87,5 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setIsLoggedIn } = authSlice.actions;
+export const { setIsLoggedIn, setUserAuthProfile } = authSlice.actions;
 export default authSlice.reducer;
