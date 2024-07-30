@@ -30,7 +30,7 @@ interface IInitialState {
   isloading: boolean;
   error: string;
   userProfile: IUserProfile;
-  userType: string;
+  userType: "HIRER" | "FREELANCER";
   loginMethod: "traditional" | "google";
 }
 
@@ -44,7 +44,7 @@ const initialState: IInitialState = {
   isloading: false,
   error: "",
   userProfile: userProfileObj,
-  userType: "",
+  userType: "FREELANCER",
   loginMethod: "traditional",
 };
 
@@ -63,6 +63,7 @@ export const authSlice = createSlice({
     builder.addCase(handleLoginAsync.fulfilled, (state, actions) => {
       state.isloading = false;
       state.isLoggedIn = true;
+      state.userType = actions.payload.data.type;
       const userProfile = actions.payload.data.login_data as IUserProfile;
       state.userProfile = userProfile;
       localStorage.setItem("@userProfile", JSON.stringify(userProfile));
