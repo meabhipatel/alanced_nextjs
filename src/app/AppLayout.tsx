@@ -9,12 +9,12 @@ interface IProps {
 
 const AppLayout: FC<IProps> = ({ children }) => {
   return (
-    <>
+    <div className="mx-auto max-w-[1536px] bg-white">
       <Navbar />
       {children}
       <Footer />
       <Toaster toastOptions={{ duration: 1500 }} />
-    </>
+    </div>
   );
 };
 
