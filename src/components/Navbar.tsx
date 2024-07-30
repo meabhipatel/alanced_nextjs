@@ -347,7 +347,7 @@ const Navbar = () => {
     <div
       className={`fixed top-0 z-50 w-full max-w-[1536px] bg-white bg-cover bg-top`}
       style={{
-        backgroundImage: `url(${navback})`,
+        backgroundImage: `url(${navback.src})`,
       }}
     >
       <nav className="flex items-center justify-between lg:p-6 lg:px-12">
