@@ -9,7 +9,7 @@ const HeroSection = () => {
     <>
       <div
         className="flex h-[110vh] justify-center bg-cover px-5"
-        style={{ backgroundImage: `url(${heroBackground})` }}
+        style={{ backgroundImage: `url(${heroBackground.src})` }}
       >
         <div className="pt-28 text-left sm:pt-40">
           <h1 className="text-lg font-semibold tracking-wider text-[#797979]">
