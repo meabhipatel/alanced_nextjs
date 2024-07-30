@@ -31,6 +31,7 @@ interface IInitialState {
   error: string;
   userProfile: IUserProfile;
   userType: string;
+  loginMethod: "traditional" | "google";
 }
 
 // const localUserProfile = localStorage.getItem("@userProfile");
@@ -44,6 +45,7 @@ const initialState: IInitialState = {
   error: "",
   userProfile: userProfileObj,
   userType: "",
+  loginMethod: "traditional",
 };
 
 export const authSlice = createSlice({
