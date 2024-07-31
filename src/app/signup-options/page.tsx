@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import React, { useState } from "react";
 import chooseoption from "../../assets/images/chooseoption.png";
 import client from "../../assets/images/client.png";
@@ -15,7 +15,7 @@ const SignupOptions = () => {
     <div
       className="relative flex h-screen items-center justify-center"
       style={{
-        backgroundImage: `url(${chooseoption})`,
+        backgroundImage: `url(${chooseoption.src})`,
         backgroundSize: "850px 550px",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
