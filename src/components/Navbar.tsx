@@ -9,18 +9,21 @@ import navback from "@/assets/images/nav_background.png";
 
 // import { timeAgo } from "../../container/freelancer/TimeFunctions";
 import { FiMenu } from "react-icons/fi";
-import { MdClose } from "react-icons/md";
+import { MdAccountCircle, MdClose } from "react-icons/md";
 import { FaBell, FaChevronDown } from "react-icons/fa6";
-
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { useAppSelector } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { dontNeedMTScreens } from "./DynamicMarginTop";
+import { TbLogout } from "react-icons/tb";
+import { handleLogoutUserAction } from "@/store/features/auth/authSlice";
+import cookies from "js-cookie";
 
 const Navbar = () => {
   const router = useRouter();
   const pathname = usePathname();
+  const dispatch = useAppDispatch();
   const { loginMethod, userType: loginType, isLoggedIn } = useAppSelector((state) => state.auth);
 
   const logindata = {
@@ -46,7 +49,6 @@ const Navbar = () => {
   };
   const googleUserName = `localStorage.getItem("googleUserName")`;
 
-  //   const dispatch = useDispatch();
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const dropdownRef = useRef(null);
   const notificationsDropdownRef = useRef(null);
@@ -99,17 +101,20 @@ const Navbar = () => {
 
   // const isLoggedIn = Boolean(accessToken || googleUserName);
 
-  // const handleLogout = () => {
-  //   localStorage.removeItem("isLoggedIn");
-  //   localStorage.removeItem("googleUserName");
-  //   localStorage.removeItem("accessToken");
-  //   localStorage.removeItem("loginMethod");
-  //   localStorage.removeItem("loginType");
-  //   localStorage.removeItem("jwtToken");
-  //   localStorage.removeItem("logindata");
+  const handleLogout = () => {
+    /** ---> Clearing local storage */
+    localStorage.removeItem("@userType");
+    localStorage.removeItem("@userProfile");
+    localStorage.removeItem("@accessToken");
+    localStorage.removeItem("@loginMethod");
+    // localStorage.removeItem("googleUserName");
 
-  //   // dispatch(LogoutAction());
-  // };
+    /** ---> Clearing cookies */
+    cookies.remove("token");
+
+    /** ---> Clearing redux states */
+    dispatch(handleLogoutUserAction());
+  };
 
   // const [clientnotifications, setClientNotifications] = useState([]);
   // const [freenotifications, setFreeNotifications] = useState([]);
@@ -861,7 +866,7 @@ const Navbar = () => {
                       className="h-8 w-8 cursor-pointer rounded-full border border-gray-400"
                       width={32}
                       height={32}
-                      // onClick={() => setDropdownVisible(!dropdownVisible)}
+                      onClick={() => setDropdownVisible((prev) => !prev)}
                     />
                   ) : (
                     <button
@@ -872,60 +877,73 @@ const Navbar = () => {
                     </button>
                   )}
                   {dropdownVisible && (
-                    <div className="drop absolute right-[-10px] mt-5 w-[14rem] rounded-md bg-white shadow-lg">
-                      <div className="py-1">
-                        {logindata && logindata.images_logo ? (
-                          <Image
-                            src={"https://www.api.alanced.com" + logindata.images_logo}
-                            alt="Profile"
-                            className="mx-auto my-5 h-20 w-20 cursor-pointer rounded-full border border-gray-200 p-0.5"
-                            width={80}
-                            height={80}
-                            // onClick={() => setDropdownVisible(!dropdownVisible)}
-                          />
-                        ) : (
-                          <button
-                            className="font-cardo mx-auto my-5 flex h-20 w-20 cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-[#0909E9] to-[#00D4FF] p-1 text-4xl font-bold text-white"
-                            onClick={() => setDropdownVisible(!dropdownVisible)}
-                          >
-                            {displayName && displayName[0].toUpperCase()}
-                          </button>
-                        )}
-                        <h1 className="font-cardo px-2 text-center text-[19px] text-[#031136]">
-                          {displayName}
-                        </h1>
-                        <h1 className="font-cardo mb-3 text-center text-lg text-gray-500">
-                          {loginType === "FREELANCER" ? loginType.toLowerCase() : "client"}
-                        </h1>
-                        {loginType === "FREELANCER" ? (
+                    <>
+                      <div className="drop absolute right-[-10px] z-50 mt-5 w-[14rem] rounded-md bg-white shadow-lg">
+                        <div className="py-1">
+                          {logindata && logindata.images_logo ? (
+                            <Image
+                              src={"https://www.api.alanced.com" + logindata.images_logo}
+                              alt="Profile"
+                              className="mx-auto my-5 h-20 w-20 cursor-pointer rounded-full border border-gray-200 p-0.5"
+                              width={80}
+                              height={80}
+                              onClick={() => setDropdownVisible(!dropdownVisible)}
+                            />
+                          ) : (
+                            <button
+                              className="font-cardo mx-auto my-5 flex h-20 w-20 cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-[#0909E9] to-[#00D4FF] p-1 text-4xl font-bold text-white"
+                              onClick={() => setDropdownVisible(!dropdownVisible)}
+                            >
+                              {displayName && displayName[0].toUpperCase()}
+                            </button>
+                          )}
+                          <h1 className="font-cardo px-2 text-center text-[19px] text-[#031136]">
+                            {displayName}
+                          </h1>
+                          <h1 className="font-cardo mb-3 text-center text-lg text-gray-500">
+                            {loginType === "FREELANCER" ? loginType.toLowerCase() : "client"}
+                          </h1>
+                          {loginType === "FREELANCER" ? (
+                            <Link
+                              href="/freelancer/profile"
+                              onClick={() => setDropdownVisible(false)}
+                              className="flex items-center px-4 py-2 hover:bg-gray-100"
+                            >
+                              <MdAccountCircle className="mr-1 text-xl" />
+                              <span className="font-cardo text-[16px] text-[#031136]">Profile</span>
+                            </Link>
+                          ) : (
+                            <Link
+                              href="/hirer/profile"
+                              onClick={() => setDropdownVisible(false)}
+                              className="flex items-center px-4 py-2 hover:bg-gray-100"
+                            >
+                              <MdAccountCircle className="mr-1 text-xl" />
+                              <span className="font-cardo text-[16px] text-[#031136]">Profile</span>
+                            </Link>
+                          )}
                           <Link
-                            href="/freelancer/edit-profile"
+                            href="/"
                             className="flex items-center px-4 py-2 hover:bg-gray-100"
+                            onClick={() => {
+                              handleLogout();
+                              setDropdownVisible(false);
+                            }}
                           >
-                            <i className="bi bi-person-circle mr-3"></i>
-                            <span className="font-cardo text-[16px] text-[#031136]">Profile</span>
+                            <TbLogout className="mr-1 text-xl" />
+                            <span className="font-cardo text-[16px] text-[#031136]">Logout</span>
                           </Link>
-                        ) : (
-                          <Link
-                            href="/hirer/profile-edit"
-                            className="flex items-center px-4 py-2 hover:bg-gray-100"
-                          >
-                            <i className="bi bi-person-circle mr-3"></i>
-                            <span className="font-cardo text-[16px] text-[#031136]">Profile</span>
-                          </Link>
-                        )}
-                        <Link
-                          href="/"
-                          className="flex items-center px-4 py-2 hover:bg-gray-100"
-                          // onClick={() => {
-                          //   handleLogout();
-                          // }}
-                        >
-                          <i className="bi bi-box-arrow-right mr-3"></i>
-                          <span className="font-cardo text-[16px] text-[#031136]">Logout</span>
-                        </Link>
+                        </div>
                       </div>
-                    </div>
+                      {/* ---> Drop down background for whole screen */}
+                      {
+                        // eslint-disable-next-line
+                        <div
+                          onClick={() => setDropdownVisible(false)}
+                          className="fixed bottom-0 left-0 right-0 top-0 z-40 bg-black/10"
+                        />
+                      }
+                    </>
                   )}
                 </div>
               </div>
