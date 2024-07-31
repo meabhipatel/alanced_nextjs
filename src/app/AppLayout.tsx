@@ -1,3 +1,4 @@
+import DynamicMarginTop from "@/components/DynamicMarginTop";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { FC, ReactNode } from "react";
@@ -11,6 +12,7 @@ const AppLayout: FC<IProps> = ({ children }) => {
   return (
     <div className="mx-auto max-w-[1536px] bg-white">
       <Navbar />
+      <DynamicMarginTop />
       {children}
       <Footer />
       <Toaster toastOptions={{ duration: 1500 }} />
