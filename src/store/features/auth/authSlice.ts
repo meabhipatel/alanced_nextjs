@@ -62,6 +62,12 @@ export const authSlice = createSlice({
       state.loginMethod = action.payload.userProfile;
       state.userType = action.payload.userType;
     },
+    handleLogoutUserAction: (state) => {
+      state.isLoggedIn = false;
+      state.userProfile = userProfileObj;
+      state.loginMethod = "traditional";
+      state.userType = "FREELANCER";
+    },
   },
   extraReducers(builder) {
     builder.addCase(handleLoginAsync.pending, (state) => {
@@ -74,7 +80,7 @@ export const authSlice = createSlice({
       const userProfile = actions.payload.data.login_data as IUserProfile;
       state.userType = userType;
       state.userProfile = userProfile;
-      localStorage.setItem("@userType", JSON.stringify(userType));
+      localStorage.setItem("@userType", userType);
       localStorage.setItem("@userProfile", JSON.stringify(userProfile));
       localStorage.setItem("@accessToken", actions.payload.data.token.access);
       cookies.set("token", actions.payload.data.token.access);
@@ -87,5 +93,5 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setIsLoggedIn, setUserAuthProfile } = authSlice.actions;
+export const { setIsLoggedIn, setUserAuthProfile, handleLogoutUserAction } = authSlice.actions;
 export default authSlice.reducer;
