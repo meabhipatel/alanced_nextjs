@@ -16,14 +16,12 @@ import { FaBell, FaChevronDown } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import { useAppSelector } from "@/store/hooks";
 
 const Navbar = () => {
   const router = useRouter();
+  const { loginMethod, userType: loginType, isLoggedIn } = useAppSelector((state) => state.auth);
 
-  // const accessToken = `localStorage.getItem("accessToken")`;
-  // const AccessToken =
-  //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUzNDI0MjI2LCJpYXQiOjE3MjE4ODgyMjYsImp0aSI6IjZiNGM3YjlmMmZjZTRlZTQ5OTY4NjFiZDU4Yzc4Yzk0IiwidXNlcl9pZCI6NH0.9IY5P_GoKns52wLXX0ZJMCbgXrx_fmMJK7mFkf54JxU";
-  const loginType: "HIRER" | "FREELANCER" = "FREELANCER";
   const logindata = {
     id: 4,
     first_Name: "sachin",
@@ -46,7 +44,7 @@ const Navbar = () => {
     experience_level: "",
   };
   const googleUserName = `localStorage.getItem("googleUserName")`;
-  const loginMethod = "traditional";
+
   //   const dispatch = useDispatch();
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const dropdownRef = useRef(null);
@@ -70,7 +68,6 @@ const Navbar = () => {
 
   let displayName;
 
-  //  @ts-expect-error -> as of now i am just ignoring ts will se leter on.
   if (loginMethod === "google") {
     // displayName = googleUserName;
     displayName =
@@ -81,7 +78,6 @@ const Navbar = () => {
     displayName = logindata?.first_Name + " " + logindata?.last_Name;
   }
 
-  // // eslint-disable-next-line
   // const handleClickOutside = (event: any) => {
   //   // eslint-disable-next-line
   //   if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -101,7 +97,6 @@ const Navbar = () => {
   // }, []);
 
   // const isLoggedIn = Boolean(accessToken || googleUserName);
-  const isLoggedIn = false;
 
   // const handleLogout = () => {
   //   localStorage.removeItem("isLoggedIn");
@@ -352,7 +347,7 @@ const Navbar = () => {
     <div
       className={`fixed top-0 z-50 w-full max-w-[1536px] bg-white bg-cover bg-top`}
       style={{
-        backgroundImage: `url(${navback})`,
+        backgroundImage: `url(${navback.src})`,
       }}
     >
       <nav className="flex items-center justify-between lg:p-6 lg:px-12">
@@ -469,7 +464,7 @@ const Navbar = () => {
         ) : (
           <div className="relative flex w-full items-center justify-between p-5 lg:p-0">
             <Link
-              href={loginType === "FREELANCER" ? "/freelancer/profile" : "/hirer/profile"}
+              href={loginType === "FREELANCER" ? "/freelancer" : "/hirer"}
               onMouseEnter={() => {
                 setFindworkDropdown(false);
                 setReportsDropdown(false);
