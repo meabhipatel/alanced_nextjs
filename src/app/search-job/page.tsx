@@ -19,50 +19,50 @@ import ProjectRate from "@/constant/allSelectionData/ProjectRate";
 import CityList from "@/constant/allSelectionData/CityList";
 import SkillsList from "@/constant/allSelectionData/SkillsList";
 import Bag from "../../assets/images/experience.png";
-import mybg from "../../assets/images/half_background.png";
+import halfBackground from "@/assets/images/half_background.png";
 import hero2Image from "../../assets/images/hero2.png";
 import { IoMdSearch } from "react-icons/io";
 // import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
-import { RxArrowRight , RxArrowLeft } from "react-icons/rx";
+import { RxArrowRight, RxArrowLeft } from "react-icons/rx";
 import { FaCheck } from "react-icons/fa6";
 import { errorLog } from "@/utils/errorLog";
 interface IProject {
-    id: number;
-    title: string;
-    description: string;
-    rate: "Hourly" | "Fixed";
-    fixed_budget: number | null;
-    min_hourly_rate?: number;
-    max_hourly_rate?: number;
-    experience_level?: string;
-    category?: string;
-    skills_required?: string;
-    deadline?: string;
-    is_hired?: boolean;
-    project_creation_date?: string;
-    project_owner?: number;
-    project_owner_name?: string;
-    project_owner_contact?: string;
-    project_owner_location?: string;
-    project_owner_date_of_creation?: string;
-  }
+  id: number;
+  title: string;
+  description: string;
+  rate: "Hourly" | "Fixed";
+  fixed_budget: number | null;
+  min_hourly_rate?: number;
+  max_hourly_rate?: number;
+  experience_level?: string;
+  category?: string;
+  skills_required?: string;
+  deadline?: string;
+  is_hired?: boolean;
+  project_creation_date?: string;
+  project_owner?: number;
+  project_owner_name?: string;
+  project_owner_contact?: string;
+  project_owner_location?: string;
+  project_owner_date_of_creation?: string;
+}
 
-  interface IBid {
-    id: number;
-    bid_amount: number;
-    description: string;
-    bid_type: string;
-    bid_time: string;
-    freelancer_id: number;
-    project_id: number;
-    project: IProject;
-  }
-  interface Bids {
-    [key: string]: number;
-  }
-  
+interface IBid {
+  id: number;
+  bid_amount: number;
+  description: string;
+  bid_type: string;
+  bid_time: string;
+  freelancer_id: number;
+  project_id: number;
+  project: IProject;
+}
+interface Bids {
+  [key: string]: number;
+}
+
 function ProjectList() {
   // const location = useLocation();
   // const router = useRouter();
@@ -92,7 +92,7 @@ function ProjectList() {
   const [type] = useState(ProjectRate);
   const [city] = useState(CityList);
   const [req_skill] = useState(SkillsList);
-  
+
   const handleCategoryFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const category = e.target.value;
     if (e.target.checked) {
@@ -177,13 +177,13 @@ function ProjectList() {
     axios
       .get(`https://www.api.alanced.com/freelance/view-all/Project/?${queryString}`)
       .then((response) => {
-        setViewProject(response.data.results) 
+        setViewProject(response.data.results);
         setTotalPages(Math.ceil(response.data.count / 8));
       })
       .catch((error) => {
         errorLog(error);
       });
-  }, [categoryFilter, skillFilter, expFilter, rateFilter, searchQuery, cityFilter, currentPage]);  
+  }, [categoryFilter, skillFilter, expFilter, rateFilter, searchQuery, cityFilter, currentPage]);
 
   function timeAgo(postedTimeStr: string) {
     const postedTime = new Date(postedTimeStr);
@@ -262,12 +262,11 @@ function ProjectList() {
             // console.log(response.data.message || "Error fetching bids");
             bids[project.id] = 0;
           }
-        } catch (err:unknown) {
-          if(err instanceof Error){
+        } catch (err: unknown) {
+          if (err instanceof Error) {
             errorLog(err.message);
-          }
-          else{
-            errorLog(" An unknown error occured")
+          } else {
+            errorLog(" An unknown error occured");
           }
           bids[project.id] = 0;
         }
@@ -288,7 +287,7 @@ function ProjectList() {
     window.scrollTo(0, 0);
     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   };
- 
+
   const initialCategoryCount = 5; // Initial number of categories to show
 
   const [visibleCategories, setVisibleCategories] = useState(cate.slice(0, initialCategoryCount));
@@ -316,7 +315,7 @@ function ProjectList() {
     setVisibleSkills(req_skill.slice(0, initialSkillCount)); // Show the initial count
     setShowAllSkills(false);
   };
-  
+
   const initialCityCount = 5; // Initial number of cities to show
 
   const [visibleCities, setVisibleCities] = useState(city.slice(0, initialCityCount));
@@ -331,7 +330,7 @@ function ProjectList() {
     setShowAllCity(false);
   };
 
-  function highlightText(text:string, query:string) {
+  function highlightText(text: string, query: string) {
     if (!query) {
       return text;
     }
@@ -358,7 +357,7 @@ function ProjectList() {
       {/* ---> page Header  */}
       <div
         className="flex h-[50vh] items-end justify-center bg-cover bg-no-repeat pb-6"
-        style={{ backgroundImage: `url(${mybg})` }}
+        style={{ backgroundImage: `url(${halfBackground.src})` }}
       >
         <div className="flex w-[95%] rounded-md bg-white p-5 text-2xl sm:w-[80%]">
           <div className="flex w-full flex-col items-start pt-5 text-start">
