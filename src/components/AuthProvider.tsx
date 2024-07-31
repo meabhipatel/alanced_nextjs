@@ -1,5 +1,5 @@
 "use client";
-import { setUserAuthProfile } from "@/store/features/auth/authSlice";
+import { ELoginMethod, EUserType, setUserAuthProfile } from "@/store/features/auth/authSlice";
 import { useAppDispatch } from "@/store/hooks";
 import { FC, ReactNode, useLayoutEffect } from "react";
 
@@ -13,8 +13,8 @@ const AuthProvider: FC<IProps> = ({ children }) => {
   useLayoutEffect(() => {
     const accessToken = localStorage.getItem("@accessToken");
     const userProfile = localStorage.getItem("@userProfile");
-    const loginMethod = localStorage.getItem("@loginMethod");
-    const userType = localStorage.getItem("@userType");
+    const loginMethod = localStorage.getItem("@loginMethod") as ELoginMethod;
+    const userType = localStorage.getItem("@userType") as EUserType;
 
     if (accessToken && userProfile && loginMethod && userType) {
       dispatch(
