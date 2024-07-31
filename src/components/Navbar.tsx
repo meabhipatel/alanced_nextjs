@@ -17,7 +17,7 @@ import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { dontNeedMTScreens } from "./DynamicMarginTop";
 import { TbLogout } from "react-icons/tb";
-import { handleLogoutUserAction } from "@/store/features/auth/authSlice";
+import { ELoginMethod, handleLogoutUserAction } from "@/store/features/auth/authSlice";
 import cookies from "js-cookie";
 
 const Navbar = () => {
@@ -71,13 +71,13 @@ const Navbar = () => {
 
   let displayName;
 
-  if (loginMethod === "google") {
+  if (loginMethod === ELoginMethod.GOOGLE) {
     // displayName = googleUserName;
     displayName =
       logindata.first_Name && logindata.last_Name
         ? logindata?.first_Name + " " + logindata?.last_Name
         : googleUserName;
-  } else if (loginMethod === "traditional") {
+  } else if (loginMethod === ELoginMethod.TRADITIONAL) {
     displayName = logindata?.first_Name + " " + logindata?.last_Name;
   }
 
