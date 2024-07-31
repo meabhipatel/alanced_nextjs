@@ -14,7 +14,7 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { handleLoginAsync } from "@/store/features/auth/authApi";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { ELoginMethod, setUserAuthProfile } from "@/store/features/auth/authSlice";
+import { ELoginMethod, EUserType, setUserAuthProfile } from "@/store/features/auth/authSlice";
 import cookies from "js-cookie";
 
 interface IAuthDetails {
@@ -61,7 +61,11 @@ const Login = () => {
         localStorage.setItem("@userProfile", JSON.stringify(userProfile));
         localStorage.setItem("@accessToken", res.payload.data.token.access);
         cookies.set("token", res.payload.data.token.access);
-        router.push("/");
+        if (userType === EUserType.FREELANCER) {
+          router.push("/freelancer");
+        } else {
+          router.push("/hirer");
+        }
       } else {
         toast.error("Please provide correct credentials.");
       }
@@ -259,7 +263,7 @@ const Login = () => {
                 onClick={handleLogin}
               >
                 {isLoading ? (
-                  <div className="mx-auto h-4 w-4 animate-spin rounded-full border-2 border-transparent border-r-white border-t-white"></div>
+                  <div className="mx-auto h-5 w-5 animate-spin rounded-full border-2 border-transparent border-r-white border-t-white"></div>
                 ) : (
                   "Sign In"
                 )}
