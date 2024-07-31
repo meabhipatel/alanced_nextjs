@@ -14,8 +14,9 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { handleLoginAsync } from "@/store/features/auth/authApi";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { ELoginMethod, EUserType, setUserAuthProfile } from "@/store/features/auth/authSlice";
-import cookies from "js-cookie";
+// import { ELoginMethod, EUserType, setUserAuthProfile } from "@/store/features/auth/authSlice";
+import { EUserType } from "@/store/features/auth/authSlice";
+// import cookies from "js-cookie";
 
 interface IAuthDetails {
   email: string;
@@ -46,21 +47,21 @@ const Login = () => {
       const res = await dispatch(handleLoginAsync(authDetails));
 
       if (res.meta.requestStatus === "fulfilled") {
-        toast.success("You are logged in successfully");
-        const userProfile = res.payload.data.login_data;
+        // toast.success("You are logged in successfully");
+        // const userProfile = res.payload.data.login_data;
         const userType = res.payload.data.type;
-        const loginMethod = ELoginMethod.TRADITIONAL;
-        dispatch(
-          setUserAuthProfile({
-            userProfile,
-            userType,
-            loginMethod,
-          })
-        );
-        localStorage.setItem("@userType", userType);
-        localStorage.setItem("@userProfile", JSON.stringify(userProfile));
-        localStorage.setItem("@accessToken", res.payload.data.token.access);
-        cookies.set("token", res.payload.data.token.access);
+        // const loginMethod = ELoginMethod.TRADITIONAL;
+        // dispatch(
+        //   setUserAuthProfile({
+        //     userProfile,
+        //     userType,
+        //     loginMethod,
+        //   })
+        // );
+        // localStorage.setItem("@userType", userType);
+        // localStorage.setItem("@userProfile", JSON.stringify(userProfile));
+        // localStorage.setItem("@accessToken", res.payload.data.token.access);
+        // cookies.set("token", res.payload.data.token.access);
         if (userType === EUserType.FREELANCER) {
           router.push("/freelancer");
         } else {

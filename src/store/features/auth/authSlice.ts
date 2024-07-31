@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { handleLoginAsync } from "./authApi";
 import { IUserProfile } from "@/interfaces";
+import cookies from "js-cookie";
 
 const userProfileObj = {
   id: 0,
@@ -95,6 +96,10 @@ export const authSlice = createSlice({
       const userProfile = actions.payload.data.login_data as IUserProfile;
       state.userType = userType;
       state.userProfile = userProfile;
+      localStorage.setItem("@userType", userType);
+      localStorage.setItem("@userProfile", JSON.stringify(userProfile));
+      localStorage.setItem("@accessToken", actions.payload.data.token.access);
+      cookies.set("token", actions.payload.data.token.access);
     });
     builder.addCase(handleLoginAsync.rejected, (state, actions) => {
       state.isloading = false;
