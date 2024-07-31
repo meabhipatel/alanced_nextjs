@@ -6,16 +6,20 @@ import verify from "../../assets/icons/verify.png";
 import locations from "../../assets/icons/location.png";
 // import { useDispatch } from "react-redux";
 // import { Link, useRouter } from "react-router-dom";
-import mybg from "../../assets/images/half_background.png";
+import halfBackground from "@/assets/images/half_background.png";
 // import { Avatar } from "@material-tailwind/react";
 // import { IconButton } from "@material-tailwind/react";
 // import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 // import Skeleton from "react-loading-skeleton";
 // import "react-loading-skeleton/dist/skeleton.css";
 import { RxArrowLeft } from "react-icons/rx";
-{/* <RxArrowLeft />; */}
+{
+  /* <RxArrowLeft />; */
+}
 import { RxArrowRight } from "react-icons/rx";
-{/* <RxArrowRight />; */}
+{
+  /* <RxArrowRight />; */
+}
 import axios from "axios";
 import SkillsList from "@/constant/allSelectionData/SkillsList";
 import CityList from "@/constant/allSelectionData/CityList";
@@ -294,7 +298,7 @@ const FindTalent = () => {
       {/* ---> page Header  */}
       <div
         className="flex h-[50vh] items-end justify-center bg-cover bg-no-repeat pb-8"
-        style={{ backgroundImage: `url(${mybg})` }}
+        style={{ backgroundImage: `url(${halfBackground.src})` }}
       >
         <div className="flex w-[95%] rounded-md bg-white p-5 text-2xl sm:w-[80%]">
           <div className="flex w-full flex-col items-start pt-5">
