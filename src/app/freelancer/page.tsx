@@ -13,7 +13,6 @@ import bag from "@/assets/images/bag.png";
 // import heart from "../../components/images/heart.png";
 import verify from "@/assets/icons/verify.png";
 import location from "@/assets/icons/location.png";
-import {useSelector } from "react-redux";
 // import { Link, useNavigate } from "react-router-dom";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -89,40 +88,41 @@ interface Bids {
 
 const FreelancerAfterLogin = () => {
   //   const logindata = useSelector(state => state.login.login_data);
-//   const logindata = useSelector((state) => state.login.login_data) || JSON.parse(localStorage.getItem("logindata"));
+  //   const logindata = useSelector((state) => state.login.login_data) || JSON.parse(localStorage.getItem("logindata"));
 
-const logindata = {
-  id: 4,
-  first_Name: "sachin",
-  last_Name: "sharma",
-  email: "sachinsharmapeace@gmail.com",
-  contact: "",
-  Address: "",
-  images_logo: "/media/images_logo/profile8.jfif",
-  social_media: "",
-  skills: "['Python']",
-  about: "",
-  DOB: null,
-  gender: "",
-  map: "",
-  experience: 0,
-  qualification: "B.E",
-  category: "",
-  Language: "['Hindi']",
-  hourly_rate: 0,
-  experience_level: "",
-};
+  // const logindata = {
+  //   id: 4,
+  //   first_Name: "sachin",
+  //   last_Name: "sharma",
+  //   email: "sachinsharmapeace@gmail.com",
+  //   contact: "",
+  //   Address: "",
+  //   images_logo: "/media/images_logo/profile8.jfif",
+  //   social_media: "",
+  //   skills: "['Python']",
+  //   about: "",
+  //   DOB: null,
+  //   gender: "",
+  //   map: "",
+  //   experience: 0,
+  //   qualification: "B.E",
+  //   category: "",
+  //   Language: "['Hindi']",
+  //   hourly_rate: 0,
+  //   experience_level: "",
+  // };
 
-//   const googleUserName = localStorage.getItem("googleUserName");
-//   const loginMethod = localStorage.getItem("loginMethod");
-  const viewallprojects = useSelector((state:any) => state.freelancer.viewallprojects); // eslint-disable-line
+  //   const googleUserName = localStorage.getItem("googleUserName");
+  //   const loginMethod = localStorage.getItem("loginMethod");
+  // const viewallprojects = useSelector((state: any) => state.freelancer.viewallprojects);
+  // const viewallprojects: any[] = [];
   //   const accessToken = useSelector(state => state.login.accessToken);
   //   const accessToken = useSelector((state) => state.login.accessToken) || localStorage.getItem("jwtToken");
   const accessToken =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUzOTQyMjI2LCJpYXQiOjE3MjI0MDYyMjYsImp0aSI6IjA5OTA3MGI4OTQ5NDRkZDQ4ZWNiNTQwNzc4ZTE4OTNhIiwidXNlcl9pZCI6NH0.wSynaiGQ8ykuvLI-FNyd8B2XoYYDATI1QotxySyzRu0";
-//   const [searchTerm, setSearchTerm] = useState("");
+  //   const [searchTerm, setSearchTerm] = useState("");
   const [searchTerm] = useState("");
-//   const dispatch = useDispatch();
+  //   const dispatch = useDispatch();
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
@@ -132,32 +132,34 @@ const logindata = {
   //     dispatch(GetViewAllProjectsListAction())
   //   }, [])
 
-//   let displayName;
+  //   let displayName;
 
-//   if (loginMethod === "google") {
-//     //   displayName = googleUserName;
-//     displayName =
-//       logindata.first_Name && logindata.last_Name
-//         ? logindata?.first_Name + " " + logindata?.last_Name
-//         : googleUserName;
-//   } else if (loginMethod === "traditional") {
-//     displayName = logindata?.first_Name + " " + logindata?.last_Name;
-//   }
+  //   if (loginMethod === "google") {
+  //     //   displayName = googleUserName;
+  //     displayName =
+  //       logindata.first_Name && logindata.last_Name
+  //         ? logindata?.first_Name + " " + logindata?.last_Name
+  //         : googleUserName;
+  //   } else if (loginMethod === "traditional") {
+  //     displayName = logindata?.first_Name + " " + logindata?.last_Name;
+  //   }
 
-  const filteredProjects = viewallprojects
-    ? viewallprojects.filter((project:IFreelanceProject) => project.category === logindata?.category)
-    : [];
-// eslint-disable-next-line
-  const searchFilteredProjects = filteredProjects.filter((project:any) => {
+  // const filteredProjects = viewallprojects
+  //   ? viewallprojects.filter((project:IFreelanceProject) => project.category === logindata?.category)
+  //   : [];
+
+  const filteredProjects: any[] = []; // eslint-disable-line
+
+  // eslint-disable-next-line
+  const searchFilteredProjects = filteredProjects.filter((project: any) => {
     const skills = JSON.parse(project.skills_required.replace(/'/g, '"'));
     return (
-      skills.some((skill:string) => skill.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      skills.some((skill: string) => skill.toLowerCase().includes(searchTerm.toLowerCase())) ||
       project.category.toLowerCase().includes(searchTerm.toLowerCase())
     );
   });
 
-  const projectsToDisplay =
-    searchFilteredProjects.length > 0 ? searchFilteredProjects : viewallprojects;
+  const projectsToDisplay = searchFilteredProjects.length > 0 ? searchFilteredProjects : [];
   const [expandedProjects, setExpandedProjects] = useState<boolean[]>([]);
 
   const [viewProject, setViewProject] = useState<IFreelanceProject[]>([]);
@@ -255,12 +257,12 @@ const logindata = {
     };
   }
 
-//   const { day, formattedDate, greeting } = getCurrentDateAndGreeting();
+  //   const { day, formattedDate, greeting } = getCurrentDateAndGreeting();
   const { day, formattedDate } = getCurrentDateAndGreeting();
 
   const [AllProposals, setAllProposals] = useState<IBid[]>([]);
 
-//   console.log("All Proposal --------------- >", AllProposals);
+  //   console.log("All Proposal --------------- >", AllProposals);
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -281,7 +283,7 @@ const logindata = {
 
     fetchData();
   }, []);
-//   console.log("/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/", AllProposals);
+  //   console.log("/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/", AllProposals);
 
   //   const [currentPage, setCurrentPage] = useState(1);
   //   const [categorySearch, setCategorySearch] = useState('');
@@ -312,19 +314,19 @@ const logindata = {
   //       setCurrentPage(currentPage - 1);
   //   };
 
-//   const chunkArray = (array, size:number) => {
-//     let chunked = [];
-//     if (viewallprojects != null) {
-//       for (let i = 0; i < array.length; i += size) {
-//         chunked.push(array.slice(i, i + size));
-//       }
-//     }
-//     return chunked;
-//   };
+  //   const chunkArray = (array, size:number) => {
+  //     let chunked = [];
+  //     if (viewallprojects != null) {
+  //       for (let i = 0; i < array.length; i += size) {
+  //         chunked.push(array.slice(i, i + size));
+  //       }
+  //     }
+  //     return chunked;
+  //   };
 
-//   const chunkedFree = chunkArray(projectsToDisplay);
-//eslint-disable-next-line
-  const toggleSaveProject = async (project:any) => {
+  //   const chunkedFree = chunkArray(projectsToDisplay);
+  //eslint-disable-next-line
+  const toggleSaveProject = async (project: any) => {
     try {
       let response;
 
@@ -360,15 +362,15 @@ const logindata = {
         toast.success("Job unsaved successfully!");
         router.push("/freelancer/profile");
       }
-//eslint-disable-next-line
-      const updatedProjects = projectsToDisplay.map((p:any) => {
+      //eslint-disable-next-line
+      const updatedProjects = projectsToDisplay.map((p: any) => {
         if (p.id === updatedJob.id) {
           return updatedJob;
         }
         return p;
       });
 
-      projectsToDisplay(updatedProjects);
+      projectsToDisplay.push(updatedProjects);
     } catch (error) {
       errorLog(error);
     }
@@ -635,7 +637,10 @@ const logindata = {
                               </p>
                               {JSON.parse(project.skills_required.replace(/'/g, '"')).map(
                                 (skill: string, index: number) => (
-                                  <Link key={index} href="">
+                                  <Link
+                                    key={index}
+                                    href=""
+                                  >
                                     <span className="my-2 mr-2 inline-block rounded border border-gray-300 px-4 py-1 text-[13px] text-[#0A142F] opacity-50">
                                       {highlightText(skill, searchQuery)}
                                     </span>
@@ -697,7 +702,10 @@ const logindata = {
               <div>
                 {[...Array(8)].map((index) => {
                   return (
-                    <div key={index} className="mb-5">
+                    <div
+                      key={index}
+                      className="mb-5"
+                    >
                       {/* <Skeleton
                         height={30}
                         width={200}
