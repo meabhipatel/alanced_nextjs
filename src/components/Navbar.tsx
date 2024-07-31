@@ -8,18 +8,19 @@ import navback from "@/assets/images/nav_background.png";
 // import alancedlogo from "@/assets/images/alanced_transparent.png";
 
 // import { timeAgo } from "../../container/freelancer/TimeFunctions";
-// import { dontNeedMTScreens } from "../../routes/DynamicMarginTop";
 import { FiMenu } from "react-icons/fi";
 import { MdClose } from "react-icons/md";
 import { FaBell, FaChevronDown } from "react-icons/fa6";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { useAppSelector } from "@/store/hooks";
+import { dontNeedMTScreens } from "./DynamicMarginTop";
 
 const Navbar = () => {
   const router = useRouter();
+  const pathname = usePathname();
   const { loginMethod, userType: loginType, isLoggedIn } = useAppSelector((state) => state.auth);
 
   const logindata = {
@@ -345,9 +346,15 @@ const Navbar = () => {
     // >
 
     <div
-      className={`fixed top-0 z-50 w-full max-w-[1536px] bg-white bg-cover bg-top`}
+      className={`fixed top-0 z-50 w-full max-w-[1536px] bg-transparent bg-cover bg-top ${
+        !dontNeedMTScreens.includes(pathname)
+          ? "bg-white"
+          : isScrolled
+            ? "bg-white"
+            : "bg-transparent"
+      } `}
       style={{
-        backgroundImage: `url(${navback.src})`,
+        backgroundImage: `url(${!dontNeedMTScreens.includes(pathname) ? navback.src : isScrolled ? navback.src : ""})`,
       }}
     >
       <nav className="flex items-center justify-between lg:p-6 lg:px-12">
