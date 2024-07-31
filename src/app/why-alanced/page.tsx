@@ -4,6 +4,13 @@ import searchImage from "@/assets/images/search.png";
 import createImage from "@/assets/images/create.png";
 import earnImage from "@/assets/images/earn.png";
 import moneyPotImage from "@/assets/images/moneyPot.png";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Why Alanced ",
+  description:
+    "The best platform for search and hire freelancer in the central india. let's have a tour of freelancers.",
+};
 
 const WhyAlanced = () => {
   return (

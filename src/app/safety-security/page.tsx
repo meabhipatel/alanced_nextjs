@@ -1,4 +1,10 @@
-import React from "react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Safety and Security at Alanced",
+  description:
+    "The best platform for search and hire freelancer in the central india. let's have a tour of freelancers.",
+};
 
 const SafetySecurityPage: React.FC = () => {
   return (

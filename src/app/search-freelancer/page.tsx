@@ -34,6 +34,13 @@ import Image from "next/image";
 import { errorLog } from "@/utils/errorLog";
 import { FaCheck } from "react-icons/fa6";
 
+// ---> Setting meta data
+// export const metadata: Metadata = {
+//   title: "Search Freelancer - Alanced",
+//   description:
+//     "The best platform for search and hire freelancer in the central india. let's have a tour of freelancers.",
+// };
+
 const FindTalent = () => {
   // const location = useRouter();
   // const searchParams = new URLSearchParams(location.search);
