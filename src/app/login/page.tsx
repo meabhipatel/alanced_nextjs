@@ -14,6 +14,8 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { handleLoginAsync } from "@/store/features/auth/authApi";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { ELoginMethod, setUserAuthProfile } from "@/store/features/auth/authSlice";
+import cookies from "js-cookie";
 
 interface IAuthDetails {
   email: string;
@@ -23,8 +25,6 @@ interface IAuthDetails {
 const Login = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  // const navigate = useNavigate();
-  // const login = useSelector((state) => state.login.Login);
   const isLoading = useAppSelector((state) => state.auth.isloading);
   const [authDetails, setAuthDetails] = useState<IAuthDetails>({ email: "", password: "" });
   const [inputType, setInputType] = useState("password");
@@ -42,10 +42,29 @@ const Login = () => {
     if (!authDetails.email || !authDetails.password) {
       toast.error("Email and password Both fields are required");
     } else {
-      localStorage.setItem("@loginMethod", "traditional");
-      await dispatch(handleLoginAsync(authDetails));
-      router.push("/");
-      toast.success("You are logged in successfully");
+      localStorage.setItem("@loginMethod", "TRADITIONAL");
+      const res = await dispatch(handleLoginAsync(authDetails));
+
+      if (res.meta.requestStatus === "fulfilled") {
+        toast.success("You are logged in successfully");
+        const userProfile = res.payload.data.login_data;
+        const userType = res.payload.data.type;
+        const loginMethod = ELoginMethod.TRADITIONAL;
+        dispatch(
+          setUserAuthProfile({
+            userProfile,
+            userType,
+            loginMethod,
+          })
+        );
+        localStorage.setItem("@userType", userType);
+        localStorage.setItem("@userProfile", JSON.stringify(userProfile));
+        localStorage.setItem("@accessToken", res.payload.data.token.access);
+        cookies.set("token", res.payload.data.token.access);
+        router.push("/");
+      } else {
+        toast.error("Please provide correct credentials.");
+      }
     }
   };
 
@@ -168,7 +187,7 @@ const Login = () => {
 
               <div className="float-end flex items-center">
                 <p className="inline-block text-nowrap text-xs">Don&apos;t have an account?</p>
-                <Link href="/sign-up">
+                <Link href="/signup-options">
                   <span className="mb-6 ml-4 inline-block w-24 rounded bg-gradient-to-r from-[#0909E9] to-[#00D4FF] py-[10px] text-center text-sm font-semibold text-white">
                     Sign Up
                   </span>
@@ -261,7 +280,7 @@ const Login = () => {
               </button>
               <p className="font-inter pt-2 text-xs">
                 Don&apos;t have an account?{" "}
-                <Link href="/sign-up">
+                <Link href="/signup-options">
                   <span className="text-yellow-400">Create an account</span>
                 </Link>{" "}
                 It takes less than a minute.
