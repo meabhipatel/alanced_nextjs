@@ -214,22 +214,28 @@ const AddJobPost = () => {
                 </div>
               </div>
             )}
-            {step === 2 && (
-              <div className="flex flex-col md:flex-row justify-between items-start md:items-center relative">
-                <div className="flex-1 mb-5 md:mb-0 md:mr-4">
-                  <label className="block text-lg sm:text-xl mt-2 font-cardo" htmlFor="jobDescription">
-                    Job Description
-                  </label>
-                  <textarea
-                    name="description"
-                    onChange={onChange}
-                    value={addProject.description}
-                    className="border my-2 py-2 px-3 rounded-md w-full focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
-                    placeholder="Add Job Description"
-                  />
-                </div>
-              </div>
-            )}
+        {step === 2 && (
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
+            <div className="flex-1 mb-5 md:mb-0 md:mr-4">
+              <h1 className="text-3xl md:text-4xl text-blue-600 font-cardo font-semibold">
+                Job Description
+              </h1>
+              <p className="text-base sm:text-lg opacity-75 font-cardo font-medium py-2 sm:py-4">
+                Highlight the Benefits, and Required Qualifications,
+                Share Your Vision
+              </p>
+            </div>
+            <div className="flex-1">
+              <textarea
+                onChange={onChange}
+                name="description"
+                value={addProject.description || ""}
+                className="border my-2 py-2 px-3 rounded-md w-full h-48 sm:h-48 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                placeholder="Enter Description"
+  />
+</div>
+          </div>
+        )}
           </div>
           {step === 1 && (
             <div className="flex justify-end mt-4">
