@@ -26,13 +26,22 @@ const userProfileObj = {
   experience_level: "",
 };
 
+export enum ELoginMethod {
+  TRADITIONAL = "TRADITIONAL",
+  GOOGLE = "GOOGLE",
+}
+export enum EUserType {
+  HIRER = "HIRER",
+  FREELANCER = "FREELANCER",
+}
+
 interface IInitialState {
   isLoggedIn: boolean;
   isloading: boolean;
   error: string;
   userProfile: IUserProfile;
   userType: "HIRER" | "FREELANCER";
-  loginMethod: "traditional" | "google";
+  loginMethod: ELoginMethod;
 }
 
 // const localUserProfile = localStorage.getItem("@userProfile");
@@ -46,7 +55,7 @@ const initialState: IInitialState = {
   error: "",
   userProfile: userProfileObj,
   userType: "FREELANCER",
-  loginMethod: "traditional",
+  loginMethod: ELoginMethod.TRADITIONAL,
 };
 
 export const authSlice = createSlice({
@@ -56,11 +65,24 @@ export const authSlice = createSlice({
     setIsLoggedIn: (state, action: PayloadAction<boolean>) => {
       state.isLoggedIn = action.payload;
     },
-    setUserAuthProfile: (state, action) => {
+    setUserAuthProfile: (
+      state,
+      action: PayloadAction<{
+        userProfile: IUserProfile;
+        loginMethod: ELoginMethod;
+        userType: EUserType;
+      }>
+    ) => {
       state.isLoggedIn = true;
       state.userProfile = action.payload.userProfile;
-      state.loginMethod = action.payload.userProfile;
+      state.loginMethod = action.payload.loginMethod;
       state.userType = action.payload.userType;
+    },
+    handleLogoutUserAction: (state) => {
+      state.isLoggedIn = false;
+      state.userProfile = userProfileObj;
+      state.loginMethod = ELoginMethod.TRADITIONAL;
+      state.userType = "FREELANCER";
     },
   },
   extraReducers(builder) {
@@ -74,7 +96,7 @@ export const authSlice = createSlice({
       const userProfile = actions.payload.data.login_data as IUserProfile;
       state.userType = userType;
       state.userProfile = userProfile;
-      localStorage.setItem("@userType", JSON.stringify(userType));
+      localStorage.setItem("@userType", userType);
       localStorage.setItem("@userProfile", JSON.stringify(userProfile));
       localStorage.setItem("@accessToken", actions.payload.data.token.access);
       cookies.set("token", actions.payload.data.token.access);
@@ -87,5 +109,5 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setIsLoggedIn, setUserAuthProfile } = authSlice.actions;
+export const { setIsLoggedIn, setUserAuthProfile, handleLogoutUserAction } = authSlice.actions;
 export default authSlice.reducer;

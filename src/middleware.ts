@@ -16,5 +16,5 @@ export const middleware = (request: NextRequest) => {
 };
 
 export const config = {
-  matcher: privateRoutes,
+  matcher: ["/freelancer", "/hirer"],
 };

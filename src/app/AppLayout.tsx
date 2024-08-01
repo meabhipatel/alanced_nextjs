@@ -1,6 +1,8 @@
+"use client";
 import DynamicMarginTop from "@/components/DynamicMarginTop";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import { usePathname } from "next/navigation";
 import { FC, ReactNode } from "react";
 import { Toaster } from "react-hot-toast";
 
@@ -9,12 +11,21 @@ interface IProps {
 }
 
 const AppLayout: FC<IProps> = ({ children }) => {
+  const pathname = usePathname();
+
+  const withoutNavbarScreens = ["/login", "/signup", "/signup-options"];
+
   return (
     <div className="mx-auto max-w-[1536px] bg-white">
-      <Navbar />
-      <DynamicMarginTop />
+      {!withoutNavbarScreens.includes(pathname) && (
+        <>
+          <Navbar />
+          <DynamicMarginTop />
+        </>
+      )}
+
       {children}
-      <Footer />
+      {!withoutNavbarScreens.includes(pathname) && <Footer />}
       <Toaster toastOptions={{ duration: 1500 }} />
     </div>
   );

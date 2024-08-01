@@ -9,18 +9,22 @@ import navback from "@/assets/images/nav_background.png";
 
 // import { timeAgo } from "../../container/freelancer/TimeFunctions";
 import { FiMenu } from "react-icons/fi";
-import { MdClose } from "react-icons/md";
+import { MdAccountCircle, MdClose } from "react-icons/md";
 import { FaBell, FaChevronDown } from "react-icons/fa6";
-
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { useAppSelector } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { dontNeedMTScreens } from "./DynamicMarginTop";
+import { TbLogout } from "react-icons/tb";
+import { ELoginMethod, handleLogoutUserAction } from "@/store/features/auth/authSlice";
+import cookies from "js-cookie";
+import { IoChevronDown } from "react-icons/io5";
 
 const Navbar = () => {
   const router = useRouter();
   const pathname = usePathname();
+  const dispatch = useAppDispatch();
   const { loginMethod, userType: loginType, isLoggedIn } = useAppSelector((state) => state.auth);
 
   const logindata = {
@@ -46,7 +50,6 @@ const Navbar = () => {
   };
   const googleUserName = `localStorage.getItem("googleUserName")`;
 
-  //   const dispatch = useDispatch();
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const dropdownRef = useRef(null);
   const notificationsDropdownRef = useRef(null);
@@ -69,13 +72,13 @@ const Navbar = () => {
 
   let displayName;
 
-  if (loginMethod === "google") {
+  if (loginMethod === ELoginMethod.GOOGLE) {
     // displayName = googleUserName;
     displayName =
       logindata.first_Name && logindata.last_Name
         ? logindata?.first_Name + " " + logindata?.last_Name
         : googleUserName;
-  } else if (loginMethod === "traditional") {
+  } else if (loginMethod === ELoginMethod.TRADITIONAL) {
     displayName = logindata?.first_Name + " " + logindata?.last_Name;
   }
 
@@ -99,17 +102,20 @@ const Navbar = () => {
 
   // const isLoggedIn = Boolean(accessToken || googleUserName);
 
-  // const handleLogout = () => {
-  //   localStorage.removeItem("isLoggedIn");
-  //   localStorage.removeItem("googleUserName");
-  //   localStorage.removeItem("accessToken");
-  //   localStorage.removeItem("loginMethod");
-  //   localStorage.removeItem("loginType");
-  //   localStorage.removeItem("jwtToken");
-  //   localStorage.removeItem("logindata");
+  const handleLogout = () => {
+    /** ---> Clearing local storage */
+    localStorage.removeItem("@userType");
+    localStorage.removeItem("@userProfile");
+    localStorage.removeItem("@accessToken");
+    localStorage.removeItem("@loginMethod");
+    // localStorage.removeItem("googleUserName");
 
-  //   // dispatch(LogoutAction());
-  // };
+    /** ---> Clearing cookies */
+    cookies.remove("token");
+
+    /** ---> Clearing redux states */
+    dispatch(handleLogoutUserAction());
+  };
 
   // const [clientnotifications, setClientNotifications] = useState([]);
   // const [freenotifications, setFreeNotifications] = useState([]);
@@ -470,14 +476,7 @@ const Navbar = () => {
           </div>
         ) : (
           <div className="relative flex w-full items-center justify-between p-5 lg:p-0">
-            <Link
-              href={loginType === "FREELANCER" ? "/freelancer" : "/hirer"}
-              onMouseEnter={() => {
-                setFindworkDropdown(false);
-                setReportsDropdown(false);
-                setMyJobsDropdown(false);
-              }}
-            >
+            <Link href={loginType === "FREELANCER" ? "/freelancer" : "/hirer"}>
               <div className="flex flex-shrink-0 items-center">
                 <Image
                   src={logo}
@@ -490,21 +489,13 @@ const Navbar = () => {
             </Link>
 
             {/* ----> Navigations  */}
-            <div className="hidden p-5 text-sm lg:flex">
+            <div className="hidden text-sm lg:flex">
               {loginType === "FREELANCER" ? (
                 <>
-                  <span
-                    className="mt-4 block cursor-pointer text-[16px] text-[#031136] lg:mr-12 lg:mt-0 lg:inline-block"
-                    onMouseEnter={() => {
-                      setFindworkDropdown(true);
-                      setReportsDropdown(false);
-                      setMyJobsDropdown(false);
-                    }}
-                  >
-                    Search Job <i className="bi bi-chevron-down text-xs text-[#031136]"></i>
-                  </span>
-                  {Findworkdropdown && (
-                    <div className="dropdown-container absolute right-[11rem] z-20 mt-5 w-48 rounded-md bg-white shadow-lg md:right-[54.5rem]">
+                  <div className="group relative mr-12 flex cursor-pointer items-center gap-[0.15rem] py-2 text-[16px] text-[#031136]">
+                    Search Job <IoChevronDown />
+                    {/* ---> Drop down */}
+                    <div className="dropdown-container absolute right-0 top-4 z-20 mt-5 hidden w-48 rounded-md bg-white shadow-lg group-hover:block">
                       <div className="py-1">
                         <Link
                           href="/search-job"
@@ -515,7 +506,7 @@ const Navbar = () => {
                           </span>
                         </Link>
                         <Link
-                          href="/saved-jobs"
+                          href="/freelancer/saved-jobs"
                           className="flex items-center px-4 py-2"
                         >
                           <span className="text-[16px] text-[#031136] hover:text-blue-600">
@@ -523,7 +514,7 @@ const Navbar = () => {
                           </span>
                         </Link>
                         <Link
-                          href="/my-proposals"
+                          href="/freelancer/my-proposals"
                           className="flex items-center px-4 py-2"
                         >
                           <span className="text-[16px] text-[#031136] hover:text-blue-600">
@@ -531,7 +522,7 @@ const Navbar = () => {
                           </span>
                         </Link>
                         <Link
-                          href="/freelancer/edit-profile"
+                          href="/freelancer/profile"
                           className="flex items-center px-4 py-2"
                         >
                           <span className="text-[16px] text-[#031136] hover:text-blue-600">
@@ -540,39 +531,24 @@ const Navbar = () => {
                         </Link>
                       </div>
                     </div>
-                  )}
+                  </div>
                 </>
               ) : (
                 <Link href="/hirer/profile">
-                  <button
-                    className="mt-4 block text-[16px] text-[#031136] lg:mr-12 lg:mt-0 lg:inline-block"
-                    onClick={() => {
-                      setFindworkDropdown(false);
-                      setReportsDropdown(false);
-                      setMyJobsDropdown(false);
-                    }}
-                  >
-                    Search Freelancer{" "}
-                  </button>
+                  <div className="mr-12 flex cursor-pointer items-center gap-[0.15rem] py-2 text-[16px] text-[#031136]">
+                    Search Freelancer
+                  </div>
                 </Link>
               )}
               {loginType === "FREELANCER" ? (
                 <>
-                  <button
-                    className="mt-4 block cursor-pointer text-[16px] text-[#031136] lg:mr-12 lg:mt-0 lg:inline-block"
-                    onMouseEnter={() => {
-                      setMyJobsDropdown(true);
-                      setFindworkDropdown(false);
-                      setReportsDropdown(false);
-                    }}
-                  >
-                    My Jobs <i className="bi bi-chevron-down text-xs text-[#031136]"></i>
-                  </button>
-                  {MyJobsdropdown && (
-                    <div className="dropdown-container absolute right-[11rem] z-20 mt-5 w-48 rounded-md bg-white shadow-lg md:right-[46.5rem]">
+                  <div className="group relative mr-12 flex cursor-pointer items-center gap-[0.15rem] py-2 text-[16px] text-[#031136]">
+                    My Jobs <IoChevronDown />
+                    {/* ---> Drop down */}
+                    <div className="dropdown-container absolute right-0 top-4 z-20 mt-5 hidden w-48 rounded-md bg-white shadow-lg group-hover:block">
                       <div className="py-1">
                         <Link
-                          href="/all-invitations"
+                          href="/freelancer/all-invitations"
                           className="flex items-center px-4 py-2"
                         >
                           <span className="text-[16px] text-[#031136] hover:text-blue-600">
@@ -589,23 +565,14 @@ const Navbar = () => {
                         </Link>
                       </div>
                     </div>
-                  )}{" "}
+                  </div>
                 </>
               ) : (
                 <>
-                  <span
-                    className="mt-4 block cursor-pointer text-[16px] text-[#031136] lg:mr-12 lg:mt-0 lg:inline-block"
-                    onMouseEnter={() => {
-                      setMyJobsDropdown(true);
-                      setFindworkDropdown(false);
-                      setReportsDropdown(false);
-                    }}
-                  >
-                    {" "}
-                    Jobs <i className="bi bi-chevron-down text-xs text-[#031136]"></i>
-                  </span>
-                  {MyJobsdropdown && (
-                    <div className="dropdown-container absolute right-[11rem] z-20 mt-5 w-48 rounded-md bg-white shadow-lg md:right-[47rem]">
+                  <div className="group relative mr-12 flex cursor-pointer items-center gap-[0.15rem] py-2 text-[16px] text-[#031136]">
+                    Jobs <IoChevronDown />
+                    {/* ---> Drop down */}
+                    <div className="dropdown-container absolute right-0 top-4 z-20 mt-5 hidden w-48 rounded-md bg-white shadow-lg group-hover:block">
                       <div className="py-1">
                         <Link
                           href="/add/Job-post"
@@ -641,27 +608,18 @@ const Navbar = () => {
                         </Link>
                       </div>
                     </div>
-                  )}{" "}
+                  </div>
                 </>
               )}
               {loginType === "FREELANCER" ? (
                 <>
-                  <span
-                    className="mt-4 block cursor-pointer text-[16px] text-[#031136] lg:mr-12 lg:mt-0 lg:inline-block"
-                    onMouseEnter={() => {
-                      setReportsDropdown(true);
-                      setFindworkDropdown(false);
-                      setMyJobsDropdown(false);
-                    }}
-                  >
-                    {" "}
-                    Payments <i className="bi bi-chevron-down text-xs text-[#031136]"></i>
-                  </span>
-                  {Reportsdropdown && (
-                    <div className="dropdown-container absolute right-[11rem] z-20 mt-5 w-48 rounded-md bg-white shadow-lg md:right-[38.5rem]">
+                  <div className="group relative mr-12 flex cursor-pointer items-center gap-[0.15rem] py-2 text-[16px] text-[#031136]">
+                    Payments <IoChevronDown />
+                    {/* ---> Drop down */}
+                    <div className="dropdown-container absolute right-0 top-4 z-20 mt-5 hidden w-48 rounded-md bg-white shadow-lg group-hover:block">
                       <div className="py-1">
                         <Link
-                          href="/freelancer/my-reports"
+                          href="/freelancer/transaction-history"
                           className="flex items-center px-4 py-2"
                         >
                           <span className="text-[16px] text-[#031136] hover:text-blue-600">
@@ -670,23 +628,14 @@ const Navbar = () => {
                         </Link>
                       </div>
                     </div>
-                  )}
+                  </div>
                 </>
               ) : (
                 <>
-                  <span
-                    className="mt-4 block cursor-pointer text-[16px] text-[#031136] lg:mr-12 lg:mt-0 lg:inline-block"
-                    onMouseEnter={() => {
-                      setReportsDropdown(true);
-                      setMyJobsDropdown(false);
-                      setFindworkDropdown(false);
-                    }}
-                  >
-                    {" "}
-                    Payments <i className="bi bi-chevron-down text-xs text-[#031136]"></i>
-                  </span>
-                  {Reportsdropdown && (
-                    <div className="dropdown-container absolute right-[11rem] z-20 mt-5 w-48 rounded-md bg-white shadow-lg md:right-[39.5rem]">
+                  <div className="group relative mr-12 flex cursor-pointer items-center gap-[0.15rem] py-2 text-[16px] text-[#031136]">
+                    Payments <IoChevronDown />
+                    {/* ---> Drop down */}
+                    <div className="dropdown-container absolute right-0 top-4 z-20 mt-5 hidden w-48 rounded-md bg-white shadow-lg group-hover:block">
                       <div className="py-1">
                         <Link
                           href="/freelancer/my-reports"
@@ -698,23 +647,16 @@ const Navbar = () => {
                         </Link>
                       </div>
                     </div>
-                  )}
+                  </div>
                 </>
               )}
 
               {/** ######################### */}
 
-              <Link href="/messages">
-                <span
-                  className="mt-4 block text-[16px] text-[#031136] lg:mt-0 lg:inline-block"
-                  onMouseEnter={() => {
-                    setFindworkDropdown(false);
-                    setReportsDropdown(false);
-                    setMyJobsDropdown(false);
-                  }}
-                >
+              <Link href="/freelancer/messages">
+                <div className="flex cursor-pointer items-center gap-[0.15rem] py-2 text-[16px] text-[#031136]">
                   Messages
-                </span>
+                </div>
               </Link>
             </div>
 
@@ -861,7 +803,7 @@ const Navbar = () => {
                       className="h-8 w-8 cursor-pointer rounded-full border border-gray-400"
                       width={32}
                       height={32}
-                      // onClick={() => setDropdownVisible(!dropdownVisible)}
+                      onClick={() => setDropdownVisible((prev) => !prev)}
                     />
                   ) : (
                     <button
@@ -872,60 +814,73 @@ const Navbar = () => {
                     </button>
                   )}
                   {dropdownVisible && (
-                    <div className="drop absolute right-[-10px] mt-5 w-[14rem] rounded-md bg-white shadow-lg">
-                      <div className="py-1">
-                        {logindata && logindata.images_logo ? (
-                          <Image
-                            src={"https://www.api.alanced.com" + logindata.images_logo}
-                            alt="Profile"
-                            className="mx-auto my-5 h-20 w-20 cursor-pointer rounded-full border border-gray-200 p-0.5"
-                            width={80}
-                            height={80}
-                            // onClick={() => setDropdownVisible(!dropdownVisible)}
-                          />
-                        ) : (
-                          <button
-                            className="font-cardo mx-auto my-5 flex h-20 w-20 cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-[#0909E9] to-[#00D4FF] p-1 text-4xl font-bold text-white"
-                            onClick={() => setDropdownVisible(!dropdownVisible)}
-                          >
-                            {displayName && displayName[0].toUpperCase()}
-                          </button>
-                        )}
-                        <h1 className="font-cardo px-2 text-center text-[19px] text-[#031136]">
-                          {displayName}
-                        </h1>
-                        <h1 className="font-cardo mb-3 text-center text-lg text-gray-500">
-                          {loginType === "FREELANCER" ? loginType.toLowerCase() : "client"}
-                        </h1>
-                        {loginType === "FREELANCER" ? (
+                    <>
+                      <div className="drop absolute right-[-10px] z-50 mt-5 w-[14rem] rounded-md bg-white shadow-lg">
+                        <div className="py-1">
+                          {logindata && logindata.images_logo ? (
+                            <Image
+                              src={"https://www.api.alanced.com" + logindata.images_logo}
+                              alt="Profile"
+                              className="mx-auto my-5 h-20 w-20 cursor-pointer rounded-full border border-gray-200 p-0.5"
+                              width={80}
+                              height={80}
+                              onClick={() => setDropdownVisible(!dropdownVisible)}
+                            />
+                          ) : (
+                            <button
+                              className="font-cardo mx-auto my-5 flex h-20 w-20 cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-[#0909E9] to-[#00D4FF] p-1 text-4xl font-bold text-white"
+                              onClick={() => setDropdownVisible(!dropdownVisible)}
+                            >
+                              {displayName && displayName[0].toUpperCase()}
+                            </button>
+                          )}
+                          <h1 className="font-cardo px-2 text-center text-[19px] text-[#031136]">
+                            {displayName}
+                          </h1>
+                          <h1 className="font-cardo mb-3 text-center text-lg text-gray-500">
+                            {loginType === "FREELANCER" ? loginType.toLowerCase() : "client"}
+                          </h1>
+                          {loginType === "FREELANCER" ? (
+                            <Link
+                              href="/freelancer/profile"
+                              onClick={() => setDropdownVisible(false)}
+                              className="flex items-center px-4 py-2 hover:bg-gray-100"
+                            >
+                              <MdAccountCircle className="mr-1 text-xl" />
+                              <span className="font-cardo text-[16px] text-[#031136]">Profile</span>
+                            </Link>
+                          ) : (
+                            <Link
+                              href="/hirer/profile"
+                              onClick={() => setDropdownVisible(false)}
+                              className="flex items-center px-4 py-2 hover:bg-gray-100"
+                            >
+                              <MdAccountCircle className="mr-1 text-xl" />
+                              <span className="font-cardo text-[16px] text-[#031136]">Profile</span>
+                            </Link>
+                          )}
                           <Link
-                            href="/freelancer/edit-profile"
+                            href="/"
                             className="flex items-center px-4 py-2 hover:bg-gray-100"
+                            onClick={() => {
+                              handleLogout();
+                              setDropdownVisible(false);
+                            }}
                           >
-                            <i className="bi bi-person-circle mr-3"></i>
-                            <span className="font-cardo text-[16px] text-[#031136]">Profile</span>
+                            <TbLogout className="mr-1 text-xl" />
+                            <span className="font-cardo text-[16px] text-[#031136]">Logout</span>
                           </Link>
-                        ) : (
-                          <Link
-                            href="/hirer/profile-edit"
-                            className="flex items-center px-4 py-2 hover:bg-gray-100"
-                          >
-                            <i className="bi bi-person-circle mr-3"></i>
-                            <span className="font-cardo text-[16px] text-[#031136]">Profile</span>
-                          </Link>
-                        )}
-                        <Link
-                          href="/"
-                          className="flex items-center px-4 py-2 hover:bg-gray-100"
-                          // onClick={() => {
-                          //   handleLogout();
-                          // }}
-                        >
-                          <i className="bi bi-box-arrow-right mr-3"></i>
-                          <span className="font-cardo text-[16px] text-[#031136]">Logout</span>
-                        </Link>
+                        </div>
                       </div>
-                    </div>
+                      {/* ---> Drop down background for whole screen */}
+                      {
+                        // eslint-disable-next-line
+                        <div
+                          onClick={() => setDropdownVisible(false)}
+                          className="fixed bottom-0 left-0 right-0 top-0 z-40 bg-black/10"
+                        />
+                      }
+                    </>
                   )}
                 </div>
               </div>
