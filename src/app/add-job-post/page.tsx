@@ -188,16 +188,16 @@ const AddJobPost = () => {
                   </label>
                   <div ref={wrapperRef} className="relative">
                   <input
-  type="text"
-  value={searchTerm}
-  onClick={() => setIsOpen(!isOpen)}
-  onKeyDown={(e) => {
-    if (e.key === 'Enter') {
-      setIsOpen(!isOpen);
-    }
-  }}
-  onChange={(e) => {
-    setSearchTerm(e.target.value);
+                    type="text"
+                    value={searchTerm}
+                    onClick={() => setIsOpen(!isOpen)}
+                    onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                    setIsOpen(!isOpen);
+              }
+            }}
+                    onChange={(e) => {
+                    setSearchTerm(e.target.value);
     setIsOpen(true);
   }}
   className="border my-2 py-2 px-2 rounded-md w-full focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
