@@ -653,7 +653,7 @@ const Navbar = () => {
 
               {/** ######################### */}
 
-              <Link href="/messages">
+              <Link href="/freelancer/messages">
                 <div className="flex cursor-pointer items-center gap-[0.15rem] py-2 text-[16px] text-[#031136]">
                   Messages
                 </div>
