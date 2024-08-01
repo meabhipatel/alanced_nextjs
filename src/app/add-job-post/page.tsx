@@ -1,6 +1,8 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import CategoryList from "@/app/add-job-post/freelancers/category-list";
+import SkillsList from "@/app/add-job-post/freelancers/skills-list";
+
 
 interface Project {
   title?: string;
@@ -17,7 +19,7 @@ interface Project {
 
 const AddJobPost = () => {
   const [addProject, setAddProject] = useState<any>({}) // eslint-disable-line
-  const [skills, setSkills] = useState<string[]>([]) // eslint-disable-line
+  const [skills, setSkills] = useState<string[]>([]) 
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedOption, setSelectedOption] = useState("hourly") // eslint-disable-line
   const [searchTerm, setSearchTerm] = useState("");
@@ -25,16 +27,27 @@ const AddJobPost = () => {
   const [searchTermSkill, setSearchTermSkill] = useState("") // eslint-disable-line
   const [isOpenSkill, setIsOpenSkill] = useState(false) // eslint-disable-line
   const [step, setStep] = useState(1);
+  const [error, setError] = useState<string>("") // eslint-disable-line
+
 
 
   const wrapperRef = useRef<HTMLDivElement>(null);
   const wrapperRefSkill = useRef<HTMLDivElement>(null);
 
   const categories = useState(CategoryList.sort())[0];
+  const allSkills = SkillsList.sort();
+
 
   const filteredCategories = categories.filter((category) =>
     category.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const filteredSkills = allSkills.filter(
+    (skill) =>
+      skill.toLowerCase().includes(searchTermSkill.toLowerCase()) &&
+      !skills.includes(skill)
+  );
+
 
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -66,6 +79,17 @@ const AddJobPost = () => {
       [e.target.name]: value,
     }));
   };
+
+  const removeSkill = (index: number) => {
+    const newSkills = skills.filter((_, idx) => idx !== index);
+    setSkills(newSkills);
+    setAddProject((prevProject: Project) => ({
+      ...prevProject,
+      skills_required: newSkills,
+    }));
+    setError("");
+  };
+  
 
   const [isValid, setIsValid] = useState<boolean>(false);
   useEffect(() => {
@@ -248,6 +272,85 @@ const AddJobPost = () => {
               </button>
             </div>
           )}
+
+{step === 3 && (
+  <div className="flex flex-col">
+    <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+      <div className="flex-1 mb-5 md:mb-0 md:mr-4">
+        <h1 className="text-3xl md:text-4xl text-blue-600 font-cardo font-semibold">
+          Skills Required
+        </h1>
+        <p className="text-base sm:text-lg opacity-75 font-cardo font-medium py-2 sm:py-4">
+          Find and Add the Skills That Match Your Job
+        </p>
+      </div>
+      <div className="flex-1">
+        <div className="relative">
+          <input
+            type="text"
+            value={searchTermSkill || ""}
+            onClick={() => setIsOpenSkill(!isOpenSkill)}
+            onChange={(e) => {
+              setSearchTermSkill(e.target.value);
+              setIsOpenSkill(true);
+            }}
+            className="border my-2 py-2 px-2 rounded-md w-full focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+            placeholder="Search Skills"
+          />
+          {isOpenSkill && (
+            <ul className="border border-gray-300 max-h-48 overflow-y-auto absolute w-full md:w-1/3 z-10 bg-white mt-2 list-none p-0 m-0">
+              {filteredSkills.length > 0 ? (
+                filteredSkills.map((skill, index) => (
+<button
+  key={index}
+  onClick={() => {
+    setSkills([...skills, skill]);
+    setSearchTermSkill("");
+    setIsOpenSkill(false);
+  }}
+  className="py-2 px-3 cursor-pointer hover:bg-gray-200 w-full text-left"
+  onKeyPress={(e) => {
+    if (e.key === 'Enter') {
+      setSkills([...skills, skill]);
+      setSearchTermSkill("");
+      setIsOpenSkill(false);
+    }
+  }}
+>
+  {skill}
+</button>
+
+                ))
+              ) : (
+                <li className="py-2 px-3">No skill found</li>
+              )}
+            </ul>
+          )}
+        </div>
+        <div className="py-2">
+          {skills.length > 0 &&
+            skills.map((skill, index) => (
+              <div
+                key={index}
+                className="inline-flex items-center border border-gray-300 rounded-lg py-2 px-4 mr-2 mb-2 bg-gray-100"
+              >
+                {skill}
+                <button
+                  onClick={() => removeSkill(index)}
+                  className="ml-2 text-red-500 hover:text-red-700"
+                >
+                  ×
+                </button>
+              </div>
+            ))}
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
+          
+          
           {step !== 1 && (
             <div className="flex justify-between items-center mt-4">
               {step > 1 && (
