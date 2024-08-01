@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef  } from "react";
 
 const AddJobPost = () => {
   const [step] = useState(1);
@@ -11,6 +11,14 @@ const AddJobPost = () => {
     max_hourly_rate: '',
     total_budget: '',
   });
+  
+  
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
+
+
+
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setAddProject({
@@ -53,6 +61,22 @@ const AddJobPost = () => {
                     className="border my-2 py-2 px-3 rounded-md w-full focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
                     placeholder="Add Job title"
                   />
+                  <label className="block text-lg sm:text-xl mt-3 font-cardo" htmlFor="jobCategory">
+                    Job Category
+                  </label>
+                  <div ref={wrapperRef} className="relative">
+                    <input
+                      type="text"
+                      value={searchTerm || ""}
+                      onClick={() => setIsOpen(!isOpen)}
+                      onChange={(e) => {
+                        setSearchTerm(e.target.value);
+                        setIsOpen(true);
+                      }}
+                      className="border my-2 py-2 px-2 rounded-md w-full focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                      placeholder="Select Category"
+                    />
+                    </div>
                 </div>
               </div>
             )}
