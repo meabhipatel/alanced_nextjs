@@ -15,6 +15,18 @@ const sitemap = (): MetadataRoute.Sitemap => {
       priority: 0.89,
     },
     {
+      url: `${process.env.NEXT_PUBLIC_APP_BASE_URL}/login`,
+      priority: 0.88,
+    },
+    {
+      url: `${process.env.NEXT_PUBLIC_APP_BASE_URL}/signup-options`,
+      priority: 0.88,
+    },
+    {
+      url: `${process.env.NEXT_PUBLIC_APP_BASE_URL}/signup`,
+      priority: 0.88,
+    },
+    {
       url: `${process.env.NEXT_PUBLIC_APP_BASE_URL}/why-alanced`,
       priority: 0.8,
     },
