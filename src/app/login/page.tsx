@@ -277,7 +277,7 @@ const Login = () => {
               </div>
 
               <button
-                className="focus:shadow-outline-blue font-jost flex w-full items-center justify-center rounded-lg border border-gray-200 bg-white px-4 py-2 text-center text-sm font-semibold leading-5 text-black transition-colors duration-150 focus:outline-none"
+                className="focus:shadow-outline-blue font-jost flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2 text-center text-sm font-semibold leading-5 text-black transition-colors duration-150 focus:outline-none"
                 onClick={Login}
               >
                 <FcGoogle />
