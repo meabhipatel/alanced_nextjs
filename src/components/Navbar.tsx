@@ -19,6 +19,7 @@ import { dontNeedMTScreens } from "./DynamicMarginTop";
 import { TbLogout } from "react-icons/tb";
 import { ELoginMethod, handleLogoutUserAction } from "@/store/features/auth/authSlice";
 import cookies from "js-cookie";
+import { IoChevronDown } from "react-icons/io5";
 
 const Navbar = () => {
   const router = useRouter();
@@ -475,14 +476,7 @@ const Navbar = () => {
           </div>
         ) : (
           <div className="relative flex w-full items-center justify-between p-5 lg:p-0">
-            <Link
-              href={loginType === "FREELANCER" ? "/freelancer" : "/hirer"}
-              onMouseEnter={() => {
-                setFindworkDropdown(false);
-                setReportsDropdown(false);
-                setMyJobsDropdown(false);
-              }}
-            >
+            <Link href={loginType === "FREELANCER" ? "/freelancer" : "/hirer"}>
               <div className="flex flex-shrink-0 items-center">
                 <Image
                   src={logo}
@@ -495,21 +489,13 @@ const Navbar = () => {
             </Link>
 
             {/* ----> Navigations  */}
-            <div className="hidden p-5 text-sm lg:flex">
+            <div className="hidden text-sm lg:flex">
               {loginType === "FREELANCER" ? (
                 <>
-                  <span
-                    className="mt-4 block cursor-pointer text-[16px] text-[#031136] lg:mr-12 lg:mt-0 lg:inline-block"
-                    onMouseEnter={() => {
-                      setFindworkDropdown(true);
-                      setReportsDropdown(false);
-                      setMyJobsDropdown(false);
-                    }}
-                  >
-                    Search Job <i className="bi bi-chevron-down text-xs text-[#031136]"></i>
-                  </span>
-                  {Findworkdropdown && (
-                    <div className="dropdown-container absolute right-[11rem] z-20 mt-5 w-48 rounded-md bg-white shadow-lg md:right-[54.5rem]">
+                  <div className="group relative mr-12 flex cursor-pointer items-center gap-[0.15rem] py-2 text-[16px] text-[#031136]">
+                    Search Job <IoChevronDown />
+                    {/* ---> Drop down */}
+                    <div className="dropdown-container absolute right-0 top-4 z-20 mt-5 hidden w-48 rounded-md bg-white shadow-lg group-hover:block">
                       <div className="py-1">
                         <Link
                           href="/search-job"
@@ -536,7 +522,7 @@ const Navbar = () => {
                           </span>
                         </Link>
                         <Link
-                          href="/freelancer/edit-profile"
+                          href="/freelancer/profile"
                           className="flex items-center px-4 py-2"
                         >
                           <span className="text-[16px] text-[#031136] hover:text-blue-600">
@@ -545,36 +531,21 @@ const Navbar = () => {
                         </Link>
                       </div>
                     </div>
-                  )}
+                  </div>
                 </>
               ) : (
                 <Link href="/hirer/profile">
-                  <button
-                    className="mt-4 block text-[16px] text-[#031136] lg:mr-12 lg:mt-0 lg:inline-block"
-                    onClick={() => {
-                      setFindworkDropdown(false);
-                      setReportsDropdown(false);
-                      setMyJobsDropdown(false);
-                    }}
-                  >
-                    Search Freelancer{" "}
-                  </button>
+                  <div className="mr-12 flex cursor-pointer items-center gap-[0.15rem] py-2 text-[16px] text-[#031136]">
+                    Search Freelancer
+                  </div>
                 </Link>
               )}
               {loginType === "FREELANCER" ? (
                 <>
-                  <button
-                    className="mt-4 block cursor-pointer text-[16px] text-[#031136] lg:mr-12 lg:mt-0 lg:inline-block"
-                    onMouseEnter={() => {
-                      setMyJobsDropdown(true);
-                      setFindworkDropdown(false);
-                      setReportsDropdown(false);
-                    }}
-                  >
-                    My Jobs <i className="bi bi-chevron-down text-xs text-[#031136]"></i>
-                  </button>
-                  {MyJobsdropdown && (
-                    <div className="dropdown-container absolute right-[11rem] z-20 mt-5 w-48 rounded-md bg-white shadow-lg md:right-[46.5rem]">
+                  <div className="group relative mr-12 flex cursor-pointer items-center gap-[0.15rem] py-2 text-[16px] text-[#031136]">
+                    My Jobs <IoChevronDown />
+                    {/* ---> Drop down */}
+                    <div className="dropdown-container absolute right-0 top-4 z-20 mt-5 hidden w-48 rounded-md bg-white shadow-lg group-hover:block">
                       <div className="py-1">
                         <Link
                           href="/all-invitations"
@@ -594,23 +565,14 @@ const Navbar = () => {
                         </Link>
                       </div>
                     </div>
-                  )}{" "}
+                  </div>
                 </>
               ) : (
                 <>
-                  <span
-                    className="mt-4 block cursor-pointer text-[16px] text-[#031136] lg:mr-12 lg:mt-0 lg:inline-block"
-                    onMouseEnter={() => {
-                      setMyJobsDropdown(true);
-                      setFindworkDropdown(false);
-                      setReportsDropdown(false);
-                    }}
-                  >
-                    {" "}
-                    Jobs <i className="bi bi-chevron-down text-xs text-[#031136]"></i>
-                  </span>
-                  {MyJobsdropdown && (
-                    <div className="dropdown-container absolute right-[11rem] z-20 mt-5 w-48 rounded-md bg-white shadow-lg md:right-[47rem]">
+                  <div className="group relative mr-12 flex cursor-pointer items-center gap-[0.15rem] py-2 text-[16px] text-[#031136]">
+                    Jobs <IoChevronDown />
+                    {/* ---> Drop down */}
+                    <div className="dropdown-container absolute right-0 top-4 z-20 mt-5 hidden w-48 rounded-md bg-white shadow-lg group-hover:block">
                       <div className="py-1">
                         <Link
                           href="/add/Job-post"
@@ -646,24 +608,15 @@ const Navbar = () => {
                         </Link>
                       </div>
                     </div>
-                  )}{" "}
+                  </div>
                 </>
               )}
               {loginType === "FREELANCER" ? (
                 <>
-                  <span
-                    className="mt-4 block cursor-pointer text-[16px] text-[#031136] lg:mr-12 lg:mt-0 lg:inline-block"
-                    onMouseEnter={() => {
-                      setReportsDropdown(true);
-                      setFindworkDropdown(false);
-                      setMyJobsDropdown(false);
-                    }}
-                  >
-                    {" "}
-                    Payments <i className="bi bi-chevron-down text-xs text-[#031136]"></i>
-                  </span>
-                  {Reportsdropdown && (
-                    <div className="dropdown-container absolute right-[11rem] z-20 mt-5 w-48 rounded-md bg-white shadow-lg md:right-[38.5rem]">
+                  <div className="group relative mr-12 flex cursor-pointer items-center gap-[0.15rem] py-2 text-[16px] text-[#031136]">
+                    Payments <IoChevronDown />
+                    {/* ---> Drop down */}
+                    <div className="dropdown-container absolute right-0 top-4 z-20 mt-5 hidden w-48 rounded-md bg-white shadow-lg group-hover:block">
                       <div className="py-1">
                         <Link
                           href="/freelancer/my-reports"
@@ -675,23 +628,14 @@ const Navbar = () => {
                         </Link>
                       </div>
                     </div>
-                  )}
+                  </div>
                 </>
               ) : (
                 <>
-                  <span
-                    className="mt-4 block cursor-pointer text-[16px] text-[#031136] lg:mr-12 lg:mt-0 lg:inline-block"
-                    onMouseEnter={() => {
-                      setReportsDropdown(true);
-                      setMyJobsDropdown(false);
-                      setFindworkDropdown(false);
-                    }}
-                  >
-                    {" "}
-                    Payments <i className="bi bi-chevron-down text-xs text-[#031136]"></i>
-                  </span>
-                  {Reportsdropdown && (
-                    <div className="dropdown-container absolute right-[11rem] z-20 mt-5 w-48 rounded-md bg-white shadow-lg md:right-[39.5rem]">
+                  <div className="group relative mr-12 flex cursor-pointer items-center gap-[0.15rem] py-2 text-[16px] text-[#031136]">
+                    Payments <IoChevronDown />
+                    {/* ---> Drop down */}
+                    <div className="dropdown-container absolute right-0 top-4 z-20 mt-5 hidden w-48 rounded-md bg-white shadow-lg group-hover:block">
                       <div className="py-1">
                         <Link
                           href="/freelancer/my-reports"
@@ -703,23 +647,16 @@ const Navbar = () => {
                         </Link>
                       </div>
                     </div>
-                  )}
+                  </div>
                 </>
               )}
 
               {/** ######################### */}
 
               <Link href="/messages">
-                <span
-                  className="mt-4 block text-[16px] text-[#031136] lg:mt-0 lg:inline-block"
-                  onMouseEnter={() => {
-                    setFindworkDropdown(false);
-                    setReportsDropdown(false);
-                    setMyJobsDropdown(false);
-                  }}
-                >
+                <div className="flex cursor-pointer items-center gap-[0.15rem] py-2 text-[16px] text-[#031136]">
                   Messages
-                </span>
+                </div>
               </Link>
             </div>
 
