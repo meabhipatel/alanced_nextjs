@@ -506,7 +506,7 @@ const Navbar = () => {
                           </span>
                         </Link>
                         <Link
-                          href="/saved-jobs"
+                          href="/freelancer/saved-jobs"
                           className="flex items-center px-4 py-2"
                         >
                           <span className="text-[16px] text-[#031136] hover:text-blue-600">
@@ -514,7 +514,7 @@ const Navbar = () => {
                           </span>
                         </Link>
                         <Link
-                          href="/my-proposals"
+                          href="/freelancer/my-proposals"
                           className="flex items-center px-4 py-2"
                         >
                           <span className="text-[16px] text-[#031136] hover:text-blue-600">
@@ -548,7 +548,7 @@ const Navbar = () => {
                     <div className="dropdown-container absolute right-0 top-4 z-20 mt-5 hidden w-48 rounded-md bg-white shadow-lg group-hover:block">
                       <div className="py-1">
                         <Link
-                          href="/all-invitations"
+                          href="/freelancer/all-invitations"
                           className="flex items-center px-4 py-2"
                         >
                           <span className="text-[16px] text-[#031136] hover:text-blue-600">
@@ -619,7 +619,7 @@ const Navbar = () => {
                     <div className="dropdown-container absolute right-0 top-4 z-20 mt-5 hidden w-48 rounded-md bg-white shadow-lg group-hover:block">
                       <div className="py-1">
                         <Link
-                          href="/freelancer/my-reports"
+                          href="/freelancer/transaction-history"
                           className="flex items-center px-4 py-2"
                         >
                           <span className="text-[16px] text-[#031136] hover:text-blue-600">
