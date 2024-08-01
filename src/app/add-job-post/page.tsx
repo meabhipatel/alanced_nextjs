@@ -132,6 +132,12 @@ const AddJobPost = () => {
     setStep(prevStep => Math.max(prevStep - 1, 1));
   };
 
+
+  const selectOptionHandler = (value: string) => {
+    setSelectedOption(value);
+    setAddProject((prev: Project) => ({ ...prev, rate: value }));
+  };
+
   const getButtonText = (currentStep: number) => {
     switch (currentStep) {
       case 1:
@@ -349,7 +355,79 @@ const AddJobPost = () => {
   </div>
 )}
 
-          
+ {step === 4 && (
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
+                  <div className="flex-1 mb-5 md:mb-0 md:mr-4">
+                    <h1 className="text-3xl md:text-4xl text-blue-600 font-cardo font-semibold">
+                      Define Budget and Rate
+                    </h1>
+                    <p className="text-base sm:text-lg opacity-75 font-cardo font-medium py-2 sm:py-4">
+                      Set Your Budget and Rate for the Job
+                    </p>
+                  </div>
+                  <div className="flex-1">
+                    <label className="block text-lg sm:text-xl mt-2 font-cardo" htmlFor="rate">
+                      Rate Type
+                    </label>
+                    <div className="flex space-x-4">
+                      <button
+                        onClick={() => selectOptionHandler("hourly")}
+                        className={`px-6 py-3 rounded-md ${selectedOption === "hourly" ? 'bg-gradient-to-b from-[#0909E9] to-[#00D4FF] text-white' : 'bg-gray-200'} flex items-center justify-center`}
+                      >
+                        Hourly
+                      </button>
+                      <button
+                        onClick={() => selectOptionHandler("fixed")}
+                        className={`px-6 py-3 rounded-md ${selectedOption === "fixed" ? 'bg-gradient-to-b from-[#0909E9] to-[#00D4FF] text-white' : 'bg-gray-200'} flex items-center justify-center`}
+                      >
+                        Fixed
+                      </button>
+                    </div>
+                    {selectedOption === "hourly" && (
+                      <div className="mt-4">
+                        <label className="block text-lg sm:text-xl mt-2 font-cardo" htmlFor="minHourlyRate">
+                          Minimum Hourly Rate
+                        </label>
+                        <input
+                          type="number"
+                          onChange={onChange}
+                          name="min_hourly_rate"
+                          value={addProject.min_hourly_rate || ""}
+                          className="border my-2 py-2 px-3 rounded-md w-full focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                          placeholder="Enter minimum hourly rate"
+                        />
+                        <label className="block text-lg sm:text-xl mt-2 font-cardo" htmlFor="maxHourlyRate">
+                          Maximum Hourly Rate
+                        </label>
+                        <input
+                          type="number"
+                          onChange={onChange}
+                          name="max_hourly_rate"
+                          value={addProject.max_hourly_rate || ""}
+                          className="border my-2 py-2 px-3 rounded-md w-full focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                          placeholder="Enter maximum hourly rate"
+                        />
+                      </div>
+                    )}
+                    {selectedOption === "fixed" && (
+                      <div className="mt-4">
+                        <label className="block text-lg sm:text-xl mt-2 font-cardo" htmlFor="fixedBudget">
+                          Fixed Budget
+                        </label>
+                        <input
+                          type="number"
+                          onChange={onChange}
+                          name="fixed_budget"
+                          value={addProject.fixed_budget || ""}
+                          className="border my-2 py-2 px-3 rounded-md w-full focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                          placeholder="Enter fixed budget"
+                        />
+                      </div>
+                    )}
+
+                  </div>
+                </div>
+              )}
           
           {step !== 1 && (
             <div className="flex justify-between items-center mt-4">
