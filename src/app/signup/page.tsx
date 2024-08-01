@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useState } from "react";
 // import { Link, useNavigate } from "react-router-dom";
 // import registerimg from "../../components/images/register.png";
@@ -16,6 +16,11 @@ import { toast } from "react-hot-toast";
 import Link from "next/link";
 // import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { FcGoogle } from "react-icons/fc";
+import { errorLog } from "@/utils/errorLog";
+import { axiosIntance } from "@/utils/axiosIntance";
+import { IoEyeSharp } from "react-icons/io5";
+import { FaEyeSlash } from "react-icons/fa6";
 
 interface IFreelancer {
   first_Name: string;
@@ -24,44 +29,33 @@ interface IFreelancer {
   password: string;
 }
 
-
-const Registration = () => {
-  const [addFreelancer, setAddFreelancer] = useState<IFreelancer>({
+const Signup = () => {
+  const [userInfo, setUserInfo] = useState<IFreelancer>({
     first_Name: "",
     last_Name: "",
     email: "",
     password: "",
   });
+  const [inputType, setInputType] = useState("password");
+  const [isLoading, setIsLoading] = useState(false);
   // const dispatch = useDispatch();
   // const router = useRouter();
   // const addfree = useSelector((state:any) => state.freelancer.addfree);
   // console.log(addfree);
-  const [inputType, setInputType] = useState("password");
-  const [show, toogleShow] = useState(false);
+  // const [show, toogleShow] = useState(false);
   // const [emailval, setemailval] = useState(false);
   // const [allfieldval, setallfieldval] = useState(false);
-  // const Loader = () => {
-  //   if (addfree == false || addfree == true) {
-  //     toogleShow(false);
-  //     router.push("/");
-  //   }
-  //   return (
-  //     <>
-  //       <div className="mx-auto h-4 w-4 animate-spin rounded-full border-t-2 border-white"></div>
-  //     </>
-  //   );
-  // };
 
   const togglePasswordVisibility = () => {
     setInputType(inputType === "password" ? "text" : "password");
   };
 
-  function validateEmail(email:string) {
+  function validateEmail(email: string) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   }
 
-  function validatePassword(password:string) {
+  function validatePassword(password: string) {
     const minLength = 8;
     const hasUppercase = /[A-Z]/.test(password);
     const hasLowercase = /[a-z]/.test(password);
@@ -87,48 +81,53 @@ const Registration = () => {
     return true;
   }
 
-  const AddFreelancer = () => {
-    if (
-      !addFreelancer.first_Name ||
-      !addFreelancer.last_Name ||
-      !addFreelancer.email ||
-      !addFreelancer.password
-    ) {
+  const handleRegisterUser = async () => {
+    if (!userInfo.first_Name || !userInfo.last_Name || !userInfo.email || !userInfo.password) {
       toast.error("All fields are required");
       return;
     }
-    if (!validateEmail(addFreelancer.email)) {
+    if (!validateEmail(userInfo.email)) {
       toast.error("Enter a valid email address");
       return;
     }
-    if (!validatePassword(addFreelancer.password)) {
+    if (!validatePassword(userInfo.password)) {
       toast.error(
         "Password must contain atleast 8 characters,one numeric digit,one uppercase & lowercase letter and one special character, e.g., ! @ # ?"
       );
       return;
     }
 
+    setIsLoading(true);
+
     const formData = new URLSearchParams();
-    formData.append("first_Name", addFreelancer.first_Name);
-    formData.append("last_Name", addFreelancer.last_Name);
-    formData.append("email", addFreelancer.email);
-    formData.append("password", addFreelancer.password);
-    formData.append("password2", addFreelancer.password);
+    formData.append("first_Name", userInfo.first_Name);
+    formData.append("last_Name", userInfo.last_Name);
+    formData.append("email", userInfo.email);
+    formData.append("password", userInfo.password);
+    formData.append("password2", userInfo.password);
+
+    try {
+      const res = await axiosIntance.post("/account/freelancer/registration", { data: formData });
+      toast.success(res.data?.message);
+    } catch (error) {
+      errorLog(error);
+    } finally {
+      setIsLoading(false);
+    }
 
     // dispatch(AddNewFreelancerAction(formData));
-    toogleShow(true);
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAddFreelancer({
-      ...addFreelancer,
+    setUserInfo({
+      ...userInfo,
       [e.target.name]: e.target.value,
     });
   };
 
   const handle_password_alert = () => {
-    if (typeof addFreelancer.password !== "undefined") {
-      if (validatePassword(addFreelancer.password) === false) {
+    if (typeof userInfo.password !== "undefined") {
+      if (validatePassword(userInfo.password) === false) {
         return (
           // <alert
           <span
@@ -145,7 +144,7 @@ const Registration = () => {
               3. One uppercase & lowercase letter <br />
               4. One special character, e.g., ! @ # ?
             </p>
-            </span>
+          </span>
           // </alert>
         );
       }
@@ -153,8 +152,8 @@ const Registration = () => {
   };
 
   // const handlealert = ()=>{
-  //     if (typeof(addFreelancer.email)!="undefined"){
-  //         if(validateEmail(addFreelancer.email)==false){
+  //     if (typeof(userInfo.email)!="undefined"){
+  //         if(validateEmail(userInfo.email)==false){
   //           return   <Alert className='mb-2 mt-1 bg-gradient-to-r from-[#0909E9] to-[#00D4FF]  text-white font-semibold' animate={{mount:{ y:0 }, unmount:{ y: 100},}}>
   //           <Typography className="">
   //             Please give valid email address
@@ -165,26 +164,26 @@ const Registration = () => {
 
   //       let a=false
   //       // const handleDisable_btn= ()=> {
-  //       if(typeof(addFreelancer.first_Name)==='undefined'){
+  //       if(typeof(userInfo.first_Name)==='undefined'){
   //           a=true
-  //       } else if(typeof(addFreelancer.last_Name)==='undefined'){
+  //       } else if(typeof(userInfo.last_Name)==='undefined'){
   //           a=true
-  //       }else if(typeof(addFreelancer.email)==='undefined'){
+  //       }else if(typeof(userInfo.email)==='undefined'){
   //           a=true
-  //       }else if(validateEmail(addFreelancer.email)==false){
+  //       }else if(validateEmail(userInfo.email)==false){
   //         a=true
-  //       }else if(typeof(addFreelancer.password)==='undefined'){
+  //       }else if(typeof(userInfo.password)==='undefined'){
   //           a=true
-  //       }else if(validatePassword(addFreelancer.password)==false){
+  //       }else if(validatePassword(userInfo.password)==false){
   //           a=true
-  //       }else if(addFreelancer.first_Name==""){
+  //       }else if(userInfo.first_Name==""){
   //           a=true
-  //       }else if(addFreelancer.last_Name==""){
+  //       }else if(userInfo.last_Name==""){
   //           a=true
-  //       }else if(addFreelancer.email==""){
+  //       }else if(userInfo.email==""){
   //           a=true
   //       }
-  //       else if(addFreelancer.password==""){
+  //       else if(userInfo.password==""){
   //           a=true
   //       }
 
@@ -249,9 +248,7 @@ const Registration = () => {
                 src={registerimg2}
                 alt="img"
               />
-              <Link
-                href="/"
-              >
+              <Link href="/">
                 <div className="absolute left-[18%] top-[19px] flex -translate-x-1/2 transform items-center space-x-2 rounded-bl-none rounded-br rounded-tl-none rounded-tr bg-[#E2F9EE] p-3 sm:left-1/4 md:left-[73.2px] lg:bg-white">
                   <Image
                     src={logo}
@@ -264,12 +261,12 @@ const Registration = () => {
                 </div>
               </Link>
             </div>
-            <div className="flex items-center justify-center p-8 sm:px-14 md:w-[57%]">
+            <div className="flex items-center justify-center p-8 pt-4 sm:px-14 md:w-[57%]">
               <div className="w-full">
-                <div className="-mt-[20px] flex items-center justify-between">
-                  <p className="ml-[170px] inline-block text-xs">Already have an account?</p>
+                <div className="flex items-center justify-between">
+                  <p className="inline-block text-xs">Already have an account?</p>
                   <Link href="/login">
-                    <span className="inline-block rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-[10px] text-sm font-semibold text-white">
+                    <span className="mb-6 ml-4 inline-block w-24 rounded bg-gradient-to-r from-[#0909E9] to-[#00D4FF] py-[10px] text-center text-sm font-semibold text-white">
                       Sign in
                     </span>
                   </Link>
@@ -280,25 +277,32 @@ const Registration = () => {
                 </h1>
                 <div className="flex flex-row space-x-4">
                   <div className="">
-                    <label htmlFor="firstname" className="font-cardo block text-left text-sm">
+                    <label
+                      htmlFor="firstname"
+                      className="font-cardo block text-left text-sm"
+                    >
                       First Name <span className="text-red-500">*</span>
                     </label>
                     <input
-                    id="firstname"
+                      id="firstname"
                       type="text"
                       className="mt-1 w-full rounded-md border px-4 py-2 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
                       placeholder="First Name"
                       name="first_Name"
                       onChange={onChange}
                       required
+                      autoComplete={"on"}
                     />
                   </div>
                   <div className="">
-                    <label htmlFor="lastname" className="font-cardo block text-left text-sm">
+                    <label
+                      htmlFor="lastname"
+                      className="font-cardo block text-left text-sm"
+                    >
                       Last Name <span className="text-red-500">*</span>
                     </label>
                     <input
-                    id="lastname"
+                      id="lastname"
                       type="text"
                       className="mt-1 w-full rounded-md border px-4 py-2 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
                       placeholder="Last Name"
@@ -309,11 +313,14 @@ const Registration = () => {
                   </div>
                 </div>
                 <div>
-                  <label htmlFor="email" className="font-cardo mt-4 block text-left text-sm">
+                  <label
+                    htmlFor="email"
+                    className="font-cardo mt-4 block text-left text-sm"
+                  >
                     Email Address <span className="text-red-500">*</span>
                   </label>
                   <input
-                  id="email"
+                    id="email"
                     type="email"
                     className="mt-1 w-full rounded-md border px-4 py-2 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
                     placeholder="example@gmail.com"
@@ -323,12 +330,15 @@ const Registration = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="password" className="font-cardo mt-4 block text-left text-sm">
+                  <label
+                    htmlFor="password"
+                    className="font-cardo mt-4 block text-left text-sm"
+                  >
                     Password <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
                     <input
-                    id="password"
+                      id="password"
                       type={inputType}
                       className="mt-1 w-full rounded-md border px-4 py-2 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
                       placeholder="•••••••••••"
@@ -340,9 +350,10 @@ const Registration = () => {
                       onClick={togglePasswordVisibility}
                       className="absolute right-3 top-1/2 -translate-y-1/2 transform"
                     >
-                      <i
+                      {inputType === "password" ? <IoEyeSharp /> : <FaEyeSlash />}
+                      {/* <i
                         className={`fa ${inputType === "password" ? "fa-eye-slash" : "fa-eye"} text-blue-600`}
-                      ></i>
+                      ></i> */}
                     </button>
                   </div>
                 </div>
@@ -351,13 +362,10 @@ const Registration = () => {
                         {handleallalert()} */}
                 <button
                   className="focus:shadow-outline-blue mt-4 block w-full rounded-lg border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-2 text-center text-sm font-semibold leading-5 text-white transition-colors duration-150 focus:outline-none"
-                  // href="#"
-                  onClick={AddFreelancer}
+                  onClick={handleRegisterUser}
                 >
-                  {show ? (
-                    <div>
-                      {/* <Loader /> */}
-                    </div>
+                  {isLoading ? (
+                    <div className="mx-auto h-5 w-5 animate-spin rounded-full border-2 border-transparent border-l-white border-t-white"></div>
                   ) : (
                     "Create your account"
                   )}
@@ -370,14 +378,10 @@ const Registration = () => {
                 </div>
 
                 <button
-                  className="focus:shadow-outline-blue font-jost flex w-full items-center justify-center rounded-lg border border-gray-200 bg-white px-4 py-2 text-center text-sm font-semibold leading-5 text-black transition-colors duration-150 focus:outline-none"
+                  className="focus:shadow-outline-blue font-jost flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2 text-center text-sm font-semibold leading-5 text-black transition-colors duration-150 focus:outline-none"
                   // onClick={logins}
                 >
-                  {/* <Image
-                    src={google}
-                    alt=""
-                    className="mr-2"
-                  />{" "} */}
+                  <FcGoogle className="text-xl" />
                   Sign Up with Google
                 </button>
                 <p className="font-inter pt-3 text-left text-xs">
@@ -395,4 +399,4 @@ const Registration = () => {
   );
 };
 
-export default Registration;
+export default Signup;
