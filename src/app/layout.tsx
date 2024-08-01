@@ -8,7 +8,7 @@ import AuthProvider from "@/components/AuthProvider";
 const poppins = Poppins({ weight: "400", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://acme.com"),
+  metadataBase: new URL(`${process.env.NEXT_PUBLIC_APP_BASE_URL}`),
   title: {
     default: "Alanced | Next js",
     template: "%s - Best platform for freelancer",
