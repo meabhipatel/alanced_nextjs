@@ -41,27 +41,34 @@ const MyProposals: React.FC = () => {
       {clickedButton === 1 && (
         <>
           <div className="my-4 bg-white border border-gray-200 border-opacity-30 p-6 w-full rounded-lg shadow-md">
-            <div className="text-[#0A142F] font-bold text-lg mb-4">Submitted Proposals (1)</div>
-            <div className="my-4 bg-white border border-gray-200 border-opacity-30 p-6 w-full rounded-lg shadow-md">
-  <div className="text-[#0A142F] font-bold text-lg mb-4">Submitted Proposals (1)</div>
-  <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-    <div className="flex flex-col items-start">
-      <div className="text-[#0A142F] text-base">Initiated Feb 16, 2024</div>
-      <div className="text-sm text-[#5b5d61] mt-1">5 Months Ago</div>
-    </div>
-    <button
-      className="text-[#0A142F] text-sm text-center flex-grow md:flex-none md:w-auto hover:underline bg-transparent border-none cursor-pointer"
-      onClick={() => handleButtonClick(1)}
-    >
-      Fitness Tracking App
-    </button>
-    <div className="text-[#0A142F] text-sm text-right">Web Development</div>
-  </div>
-</div>
-
+            <div className="text-[#0A142F] font-bold text-lg mb-4">
+              Submitted Proposals (1)
+            </div>
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+              <div className="flex flex-col items-start">
+                <div className="text-[#0A142F] text-base">
+                  Initiated Feb 16, 2024
+                </div>
+                <div className="text-sm text-[#5b5d61] mt-1">
+                  5 Months Ago
+                </div>
+              </div>
+              <button
+                className="text-[#0A142F] text-sm text-center flex-grow md:flex-none md:w-auto hover:underline bg-transparent border-none cursor-pointer"
+                onClick={() => handleButtonClick(1)}
+              >
+                Fitness Tracking App
+              </button>
+              <div className="text-[#0A142F] text-sm text-right">
+                Web Development
+              </div>
+            </div>
           </div>
+
           <div className="my-4 bg-white border border-gray-200 border-opacity-30 p-6 w-full rounded-lg shadow-md">
-            <div className="text-[#0A142F] font-bold text-lg mb-4">Pending Invitation (0)</div>
+            <div className="text-[#0A142F] font-bold text-lg mb-4">
+              Pending Invitation (0)
+            </div>
             <div className="flex flex-col items-center">
               <div className="bg-gradient-to-r from-[#0909E9] to-[#00D4FF] p-3 rounded-full">
                 <FaRegFolder className="text-white text-2xl" />
@@ -74,13 +81,21 @@ const MyProposals: React.FC = () => {
       {clickedButton === 2 && (
         <div className="my-4 bg-white border border-gray-200 border-opacity-30 p-6 w-full rounded-lg shadow-md">
           <div className="flex flex-col items-center gap-4">
-            <Image src={referral} alt="Referrals" className="w-full max-w-[450px] h-auto" />
-            <div className="text-[#09090a] text-extrabold text-lg text-center">You haven’t referred anyone yet</div>
-            <div className="text-[#5b5d61] text-center text-base">
-              When declining an invitation, you can make a referral to help other freelancers
-              <br />succeed and help clients fill their job
+            <Image
+              src={referral}
+              alt="Referrals"
+              className="w-full max-w-[450px] h-auto"
+            />
+            <div className="text-[#09090a] text-extrabold text-lg text-center">
+              You haven’t referred anyone yet
             </div>
-            <div className="text-[#0A142F] text-base text-center">Learn more about referring freelancers</div>
+            <div className="text-[#5b5d61] text-center text-base">
+              When declining an invitation, you can make a referral to help
+              other freelancers <br /> succeed and help clients fill their job
+            </div>
+            <div className="text-[#0A142F] text-base text-center">
+              Learn more about referring freelancers
+            </div>
           </div>
         </div>
       )}
