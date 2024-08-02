@@ -23,7 +23,11 @@ const sitemap = (): MetadataRoute.Sitemap => {
       priority: 0.88,
     },
     {
-      url: `${process.env.NEXT_PUBLIC_APP_BASE_URL}/signup`,
+      url: `${process.env.NEXT_PUBLIC_APP_BASE_URL}/signup/freelancer`,
+      priority: 0.88,
+    },
+    {
+      url: `${process.env.NEXT_PUBLIC_APP_BASE_URL}/signup/hirer`,
       priority: 0.88,
     },
     {
