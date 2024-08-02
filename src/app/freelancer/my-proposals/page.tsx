@@ -42,20 +42,23 @@ const MyProposals: React.FC = () => {
         <>
           <div className="my-4 bg-white border border-gray-200 border-opacity-30 p-6 w-full rounded-lg shadow-md">
             <div className="text-[#0A142F] font-bold text-lg mb-4">Submitted Proposals (1)</div>
-            <div className="flex justify-between items-center">
-              <div className="flex flex-col items-start">
-                <div className="text-[#0A142F] text-base">Initiated Feb 16, 2024</div>
-                <div className="text-sm text-[#5b5d61] mt-1">5 Months Ago</div>
-              </div>
-              <button
-  className="text-[#0A142F] text-sm text-center flex-grow hover:underline bg-transparent border-none cursor-pointer"
-  onClick={() => handleButtonClick(1)}
->
-  Fitness Tracking App
-</button>
+            <div className="my-4 bg-white border border-gray-200 border-opacity-30 p-6 w-full rounded-lg shadow-md">
+  <div className="text-[#0A142F] font-bold text-lg mb-4">Submitted Proposals (1)</div>
+  <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+    <div className="flex flex-col items-start">
+      <div className="text-[#0A142F] text-base">Initiated Feb 16, 2024</div>
+      <div className="text-sm text-[#5b5d61] mt-1">5 Months Ago</div>
+    </div>
+    <button
+      className="text-[#0A142F] text-sm text-center flex-grow md:flex-none md:w-auto hover:underline bg-transparent border-none cursor-pointer"
+      onClick={() => handleButtonClick(1)}
+    >
+      Fitness Tracking App
+    </button>
+    <div className="text-[#0A142F] text-sm text-right">Web Development</div>
+  </div>
+</div>
 
-              <div className="text-[#0A142F] text-sm text-right">Web Development</div>
-            </div>
           </div>
           <div className="my-4 bg-white border border-gray-200 border-opacity-30 p-6 w-full rounded-lg shadow-md">
             <div className="text-[#0A142F] font-bold text-lg mb-4">Pending Invitation (0)</div>
