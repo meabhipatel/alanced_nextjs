@@ -10,7 +10,7 @@ const poppins = Poppins({ weight: "400", subsets: ["latin"] });
 export const metadata: Metadata = {
   metadataBase: new URL(`${process.env.NEXT_PUBLIC_APP_BASE_URL}`),
   title: {
-    default: "Alanced | Next js",
+    default: "Alanced",
     template: "%s - Best platform for freelancer",
   },
   description:
