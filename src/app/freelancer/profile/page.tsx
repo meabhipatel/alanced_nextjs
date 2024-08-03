@@ -236,7 +236,7 @@ const FreelancerSelfProfile = () => {
       .catch((error) => {
         errorLog(error);
       });
-  }, [currentPage]);
+  }, [currentPage, id]);
 
   // useEffect(() => {
   //     if(id) {
@@ -303,9 +303,7 @@ const FreelancerSelfProfile = () => {
       });
   }, []);
 
-  const [isAvailable] = useState(
-    localStorage.getItem("userAvailability") || "available"
-  );
+  const [isAvailable] = useState(localStorage.getItem("userAvailability") || "available");
 
   useEffect(() => {
     localStorage.setItem("userAvailability", isAvailable);
@@ -654,6 +652,11 @@ const FreelancerSelfProfile = () => {
   const words = aboutText.split(/\s+/).slice(0, maxWords);
   const truncatedText = words.join(" ") + (words.length >= maxWords && !isExpanded ? "..." : "");
 
+  const imageUrl: string =
+    freelancerselfprofile && freelancerselfprofile[0]
+      ? "https://www.api.alanced.com" + freelancerselfprofile[0].images_logo
+      : "";
+
   return (
     <>
       <div className="mx-[9%] mt-4">
@@ -667,11 +670,9 @@ const FreelancerSelfProfile = () => {
             <div className="relative mb-4 border-b border-gray-200 border-opacity-30 p-4 py-8 md:mb-0">
               <div className="relative mx-auto h-28 w-28">
                 <Image
-                  src={
-                    freelancerselfprofile && freelancerselfprofile[0]
-                      ? "https://www.api.alanced.com" + freelancerselfprofile[0].images_logo
-                      : ""
-                  }
+                  width={100}
+                  height={100}
+                  src={imageUrl}
                   alt="Profile"
                   className="h-full w-full rounded-full border border-gray-200"
                 />
@@ -793,7 +794,7 @@ const FreelancerSelfProfile = () => {
               freelancerselfprofile[0] &&
               freelancerselfprofile[0].Language
                 ? JSON.parse(freelancerselfprofile[0].Language.replace(/'/g, '"')).map(
-                    (language:string, index:number) => (
+                    (language: string, index: number) => (
                       <p
                         key={index}
                         className="font-inter py-1 text-[14px] text-[#0A142F]"
@@ -949,19 +950,18 @@ const FreelancerSelfProfile = () => {
                       <div className="relative h-[200px] w-[200px] overflow-hidden">
                         {selectedFile ? (
                           <Image
+                            width={100}
+                            height={100}
                             className="absolute inset-0 h-full w-full object-cover"
                             src={URL.createObjectURL(selectedFile)}
                             alt="Profile"
                           />
                         ) : (
                           <Image
+                            width={100}
+                            height={100}
                             className="absolute inset-0 h-full w-full object-cover"
-                            src={
-                              freelancerselfprofile && freelancerselfprofile[0]
-                                ? "https://www.api.alanced.com" +
-                                  freelancerselfprofile[0].images_logo
-                                : ""
-                            }
+                            src={imageUrl}
                             alt="Profile"
                           />
                         )}
@@ -969,19 +969,18 @@ const FreelancerSelfProfile = () => {
                       <div className="relative h-28 w-28 overflow-hidden">
                         {selectedFile ? (
                           <Image
+                            width={100}
+                            height={100}
                             className="absolute inset-0 h-full w-full object-cover"
                             src={URL.createObjectURL(selectedFile)}
                             alt="Profile"
                           />
                         ) : (
                           <Image
+                            width={100}
+                            height={100}
                             className="absolute inset-0 h-full w-full object-cover"
-                            src={
-                              freelancerselfprofile && freelancerselfprofile[0]
-                                ? "https://www.api.alanced.com" +
-                                  freelancerselfprofile[0].images_logo
-                                : ""
-                            }
+                            src={imageUrl}
                             alt="Profile"
                           />
                         )}
@@ -989,19 +988,18 @@ const FreelancerSelfProfile = () => {
                       <div className="relative h-20 w-20 overflow-hidden">
                         {selectedFile ? (
                           <Image
+                            width={100}
+                            height={100}
                             className="absolute inset-0 h-full w-full object-cover"
                             src={URL.createObjectURL(selectedFile)}
                             alt="Profile"
                           />
                         ) : (
                           <Image
+                            width={100}
+                            height={100}
                             className="absolute inset-0 h-full w-full object-cover"
-                            src={
-                              freelancerselfprofile && freelancerselfprofile[0]
-                                ? "https://www.api.alanced.com" +
-                                  freelancerselfprofile[0].images_logo
-                                : ""
-                            }
+                            src={imageUrl}
                             alt="Profile"
                           />
                         )}
@@ -1009,19 +1007,18 @@ const FreelancerSelfProfile = () => {
                       <div className="relative h-16 w-16 overflow-hidden">
                         {selectedFile ? (
                           <Image
+                            width={100}
+                            height={100}
                             className="absolute inset-0 h-full w-full object-cover"
                             src={URL.createObjectURL(selectedFile)}
                             alt="Profile"
                           />
                         ) : (
                           <Image
+                            width={100}
+                            height={100}
                             className="absolute inset-0 h-full w-full object-cover"
-                            src={
-                              freelancerselfprofile && freelancerselfprofile[0]
-                                ? "https://www.api.alanced.com" +
-                                  freelancerselfprofile[0].images_logo
-                                : ""
-                            }
+                            src={imageUrl}
                             alt="Profile"
                           />
                         )}
@@ -1039,7 +1036,10 @@ const FreelancerSelfProfile = () => {
                     <p className="font-inter text-left text-[14px] text-[#0A142F] opacity-50">
                       Logos, clip-art, group photos, and digitally-altered images are not allowed.
                     </p>
-                    <div onChange={handleFileChange} className="mt-8 flex justify-end">
+                    <div
+                      onChange={handleFileChange}
+                      className="mt-8 flex justify-end"
+                    >
                       <Link href="">
                         <button
                           className="mr-3 inline-block rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-[10px] text-sm font-semibold text-white"
