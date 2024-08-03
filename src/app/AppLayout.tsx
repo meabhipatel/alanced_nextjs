@@ -18,7 +18,7 @@ const AppLayout: FC<IProps> = ({ children }) => {
     "/signup/freelancer",
     "/signup/hirer",
     "/signup-options",
-    "reset-password",
+    "/reset-password",
   ];
 
   return (
