@@ -13,7 +13,13 @@ interface IProps {
 const AppLayout: FC<IProps> = ({ children }) => {
   const pathname = usePathname();
 
-  const withoutNavbarScreens = ["/login", "/signup/freelancer", "/signup/hirer", "/signup-options"];
+  const withoutNavbarScreens = [
+    "/login",
+    "/signup/freelancer",
+    "/signup/hirer",
+    "/signup-options",
+    "reset-password",
+  ];
 
   return (
     <div className="mx-auto max-w-[1536px] bg-white">
