@@ -16,23 +16,23 @@ const AllContracts = () => {
           placeholder="Search contracts"
           className="w-full pl-4 py-2 border-none focus:outline-none"
         />
-        <button className="bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-lg p-2 ml-2 hover:from-blue-500 hover:to-blue-700 transition-colors">
+        <button className="bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-lg p-2 ml-2">
           <IoIosSearch className="w-5 h-5" />
         </button>
       </div>
-      <div className="my-4 bg-white border border-gray-200 border-opacity-30 p-4 sm:p-6 rounded-lg shadow-md">
+      <div className="my-4 bg-white border border-gray-200 border-opacity-30 p-4 sm:p-6 w-full rounded-lg shadow-md">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="flex flex-col">
-            <div className="font-serif font-semibold text-black text-lg mb-2">CRM Application</div>
-            <div className="text-gray-700 mb-1">Budget: <span className="text-gray-500">$1000 Fixed</span></div>
-            <div className="text-gray-700">Hired by: <span className="text-gray-500">Sachin Sharma</span></div>
+            <div className="font-serif font-semibold text-black text-lg pb-4">CRM Application</div>
+            <div>Budget:<span className="text-gray-500"> $1000 Fixed</span></div>
+            <div>Hired by:<span className="text-gray-500"> sachin sharma</span></div>
           </div>
           <div className="flex items-center justify-center md:justify-start">
-            <div className="text-gray-700">Received: <span className="text-blue-600">Feb 16, 2024</span></div>
+            <div>Received:<span className="text-blue-600"> Feb 16, 2024</span></div>
           </div>
           <div className="flex flex-col items-center md:items-end">
-            <div className="text-yellow-600 font-semibold">Completed</div>
-            <div className="text-gray-700">Deadline: <span className="text-blue-600">Apr 1, 2024</span></div>
+            <div className="text-yellow-600">Completed</div>
+            <div>Deadline:<span className="text-blue-600"> Apr 1, 2024</span></div>
           </div>
         </div>
       </div>
