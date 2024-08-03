@@ -84,7 +84,8 @@ const HomeSection2 = () => {
           return (
             <div
               key={idx}
-              className={`rounded bg-[${item.bgColor}] p-5 shadow`}
+              className={`rounded p-5 shadow`}
+              style={{ background: item.bgColor }}
             >
               <Image
                 src={item.icon}
@@ -92,9 +93,6 @@ const HomeSection2 = () => {
               />
               <h3 className="mt-5 text-left text-xl font-semibold">{item.title1} &</h3>
               <h3 className="text-left text-xl font-semibold">{item.title2}</h3>
-              <h4 className="mt-2 text-left text-sm opacity-50">
-                {item.freelancer.toLocaleString()} Freelancers
-              </h4>
             </div>
           );
         })}
