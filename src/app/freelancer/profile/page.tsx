@@ -1431,6 +1431,8 @@ const FreelancerSelfProfile = () => {
                     >
                       <div className="mt-4 h-[165px] w-full overflow-hidden border border-gray-100">
                         <Image
+                          height={100}
+                          width={100}
                           src={"https://www.api.alanced.com" + pro.images_logo}
                           alt=""
                           style={{
