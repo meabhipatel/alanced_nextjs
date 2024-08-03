@@ -1,51 +1,11 @@
-"use client";
 import Link from "next/link";
 import Image from "next/image";
-import { useState , ChangeEvent } from "react";
-
 import logoTransparent from "@/assets/images/alanced_transparent.png";
-import { FaArrowRightLong, FaFacebookF, FaLinkedinIn } from "react-icons/fa6";
+import { FaFacebookF, FaLinkedinIn } from "react-icons/fa6";
 import { BsTwitterX } from "react-icons/bs";
-
-// import { useDispatch, useSelector } from "react-redux";
-// import { AddUserSubscriptionAction } from "../../redux/User/UserAction";
-// import { toast } from "react-toastify";
+import FooterSubscribeBox from "./FooterSubscribeBox";
 
 const Footer = () => {
-  const initialUserState = {
-    email: "",
-  };
-
-  const [addUserSub, setAddUserSub] = useState(initialUserState);
-  // const dispatch = useDispatch();
-
-  // const addsub = useSelector((state) => state.user.addsub);
-
-  // useEffect(() => {
-  //   if (addsub) {
-  //     setAddUserSub(initialUserState);
-  //   }
-  // }, [addsub]);
-
-  const AddUserSubscribe = () => {
-    if (!addUserSub.email) {
-      // toast.error("Email is Required");
-      return;
-    }
-
-    const formData = new URLSearchParams();
-    formData.append("email", addUserSub.email);
-
-    // dispatch(AddUserSubscriptionAction(formData));
-  };
-
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setAddUserSub({
-      ...addUserSub,
-      [e.target.name]: e.target.value,
-    });
-  };
-
   return (
     <footer className="footer-1 bg-whit py-8 sm:py-12">
       <div className="w-full px-5 lg:px-10">
@@ -93,33 +53,7 @@ const Footer = () => {
               </Link>
             </ul>
           </div>
-          <div className="col-span-2 p-1 md:p-4">
-            <div className="-mt-6 w-full bg-[#F4F5F9] p-2">
-              <h5 className="ml-[23px] pt-[22px] text-start text-xl font-bold">Subscribe</h5>
-              <div className="mt-5 flex w-full items-center px-2">
-                <input
-                  type="email"
-                  className="h-10 w-full p-2 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
-                  placeholder="Email Address"
-                  name="email"
-                  onChange={onChange}
-                  value={addUserSub.email}
-                />
-                <button
-                  className="inline-block h-10 w-12 rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-[12px] text-sm font-semibold text-white lg:mt-0"
-                  onClick={AddUserSubscribe}
-                >
-                  <FaArrowRightLong />
-                </button>
-              </div>
-
-              <p className="pl-6 pt-3 text-left text-[14px] opacity-50">
-                Hello, we are Lift Media. Our goal is to translate <br />
-                the positive effects from revolutionizing how <br /> companies engage with their
-                clients & their <br /> team.
-              </p>
-            </div>
-          </div>
+          <FooterSubscribeBox />
         </div>
 
         <hr className="mx-4 my-6 sm:mx-5" />
