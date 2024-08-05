@@ -11,7 +11,7 @@ import navback from "@/assets/images/nav_background.png";
 import { FiMenu } from "react-icons/fi";
 import { MdAccountCircle, MdClose } from "react-icons/md";
 import { FaBell, FaChevronDown } from "react-icons/fa6";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
@@ -22,7 +22,6 @@ import cookies from "js-cookie";
 import { IoChevronDown } from "react-icons/io5";
 
 const Navbar = () => {
-  const router = useRouter();
   const pathname = usePathname();
   const dispatch = useAppDispatch();
   const { loginMethod, userType: loginType, isLoggedIn } = useAppSelector((state) => state.auth);
@@ -330,7 +329,7 @@ const Navbar = () => {
   /** ---> Closing mobile menu bar on route change */
   useEffect(() => {
     setIsMobileMenuOpen(false);
-  }, [router]);
+  }, [pathname]);
 
   return (
     // <div
