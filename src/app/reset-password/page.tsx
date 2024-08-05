@@ -20,7 +20,7 @@ function ResetPasswordPage() {
       </Link>
       <div className="flex justify-center items-center w-full">
         <div className="bg-white border border-blue-300 p-6 md:p-8 w-full max-w-md md:max-w-xl mx-auto mt-16 md:mt-32 shadow-lg">
-          <h2 className="text-xl md:text-2xl font-thin font-serif mb-4 text-center">Reset Password</h2>
+          <h2 className="text-xl md:text-2xl mb-4 text-center">Reset Password</h2>
           <div className="relative mb-6 mt-1 w-[150px] md:w-[200px] mx-auto">
             <div className="absolute text-center inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
             <div className="rounded-lg border-b-2 border-gray-600"></div>
