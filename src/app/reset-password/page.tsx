@@ -40,6 +40,7 @@ function ResetPasswordPage() {
       </div>
     </div>
   );
+  
 }
 
 export default ResetPasswordPage;
