@@ -216,7 +216,7 @@ const Messages = () => {
   const [messageHistory, setMessageHistory] = useState<IChatMessage[]>([]);
   const [conversations, setConversations] = useState<IChatMessage[]>([]);
   const [backup, setbackup] = useState([]);
-  const [convouser, setConvouser] = useState<IFreelancerDetails | IConvouser | IUserProfile | IUser | null>(null);
+  const [convouser, setConvouser] = useState<IFreelancerDetails | IConvouser | null>(null);
   //console.log("--------------",messageHistory)
   const chatid = logindata.id;
   // const { sendJsonMessage } = useWebSocket("ws://13.233.123.209:8000/4__2");
@@ -580,10 +580,12 @@ const Messages = () => {
                           width={100}
                           src={
                             convo.from_user.id !== logindata.id
-                              ? convo.from_user.images_logo === "/static/images/blank.png"
+                              ? convo.from_user.images_logo &&
+                                convo.from_user.images_logo === "/static/images/blank.png"
                                 ? "https://www.api.alanced.com" + "/media/images/blank.png"
                                 : "https://www.api.alanced.com" + convo.from_user.images_logo
-                              : convo.to_user.images_logo === "/static/images/blank.png"
+                              : convo.to_user.images_logo &&
+                                  convo.to_user.images_logo === "/static/images/blank.png"
                                 ? "https://www.api.alanced.com" + "/media/images/blank.png"
                                 : "https://www.api.alanced.com" + convo.to_user.images_logo
                           }
@@ -943,7 +945,7 @@ const Messages = () => {
                   height={100}
                   width={100}
                   src={
-                    convouser?.images_logo === "/static/images/blank.png"
+                    convouser?.images_logo && convouser?.images_logo === "/static/images/blank.png"
                       ? "https://www.api.alanced.com" + "/media/images/blank.png"
                       : "https://www.api.alanced.com" + convouser?.images_logo
                   }
