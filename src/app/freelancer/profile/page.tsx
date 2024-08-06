@@ -7,8 +7,6 @@ import edit from "@/assets/icons/edit.png";
 // import HomeSection4 from "../../components/Layout/HomeSection4";           for remove
 // import Footer from "../../components/Layout/Footer";                       for remove
 // import { Link, useNavigate } from "react-router-dom";
-import verify from "@/assets/icons/verify.png";
-import location from "@/assets/icons/location.png";
 import availablenow from "@/assets/icons/availablenow.png";
 // import jobsuccess from "../../components/images/jobsuccess.png";           not in use
 // import pin from "../../components/images/pin.png";                         not in use
@@ -22,7 +20,7 @@ import plus from "@/assets/icons/plus.png";
 // import testimonial from "../../components/images/testimonial.png";         not in use
 // import certificate from "../../components/images/certificate.png";         not in use
 // import del from "../../components/images/delete.png";                      not in use
-import experiences from "@/assets/images/experience.png";
+import fileIcon from "@/assets/icons/file.png";
 // import { useDispatch, useSelector } from "react-redux";
 // import { useDispatch } from "react-redux";
 import { RxArrowRight, RxArrowLeft } from "react-icons/rx";
@@ -57,6 +55,8 @@ import { useRouter } from "next/navigation";
 import { axiosWithAuth } from "@/utils/axiosWithAuth";
 import Image from "next/image";
 import { errorLog } from "@/utils/errorLog";
+import { RiVerifiedBadgeFill } from "react-icons/ri";
+import { IoLocationOutline } from "react-icons/io5";
 
 interface FreelancerProfile {
   id: number;
@@ -811,11 +811,7 @@ const FreelancerSelfProfile = () => {
               </h1>
               <p className="font-inter mr-1 inline-block py-1 text-[14px] text-[#0A142F]">
                 ID : <span className="mr-1 opacity-50">Verified</span>
-                <Image
-                  src={verify}
-                  alt=""
-                  className="mb-0.5 inline-block h-3 w-3"
-                />
+                <RiVerifiedBadgeFill className="text-md mr-1 inline-block text-green-600" />
               </p>
               <p className="font-inter py-1 text-[14px] text-[#0A142F] opacity-50">
                 {freelancerselfprofile && freelancerselfprofile[0]
@@ -1076,18 +1072,10 @@ const FreelancerSelfProfile = () => {
                       ? `${freelancerselfprofile[0].first_Name} ${freelancerselfprofile[0].last_Name}`
                       : ""}
                   </h1>
-                  <Image
-                    className="h-4 w-4"
-                    src={verify}
-                    alt="Verification"
-                  />
+                  <RiVerifiedBadgeFill className="text-md mr-1 inline-block text-green-600" />
                 </div>
                 <div className="my-1 flex items-center">
-                  <Image
-                    src={location}
-                    alt="Location"
-                    className="mr-1 h-[13px]"
-                  />
+                  <IoLocationOutline className="text-md mr-1 inline-block" />
                   <p className="font-inter text-[14px] text-[#797979]">
                     {freelancerselfprofile && freelancerselfprofile[0].Address
                       ? freelancerselfprofile[0].Address
@@ -1635,7 +1623,7 @@ const FreelancerSelfProfile = () => {
           {visibleEmp.length === 0 ? (
             <>
               <Image
-                src={experiences}
+                src={fileIcon}
                 alt=""
                 className="mx-auto mt-5"
               />
