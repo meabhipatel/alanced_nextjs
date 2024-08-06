@@ -4,6 +4,7 @@ import "./globals.css";
 import StoreProvider from "./StoreProvider";
 import AppLayout from "./AppLayout";
 import AuthProvider from "@/components/AuthProvider";
+import Script from "next/script";
 
 const poppins = Poppins({ weight: "400", subsets: ["latin"] });
 
@@ -31,9 +32,26 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* ---> Adding google search console and analytics meta data */}
         <meta
           name="google-site-verification"
-          content="WLVA4Hdid84_o9VlZzbl4154ZqFdi-TtOtx_JigH8Hk"
+          content="KC3Jbcpe1LP0A4_Y2WvpfQtoJDJ6iEgKxJkwQlF_Qgk"
+        />
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-4D1CCC035X"
+        ></script>
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-4D1CCC035X');
+            `,
+          }}
         />
       </head>
       <body className={poppins.className}>

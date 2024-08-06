@@ -656,9 +656,8 @@ const SearchFreelancer = () => {
                             <div className="flex flex-row">
                               <div className="absolute bottom-4 basis-8/12 cursor-pointer items-center text-[14px] font-bold text-blue-600 hover:underline">
                                 <Link
-                                  href="/view-freelancer/detail"
+                                  href="/view-freelancer/details"
                                   // state={{ free }}
-                                  onClick={() => window.scroll(0, 0)}
                                 >
                                   <p>View more detail</p>
                                 </Link>
@@ -766,7 +765,6 @@ const SearchFreelancer = () => {
                             : "cursor-pointer text-[14px] font-bold text-[#0A142F]"
                         }`}
                         onClick={() => {
-                          window.scrollTo(0, 0);
                           setCurrentPage(pageNumber);
                         }}
                       >

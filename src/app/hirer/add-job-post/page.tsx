@@ -1,7 +1,7 @@
 "use client";
+import CategoryList from "@/constant/allSelectionData/CategoryList";
+import SkillsList from "@/constant/allSelectionData/SkillsList";
 import React, { useEffect, useRef, useState } from "react";
-import CategoryList from "@/app/add-job-post/freelancers/category-list";
-import SkillsList from "@/app/add-job-post/freelancers/skills-list";
 
 interface Project {
   title?: string;
@@ -17,16 +17,16 @@ interface Project {
 }
 
 const AddJobPost = () => {
-  const [addProject, setAddProject] = useState<any>({}) // eslint-disable-line
-  const [skills, setSkills] = useState<string[]>([]) 
+  const [addProject, setAddProject] = useState<any>({}); // eslint-disable-line
+  const [skills, setSkills] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedOption, setSelectedOption] = useState("hourly") // eslint-disable-line
+  const [selectedOption, setSelectedOption] = useState("hourly"); // eslint-disable-line
   const [searchTerm, setSearchTerm] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const [searchTermSkill, setSearchTermSkill] = useState("") // eslint-disable-line
-  const [isOpenSkill, setIsOpenSkill] = useState(false) // eslint-disable-line
+  const [searchTermSkill, setSearchTermSkill] = useState(""); // eslint-disable-line
+  const [isOpenSkill, setIsOpenSkill] = useState(false); // eslint-disable-line
   const [step, setStep] = useState(1);
-  const [error, setError] = useState<string>("") // eslint-disable-line
+  const [error, setError] = useState<string>(""); // eslint-disable-line
 
   const wrapperRef = useRef<HTMLDivElement>(null);
   const wrapperRefSkill = useRef<HTMLDivElement>(null);
@@ -40,8 +40,7 @@ const AddJobPost = () => {
 
   const filteredSkills = allSkills.filter(
     (skill) =>
-      skill.toLowerCase().includes(searchTermSkill.toLowerCase()) &&
-      !skills.includes(skill)
+      skill.toLowerCase().includes(searchTermSkill.toLowerCase()) && !skills.includes(skill)
   );
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -60,9 +59,9 @@ const AddJobPost = () => {
     };
   }, []);
 
-
-
-  const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const onChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     let value = e.target.value;
     if (e.target.name === "deadline") {
       value = formatToDDMMYYYY(value);
@@ -82,8 +81,8 @@ const AddJobPost = () => {
     }));
     setError("");
   };
-// eslint-disable-next-line
-  const [isValid, setIsValid] = useState<boolean>(false); 
+  // eslint-disable-next-line
+  const [isValid, setIsValid] = useState<boolean>(false);
   useEffect(() => {
     switch (step) {
       case 1:
@@ -97,8 +96,7 @@ const AddJobPost = () => {
         break;
       case 4:
         setIsValid(
-          addProject.fixed_budget ||
-          (addProject.min_hourly_rate && addProject.max_hourly_rate)
+          addProject.fixed_budget || (addProject.min_hourly_rate && addProject.max_hourly_rate)
         );
         break;
       case 5:
@@ -122,45 +120,44 @@ const AddJobPost = () => {
     return `${year}-${month}-${day}`;
   };
 
-  
   const goToNextStep = () => {
-    setStep(prevStep => prevStep + 1);
+    setStep((prevStep) => prevStep + 1);
   };
 
   const goToPreviousStep = () => {
-    setStep(prevStep => Math.max(prevStep - 1, 1));
+    setStep((prevStep) => Math.max(prevStep - 1, 1));
   };
 
   const selectOptionHandler = (value: string) => {
     setSelectedOption(value);
-    setAddProject((prev: any) => ({ ...prev, rate: value })) // eslint-disable-line
+    setAddProject((prev: any) => ({ ...prev, rate: value })); // eslint-disable-line
   };
 
-
   return (
-    <div className="mt-4 mx-4 sm:mx-6 md:mx-8 lg:mx-12">
-      <h1 className="font-cardo text-xl sm:text-2xl md:text-3xl text-[#031136] text-left font-normal p-3">
+    <div className="mx-4 mt-4 sm:mx-6 md:mx-8 lg:mx-12">
+      <h1 className="font-cardo p-3 text-left text-xl font-normal text-[#031136] sm:text-2xl md:text-3xl">
         Add Job Post
       </h1>
-      <div className="my-2 bg-white border border-gray-100 text-left">
+      <div className="my-2 border border-gray-100 bg-white text-left">
         <div className="p-4 sm:p-6 md:p-8">
-          <h2 className="text-lg sm:text-xl md:text-2xl mb-4 font-cardo">
-            {`${step}/5`}
-          </h2>
+          <h2 className="font-cardo mb-4 text-lg sm:text-xl md:text-2xl">{`${step}/5`}</h2>
           <div className="space-y-4">
             {step === 1 && (
-              <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
-                <div className="flex-1 mb-5 md:mb-0 md:mr-4">
-                  <h1 className="text-3xl md:text-4xl text-blue-600 font-cardo font-semibold">
+              <div className="flex flex-col items-start justify-between md:flex-row md:items-center">
+                <div className="mb-5 flex-1 md:mb-0 md:mr-4">
+                  <h1 className="font-cardo text-3xl font-semibold text-blue-600 md:text-4xl">
                     Your Job Post Title
                   </h1>
-                  <p className="text-base sm:text-lg opacity-75 font-cardo font-medium py-2 sm:py-4">
+                  <p className="font-cardo py-2 text-base font-medium opacity-75 sm:py-4 sm:text-lg">
                     Make it Shine, Attract the Right Candidates, <br />
                     Land the Best Talent
                   </p>
                 </div>
                 <div className="flex-1">
-                  <label className="block text-lg sm:text-xl mt-2 font-cardo" htmlFor="jobTitle">
+                  <label
+                    className="font-cardo mt-2 block text-lg sm:text-xl"
+                    htmlFor="jobTitle"
+                  >
                     Job Title
                   </label>
                   <input
@@ -168,19 +165,25 @@ const AddJobPost = () => {
                     onChange={onChange}
                     name="title"
                     value={addProject.title}
-                    className="border my-2 py-2 px-3 rounded-md w-full focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                    className="my-2 w-full rounded-md border px-3 py-2 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
                     placeholder="Add Job title"
                   />
-                  <label className="block text-lg sm:text-xl mt-3 font-cardo" htmlFor="jobCategory">
+                  <label
+                    className="font-cardo mt-3 block text-lg sm:text-xl"
+                    htmlFor="jobCategory"
+                  >
                     Job Category
                   </label>
-                  <div ref={wrapperRef} className="relative">
+                  <div
+                    ref={wrapperRef}
+                    className="relative"
+                  >
                     <input
                       type="text"
                       value={searchTerm}
                       onClick={() => setIsOpen(!isOpen)}
                       onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
+                        if (e.key === "Enter") {
                           setIsOpen(!isOpen);
                         }
                       }}
@@ -188,12 +191,12 @@ const AddJobPost = () => {
                         setSearchTerm(e.target.value);
                         setIsOpen(true);
                       }}
-                      className="border my-2 py-2 px-2 rounded-md w-full focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                      className="my-2 w-full rounded-md border px-2 py-2 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
                       placeholder="Select Category"
                     />
 
                     {isOpen && (
-                      <ul className="border border-gray-300 max-h-48 overflow-y-auto absolute w-full z-10 bg-white mt-2 list-none p-0 m-0">
+                      <ul className="absolute z-10 m-0 mt-2 max-h-48 w-full list-none overflow-y-auto border border-gray-300 bg-white p-0">
                         {filteredCategories.length > 0 ? (
                           filteredCategories.map((cat, index) => (
                             <button
@@ -204,13 +207,13 @@ const AddJobPost = () => {
                                 setIsOpen(false);
                               }}
                               onKeyDown={(e) => {
-                                if (e.key === 'Enter') {
+                                if (e.key === "Enter") {
                                   setSelectedCategory(cat);
                                   setSearchTerm(cat);
                                   setIsOpen(false);
                                 }
                               }}
-                              className="cursor-pointer text-left w-full px-2 py-1 focus:outline-none hover:bg-blue-500 hover:text-white"
+                              className="w-full cursor-pointer px-2 py-1 text-left hover:bg-blue-500 hover:text-white focus:outline-none"
                             >
                               {cat}
                             </button>
@@ -227,17 +230,17 @@ const AddJobPost = () => {
 
             {step === 2 && (
               <div>
-                <h1 className="text-2xl md:text-3xl font-cardo font-semibold text-blue-600">
+                <h1 className="font-cardo text-2xl font-semibold text-blue-600 md:text-3xl">
                   Job Description
                 </h1>
-                <p className="text-base sm:text-lg opacity-75 font-cardo font-medium py-2 sm:py-4">
+                <p className="font-cardo py-2 text-base font-medium opacity-75 sm:py-4 sm:text-lg">
                   Describe the responsibilities and expectations.
                 </p>
                 <textarea
                   onChange={onChange}
                   name="description"
                   value={addProject.description}
-                  className="border my-2 py-2 px-2 rounded-md w-full focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                  className="my-2 w-full rounded-md border px-2 py-2 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
                   rows={5}
                   placeholder="Add Job Description"
                 />
@@ -246,19 +249,22 @@ const AddJobPost = () => {
 
             {step === 3 && (
               <div>
-                <h1 className="text-2xl md:text-3xl font-cardo font-semibold text-blue-600">
+                <h1 className="font-cardo text-2xl font-semibold text-blue-600 md:text-3xl">
                   Skills Required
                 </h1>
-                <p className="text-base sm:text-lg opacity-75 font-cardo font-medium py-2 sm:py-4">
+                <p className="font-cardo py-2 text-base font-medium opacity-75 sm:py-4 sm:text-lg">
                   Specify the skills needed for the job.
                 </p>
-                <div ref={wrapperRefSkill} className="relative">
+                <div
+                  ref={wrapperRefSkill}
+                  className="relative"
+                >
                   <input
                     type="text"
                     value={searchTermSkill}
                     onClick={() => setIsOpenSkill(!isOpenSkill)}
                     onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
+                      if (e.key === "Enter") {
                         setIsOpenSkill(!isOpenSkill);
                       }
                     }}
@@ -266,12 +272,12 @@ const AddJobPost = () => {
                       setSearchTermSkill(e.target.value);
                       setIsOpenSkill(true);
                     }}
-                    className="border my-2 py-2 px-2 rounded-md w-full focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                    className="my-2 w-full rounded-md border px-2 py-2 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
                     placeholder="Select Skills"
                   />
 
                   {isOpenSkill && (
-                    <ul className="border border-gray-300 max-h-48 overflow-y-auto absolute w-full z-10 bg-white mt-2 list-none p-0 m-0">
+                    <ul className="absolute z-10 m-0 mt-2 max-h-48 w-full list-none overflow-y-auto border border-gray-300 bg-white p-0">
                       {filteredSkills.length > 0 ? (
                         filteredSkills.map((skill, index) => (
                           <button
@@ -286,7 +292,7 @@ const AddJobPost = () => {
                               setIsOpenSkill(false);
                             }}
                             onKeyDown={(e) => {
-                              if (e.key === 'Enter') {
+                              if (e.key === "Enter") {
                                 setSkills([...skills, skill]);
                                 setAddProject((prevProject: Project) => ({
                                   ...prevProject,
@@ -296,7 +302,7 @@ const AddJobPost = () => {
                                 setIsOpenSkill(false);
                               }
                             }}
-                            className="cursor-pointer text-left w-full px-2 py-1 focus:outline-none hover:bg-blue-500 hover:text-white"
+                            className="w-full cursor-pointer px-2 py-1 text-left hover:bg-blue-500 hover:text-white focus:outline-none"
                           >
                             {skill}
                           </button>
@@ -309,14 +315,14 @@ const AddJobPost = () => {
                 </div>
                 {skills.length > 0 && (
                   <div className="mt-4">
-                    <h3 className="text-lg sm:text-xl font-cardo font-semibold">
+                    <h3 className="font-cardo text-lg font-semibold sm:text-xl">
                       Selected Skills:
                     </h3>
                     <ul className="mt-2">
                       {skills.map((skill, index) => (
                         <li
                           key={index}
-                          className="inline-block bg-blue-500 text-white rounded-full px-3 py-1 text-sm font-cardo mr-2 mb-2"
+                          className="font-cardo mb-2 mr-2 inline-block rounded-full bg-blue-500 px-3 py-1 text-sm text-white"
                         >
                           {skill}
                           <button
@@ -335,20 +341,23 @@ const AddJobPost = () => {
 
             {step === 4 && (
               <div>
-                <h1 className="text-2xl md:text-3xl font-cardo font-semibold text-blue-600">
+                <h1 className="font-cardo text-2xl font-semibold text-blue-600 md:text-3xl">
                   Budget and Rate
                 </h1>
-                <p className="text-base sm:text-lg opacity-75 font-cardo font-medium py-2 sm:py-4">
+                <p className="font-cardo py-2 text-base font-medium opacity-75 sm:py-4 sm:text-lg">
                   Specify the budget and rate for the job.
                 </p>
                 <div>
-                  <label className="block text-lg sm:text-xl mt-2 font-cardo" htmlFor="rate">
+                  <label
+                    className="font-cardo mt-2 block text-lg sm:text-xl"
+                    htmlFor="rate"
+                  >
                     Rate
                   </label>
-                  <div className="flex items-center mt-2">
+                  <div className="mt-2 flex items-center">
                     <button
                       onClick={() => selectOptionHandler("hourly")}
-                      className={`px-4 py-2 rounded-md ${
+                      className={`rounded-md px-4 py-2 ${
                         selectedOption === "hourly" ? "bg-blue-500 text-white" : "bg-gray-200"
                       }`}
                     >
@@ -356,7 +365,7 @@ const AddJobPost = () => {
                     </button>
                     <button
                       onClick={() => selectOptionHandler("fixed")}
-                      className={`ml-2 px-4 py-2 rounded-md ${
+                      className={`ml-2 rounded-md px-4 py-2 ${
                         selectedOption === "fixed" ? "bg-blue-500 text-white" : "bg-gray-200"
                       }`}
                     >
@@ -365,7 +374,10 @@ const AddJobPost = () => {
                   </div>
                   {selectedOption === "fixed" ? (
                     <div className="mt-4">
-                      <label className="block text-lg sm:text-xl mt-2 font-cardo" htmlFor="fixed_budget">
+                      <label
+                        className="font-cardo mt-2 block text-lg sm:text-xl"
+                        htmlFor="fixed_budget"
+                      >
                         Fixed Budget
                       </label>
                       <input
@@ -373,13 +385,16 @@ const AddJobPost = () => {
                         onChange={onChange}
                         name="fixed_budget"
                         value={addProject.fixed_budget || ""}
-                        className="border my-2 py-2 px-3 rounded-md w-full focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                        className="my-2 w-full rounded-md border px-3 py-2 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
                         placeholder="Enter fixed budget"
                       />
                     </div>
                   ) : (
                     <div className="mt-4">
-                      <label className="block text-lg sm:text-xl mt-2 font-cardo" htmlFor="min_hourly_rate">
+                      <label
+                        className="font-cardo mt-2 block text-lg sm:text-xl"
+                        htmlFor="min_hourly_rate"
+                      >
                         Min Hourly Rate
                       </label>
                       <input
@@ -387,10 +402,13 @@ const AddJobPost = () => {
                         onChange={onChange}
                         name="min_hourly_rate"
                         value={addProject.min_hourly_rate || ""}
-                        className="border my-2 py-2 px-3 rounded-md w-full focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                        className="my-2 w-full rounded-md border px-3 py-2 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
                         placeholder="Enter minimum hourly rate"
                       />
-                      <label className="block text-lg sm:text-xl mt-3 font-cardo" htmlFor="max_hourly_rate">
+                      <label
+                        className="font-cardo mt-3 block text-lg sm:text-xl"
+                        htmlFor="max_hourly_rate"
+                      >
                         Max Hourly Rate
                       </label>
                       <input
@@ -398,7 +416,7 @@ const AddJobPost = () => {
                         onChange={onChange}
                         name="max_hourly_rate"
                         value={addProject.max_hourly_rate || ""}
-                        className="border my-2 py-2 px-3 rounded-md w-full focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                        className="my-2 w-full rounded-md border px-3 py-2 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
                         placeholder="Enter maximum hourly rate"
                       />
                     </div>
@@ -409,14 +427,17 @@ const AddJobPost = () => {
 
             {step === 5 && (
               <div>
-                <h1 className="text-2xl md:text-3xl font-cardo font-semibold text-blue-600">
+                <h1 className="font-cardo text-2xl font-semibold text-blue-600 md:text-3xl">
                   Deadline and Experience Level
                 </h1>
-                <p className="text-base sm:text-lg opacity-75 font-cardo font-medium py-2 sm:py-4">
+                <p className="font-cardo py-2 text-base font-medium opacity-75 sm:py-4 sm:text-lg">
                   Specify the deadline and experience level required.
                 </p>
                 <div>
-                  <label className="block text-lg sm:text-xl mt-2 font-cardo" htmlFor="deadline">
+                  <label
+                    className="font-cardo mt-2 block text-lg sm:text-xl"
+                    htmlFor="deadline"
+                  >
                     Deadline
                   </label>
                   <input
@@ -424,19 +445,22 @@ const AddJobPost = () => {
                     onChange={onChange}
                     name="deadline"
                     value={formatToYYYYMMDD(addProject.deadline || "")}
-                    className="border my-2 py-2 px-3 rounded-md w-full focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                    className="my-2 w-full rounded-md border px-3 py-2 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
                     placeholder="Select deadline"
                   />
                 </div>
                 <div className="mt-4">
-                  <label className="block text-lg sm:text-xl mt-2 font-cardo" htmlFor="experience_level">
+                  <label
+                    className="font-cardo mt-2 block text-lg sm:text-xl"
+                    htmlFor="experience_level"
+                  >
                     Experience Level
                   </label>
                   <select
                     name="experience_level"
                     onChange={onChange}
                     value={addProject.experience_level}
-                    className="border my-2 py-2 px-3 rounded-md w-full focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                    className="my-2 w-full rounded-md border px-3 py-2 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
                   >
                     <option value="">Select experience level</option>
                     <option value="beginner">Beginner</option>
@@ -447,11 +471,11 @@ const AddJobPost = () => {
               </div>
             )}
           </div>
-          <div className="flex justify-between mt-4">
+          <div className="mt-4 flex justify-between">
             {step > 1 && (
               <button
                 onClick={goToPreviousStep}
-                className="bg-gray-500 hover:bg-gray-600 text-white font-cardo py-2 px-4 rounded-md focus:outline-none"
+                className="font-cardo rounded-md bg-gray-500 px-4 py-2 text-white hover:bg-gray-600 focus:outline-none"
               >
                 Back
               </button>
@@ -459,14 +483,14 @@ const AddJobPost = () => {
             {step < 5 ? (
               <button
                 onClick={goToNextStep}
-                className="bg-blue-500 hover:bg-blue-600 text-white font-cardo py-2 px-4 rounded-md focus:outline-none"
+                className="font-cardo rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:outline-none"
               >
                 Next
               </button>
             ) : (
               <button
                 type="submit"
-                className="bg-green-500 hover:bg-green-600 text-white font-cardo py-2 px-4 rounded-md focus:outline-none"
+                className="font-cardo rounded-md bg-green-500 px-4 py-2 text-white hover:bg-green-600 focus:outline-none"
               >
                 Post Job
               </button>
@@ -479,4 +503,3 @@ const AddJobPost = () => {
 };
 
 export default AddJobPost;
-

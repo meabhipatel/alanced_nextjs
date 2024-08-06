@@ -11,7 +11,7 @@ import navback from "@/assets/images/nav_background.png";
 import { FiMenu } from "react-icons/fi";
 import { MdAccountCircle, MdClose } from "react-icons/md";
 import { FaBell, FaChevronDown } from "react-icons/fa6";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
@@ -22,7 +22,6 @@ import cookies from "js-cookie";
 import { IoChevronDown } from "react-icons/io5";
 
 const Navbar = () => {
-  const router = useRouter();
   const pathname = usePathname();
   const dispatch = useAppDispatch();
   const { loginMethod, userType: loginType, isLoggedIn } = useAppSelector((state) => state.auth);
@@ -330,7 +329,7 @@ const Navbar = () => {
   /** ---> Closing mobile menu bar on route change */
   useEffect(() => {
     setIsMobileMenuOpen(false);
-  }, [router]);
+  }, [pathname]);
 
   return (
     // <div
@@ -534,7 +533,7 @@ const Navbar = () => {
                   </div>
                 </>
               ) : (
-                <Link href="/hirer/profile">
+                <Link href="/search-freelancer">
                   <div className="mr-12 flex cursor-pointer items-center gap-[0.15rem] py-2 text-[16px] text-[#031136]">
                     Search Freelancer
                   </div>
@@ -575,7 +574,7 @@ const Navbar = () => {
                     <div className="dropdown-container absolute right-0 top-4 z-20 mt-5 hidden w-48 rounded-md bg-white shadow-lg group-hover:block">
                       <div className="py-1">
                         <Link
-                          href="/add/Job-post"
+                          href="/hirer/add-job-post"
                           className="flex items-center px-4 py-2"
                         >
                           <span className="text-[16px] text-[#031136] hover:text-blue-600">
@@ -583,7 +582,7 @@ const Navbar = () => {
                           </span>
                         </Link>
                         <Link
-                          href="/View-all/Job-post"
+                          href="/hirer/all-jobs"
                           className="flex items-center px-4 py-2"
                         >
                           <span className="text-[16px] text-[#031136] hover:text-blue-600">
@@ -591,7 +590,7 @@ const Navbar = () => {
                           </span>
                         </Link>
                         <Link
-                          href="/view-all/invited-freelancers"
+                          href="/hirer/invited-freelancers"
                           className="flex items-center px-4 py-2"
                         >
                           <span className="text-[16px] text-[#031136] hover:text-blue-600">
@@ -599,7 +598,7 @@ const Navbar = () => {
                           </span>
                         </Link>
                         <Link
-                          href="/view-all/hirer-contracts"
+                          href="/hirer/all-contracts"
                           className="flex items-center px-4 py-2"
                         >
                           <span className="text-[16px] text-[#031136] hover:text-blue-600">
@@ -638,7 +637,7 @@ const Navbar = () => {
                     <div className="dropdown-container absolute right-0 top-4 z-20 mt-5 hidden w-48 rounded-md bg-white shadow-lg group-hover:block">
                       <div className="py-1">
                         <Link
-                          href="/freelancer/my-reports"
+                          href="/freelancer/transaction-history"
                           className="flex items-center px-4 py-2"
                         >
                           <span className="text-[16px] text-[#031136] hover:text-blue-600">
