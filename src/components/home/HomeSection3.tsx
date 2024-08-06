@@ -124,6 +124,7 @@ const HomeSection3 = () => {
           </div>
         </div>
       </div>
+      <hr className="mx-28 my-29"></hr>
     </div>
   );
 };
