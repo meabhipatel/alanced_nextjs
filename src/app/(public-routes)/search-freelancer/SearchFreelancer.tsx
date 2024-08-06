@@ -2,8 +2,6 @@
 import React, { useState, useEffect } from "react";
 // import HomeSection4 from "../../components/Layout/HomeSection4";
 // import Footer from "../../components/Layout/Footer";
-import verify from "@/assets/icons/verify.png";
-import locations from "@/assets/icons/location.png";
 // import { useDispatch } from "react-redux";
 // import { Link, useRouter } from "react-router-dom";
 import halfBackground from "@/assets/images/half_background.png";
@@ -13,19 +11,13 @@ import halfBackground from "@/assets/images/half_background.png";
 // import Skeleton from "react-loading-skeleton";
 // import "react-loading-skeleton/dist/skeleton.css";
 import { RxArrowLeft } from "react-icons/rx";
-{
-  /* <RxArrowLeft />; */
-}
 import { RxArrowRight } from "react-icons/rx";
-{
-  /* <RxArrowRight />; */
-}
 import axios from "axios";
 import SkillsList from "@/constant/allSelectionData/SkillsList";
 import CityList from "@/constant/allSelectionData/CityList";
 import LanguageList from "@/constant/allSelectionData/LanguageList";
 import ExperienceLevel from "@/constant/allSelectionData/ExperienceLevel";
-import Bag from "@/assets/images/experience.png";
+import FileIcon from "@/assets/icons/file.png";
 import hero2Image from "@/assets/images/hero2.png";
 import { IoMdSearch } from "react-icons/io";
 import Link from "next/link";
@@ -33,6 +25,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { errorLog } from "@/utils/errorLog";
 import { FaCheck } from "react-icons/fa6";
+import { RiVerifiedBadgeFill } from "react-icons/ri";
+import { IoLocationOutline } from "react-icons/io5";
 
 // ---> Setting meta data
 // export const metadata: Metadata = {
@@ -620,11 +614,7 @@ const SearchFreelancer = () => {
                               )}
 
                             <div className="mb-12">
-                              <Image
-                                src={verify}
-                                alt=""
-                                className="mr-1 inline-block h-3 w-3"
-                              />
+                              <RiVerifiedBadgeFill className="text-md mr-1 inline-block text-green-600" />
                               <p className="inline-block text-[14px] text-[#0A142F] opacity-50">
                                 Account verified
                               </p>
@@ -643,11 +633,8 @@ const SearchFreelancer = () => {
                                   searchQuery
                                 )}
                               </p>
-                              <Image
-                                src={locations}
-                                alt=""
-                                className="mr-1 inline-block h-3 w-3"
-                              />
+
+                              <IoLocationOutline className="text-md mr-1 inline-block" />
                               <p className="inline-block text-[14px] text-[#0A142F] opacity-50">
                                 {highlightText(free.Address ? free.Address : "NA", searchQuery)}
                               </p>
@@ -678,7 +665,7 @@ const SearchFreelancer = () => {
               ) : (
                 <div className="mt-20">
                   <Image
-                    src={Bag}
+                    src={FileIcon}
                     alt=""
                     className="mx-auto w-[18%]"
                   />
