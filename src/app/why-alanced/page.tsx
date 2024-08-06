@@ -30,14 +30,14 @@ const WhyAlanced = () => {
               Are you ready to elevate your business or career to the next level?
             </p>
             <div className="mt-3 flex flex-row">
-              <Link href="/view-all/freelancer">
+              <Link href="/search-freelancer">
                 <div className="basis-2/12">
                   <button className="mt-5 h-10 w-28 rounded bg-gradient-to-r from-[#0909E9] to-[#00D4FF] text-base font-semibold text-white">
                     Find Talent
                   </button>
                 </div>
               </Link>
-              <Link href="/projects">
+              <Link href="/search-job">
                 <div className="ml-5 mt-5 rounded bg-gradient-to-b from-[#0909E9] to-[#00D4FF] p-0.5">
                   <button className="rounded bg-[#f8faf9] px-2 py-1">
                     <p className="from-primary to-danger bg-gradient-to-r bg-clip-text px-[8px] py-[4px] text-sm font-bold text-transparent">
@@ -146,7 +146,7 @@ const WhyAlanced = () => {
             </p>
             <div className="mb-8 text-left">
               {" "}
-              <Link href="/view-all/freelancer">
+              <Link href="/search-freelancer">
                 <span className="mr-2 mt-8 inline-block rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-5 py-[10px] text-[16px] text-base font-semibold text-white">
                   Talents
                 </span>
@@ -178,8 +178,7 @@ const WhyAlanced = () => {
               make your mark.
             </p>
             <div className="mb-8 text-left">
-              {" "}
-              <Link href="/projects">
+              <Link href="/search-job">
                 <span className="mr-2 mt-8 inline-block rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-7 py-[10px] text-[16px] text-base font-semibold text-white">
                   Works
                 </span>
