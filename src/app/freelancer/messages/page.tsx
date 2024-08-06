@@ -523,6 +523,8 @@ const Messages = () => {
             <div className="flex items-center justify-between border-b-2 px-2 py-3">
               <span className="font-cardo float-left text-lg font-semibold">Chats</span>
               <Image
+                height={15}
+                width={15}
                 className="float-right"
                 src={threedots}
                 alt=""
@@ -574,6 +576,8 @@ const Messages = () => {
                     <div className="ml-4 w-1/4">
                       <div className="relative">
                         <Image
+                          height={100}
+                          width={100}
                           src={
                             convo.from_user.id !== logindata.id
                               ? convo.from_user.images_logo === "/static/images/blank.png"
@@ -698,6 +702,8 @@ const Messages = () => {
               <div className="float-right flex items-center gap-2">
                 {/* <img className="h-[19px] w-[19px]" src={phone}/> */}
                 <Image
+                  height={100}
+                  width={100}
                   className="h-[25px] w-[25px] cursor-pointer"
                   src={iicon}
                   alt=""
@@ -808,6 +814,8 @@ const Messages = () => {
               alt=""
             /> */}
                         <Image
+                          height={100}
+                          width={100}
                           className="h-fit w-fit"
                           src={vthreedots}
                           alt=""
@@ -897,6 +905,8 @@ const Messages = () => {
                       onClick={handleSubmit}
                     >
                       <Image
+                        height={100}
+                        width={100}
                         className="cursor-pointer border-l-2 border-[#D9D9D9] pl-2"
                         src={paper}
                         alt=""
@@ -920,6 +930,8 @@ const Messages = () => {
               }`}
             >
               <Image
+                height={15}
+                width={15}
                 className="float-right mr-6 mt-6 cursor-pointer"
                 src={cross}
                 alt=""
@@ -928,6 +940,8 @@ const Messages = () => {
               <div className="flex w-full flex-col items-center border-b-2">
                 {/* <div class="font-semibold text-xl py-4">Mern Stack Group</div> */}
                 <Image
+                  height={100}
+                  width={100}
                   src={
                     convouser?.images_logo === "/static/images/blank.png"
                       ? "https://www.api.alanced.com" + "/media/images/blank.png"
@@ -953,6 +967,8 @@ const Messages = () => {
                 <span className="font-cardo mb-2 text-lg">Recent files</span>
                 <div className="flex items-center py-2">
                   <Image
+                    height={100}
+                    width={100}
                     className="mr-2 h-3.5 w-3.5"
                     src={search}
                     alt=""
@@ -962,6 +978,8 @@ const Messages = () => {
                 </div>
                 <div className="flex items-center py-2">
                   <Image
+                    height={100}
+                    width={100}
                     className="mr-2 h-4 w-4"
                     src={people}
                     alt=""
@@ -971,6 +989,8 @@ const Messages = () => {
                 </div>
                 <div className="flex items-center py-2">
                   <Image
+                    height={100}
+                    width={100}
                     className="mr-2 h-4 w-4"
                     src={files}
                     alt=""
@@ -980,6 +1000,8 @@ const Messages = () => {
                 </div>
                 <div className="flex items-center py-2">
                   <Image
+                    height={100}
+                    width={100}
                     className="mr-2 h-4 w-4"
                     src={notepad}
                     alt=""
