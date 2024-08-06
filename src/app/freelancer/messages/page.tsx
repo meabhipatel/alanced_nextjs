@@ -1,6 +1,6 @@
 "use client";
 // import Navbar from "../../components/Layout/Navbar";
-import threedots from "@/assets/icons/three-dots-icon.png";
+// import threedots from "@/assets/icons/three-dots-icon.png";
 import search from "@/assets/icons/search.png";
 import people from "@/assets/icons/people.png";
 import files from "@/assets/icons/files.png";
@@ -522,13 +522,13 @@ const Messages = () => {
           <div className="flex h-[86.1vh] w-2/5 flex-col overflow-y-auto border-r-2">
             <div className="flex items-center justify-between border-b-2 px-2 py-3">
               <span className="font-cardo float-left text-lg font-semibold">Chats</span>
-              <Image
+              {/* <Image
                 height={15}
                 width={15}
                 className="float-right"
                 src={threedots}
                 alt=""
-              ></Image>
+              ></Image> */}
             </div>
             <div className="border-b-2 px-2 py-4">
               <div className="relative">
@@ -571,7 +571,7 @@ const Messages = () => {
                         convo.from_user.id !== logindata.id ? convo.from_user : convo.to_user
                       )
                     }
-                    className="flex cursor-pointer flex-row items-center justify-center border-b-2 px-2 py-4 hover:bg-blue-50 active:bg-blue-100"
+                    className="w-full flex cursor-pointer flex-row items-center justify-center border-b-2 px-2 py-4 hover:bg-blue-50 active:bg-blue-100"
                   >
                     <div className="ml-4 w-1/4">
                       <div className="relative">
