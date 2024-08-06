@@ -1,10 +1,10 @@
 "use client";
 // import Navbar from "../../components/Layout/Navbar";
 // import threedots from "@/assets/icons/three-dots-icon.png";
-// import search from "@/assets/icons/search.png";
-// import people from "@/assets/icons/people.png";
-// import files from "@/assets/icons/files.png";
-// import notepad from "@/assets/icons/notepad.png";
+import search from "@/assets/icons/search.png";
+import people from "@/assets/icons/people.png";
+import files from "@/assets/icons/files.png";
+import notepad from "@/assets/icons/notepad.png";
 import cross from "@/assets/icons/cross.png";
 // import phone from '../../components/images/phone.png'
 import iicon from "@/assets/icons/iicon.svg";
@@ -965,7 +965,7 @@ const Messages = () => {
                   {convouser && "category" in convouser ? convouser.category : ""}
                 </div>
               </div>
-              {/* <div className="flex flex-col items-start pl-6 pt-6">
+              <div className="flex flex-col items-start pl-6 pt-6">
                 <span className="font-cardo mb-2 text-lg">Recent files</span>
                 <div className="flex items-center py-2">
                   <Image
@@ -1011,7 +1011,7 @@ const Messages = () => {
 
                   <span className="text-[#8A8A8A]">Personal Notepad</span>
                 </div>
-              </div> */}
+              </div>
             </div>
           </div>
           {/* </div> */}
