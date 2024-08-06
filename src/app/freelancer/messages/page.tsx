@@ -571,7 +571,7 @@ const Messages = () => {
                         convo.from_user.id !== logindata.id ? convo.from_user : convo.to_user
                       )
                     }
-                    className="flex cursor-pointer flex-row items-center justify-center border-b-2 px-2 py-4 hover:bg-blue-50 active:bg-blue-100"
+                    className="w-full flex cursor-pointer flex-row items-center justify-center border-b-2 px-2 py-4 hover:bg-blue-50 active:bg-blue-100"
                   >
                     <div className="ml-4 w-1/4">
                       <div className="relative">
