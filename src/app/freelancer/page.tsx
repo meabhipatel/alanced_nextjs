@@ -11,8 +11,6 @@ import bag from "@/assets/images/bag.png";
 // import downarrow from "../../components/images/downarrow.png";
 // import thumbdown from "../../components/images/thumbdown.png";
 // import heart from "../../components/images/heart.png";
-import verify from "@/assets/icons/verify.png";
-import location from "@/assets/icons/location.png";
 // import { Link, useNavigate } from "react-router-dom";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -27,11 +25,13 @@ import axios from "axios";
 // import { toast } from "react-toastify";
 import toast from "react-hot-toast";
 import { timeAgo } from "@/utils/timeFunction";
-import Bag from "@/assets/images/experience.png";
+import fileIcon from "@/assets/icons/file.png";
 import hero2Image from "@/assets/images/hero2.png";
 import Image from "next/image";
 import { RxArrowRight, RxArrowLeft } from "react-icons/rx";
 import { errorLog } from "@/utils/errorLog";
+import { RiVerifiedBadgeFill } from "react-icons/ri";
+import { IoLocationOutline } from "react-icons/io5";
 
 interface IFreelanceProject {
   id: number;
@@ -653,22 +653,14 @@ const FreelancerAfterLogin = () => {
                                   {bidsCount[project.id] ? bidsCount[project.id] : 0}
                                 </span>
                               </p>
-                              <Image
-                                src={verify}
-                                alt=""
-                                className="mr-1 inline-block h-3 w-3"
-                              />
+                              <RiVerifiedBadgeFill className="text-md mr-1 inline-block text-green-600" />
                               <p className="inline-block text-[14px] text-[#0A142F] opacity-50">
                                 Payment verified
                               </p>
                               <div className="mx-3 inline-block text-[16px] text-[#FFC107]">
                                 ★★★★★
                               </div>
-                              <Image
-                                src={location}
-                                alt=""
-                                className="mr-1 inline-block h-3 w-3"
-                              />
+                              <IoLocationOutline className="text-md mr-1 inline-block" />
                               <p className="inline-block text-[14px] text-[#0A142F] opacity-50">
                                 {highlightText(
                                   project.project_owner_location
@@ -686,7 +678,7 @@ const FreelancerAfterLogin = () => {
               ) : (
                 <div className="mx-auto">
                   <Image
-                    src={Bag}
+                    src={fileIcon}
                     alt=""
                     className="ml-[42%] mt-[20%] h-[10%]"
                   />

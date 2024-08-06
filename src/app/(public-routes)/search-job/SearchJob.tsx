@@ -18,7 +18,7 @@ import ExperienceLevel from "@/constant/allSelectionData/ExperienceLevel";
 import ProjectRate from "@/constant/allSelectionData/ProjectRate";
 import CityList from "@/constant/allSelectionData/CityList";
 import SkillsList from "@/constant/allSelectionData/SkillsList";
-import Bag from "@/assets/images/experience.png";
+import fileIcon from "@/assets/icons/file.png";
 import halfBackground from "@/assets/images/half_background.png";
 import hero2Image from "@/assets/images/hero2.png";
 import { IoMdSearch } from "react-icons/io";
@@ -727,7 +727,7 @@ const SearchJob = () => {
             ) : (
               <div className="mx-auto">
                 <Image
-                  src={Bag}
+                  src={fileIcon}
                   alt=""
                   className="ml-[30%] mt-[20%] h-[10%]"
                 />
