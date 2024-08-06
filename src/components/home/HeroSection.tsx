@@ -23,7 +23,7 @@ const HeroSection = () => {
             With the largest professional creative community online, simply <br /> search through
             from our website
           </h1>
-          <Link href={"signup"}>
+          <Link href={"/signup-options"}>
             <span className="mr-2 inline-block rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-[10px] text-sm font-semibold text-white lg:mt-0">
               Get Started
             </span>
