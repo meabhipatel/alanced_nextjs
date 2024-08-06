@@ -945,9 +945,9 @@ const Messages = () => {
                   height={100}
                   width={100}
                   src={
-                    convouser?.images_logo && convouser?.images_logo === "/static/images/blank.png"
-                      ? "https://www.api.alanced.com" + "/media/images/blank.png"
-                      : "https://www.api.alanced.com" + convouser?.images_logo
+                    convouser?.images_logo && convouser.images_logo !== "/static/images/blank.png"
+                      ? `https://www.api.alanced.com${convouser.images_logo}`
+                      : "https://www.api.alanced.com/media/images/blank.png"
                   }
                   className="mt-12 h-28 w-28 rounded-full object-cover"
                   alt=""
