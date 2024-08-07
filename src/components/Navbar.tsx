@@ -58,6 +58,28 @@ const Navbar = () => {
   const hirerImage = "hirereimage";
   const [isScrolled, setIsScrolled] = useState(false); // eslint-disable-line
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  /** ---> Closing mobile menu bar and drop down on route change */
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+    setFindworkDropdown(false);
+    setMyJobsDropdown(false);
+    setReportsDropdown(false);
+  }, [pathname]);
+
+  // ---> hidding scrollbar on mobile navbar open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+
+    return () => {
+      document.body.classList.remove("no-scroll");
+    };
+  }, [isMobileMenuOpen]);
+
   const freelanceImage = "freelancerImage";
   var imagedata = useState(null); // eslint-disable-line
   if (hirerImage !== null) {
@@ -325,11 +347,6 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  /** ---> Closing mobile menu bar on route change */
-  useEffect(() => {
-    setIsMobileMenuOpen(false);
-  }, [pathname]);
 
   return (
     // <div
@@ -887,8 +904,9 @@ const Navbar = () => {
               {/* ---> mobile menu button for authenticated routes */}
               <div className="flex items-center lg:hidden">
                 <button
-                  onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-                  className=""
+                  onClick={() => {
+                    setIsMobileMenuOpen((prev) => !prev);
+                  }}
                 >
                   {isMobileMenuOpen ? (
                     <MdClose className="h-8 w-8" />
@@ -902,11 +920,11 @@ const Navbar = () => {
                     isMobileMenuOpen ? "right-0" : "-right-[100rem]"
                   } flex h-screen w-full flex-col items-start bg-white px-5 duration-300`}
                 >
-                  <div className="flex w-full flex-col items-start gap-5 pt-3 text-sm">
+                  <div className="flex w-full flex-col items-start gap-1 pt-3 text-sm">
                     {loginType === "FREELANCER" ? (
                       <>
                         <button
-                          className="flex w-full cursor-pointer items-center justify-between pr-5 text-[16px] text-[#031136]"
+                          className="flex w-full cursor-pointer items-center justify-between py-3 pr-5 text-[16px] text-[#031136]"
                           onClick={() => {
                             setFindworkDropdown((prev) => !prev);
                             setReportsDropdown(false);
@@ -915,53 +933,58 @@ const Navbar = () => {
                         >
                           Search Job <FaChevronDown className="text-xs text-[#031136]" />
                         </button>
-                        {Findworkdropdown && (
-                          <div className="">
-                            <div className="py-1">
-                              <Link
-                                href="/search-job"
-                                className="flex items-center px-4 py-2"
-                              >
-                                <span className="text-[16px] text-[#031136] hover:text-blue-600">
-                                  Search Job
-                                </span>
-                              </Link>
-                              <Link
-                                href="/saved-jobs"
-                                className="flex items-center px-4 py-2"
-                              >
-                                <span className="text-[16px] text-[#031136] hover:text-blue-600">
-                                  Saved Jobs
-                                </span>
-                              </Link>
-                              <Link
-                                href="/my-proposals"
-                                className="flex items-center px-4 py-2"
-                              >
-                                <span className="text-[16px] text-[#031136] hover:text-blue-600">
-                                  Proposals
-                                </span>
-                              </Link>
-                              <Link
-                                href="/freelancer/edit-profile"
-                                className="flex items-center px-4 py-2"
-                              >
-                                <span className="text-[16px] text-[#031136] hover:text-blue-600">
-                                  Profile
-                                </span>
-                              </Link>
-                            </div>
+
+                        <div
+                          className={`transition-max-height -mt-3 w-full overflow-hidden duration-500 ease-in-out ${Findworkdropdown ? "max-h-full" : "max-h-0"}`}
+                        >
+                          <div className="py-1">
+                            <Link
+                              href="/search-job"
+                              className="flex w-full items-center px-4 py-2"
+                            >
+                              <span className="w-full text-[16px] text-[#031136] hover:text-blue-600">
+                                Search Job
+                              </span>
+                            </Link>
+                            <Link
+                              href="/freelancer/saved-jobs"
+                              className="flex w-full items-center px-4 py-2"
+                            >
+                              <span className="w-full text-[16px] text-[#031136] hover:text-blue-600">
+                                Saved Jobs
+                              </span>
+                            </Link>
+                            <Link
+                              href="/freelancer/my-proposals"
+                              className="flex w-full items-center px-4 py-2"
+                            >
+                              <span className="w-full text-[16px] text-[#031136] hover:text-blue-600">
+                                Proposals
+                              </span>
+                            </Link>
+                            <Link
+                              href="/freelancer/profile"
+                              className="flex w-full items-center px-4 py-2"
+                            >
+                              <span className="w-full text-[16px] text-[#031136] hover:text-blue-600">
+                                Profile
+                              </span>
+                            </Link>
                           </div>
-                        )}
+                        </div>
                       </>
                     ) : (
-                      <Link href="/hirer/profile">
+                      <Link
+                        href="/hirer/profile"
+                        className="w-full"
+                      >
                         <button
-                          className="text-[16px] text-[#031136]"
+                          className="w-full py-3 text-start text-[16px] text-[#031136]"
                           onClick={() => {
                             setFindworkDropdown(false);
                             setReportsDropdown(false);
                             setMyJobsDropdown(false);
+                            setIsMobileMenuOpen(false);
                           }}
                         >
                           Search Freelancer
@@ -973,7 +996,7 @@ const Navbar = () => {
                     {loginType === "FREELANCER" ? (
                       <>
                         <button
-                          className="flex w-full cursor-pointer items-center justify-between pr-5 text-[16px] text-[#031136]"
+                          className="flex w-full cursor-pointer items-center justify-between py-3 pr-5 text-[16px] text-[#031136]"
                           onClick={() => {
                             setMyJobsDropdown((prev) => !prev);
                             setFindworkDropdown(false);
@@ -982,33 +1005,34 @@ const Navbar = () => {
                         >
                           My Jobs <FaChevronDown className="mt-1 text-xs text-[#031136]" />
                         </button>
-                        {MyJobsdropdown && (
-                          <div className="">
-                            <div className="py-1">
-                              <Link
-                                href="/all-invitations"
-                                className="flex items-center px-4 py-2"
-                              >
-                                <span className="text-[16px] text-[#031136] hover:text-blue-600">
-                                  All Invitations
-                                </span>
-                              </Link>
-                              <Link
-                                href="/freelancer/all-contracts"
-                                className="flex items-center px-4 py-2"
-                              >
-                                <span className="text-[16px] text-[#031136] hover:text-blue-600">
-                                  All Contracts
-                                </span>
-                              </Link>
-                            </div>
+
+                        <div
+                          className={`transition-max-height -mt-3 w-full overflow-hidden duration-500 ease-in-out ${MyJobsdropdown ? "max-h-full" : "max-h-0"}`}
+                        >
+                          <div className="py-1">
+                            <Link
+                              href="/freelancer/all-invitations"
+                              className="flex w-full items-center px-4 py-2"
+                            >
+                              <span className="w-full text-[16px] text-[#031136] hover:text-blue-600">
+                                All Invitations
+                              </span>
+                            </Link>
+                            <Link
+                              href="/freelancer/all-contracts"
+                              className="flex w-full items-center px-4 py-2"
+                            >
+                              <span className="w-full text-[16px] text-[#031136] hover:text-blue-600">
+                                All Contracts
+                              </span>
+                            </Link>
                           </div>
-                        )}{" "}
+                        </div>
                       </>
                     ) : (
                       <>
                         <button
-                          className="flex w-full cursor-pointer items-center justify-between gap-2 pr-5 text-[16px] text-[#031136]"
+                          className="flex w-full cursor-pointer items-center justify-between gap-2 py-3 pr-5 text-[16px] text-[#031136]"
                           onClick={() => {
                             setMyJobsDropdown((prev) => !prev);
                             setFindworkDropdown(false);
@@ -1017,44 +1041,45 @@ const Navbar = () => {
                         >
                           Jobs <FaChevronDown className="mt-1 text-xs text-[#031136]" />
                         </button>
-                        {MyJobsdropdown && (
-                          <div className="">
-                            <div className="py-1">
-                              <Link
-                                href="/add/Job-post"
-                                className="flex items-center px-4 py-2"
-                              >
-                                <span className="text-[16px] text-[#031136] hover:text-blue-600">
-                                  Post A Job
-                                </span>
-                              </Link>
-                              <Link
-                                href="/View-all/Job-post"
-                                className="flex items-center px-4 py-2"
-                              >
-                                <span className="text-[16px] text-[#031136] hover:text-blue-600">
-                                  All Jobs
-                                </span>
-                              </Link>
-                              <Link
-                                href="/view-all/invited-freelancers"
-                                className="flex items-center px-4 py-2"
-                              >
-                                <span className="text-[16px] text-[#031136] hover:text-blue-600">
-                                  Invited Freelancers
-                                </span>
-                              </Link>
-                              <Link
-                                href="/hirer/contracts"
-                                className="flex items-center px-4 py-2"
-                              >
-                                <span className="text-[16px] text-[#031136] hover:text-blue-600">
-                                  All Contracts
-                                </span>
-                              </Link>
-                            </div>
+
+                        <div
+                          className={`transition-max-height -mt-3 w-full overflow-hidden duration-500 ease-in-out ${MyJobsdropdown ? "max-h-full" : "max-h-0"} `}
+                        >
+                          <div className="w-full py-1">
+                            <Link
+                              href="/hirer/add-job-post"
+                              className="flex w-full items-center px-4 py-2"
+                            >
+                              <span className="w-full text-[16px] text-[#031136] hover:text-blue-600">
+                                Post A Job
+                              </span>
+                            </Link>
+                            <Link
+                              href="/hirer/all-jobs"
+                              className="flex w-full items-center px-4 py-2"
+                            >
+                              <span className="w-full text-[16px] text-[#031136] hover:text-blue-600">
+                                All Jobs
+                              </span>
+                            </Link>
+                            <Link
+                              href="/hirer/invited-freelancers"
+                              className="flex w-full items-center px-4 py-2"
+                            >
+                              <span className="w-full text-[16px] text-[#031136] hover:text-blue-600">
+                                Invited Freelancers
+                              </span>
+                            </Link>
+                            <Link
+                              href="/hirer/contracts"
+                              className="flex w-full items-center px-4 py-2"
+                            >
+                              <span className="w-full text-[16px] text-[#031136] hover:text-blue-600">
+                                All Contracts
+                              </span>
+                            </Link>
                           </div>
-                        )}{" "}
+                        </div>
                       </>
                     )}
                     <div className="w-full border-t border-gray-300" />
@@ -1062,7 +1087,7 @@ const Navbar = () => {
                     {loginType === "FREELANCER" ? (
                       <>
                         <button
-                          className="flex w-full cursor-pointer items-center justify-between gap-2 pr-5 text-[16px] text-[#031136]"
+                          className="flex w-full cursor-pointer items-center justify-between gap-2 py-3 pr-5 text-[16px] text-[#031136]"
                           onClick={() => {
                             setReportsDropdown((prev) => !prev);
                             setFindworkDropdown(false);
@@ -1071,25 +1096,26 @@ const Navbar = () => {
                         >
                           Payments <FaChevronDown className="mt-1 text-xs text-[#031136]" />
                         </button>
-                        {Reportsdropdown && (
-                          <div className="">
-                            <div className="py-1">
-                              <Link
-                                href="/freelancer/my-reports"
-                                className="flex items-center px-4 py-2"
-                              >
-                                <span className="text-[16px] text-[#031136] hover:text-blue-600">
-                                  Transaction History
-                                </span>
-                              </Link>
-                            </div>
+
+                        <div
+                          className={`transition-max-height -mt-3 w-full overflow-hidden duration-500 ease-in-out ${Reportsdropdown ? "max-h-full" : "max-h-0"}`}
+                        >
+                          <div className="py-1">
+                            <Link
+                              href="/freelancer/transaction-history"
+                              className="flex w-full items-center px-4 py-2"
+                            >
+                              <span className="w-full text-[16px] text-[#031136] hover:text-blue-600">
+                                Transaction History
+                              </span>
+                            </Link>
                           </div>
-                        )}
+                        </div>
                       </>
                     ) : (
                       <>
                         <button
-                          className="flex w-full cursor-pointer items-center justify-between pr-5 text-[16px] text-[#031136]"
+                          className="flex w-full cursor-pointer items-center justify-between py-3 pr-5 text-[16px] text-[#031136]"
                           onClick={() => {
                             setReportsDropdown((prev) => !prev);
                             setMyJobsDropdown(false);
@@ -1098,27 +1124,31 @@ const Navbar = () => {
                         >
                           Payments <FaChevronDown className="text-xs text-[#031136]" />
                         </button>
-                        {Reportsdropdown && (
-                          <div className="">
-                            <div className="py-1">
-                              <Link
-                                href="/freelancer/my-reports"
-                                className="flex items-center px-4 py-2"
-                              >
-                                <span className="text-[16px] text-[#031136] hover:text-blue-600">
-                                  Transaction History
-                                </span>
-                              </Link>
-                            </div>
+
+                        <div
+                          className={`transition-max-height -mt-3 w-full overflow-hidden duration-500 ease-in-out ${Reportsdropdown ? "max-h-full" : "max-h-0"}`}
+                        >
+                          <div className="py-1">
+                            <Link
+                              href="/freelancer/transaction-history"
+                              className="flex w-full items-center px-4 py-2"
+                            >
+                              <span className="w-full text-[16px] text-[#031136] hover:text-blue-600">
+                                Transaction History
+                              </span>
+                            </Link>
                           </div>
-                        )}
+                        </div>
                       </>
                     )}
                     <div className="w-full border-t border-gray-300" />
 
                     {/** ######################### */}
 
-                    <Link href="/messages">
+                    <Link
+                      href="/freelancer/messages"
+                      className="w-full py-3"
+                    >
                       <button
                         className="text-[16px] text-[#031136]"
                         onClick={() => {

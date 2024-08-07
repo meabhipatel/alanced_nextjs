@@ -4,34 +4,34 @@
 
 /* gradient checkbox css start */
 .dropdown-container::before {
-	content: "";
-	position: absolute;
-	top: -10px;
-	right: 26px;
-	border-left: 10px solid transparent;
-	border-right: 10px solid transparent;
-	border-bottom: 10px solid white;
+  content: "";
+  position: absolute;
+  top: -10px;
+  right: 26px;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid white;
 }
 
 .checkbox-border-gradient {
-	display: none;
-	border: double 1px transparent;
-	background-image: linear-gradient(white, white), linear-gradient(to right, #0909e9, #00d4ff);
-	background-origin: border-box;
-	background-clip: content-box, border-box;
+  display: none;
+  border: double 1px transparent;
+  background-image: linear-gradient(white, white), linear-gradient(to right, #0909e9, #00d4ff);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
 }
 
 input[type="checkbox"]:checked + .checkbox-border-gradient {
-	display: inline-flex;
+  display: inline-flex;
 }
 
 input[type="checkbox"]:checked + .checkbox-border-gradient .checkmark {
-	display: inline-block;
-	color: #0091c2;
+  display: inline-block;
+  color: #0091c2;
 }
 
 input[type="checkbox"]:checked + .checkbox-border-gradient + .normal-checkbox {
-	display: none;
+  display: none;
 }
 
 /* gradient checkbox css end */
@@ -39,57 +39,62 @@ input[type="checkbox"]:checked + .checkbox-border-gradient + .normal-checkbox {
 /* gradient radiobuttons start */
 
 input[type="radio"] {
-	appearance: none;
-	width: 16px;
-	height: 16px;
-	border-radius: 50%;
-	outline: none;
-	border: 1px solid #ddd;
-	transition: background 0.3s;
-	padding: 1px;
-	margin-top: 3px;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  outline: none;
+  border: 1px solid #ddd;
+  transition: background 0.3s;
+  padding: 1px;
+  margin-top: 3px;
 }
 
 input[type="radio"]:checked {
-	background: linear-gradient(to right, #0909e9, #00d4ff);
-	border: none;
+  background: linear-gradient(to right, #0909e9, #00d4ff);
+  border: none;
 }
 
 input[type="radio"]:checked:after {
-	content: "";
-	display: block;
-	width: 8px;
-	height: 8px;
-	border-radius: 50%;
-	margin: 3px auto;
-	background: white;
+  content: "";
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin: 3px auto;
+  background: white;
 }
 
 /* gradient radiobuttons end */
 
 /* dropdown top right triangle */
 .drop::before {
-	content: "";
-	position: absolute;
-	top: -10px;
-	right: 20px;
-	width: 0;
-	height: 0;
-	border-left: 10px solid transparent;
-	border-right: 10px solid transparent;
-	border-bottom: 10px solid white;
+  content: "";
+  position: absolute;
+  top: -10px;
+  right: 20px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid white;
 }
 
 .custom-toast {
-	/* Add custom styles for the toast container here */
-	margin-top: 80px;
-	width: 450px;
-	margin-right: 5%;
+  /* Add custom styles for the toast container here */
+  margin-top: 80px;
+  width: 450px;
+  margin-right: 5%;
 }
 
 .custom-toast-body {
-	/* Add custom styles for the toast content here */
-	font-size: 18px;
-	font: bold;
+  /* Add custom styles for the toast content here */
+  font-size: 18px;
+  font: bold;
 }
 
+/* ---> Hidding scroll bar on mobile navbar open. */
+
+.no-scroll {
+  overflow: hidden;
+}
