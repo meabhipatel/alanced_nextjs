@@ -29,7 +29,7 @@ const Enterprises = () => {
               Count on us for ongoing maintenance and support, <br />
               ensuring your website stays secure.
             </p>
-            <Link href="/signup">
+            <Link href="/signup-options">
               <span className="ml-8 mr-2 mt-8 inline-block rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-[10px] text-sm font-semibold text-white">
                 Let&apos;s Connect
               </span>
@@ -153,7 +153,7 @@ const Enterprises = () => {
               The system provides feedback to the client through the web-based user interface,
               showing the results of the processed data.
             </p>
-            <Link href="/signup">
+            <Link href="/signup-options">
               <span className="ml-8 mr-2 mt-8 inline-block rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-[10px] text-sm font-semibold text-white">
                 Let&apos;s Connect
               </span>
@@ -175,7 +175,7 @@ const Enterprises = () => {
                 Don&apos;t delay, take the first step towards a brighter future by joining our
                 platform and discovering endless possibilities for your projects.
               </p>
-              <Link href="/signup">
+              <Link href="/signup-options">
                 <span className="ml-8 mr-2 mt-8 inline-block rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-[10px] text-sm font-semibold text-white">
                   Let&apos;s Connect
                 </span>
