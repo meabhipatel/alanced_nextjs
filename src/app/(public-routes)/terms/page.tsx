@@ -5,9 +5,10 @@ export const metadata: Metadata = {
   description:
     "The best platform for search and hire freelancer in the central india. let's have a tour of freelancers.",
 };
+
 const TermsPage: React.FC = () => {
   return (
-    <div className="mx-[5%] mt-20 lg:mx-[9%]">
+    <div className="mx-[5%] mt-20 lg:mx-[1%] xl:mx-0">
       <div className="my-2 border border-gray-200 border-opacity-30 bg-[#FFFFFF] px-8 py-5 text-left">
         <h1 className="font-cardo p-3 text-left text-[26px] font-normal text-blue-600">
           Terms &amp; Conditions
