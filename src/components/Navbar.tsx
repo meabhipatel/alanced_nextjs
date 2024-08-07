@@ -1045,7 +1045,7 @@ const Navbar = () => {
                                 </span>
                               </Link>
                               <Link
-                                href="/view-all/hirer-contracts"
+                                href="/hirer/contracts"
                                 className="flex items-center px-4 py-2"
                               >
                                 <span className="text-[16px] text-[#031136] hover:text-blue-600">
