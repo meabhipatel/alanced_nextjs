@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 const FAQ = () => {
   return (
-    <div className="mx-[9%] mt-20">
+    <div className="mx-[2%] mt-20 max-h-screen overflow-y-auto">
       <div className="my-2 mb-5 mt-12 h-[500px] border border-gray-200 border-opacity-30 bg-[#FFFFFF] md:flex">
         {/* Image Section */}
         <div className="relative flex-1">
