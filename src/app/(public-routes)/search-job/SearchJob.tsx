@@ -709,7 +709,7 @@ const SearchJob = () => {
                             </p>
                             <div className="">
                               <Link
-                                href={`/view-more/project-detail?state=${project}`}
+                                href={`/view-project/details`}
                                 // state={{ project }}
                               >
                                 <button className="h-12 w-36 rounded bg-gradient-to-r from-[#0909E9] to-[#00D4FF] text-sm font-bold text-white">
