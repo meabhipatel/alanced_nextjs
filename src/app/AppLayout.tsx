@@ -31,7 +31,9 @@ const AppLayout: FC<IProps> = ({ children }) => {
       )}
 
       {children}
-      {!withoutNavbarScreens.includes(pathname) && <Footer />}
+      {!withoutNavbarScreens.includes(pathname) && pathname !== "/freelancer/messages" && (
+        <Footer />
+      )}
       <Toaster toastOptions={{ duration: 1500 }} />
     </div>
   );
