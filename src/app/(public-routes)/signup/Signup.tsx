@@ -242,7 +242,7 @@ const Signup = () => {
       <div className="flex min-h-screen items-center bg-gray-50">
         <div className="mx-auto h-full max-w-4xl flex-1 bg-white shadow-xl">
           <div className="flex flex-col md:flex-row">
-            <div className="relative h-[535px] md:h-auto md:w-[45%]">
+            <div className="relative h-[535px] md:h-auto md:w-[45%] hidden lg:block lg:w-1/2">
               <Image
                 className="h-full w-full object-cover md:h-[580px]"
                 src={registerimg2}

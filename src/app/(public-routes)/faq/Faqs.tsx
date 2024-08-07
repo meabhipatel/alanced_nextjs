@@ -20,7 +20,7 @@ const Faqs: FC<IProps> = ({ faqs }) => {
       {faqs.map((faq, index) => (
         <div
           key={index}
-          className="mx-6 mt-1 border border-gray-200 border-opacity-30 p-3"
+          className="mx-2 mt-1 border border-gray-200 border-opacity-30 p-3"
         >
           <div className="flex items-center justify-between">
             <h1 className="font-inter text-md text-left font-semibold text-[#031136]">
