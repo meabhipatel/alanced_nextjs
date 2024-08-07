@@ -9,11 +9,11 @@ export const metadata: Metadata = {
 const Cookies = () => {
   return (
     <>
-      <div className="mx-[9%] mt-20">
-        <h1 className="font-cardo p-3 text-left text-[26px] font-normal text-[#031136]">
+      <div className="mx-2 lg:mx-[2%] mt-20">
+        <h1 className="font-cardo p-3 text-left text-[26px] font-normal lg:ml-2 text-[#031136]">
           Cookie Policy
         </h1>
-        <div className="relative mb-6 mt-1 w-48">
+        <div className="relative mb-6 mt-1 lg:ml-4 w-48">
           <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
           <div className="rounded-lg border-b-2 border-gray-600"></div>
         </div>
