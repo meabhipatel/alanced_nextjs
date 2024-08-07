@@ -239,162 +239,159 @@ const Signup = () => {
 
   return (
     <>
-      <div className="flex min-h-screen items-center bg-gray-50">
-        <div className="mx-auto h-full max-w-4xl flex-1 bg-white shadow-xl">
-          <div className="flex flex-col md:flex-row">
-            <div className="relative h-[535px] md:h-auto md:w-[45%] hidden lg:block lg:w-1/2">
+<div className="flex min-h-screen items-center bg-gray-50">
+  <div className="mx-auto h-full max-w-4xl flex-1 bg-white shadow-xl">
+    <div className="flex flex-col md:flex-row">
+      <div className="relative h-[535px] md:h-auto md:w-[45%] hidden lg:block lg:w-1/2">
+        <Image
+          className="h-full w-full object-cover md:h-[580px]"
+          src={registerimg2}
+          alt="img"
+        />
+          <Link href="/">
+            <div className="absolute top-4 lg:top left-4 flex items-center space-x-2 bg-white p-3 rounded-lg shadow-md">
               <Image
-                className="h-full w-full object-cover md:h-[580px]"
-                src={registerimg2}
-                alt="img"
+                src={logo}
+                alt="Logo"
+                className="h-6 w-6"
               />
-              <Link href="/">
-                <div className="absolute left-[18%] top-[19px] flex -translate-x-1/2 transform items-center space-x-2 rounded-bl-none rounded-br rounded-tl-none rounded-tr bg-[#E2F9EE] p-3 sm:left-1/4 md:left-[73.2px] lg:bg-white">
-                  <Image
-                    src={logo}
-                    alt="Logo"
-                    className="h-5 w-5 md:h-6 md:w-6"
-                  />
-                  <span className="font-poppins ml-2 text-[15px] font-semibold tracking-widest text-[#031136] md:text-[16px]">
-                    ALANCED
-                  </span>
-                </div>
-              </Link>
+            <span className="font-poppins ml-2 text-[15px] font-semibold tracking-widest text-[#031136] md:text-[16px]">
+              ALANCED
+            </span>
+          </div>
+        </Link>
+      </div>
+      <div className="flex-1 flex items-center justify-center p-8 pt-4 sm:px-14 md:w-[57%]">
+        <div className="w-full">
+          <div className="flex items-center justify-between">
+            <p className="inline-block text-xs">Already have an account?</p>
+            <Link href="/login">
+              <span className="mb-6 ml-4 inline-block rounded bg-gradient-to-r from-[#0909E9] to-[#00D4FF] py-3 px-6 text-center text-sm font-semibold text-white">
+              Sign in
+              </span>
+            </Link>
+
+          </div>
+
+          <h1 className="font-cardo mb-2 mt-2 text-left text-xl text-gray-700">
+            Create Your Free Account
+          </h1>
+          <div className="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4">
+            <div className="flex-1">
+              <label
+                htmlFor="firstname"
+                className="font-cardo block text-left text-sm"
+              >
+                First Name <span className="text-red-500">*</span>
+              </label>
+              <input
+                id="firstname"
+                type="text"
+                className="mt-1 w-full rounded-md border px-4 py-2 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                placeholder="First Name"
+                name="first_Name"
+                onChange={onChange}
+                required
+                autoComplete="on"
+              />
             </div>
-            <div className="flex items-center justify-center p-8 pt-4 sm:px-14 md:w-[57%]">
-              <div className="w-full">
-                <div className="flex items-center justify-between">
-                  <p className="inline-block text-xs">Already have an account?</p>
-                  <Link href="/login">
-                    <span className="mb-6 ml-4 inline-block w-24 rounded bg-gradient-to-r from-[#0909E9] to-[#00D4FF] py-[10px] text-center text-sm font-semibold text-white">
-                      Sign in
-                    </span>
-                  </Link>
-                </div>
-
-                <h1 className="font-cardo mb-4 mt-10 text-left text-xl text-gray-700">
-                  Create Your Free Account
-                </h1>
-                <div className="flex flex-row space-x-4">
-                  <div className="">
-                    <label
-                      htmlFor="firstname"
-                      className="font-cardo block text-left text-sm"
-                    >
-                      First Name <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      id="firstname"
-                      type="text"
-                      className="mt-1 w-full rounded-md border px-4 py-2 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
-                      placeholder="First Name"
-                      name="first_Name"
-                      onChange={onChange}
-                      required
-                      autoComplete={"on"}
-                    />
-                  </div>
-                  <div className="">
-                    <label
-                      htmlFor="lastname"
-                      className="font-cardo block text-left text-sm"
-                    >
-                      Last Name <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      id="lastname"
-                      type="text"
-                      className="mt-1 w-full rounded-md border px-4 py-2 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
-                      placeholder="Last Name"
-                      name="last_Name"
-                      onChange={onChange}
-                      required
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="font-cardo mt-4 block text-left text-sm"
-                  >
-                    Email Address <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    id="email"
-                    type="email"
-                    className="mt-1 w-full rounded-md border px-4 py-2 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
-                    placeholder="example@gmail.com"
-                    name="email"
-                    onChange={onChange}
-                    required
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="password"
-                    className="font-cardo mt-4 block text-left text-sm"
-                  >
-                    Password <span className="text-red-500">*</span>
-                  </label>
-                  <div className="relative">
-                    <input
-                      id="password"
-                      type={inputType}
-                      className="mt-1 w-full rounded-md border px-4 py-2 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
-                      placeholder="•••••••••••"
-                      name="password"
-                      onChange={onChange}
-                      required
-                    />
-                    <button
-                      onClick={togglePasswordVisibility}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 transform"
-                    >
-                      {inputType === "password" ? <IoEyeSharp /> : <FaEyeSlash />}
-                      {/* <i
-                        className={`fa ${inputType === "password" ? "fa-eye-slash" : "fa-eye"} text-blue-600`}
-                      ></i> */}
-                    </button>
-                  </div>
-                </div>
-                {handle_password_alert()}
-                {/* {handlealert()}
-                        {handleallalert()} */}
-                <button
-                  className="focus:shadow-outline-blue mt-4 block w-full rounded-lg border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-2 text-center text-sm font-semibold leading-5 text-white transition-colors duration-150 focus:outline-none"
-                  onClick={handleRegisterUser}
-                >
-                  {isLoading ? (
-                    <div className="mx-auto h-5 w-5 animate-spin rounded-full border-2 border-transparent border-l-white border-t-white"></div>
-                  ) : (
-                    "Create your account"
-                  )}
-                </button>
-
-                <div className="flex items-center">
-                  <div className="my-8 flex-1 border-t-2"></div>
-                  <span className="font-jost bg-white px-4">or</span>
-                  <div className="my-8 flex-1 border-t-2"></div>
-                </div>
-
-                <button
-                  className="focus:shadow-outline-blue font-jost flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2 text-center text-sm font-semibold leading-5 text-black transition-colors duration-150 focus:outline-none"
-                  // onClick={logins}
-                >
-                  <FcGoogle className="text-xl" />
-                  Sign Up with Google
-                </button>
-                <p className="font-inter pt-3 text-left text-xs">
-                  Already have an Account?{" "}
-                  <Link href="/login">
-                    <span className="text-yellow-400">Sign in</span>
-                  </Link>
-                </p>
-              </div>
+            <div className="flex-1">
+              <label
+                htmlFor="lastname"
+                className="font-cardo block text-left text-sm"
+              >
+                Last Name <span className="text-red-500">*</span>
+              </label>
+              <input
+                id="lastname"
+                type="text"
+                className="mt-1 w-full rounded-md border px-4 py-2 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                placeholder="Last Name"
+                name="last_Name"
+                onChange={onChange}
+                required
+              />
             </div>
           </div>
+          <div>
+            <label
+              htmlFor="email"
+              className="font-cardo mt-4 block text-left text-sm"
+            >
+              Email Address <span className="text-red-500">*</span>
+            </label>
+            <input
+              id="email"
+              type="email"
+              className="mt-1 w-full rounded-md border px-4 py-2 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+              placeholder="example@gmail.com"
+              name="email"
+              onChange={onChange}
+              required
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="password"
+              className="font-cardo mt-4 block text-left text-sm"
+            >
+              Password <span className="text-red-500">*</span>
+            </label>
+            <div className="relative">
+              <input
+                id="password"
+                type={inputType}
+                className="mt-1 w-full rounded-md border px-4 py-2 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                placeholder="•••••••••••"
+                name="password"
+                onChange={onChange}
+                required
+              />
+              <button
+                onClick={togglePasswordVisibility}
+                className="absolute right-3 top-1/2 -translate-y-1/2 transform"
+              >
+                {inputType === "password" ? <FaEyeSlash /> :<IoEyeSharp /> }
+              </button>
+            </div>
+          </div>
+          {handle_password_alert()}
+          <button
+            className="focus:shadow-outline-blue mt-4 block w-full rounded-lg border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-2 text-center text-sm font-semibold leading-5 text-white transition-colors duration-150 focus:outline-none"
+            onClick={handleRegisterUser}
+          >
+            {isLoading ? (
+              <div className="mx-auto h-5 w-5 animate-spin rounded-full border-2 border-transparent border-l-white border-t-white"></div>
+            ) : (
+              "Create your account"
+            )}
+          </button>
+
+          <div className="flex items-center my-8">
+            <div className="flex-1 border-t-2"></div>
+            <span className="font-jost bg-white px-4">or</span>
+            <div className="flex-1 border-t-2"></div>
+          </div>
+
+          <button
+            className="focus:shadow-outline-blue font-jost flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2 text-center text-sm font-semibold leading-5 text-black transition-colors duration-150 focus:outline-none"
+            // onClick={logins}
+          >
+            <FcGoogle className="text-xl" />
+            Sign Up with Google
+          </button>
+          <p className="font-inter pt-3 text-left text-xs">
+            Already have an Account?{" "}
+            <Link href="/login">
+              <span className="text-yellow-400">Sign in</span>
+            </Link>
+          </p>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
     </>
   );
 };

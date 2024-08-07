@@ -136,7 +136,7 @@ const Login = () => {
                 onClick={togglePasswordVisibility}
                 className="absolute right-3 top-1/2 -translate-y-1/2"
               >
-                {inputType === "password" ? <IoEyeSharp /> : <FaEyeSlash />}
+                {inputType === "password" ? <FaEyeSlash /> :<IoEyeSharp />}
               </button>
             </div>
           </div>
