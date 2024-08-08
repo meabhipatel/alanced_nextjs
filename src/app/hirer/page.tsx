@@ -25,55 +25,16 @@ import axios from "axios";
 import { RxArrowLeft, RxArrowRight } from "react-icons/rx";
 import { errorLog } from "@/utils/errorLog";
 // import AddFreeHireRequest from "./HirerAllPopup/AddFreeHireRequest";            for use
+import AddFreeHireRequest from "@/components/AddFreeHireRequestPopup";
 import fileIcon from "@/assets/icons/file.png";
 import Link from "next/link";
 import Image from "next/image";
 import { FaCheck } from "react-icons/fa6";
-
-interface IUserProfile {
-  id: number;
-  Company_Name: string;
-  first_Name: string;
-  last_Name: string;
-  email: string;
-  contact: string;
-  Address: string;
-  images_logo: string;
-  social_media: string;
-  about: string;
-  DOB: string | null;
-  Company_Establish: string | null;
-  gender: string;
-  map: string;
-}
-
-interface Freelancer {
-  id: number;
-  email: string;
-  first_Name: string;
-  last_Name: string;
-  contact: string;
-  Address: string;
-  DOB: string | null;
-  gender: string;
-  experience: number;
-  type: string;
-  images_logo: string;
-  qualification: string;
-  social_media: string;
-  map: string;
-  skills: string;
-  category: string;
-  Language: string;
-  hourly_rate: number;
-  experience_level: string;
-  about: string;
-  length: number;
-}
+import { IFreelancerHiringOpen, IFreelancer, IHirerProfile } from "@/interfaces/index";
 
 const HirerAfterLogin = () => {
   // const logindata = useSelector((state) => state.login.login_data) || JSON.parse(localStorage.getItem("logindata"));
-  const logindata: IUserProfile = {
+  const logindata: IHirerProfile = {
     id: 5,
     Company_Name: "",
     first_Name: "sachin",
@@ -91,7 +52,7 @@ const HirerAfterLogin = () => {
   };
   const googleUserName = localStorage.getItem("googleUserName");
   const loginMethod = localStorage.getItem("loginMethod");
-  // const [isFreeHiringOpen, setIsFreeHiringOpen] = useState({});             for use
+  const [isFreeHiringOpen, setIsFreeHiringOpen] = useState<IFreelancerHiringOpen>({});
 
   const [expe] = useState(ExperienceLevel);
   const [city] = useState(CityList);
@@ -107,14 +68,14 @@ const HirerAfterLogin = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
 
-  // const openFreeHiring = (freelancerId: number) => {
-  //   setIsFreeHiringOpen((prev) => ({ ...prev, [freelancerId]: true }));
-  // };
+  const openFreeHiring = (freelancerId: number) => {
+    setIsFreeHiringOpen((prev) => ({ ...prev, [freelancerId]: true }));
+  };
 
-  // // Function to close hiring popup for a specific freelancer                  for use
-  // const closeFreeHiring = (freelancerId: number) => {
-  //   setIsFreeHiringOpen((prev) => ({ ...prev, [freelancerId]: false }));
-  // };
+  // Function to close hiring popup for a specific freelancer                  for use
+  const closeFreeHiring = (freelancerId: number) => {
+    setIsFreeHiringOpen((prev) => ({ ...prev, [freelancerId]: false }));
+  };
 
   const handleSkillFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const skills = e.target.value;
@@ -156,7 +117,7 @@ const HirerAfterLogin = () => {
     setCurrentPage(1);
   };
 
-  const [viewFreelancer, setViewFreelancer] = useState<Freelancer[]>([]);
+  const [viewFreelancer, setViewFreelancer] = useState<IFreelancer[]>([]);
   errorLog(viewFreelancer);
 
   useEffect(() => {
@@ -760,17 +721,17 @@ const HirerAfterLogin = () => {
                               <div className="absolute bottom-2 right-6 ml-auto basis-4/12 items-center space-x-2">
                                 <button
                                   className="mt-4 inline-block rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-[10px] text-sm font-semibold text-white lg:mt-0"
-                                  // onClick={() => openFreeHiring(free.id)}       for use
+                                  onClick={() => openFreeHiring(free.id)}
                                 >
                                   Hire Now
                                 </button>
                               </div>
-                              {/* {isFreeHiringOpen[free.id] && (
+                              {isFreeHiringOpen[free.id] && (
                                 <AddFreeHireRequest
-                                  closeFreeHiring={() => closeFreeHiring(free.id)}         for use
+                                  closeFreeHiring={() => closeFreeHiring(free.id)}
                                   free={free}
                                 />
-                              )} */}
+                              )}
                             </div>
                           </div>
                         </>
