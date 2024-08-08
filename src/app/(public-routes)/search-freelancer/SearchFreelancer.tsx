@@ -1,39 +1,17 @@
 "use client";
 import React, { useState, useEffect } from "react";
-// import HomeSection4 from "../../components/Layout/HomeSection4";
-// import Footer from "../../components/Layout/Footer";
-// import { useDispatch } from "react-redux";
-// import { Link, useRouter } from "react-router-dom";
-import halfBackground from "@/assets/images/half_background.png";
-// import { Avatar } from "@material-tailwind/react";
-// import { IconButton } from "@material-tailwind/react";
-// import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
-// import Skeleton from "react-loading-skeleton";
-// import "react-loading-skeleton/dist/skeleton.css";
 import { RxArrowLeft, RxArrowRight } from "react-icons/rx";
 import axios from "axios";
-import SkillsList from "@/constant/allSelectionData/SkillsList";
-import CityList from "@/constant/allSelectionData/CityList";
-import LanguageList from "@/constant/allSelectionData/LanguageList";
-import ExperienceLevel from "@/constant/allSelectionData/ExperienceLevel";
 import FileIcon from "@/assets/icons/file.png";
-import hero2Image from "@/assets/images/hero2.png";
-import { IoMdSearch } from "react-icons/io";
 import Link from "next/link";
-// import { useRouter } from "next/router";
 import Image from "next/image";
 import { errorLog } from "@/utils/errorLog";
-import { FaCheck } from "react-icons/fa6";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
 import { IoLocationOutline } from "react-icons/io5";
 import AddFreeHireRequest from "@/components/AddFreeHireRequestPopup";
 import { IFreelancerHiringOpen, IFreelancer } from "@/interfaces/index";
-// ---> Setting meta data
-// export const metadata: Metadata = {
-//   title: "Search Freelancer - Alanced",
-//   description:
-//     "The best platform for search and hire freelancer in the central india. let's have a tour of freelancers.",
-// };
+import SearchFreelancerHeader from "./SearchFreelancerHeader";
+import SearchFreelancerSidebar from "./SearchFreelancerSidebar";
 
 const SearchFreelancer = () => {
   // const location = useRouter();
@@ -60,16 +38,12 @@ const SearchFreelancer = () => {
   // const googleUserName = localStorage.getItem("googleUserName");
   // const loginMethod = localStorage.getItem("loginMethod");
 
-  const [expe] = useState(ExperienceLevel);
-  const [city] = useState(CityList);
-  const [req_skill] = useState(SkillsList);
-  const [language] = useState(LanguageList);
-
-  const [skillFilter, setSkillFilter] = useState<string[]>([]);
-  const [expFilter, setExpFilter] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [expFilter, setExpFilter] = useState<string[]>([]);
   const [cityFilter, setCityFilter] = useState<string[]>([]);
   const [languageFilter, setLanguageFilter] = useState<string[]>([]);
+  const [skillFilter, setSkillFilter] = useState<string[]>([]);
+
   // const [hourlyRate, setHourlyRate] = useState([1, 1000]);
 
   // const dispatch = useDispatch();
@@ -84,46 +58,6 @@ const SearchFreelancer = () => {
   // Function to close hiring popup for a specific freelancer                  for use
   const closeFreeHiring = (freelancerId: number) => {
     setIsFreeHiringOpen((prev) => ({ ...prev, [freelancerId]: false }));
-  };
-
-  const handleSkillFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const skills = e.target.value;
-    if (e.target.checked) {
-      setSkillFilter((prevFilters) => [...prevFilters, skills]);
-    } else {
-      setSkillFilter((prevFilters) => prevFilters.filter((filter) => filter !== skills));
-    }
-    setCurrentPage(1);
-  };
-
-  const handleExpFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const exp = e.target.value;
-    if (e.target.checked) {
-      setExpFilter((prevFilters) => [...prevFilters, exp]);
-    } else {
-      setExpFilter((prevFilters) => prevFilters.filter((filter) => filter !== exp));
-    }
-    setCurrentPage(1);
-  };
-
-  const handleCityFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const city = e.target.value;
-    if (e.target.checked) {
-      setCityFilter((prevFilters) => [...prevFilters, city]);
-    } else {
-      setCityFilter((prevFilters) => prevFilters.filter((filter) => filter !== city));
-    }
-    setCurrentPage(1);
-  };
-
-  const handleLanguageFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const language = e.target.value;
-    if (e.target.checked) {
-      setLanguageFilter((prevFilters) => [...prevFilters, language]);
-    } else {
-      setLanguageFilter((prevFilters) => prevFilters.filter((filter) => filter !== language));
-    }
-    setCurrentPage(1);
   };
 
   const [viewFreelancer, setViewFreelancer] = useState<IFreelancer[]>([]);
@@ -235,51 +169,6 @@ const SearchFreelancer = () => {
   //   displayName = logindata?.first_Name + " " + logindata?.last_Name;
   // }
 
-  const [showAllSkills, setShowAllSkills] = useState(false);
-  const initialSkillCount = 5; // Initial number of skills to show
-
-  const [visibleSkills, setVisibleSkills] = useState(req_skill.slice(0, initialSkillCount));
-
-  const handleShowMoreSkills = () => {
-    setVisibleSkills(req_skill); // Show all skills
-    setShowAllSkills(true);
-  };
-
-  const handleShowLessSkills = () => {
-    setVisibleSkills(req_skill.slice(0, initialSkillCount)); // Show the initial count
-    setShowAllSkills(false);
-  };
-
-  const [showAllCity, setShowAllCity] = useState(false);
-  const initialCityCount = 5; // Initial number of cities to show
-
-  const [visibleCities, setVisibleCities] = useState(city.slice(0, initialCityCount));
-
-  const handleShowMoreCity = () => {
-    setVisibleCities(city); // Show all cities
-    setShowAllCity(true);
-  };
-
-  const handleShowLessCity = () => {
-    setVisibleCities(city.slice(0, initialCityCount)); // Show the initial count
-    setShowAllCity(false);
-  };
-
-  const [showAllLanguage, setShowAllLanguage] = useState(false);
-  const initialLanguageCount = 5; // Initial number of language to show
-
-  const [visibleLanguages, setVisibleLanguages] = useState(language.slice(0, initialLanguageCount));
-
-  const handleShowMoreLanguage = () => {
-    setVisibleLanguages(language); // Show all Languages
-    setShowAllLanguage(true);
-  };
-
-  const handleShowLessLanguage = () => {
-    setVisibleLanguages(language.slice(0, initialLanguageCount)); // Show the initial count
-    setShowAllLanguage(false);
-  };
-
   function highlightText(text: string, query: string) {
     if (!query) {
       return text;
@@ -315,224 +204,22 @@ const SearchFreelancer = () => {
   return (
     <>
       {/* ---> page Header  */}
-      <div
-        className="flex h-[50vh] items-end justify-center bg-cover bg-no-repeat pb-8"
-        style={{ backgroundImage: `url(${halfBackground.src})` }}
-      >
-        <div className="flex w-[95%] rounded-md bg-white p-5 text-2xl sm:w-[80%]">
-          <div className="flex w-full flex-col items-start pt-5">
-            <h1>Find & Hire Freelancers</h1>
-            <p className="mt-2 text-sm font-normal text-[#797979]">
-              More than 10K expert freelancers are waiting for you
-            </p>
-            <div className="mt-4 flex h-14 w-full items-center rounded-md bg-gray-50 p-3 shadow-md">
-              <div className="flex w-full flex-row">
-                <IoMdSearch className="h-6 w-6 text-[#797979]" />
-                <input
-                  className="w-full bg-transparent px-3 text-base outline-none"
-                  placeholder="Search by Category"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                ></input>
-              </div>
-
-              <button className="h-8 w-24 rounded bg-gradient-to-r from-[#0909E9] to-[#00D4FF] text-base font-semibold text-white">
-                Search
-              </button>
-            </div>
-          </div>
-          <div className="relative hidden w-full lg:block">
-            <Image
-              src={hero2Image}
-              alt="hero-image-2"
-              className="absolute -bottom-12"
-            />
-          </div>
-        </div>
-      </div>
+      <SearchFreelancerHeader
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+      />
 
       {/* ---> page Body  */}
       <div className="mt-1 px-2 xl:px-20">
         <div className="mx-5 mb-5 flex flex-col md:flex-row">
           {/* ---> side categoy bar */}
-          <div className="sticky top-24 hidden h-[90vh] w-full overflow-y-auto bg-[#FFFFFF] py-8 pt-3 text-left md:w-[25%] lg:block">
-            <div className="skills">
-              <div>
-                <h1 className="bg-white text-left text-xl font-normal">Skills</h1>
-              </div>
-              {visibleSkills.map((skill, index) => (
-                <div
-                  key={index}
-                  className="mt-4 flex flex-row"
-                >
-                  <div className="basis-8/12">
-                    <label className="relative flex cursor-pointer items-center">
-                      <input
-                        className="hidden"
-                        type="checkbox"
-                        value={skill}
-                        onChange={handleSkillFilterChange}
-                      />
-                      <div className="checkbox-border-gradient mr-3 flex h-5 w-5 items-center justify-center rounded bg-transparent">
-                        <span className="checkmark hidden">
-                          {/* <FaCheck className="text-sm" /> */}
-                          <FaCheck className="text-sm" />
-                        </span>
-                      </div>
-                      <span className="normal-checkbox mr-3 inline-block h-5 w-5 rounded border border-gray-300"></span>
-                      <span className="font-normal text-[#797979]">{skill}</span>
-                    </label>
-                  </div>
-                </div>
-              ))}
-              {showAllSkills ? (
-                <div>
-                  <button
-                    className="mt-5 cursor-pointer bg-white text-left text-xl font-normal"
-                    onClick={handleShowLessSkills}
-                  >
-                    Show Less
-                  </button>
-                </div>
-              ) : (
-                <div>
-                  <button
-                    className="mt-5 cursor-pointer bg-white text-left text-xl font-normal"
-                    onClick={handleShowMoreSkills}
-                  >
-                    +{req_skill.length - initialSkillCount} More
-                  </button>
-                </div>
-              )}
-            </div>
-
-            <div className="location">
-              <div>
-                <h1 className="mt-10 bg-white text-left text-xl font-normal">Citys</h1>
-              </div>
-
-              {visibleCities.map((location, index) => (
-                <div
-                  key={index}
-                  className="mt-4 flex flex-row"
-                >
-                  <div className="basis-8/12">
-                    <label className="relative flex cursor-pointer items-center">
-                      <input
-                        className="hidden"
-                        type="checkbox"
-                        value={location}
-                        onChange={handleCityFilterChange}
-                      />
-                      <div className="checkbox-border-gradient mr-3 flex h-5 w-5 items-center justify-center rounded bg-transparent">
-                        <span className="checkmark hidden">
-                          <FaCheck className="text-sm" />
-                        </span>
-                      </div>
-                      <span className="normal-checkbox mr-3 inline-block h-5 w-5 rounded border border-gray-300"></span>
-                      <span className="font-normal text-[#797979]">{location}</span>
-                    </label>
-                  </div>
-                </div>
-              ))}
-              {showAllCity ? (
-                <div>
-                  <button
-                    className="mt-5 cursor-pointer bg-white text-left text-xl font-normal"
-                    onClick={handleShowLessCity}
-                  >
-                    Show Less
-                  </button>
-                </div>
-              ) : (
-                <div>
-                  <button
-                    className="mt-5 cursor-pointer bg-white text-left text-xl font-normal"
-                    onClick={handleShowMoreCity}
-                  >
-                    +{city.length - initialCityCount} More
-                  </button>
-                </div>
-              )}
-            </div>
-            <div className="language">
-              <div>
-                <h1 className="mt-10 bg-white text-left text-xl font-normal">Languages</h1>
-              </div>
-              {visibleLanguages.map((language, index) => (
-                <div
-                  key={index}
-                  className="mt-4 flex flex-row"
-                >
-                  <div className="basis-8/12">
-                    <label className="relative flex cursor-pointer items-center">
-                      <input
-                        className="hidden"
-                        type="checkbox"
-                        value={language}
-                        onChange={handleLanguageFilterChange}
-                      />
-                      <div className="checkbox-border-gradient mr-3 flex h-5 w-5 items-center justify-center rounded bg-transparent">
-                        <span className="checkmark hidden">
-                          <FaCheck className="text-sm" />
-                        </span>
-                      </div>
-                      <span className="normal-checkbox mr-3 inline-block h-5 w-5 rounded border border-gray-300"></span>
-                      <span className="font-normal text-[#797979]">{language}</span>
-                    </label>
-                  </div>
-                </div>
-              ))}
-              {showAllLanguage ? (
-                <div>
-                  <button
-                    className="mt-5 cursor-pointer bg-white text-left text-xl font-normal"
-                    onClick={handleShowLessLanguage}
-                  >
-                    Show Less
-                  </button>
-                </div>
-              ) : (
-                <div>
-                  <button
-                    className="mt-5 cursor-pointer bg-white text-left text-xl font-normal"
-                    onClick={handleShowMoreLanguage}
-                  >
-                    +{language.length - initialLanguageCount} More
-                  </button>
-                </div>
-              )}
-            </div>
-            <div className="level">
-              <div>
-                <h1 className="mt-10 bg-white text-left text-xl font-normal">Experience Level</h1>
-              </div>
-              {expe.map((exp, index) => (
-                <div
-                  key={index}
-                  className="mt-4 flex flex-row"
-                >
-                  <div className="basis-8/12">
-                    <label className="relative flex cursor-pointer items-center">
-                      <input
-                        className="hidden"
-                        type="checkbox"
-                        value={exp}
-                        onChange={handleExpFilterChange}
-                      />
-                      <div className="checkbox-border-gradient mr-3 flex h-5 w-5 items-center justify-center rounded bg-transparent">
-                        <span className="checkmark hidden">
-                          <FaCheck className="text-sm" />
-                        </span>
-                      </div>
-                      <span className="normal-checkbox mr-3 inline-block h-5 w-5 rounded border border-gray-300"></span>
-                      <span className="font-normal text-[#797979]">{exp}</span>
-                    </label>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          <SearchFreelancerSidebar
+            setCityFilter={setCityFilter}
+            setCurrentPage={setCurrentPage}
+            setExpFilter={setExpFilter}
+            setLanguageFilter={setLanguageFilter}
+            setSkillFilter={setSkillFilter}
+          />
 
           {/* ---> card container  */}
           <div className="w-full bg-[#FFFFFF] pb-8 pt-3 text-left lg:w-[70%]">
@@ -812,8 +499,6 @@ const SearchFreelancer = () => {
           </div>
         </div>
       </div>
-      {/* <HomeSection4 /> */}
-      {/* <Footer /> */}
     </>
   );
 };
