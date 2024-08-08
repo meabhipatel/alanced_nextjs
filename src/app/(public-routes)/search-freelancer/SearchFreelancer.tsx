@@ -26,7 +26,8 @@ import { errorLog } from "@/utils/errorLog";
 import { FaCheck } from "react-icons/fa6";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
 import { IoLocationOutline } from "react-icons/io5";
-
+import AddFreeHireRequest from "@/components/AddFreeHireRequestPopup";
+import { IFreelancerHiringOpen, IFreelancer } from "@/interfaces/index";
 // ---> Setting meta data
 // export const metadata: Metadata = {
 //   title: "Search Freelancer - Alanced",
@@ -38,6 +39,26 @@ const SearchFreelancer = () => {
   // const location = useRouter();
   // const searchParams = new URLSearchParams(location.search);
   // const category = searchParams.get("category");
+
+  //  for use
+  // const logindata: IHirerProfile = {
+  //   id: 5,
+  //   Company_Name: "",
+  //   first_Name: "sachin",
+  //   last_Name: "sharma",
+  //   email: "sachinsharmaece@gmail.com",
+  //   contact: "",
+  //   Address: "",
+  //   images_logo: "/media/images_logo/admin-profle.png",
+  //   social_media: "",
+  //   about: "",
+  //   DOB: null,
+  //   Company_Establish: null,
+  //   gender: "",
+  //   map: "",
+  // };
+  // const googleUserName = localStorage.getItem("googleUserName");
+  // const loginMethod = localStorage.getItem("loginMethod");
 
   const [expe] = useState(ExperienceLevel);
   const [city] = useState(CityList);
@@ -54,6 +75,16 @@ const SearchFreelancer = () => {
   // const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [isFreeHiringOpen, setIsFreeHiringOpen] = useState<IFreelancerHiringOpen>({});
+
+  const openFreeHiring = (freelancerId: number) => {
+    setIsFreeHiringOpen((prev) => ({ ...prev, [freelancerId]: true }));
+  };
+
+  // Function to close hiring popup for a specific freelancer                  for use
+  const closeFreeHiring = (freelancerId: number) => {
+    setIsFreeHiringOpen((prev) => ({ ...prev, [freelancerId]: false }));
+  };
 
   const handleSkillFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const skills = e.target.value;
@@ -95,31 +126,7 @@ const SearchFreelancer = () => {
     setCurrentPage(1);
   };
 
-  interface Freelancer {
-    id: number;
-    email: string;
-    first_Name: string;
-    last_Name: string;
-    contact: string;
-    Address: string;
-    DOB: string | null;
-    gender: string;
-    experience: number;
-    type: string;
-    images_logo: string;
-    qualification: string;
-    social_media: string;
-    map: string;
-    skills: string;
-    category: string;
-    Language: string;
-    hourly_rate: number;
-    experience_level: string;
-    about: string;
-    length: number;
-  }
-
-  const [viewFreelancer, setViewFreelancer] = useState<Freelancer[]>([]);
+  const [viewFreelancer, setViewFreelancer] = useState<IFreelancer[]>([]);
   // console.log(viewFreelancer, "freelancers by axios");
 
   useEffect(() => {
@@ -215,6 +222,18 @@ const SearchFreelancer = () => {
 
     return words.slice(0, 20).join(" ") + "...";
   };
+  //  for use
+  // let displayName = null;
+
+  // if (loginMethod === "google") {
+  //   displayName = googleUserName;
+  //   displayName =
+  //     logindata.first_Name && logindata.last_Name
+  //       ? logindata?.first_Name + " " + logindata?.last_Name
+  //       : googleUserName;
+  // } else if (loginMethod === "traditional") {
+  //   displayName = logindata?.first_Name + " " + logindata?.last_Name;
+  // }
 
   const [showAllSkills, setShowAllSkills] = useState(false);
   const initialSkillCount = 5; // Initial number of skills to show
@@ -654,7 +673,19 @@ const SearchFreelancer = () => {
                                     Hire Now
                                   </span>
                                 </Link>
+                                <button
+                                  className="mt-4 inline-block rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-[10px] text-sm font-semibold text-white lg:mt-0"
+                                  onClick={() => openFreeHiring(free.id)}
+                                >
+                                  Hire Now
+                                </button>
                               </div>
+                              {isFreeHiringOpen[free.id] && (
+                                <AddFreeHireRequest
+                                  closeFreeHiring={() => closeFreeHiring(free.id)}
+                                  free={free}
+                                />
+                              )}
                             </div>
                           </div>
                         </>
