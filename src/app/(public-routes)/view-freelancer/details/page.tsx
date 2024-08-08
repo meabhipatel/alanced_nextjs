@@ -10,7 +10,6 @@ import Link from "next/link";
 import StarRating from "@/components/StartRating";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
 import { IoLocationOutline } from "react-icons/io5";
-import FileIcon from "@/assets/icons/file.png";
 import FreelancerPortfolioPopup from "@/components/FreelancerPortfolioPopup";
 import { errorLog } from "@/utils/errorLog";
 
@@ -161,365 +160,256 @@ const ViewFreelancerDetails = () => {
   );
   /* eslint-enable */
 
-  const showMoreHandlers = () => {
-    setStartIdx((prevIdx) => prevIdx + 2);
-  };
+  //const showMoreHandlers = () => {
+    //setStartIdx((prevIdx) => prevIdx + 2);
+  //};
 
-  const showLessHandlers = () => {
-    setStartIdx(0);
-  };
+  //const showLessHandlers = () => {
+    //setStartIdx(0);
+  //};
 
-  const visibleEmp = sortedEmployments.slice(startIdx, startIdx + 2);
+  //const visibleEmp = sortedEmployments.slice(startIdx, startIdx + 2);
 
   return (
     <>
-      <div className="container-sm mb-6 mt-14 px-28">
-        <div className="flex flex-row">
-          <div className="basis-3/12 pl-14">
-            <div className="relative h-24 w-24">
-              <Image
-                src={"https://www.api.alanced.com" + freelancer.images_logo}
-                alt="Profile"
-                className="h-full w-full rounded-full border border-gray-200"
-                height={96}
-                width={96}
-              />
-              <div className="absolute bottom-3 right-0.5 h-4 w-4 rounded-full border-2 border-white bg-blue-500"></div>
-            </div>
-            <div className="mt-10 pl-2 text-left">
-              <h1 className="font-cardo fond-semibold text-[20px]">Experience level</h1>
-              <p className="font-cardo fond-semibold text-lg text-gray-500">
-                {freelancer.experience_level
-                  ? freelancer.experience_level.replace(/_/g, " ")
-                  : "NA"}
-              </p>
-            </div>
-            <div className="mt-5 pl-2 text-left">
-              <h1 className="font-cardo fond-semibold text-[20px]">Category</h1>
-              <p className="font-cardo fond-semibold text-lg text-gray-500">
-                {freelancer.category ? freelancer.category : "NA"}
-              </p>
-            </div>
-            <div className="mt-5 pl-2 text-left">
-              <h1 className="font-cardo fond-semibold text-[20px]">Hourly Rate</h1>
-              <p className="font-cardo fond-semibold text-lg text-gray-500">
-                ${freelancer.hourly_rate ? freelancer.hourly_rate : 0}
-              </p>
-            </div>
-            <div className="mt-5 pl-2 text-left">
-              <h1 className="font-cardo fond-semibold text-[20px]">Educations</h1>
-              <p className="font-cardo fond-semibold text-lg text-gray-500">
-                {freelancer.qualification ? freelancer.qualification : "NA"}
-              </p>
-            </div>
-            <div className="mt-5 pl-2 text-left">
-              <h1 className="font-cardo fond-semibold text-[20px]">Languages</h1>
-              {freelancer && freelancer.Language
-                ? JSON.parse(freelancer.Language.replace(/'/g, '"')).map(
-                    (language: string, index: number) => (
-                      <p
-                        key={index}
-                        className="font-cardo fond-semibold text-lg text-gray-500"
-                      >
-                        {language}
-                      </p>
-                    )
-                  )
-                : null}
-            </div>
+<div className="container mx-auto my-6 px-4 sm:px-6 lg:px-28">
+  <div className="flex flex-col lg:flex-row">
+    <div className="lg:basis-3/12 lg:pl-14 mb-6 lg:mb-0">
+      <div className="relative h-24 w-24 mx-auto lg:mx-0">
+        <Image
+          src={"https://www.api.alanced.com" + freelancer.images_logo}
+          alt="Profile"
+          className="h-full w-full rounded-full border border-gray-200"
+          height={96}
+          width={96}
+        />
+        <div className="absolute bottom-3 right-0.5 h-4 w-4 rounded-full border-2 border-white bg-blue-500"></div>
+      </div>
+      <div className="mt-6 text-center lg:text-left">
+        <h1 className="font-cardo font-medium text-[20px]">Experience level</h1>
+        <p className="font-cardo font-semibold text-lg text-gray-500">
+          {freelancer.experience_level ? freelancer.experience_level.replace(/_/g, " ") : "NA"}
+        </p>
+      </div>
+      <div className="mt-5 text-center lg:text-left">
+        <h1 className="font-cardo font-medium text-[20px]">Category</h1>
+        <p className="font-cardo font-semibold text-lg text-gray-500">
+          {freelancer.category ? freelancer.category : "NA"}
+        </p>
+      </div>
+      <div className="mt-5 text-center lg:text-left">
+        <h1 className="font-cardo font-medium text-[20px]">Hourly Rate</h1>
+        <p className="font-cardo font-semibold text-lg text-gray-500">
+          ${freelancer.hourly_rate ? freelancer.hourly_rate : 0}
+        </p>
+      </div>
+      <div className="mt-5 text-center lg:text-left">
+        <h1 className="font-cardo font-medium text-[20px]">Educations</h1>
+        <p className="font-cardo font-semibold text-lg text-gray-500">
+          {freelancer.qualification ? freelancer.qualification : "NA"}
+        </p>
+      </div>
+      <div className="mt-5 text-center lg:text-left">
+        <h1 className="font-cardo font-medium text-[20px]">Languages</h1>
+        {freelancer && freelancer.Language
+          ? JSON.parse(freelancer.Language.replace(/'/g, '"')).map((language: string, index: number) => (
+            <p key={index} className="font-cardo font-semibold text-lg text-gray-500">
+              {language}
+            </p>
+          ))
+          : null}
+      </div>
+    </div>
+    <div className="lg:basis-9/12">
+      <div className="flex flex-col lg:flex-row lg:justify-between items-center">
+        <div className="lg:basis-6/12">
+          <div className="flex items-center">
+            <h1 className="font-cardo mr-1 text-[24px] font-normal text-[#031136]">
+              {freelancer.first_Name ? freelancer.first_Name + " " + freelancer.last_Name : "NA"}
+            </h1>
+            <RiVerifiedBadgeFill className="text-green-600" />
           </div>
-          <div className="basis-9/12">
-            <div className="flex flex-row">
-              <div className="basis-6/12">
-                <div className="flex items-center">
-                  <h1 className="font-cardo mr-1 text-[24px] font-normal text-[#031136]">
-                    {freelancer.first_Name
-                      ? freelancer.first_Name + " " + freelancer.last_Name
-                      : " NA"}
-                  </h1>
-                  <RiVerifiedBadgeFill className="text-green-600" />
-                </div>
-                <div className="my-1 flex items-center">
-                  <IoLocationOutline />
-                  <p className="font-inter text-[14px] text-[#797979]">
-                    {freelancer.Address ? freelancer.Address : "NA"}
-                  </p>
-                </div>
-              </div>
-              <div className="basis-3/12 text-right">
-                <Link href="/login">
-                  <span className="mr-4 mt-4 inline-block rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-10 py-[10px] text-sm font-semibold text-white lg:mt-0">
-                    Message
-                  </span>
-                </Link>
-              </div>
-              <Link href="/login">
-                <div className="basis-3/12 text-left">
-                  <div className="mr-2 inline-block rounded bg-gradient-to-b from-[#0909E9] to-[#00D4FF] p-0.5">
-                    <button className="bg-white px-11 py-1">
-                      <p className="from-primary to-danger bg-gradient-to-r bg-clip-text px-[8px] py-[4px] text-sm font-semibold text-transparent">
-                        Hire
-                      </p>
-                    </button>
-                  </div>
-                </div>
-              </Link>
-            </div>
-            <div className="mt-[8%]">
-              <p className="font-cardo fond-semibold text-left text-[22px]">About Freelancer</p>
-              <div className="relative ml-1 mt-2 w-28">
-                <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
-                <div className="rounded-lg border-b-2 border-gray-600"></div>
-              </div>
-              <p className="font-inter py-5 pr-8 text-left text-[14px] text-[#031136] opacity-50">
-                {freelancer.about ? freelancer.about : "NA"}
-              </p>
-            </div>
-            <div className="mt-6">
-              <p className="font-cardo fond-semibold text-left text-[22px]">Skills</p>
-              <div className="relative ml-1 mt-2 w-8">
-                <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
-                <div className="rounded-lg border-b-2 border-gray-600"></div>
-              </div>
-              <div className="mt-5 text-left">
-                {freelancer.skills
-                  ? JSON.parse(freelancer.skills.replace(/'/g, '"')).map(
-                      (skill: string, index: number) => (
-                        <div
-                          key={index} // Add a key prop for each skill for React to identify them uniquely.
-                          className="mb-3 mr-3 inline-block rounded-full bg-[#b4d3c3] bg-opacity-[60%] px-8 py-[3px] text-sm font-semibold text-blue-800 hover:bg-[#c1e2d1] focus:outline-none dark:bg-[#b4d3c3] dark:hover:bg-[#dffdee]"
-                        >
-                          <p className="text-center">{skill}</p>
-                        </div>
-                      )
-                    )
-                  : "NA"}
-              </div>
-            </div>
-            <div className="mt-8">
-              <p className="font-cardo fond-semibold text-left text-[22px]">
-                Portfolio ({freelancerproject ? freelancerproject.length : 0})
-              </p>
-              <div className="relative ml-1 mt-2 w-20">
-                <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
-                <div className="rounded-lg border-b-2 border-gray-600"></div>
-              </div>
-              <div className="-mx-2 flex flex-wrap">
-                {
-                  /* eslint-disable */
-                  freelancerproject &&
-                    freelancerproject.map((project: any, index) => (
-                      <button
-                        className="w-1/3 cursor-pointer px-2"
-                        key={index}
-                        onClick={() => openPortfolio(project)}
-                      >
-                        <div className="mt-4 h-[165px] w-full overflow-hidden border border-gray-100">
-                          <Image
-                            src={"https://www.api.alanced.com" + project.images_logo}
-                            alt=""
-                            style={{
-                              maxWidth: "100%",
-                              maxHeight: "100%",
-                              objectFit: "cover",
-                              width: "100%",
-                              height: "100%",
-                            }}
-                            height={"250"}
-                            width={"250"}
-                          />
-                        </div>
-                        <p className="font-inter overflow-hidden overflow-ellipsis whitespace-nowrap pt-2 text-left text-[13px] font-semibold text-blue-600 underline hover:text-blue-700">
-                          {project.project_title}
-                        </p>
-                      </button>
-                    ))
-                  /* eslint-enable */
-                }
-                {isPortfolioOpen && (
-                  <FreelancerPortfolioPopup
-                    project={selectedProjects}
-                    closePortfolio={closePortfolio}
-                  />
-                )}
-              </div>
-              <div className="mt-5 flex items-center justify-end gap-6">
-                {totalPages > 1 && (
-                  <div className="m-4 flex items-center justify-end gap-6">
-                    <button
-                      onClick={prev}
-                      disabled={currentPage === 1}
-                      style={{
-                        backgroundImage: "linear-gradient(45deg, #0909E9, #00D4FF)",
-                        border: "none",
-                      }}
-                    >
-                      ArrowLeftIcon
-                    </button>
-
-                    {[...Array(totalPages)].map((_, index) => {
-                      const pageNumber = index + 1;
-                      return (
-                        <button
-                          key={pageNumber}
-                          className={`px-0 py-1 ${
-                            currentPage === pageNumber
-                              ? "font-inter cursor-pointer bg-gradient-to-r from-[#0909E9] to-[#00D4FF] bg-clip-text text-[14px] font-bold text-transparent"
-                              : "font-inter cursor-pointer text-[14px] font-bold text-[#0A142F]"
-                          }`}
-                          onClick={() => {
-                            window.scrollTo(0, 0);
-                            setCurrentPage(pageNumber);
-                          }}
-                        >
-                          {pageNumber}
-                        </button>
-                      );
-                    })}
-
-                    <button
-                      onClick={next}
-                      disabled={currentPage === totalPages}
-                      style={{
-                        backgroundImage: "linear-gradient(45deg, #0909E9, #00D4FF)",
-                        border: "none",
-                      }}
-                    >
-                      ArrowRightIcon
-                    </button>
-                  </div>
-                )}
-              </div>
-              <div className="mt-6">
-                <p className="font-cardo fond-semibold text-left text-[22px]">
-                  Reviews ({reviews && reviews ? reviews.length : 0})
-                </p>
-                <div className="relative ml-1 mt-2 w-24">
-                  <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
-                  <div className="rounded-lg border-b-2 border-gray-600"></div>
-                </div>
-                {
-                  // eslint-disable-next-line
-                  visibleReviews.map((review: any, index) => (
-                    <>
-                      <div
-                        key={index}
-                        className="my-3 text-left"
-                      >
-                        <div className="flex items-center justify-between">
-                          <p className="font-inter py-1 text-[14px] text-[#0A142F]">
-                            {review.Project_Name}
-                          </p>
-                          <div className="flex items-center space-x-2">
-                            <StarRating rating={review.rating} />
-                          </div>
-                        </div>
-                        <p className="font-inter text-[12px] text-[#0A142F] opacity-50">
-                          {/* {formatDateToDayMonthYear(review.reviews_created_date)} */}
-                          {new Date(review.reviews_created_date).toLocaleString()}
-                        </p>
-                        <p className="font-inter pt-3 text-[14px] text-[#0A142F] opacity-50">
-                          {review.review}
-                        </p>
-                        <div className="my-6 grid grid-cols-3 gap-4">
-                          <div className="">
-                            <p className="font-cardo text-[16px] font-bold text-[#031136]">
-                              $
-                              {review.project_Rate === "Hourly"
-                                ? review.project_Min_Hourly_Rate + "/hr"
-                                : review.project_Budget}
-                            </p>
-                          </div>
-                          <div className="">
-                            <p className="font-cardo text-[16px] font-bold text-[#031136]">
-                              {review.project_Rate}
-                            </p>
-                          </div>
-                          <div className="">
-                            <p className="font-cardo text-[16px] font-bold text-[#031136]">
-                              {review.Reviewer}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="my-4 border-b opacity-50"></div>
-                      </div>
-                    </>
-                  ))
-                }
-                {reviews.length > 3 &&
-                  (startIdx + 3 < reviews.length ? (
-                    <button
-                      className="font-cardo cursor-pointer text-right text-[20px] font-normal text-[#031136]"
-                      onClick={showMoreHandler}
-                    >
-                      Show More
-                    </button>
-                  ) : (
-                    <button
-                      className="font-cardo cursor-pointer text-right text-[20px] font-normal text-[#031136]"
-                      onClick={showLessHandler}
-                    >
-                      Show Less
-                    </button>
-                  ))}
-              </div>
-            </div>
+          <div className="my-1 flex items-center">
+            <IoLocationOutline />
+            <p className="font-inter text-[14px] text-[#797979]">
+              {freelancer.Address ? freelancer.Address : "NA"}
+            </p>
           </div>
         </div>
-        <div className="mt-12 border border-gray-100 p-4 text-left">
-          <p className="font-cardo fond-semibold text-left text-[22px]">Employment History</p>
-          <div className="relative ml-1 mt-2 w-48">
-            <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
-            <div className="rounded-lg border-b-2 border-gray-600"></div>
-          </div>
-          <div className="my-8 border-b opacity-50"></div>
-          {visibleEmp.length === 0 ? (
-            <>
-              <Image
-                src={FileIcon}
-                alt="folder"
-                className="mx-auto mt-5"
-              />
-              <p className="font-cardo py-3 text-center text-2xl">No Data Found</p>
-            </>
-          ) : (
-            // eslint-disable-next-line
-            visibleEmp.map((emp: any, index) => (
-              <>
-                <div
-                  key={index}
-                  className="my-5"
-                >
-                  <h1 className="font-cardo mr-1 text-[18px] font-normal text-[#031136]">
-                    {emp.Company_Designation} | {emp.Freelancer_Company_Name}
-                  </h1>
-                  <p className="font-inter pt-2 text-left text-[14px] text-[#0A142F] opacity-50">
-                    {emp.Company_Joining_date} - {emp.Company_Leaving_date}
-                  </p>
-                  <div className="my-3 border-b opacity-50"></div>
-                </div>
-              </>
-            ))
-          )}
+        <div className="lg:basis-3/12 text-center lg:text-right mb-4 lg:mb-0">
+  <Link href="/login">
+    <span className="inline-block rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-10 py-[10px] text-sm font-semibold text-white mr-4">
+      Message
+    </span>
+  </Link>
+</div>
+<div className="lg:basis-3/12 text-center lg:text-left">
+  <Link href="/login">
+    <div className="inline-block rounded bg-gradient-to-b from-[#0909E9] to-[#00D4FF] p-0.5">
+      <button className="bg-white px-11 py-1">
+        <p className="from-primary to-danger bg-gradient-to-r bg-clip-text px-[8px] py-[4px] text-sm font-semibold text-transparent">
+          Hire
+        </p>
+      </button>
+    </div>
+  </Link>
+</div>
 
-          {freelanceremployment.length > 2 &&
-            (startIdx + 2 < freelanceremployment.length ? (
-              <button
-                className="font-cardo mx-auto cursor-pointer text-[20px] font-normal text-[#031136]"
-                onClick={showMoreHandlers}
+      </div>
+      <div className="mt-8">
+        <p className="font-cardo font-semibold text-left text-[22px]">About Freelancer</p>
+        <div className="relative ml-1 mt-2 w-28">
+          <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
+          <div className="rounded-lg border-b-2 border-gray-600"></div>
+        </div>
+        <p className="font-inter py-5 pr-8 text-left text-[14px] text-[#031136] opacity-50">
+          {freelancer.about ? freelancer.about : "NA"}
+        </p>
+      </div>
+      <div className="mt-6">
+        <p className="font-cardo font-semibold text-left text-[22px]">Skills</p>
+        <div className="relative ml-1 mt-2 w-8">
+          <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
+          <div className="rounded-lg border-b-2 border-gray-600"></div>
+        </div>
+        <div className="mt-5 text-left">
+          {freelancer.skills
+            ? JSON.parse(freelancer.skills.replace(/'/g, '"')).map((skill: string, index: number) => (
+              <div
+                key={index}
+                className="mb-3 mr-3 inline-block rounded-full bg-[#b4d3c3] bg-opacity-[60%] px-8 py-[3px] text-sm font-semibold text-blue-800 hover:bg-[#c1e2d1] focus:outline-none dark:bg-[#b4d3c3] dark:hover:bg-[#dffdee]"
               >
-                Show More
-              </button>
-            ) : (
-              <button
-                className="font-cardo mx-auto cursor-pointer text-[20px] font-normal text-[#031136]"
-                onClick={showLessHandlers}
-              >
-                Show Less
-              </button>
-            ))}
+                <p className="text-center">{skill}</p>
+              </div>
+            ))
+            : "NA"}
         </div>
       </div>
+      <div className="mt-8">
+        <p className="font-cardo font-semibold text-left text-[22px]">Portfolio ({freelancerproject ? freelancerproject.length : 0})</p>
+        <div className="relative ml-1 mt-2 w-20">
+          <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
+          <div className="rounded-lg border-b-2 border-gray-600"></div>
+        </div>
+        <div className="-mx-2 flex flex-wrap">
+          {freelancerproject &&
+            freelancerproject.map((project: any, index) => ( //eslint-disable-line
+              <button
+                className="w-full sm:w-1/2 md:w-1/3 px-2 mb-4"
+                key={index}
+                onClick={() => openPortfolio(project)}
+              >
+                <div className="h-[165px] w-full overflow-hidden border border-gray-100">
+                  <Image
+                    src={"https://www.api.alanced.com" + project.images_logo}
+                    alt=""
+                    style={{
+                      maxWidth: "100%",
+                      maxHeight: "100%",
+                      objectFit: "cover",
+                      width: "100%",
+                      height: "100%",
+                    }}
+                    height={"250"}
+                    width={"250"}
+                  />
+                </div>
+                <p className="font-inter overflow-hidden overflow-ellipsis whitespace-nowrap pt-2 text-left text-[13px] font-semibold text-blue-600 underline hover:text-blue-700">
+                  {project.project_title}
+                </p>
+              </button>
+            ))}
+          {isPortfolioOpen && (
+            <FreelancerPortfolioPopup
+              project={selectedProjects}
+              closePortfolio={closePortfolio}
+            />
+          )}
+        </div>
+        <div className="mt-5 flex items-center justify-end gap-6">
+          {totalPages > 1 && (
+            <div className="flex items-center gap-6">
+              <button
+                onClick={prev}
+                disabled={currentPage === 1}
+                className="bg-gradient-to-r from-[#0909E9] to-[#00D4FF] text-white px-4 py-2 rounded"
+              >
+                Previous
+              </button>
+
+              {[...Array(totalPages)].map((_, index) => {
+                const pageNumber = index + 1;
+                return (
+                  <button
+                    key={pageNumber}
+                    className={`px-3 py-1 ${
+                      currentPage === pageNumber
+                        ? "bg-gradient-to-r from-[#0909E9] to-[#00D4FF] text-white"
+                        : "bg-gray-200 text-black"
+                    } rounded`}
+                    onClick={() => setCurrentPage(pageNumber)}
+                  >
+                    {pageNumber}
+                  </button>
+                );
+              })}
+
+              <button
+                onClick={next}
+                disabled={currentPage === totalPages}
+                className="bg-gradient-to-r from-[#0909E9] to-[#00D4FF] text-white px-4 py-2 rounded"
+              >
+                Next
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+      <div className="mt-6">
+        <p className="font-cardo font-semibold text-left text-[22px]">Reviews ({reviews ? reviews.length : 0})</p>
+        <div className="relative ml-1 mt-2 w-20">
+          <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
+          <div className="rounded-lg border-b-2 border-gray-600"></div>
+        </div>
+        {reviews.length === 0 ? (
+          <p className="py-6 text-left text-[14px] text-[#797979]">No reviews found.</p>
+        ) : (
+          <div className="mt-4">
+            {visibleReviews.map((review: any, index: number) => ( //eslint-disable-line
+              <div key={index} className="mb-4 p-4 border border-gray-200 rounded-lg">
+                <div className="flex items-center mb-2">
+                  <div className="flex items-center">
+                    <StarRating rating={review.rating} />
+                    <p className="ml-2 text-gray-600">{review.reviewer_name}</p>
+                  </div>
+                </div>
+                <p className="text-gray-700">{review.comment}</p>
+              </div>
+            ))}
+            {startIdx + 3 < reviews.length && (
+              <button
+                onClick={showMoreHandler}
+                className="mt-4 text-blue-600 underline hover:text-blue-700"
+              >
+                Show more
+              </button>
+            )}
+            {startIdx > 0 && (
+              <button
+                onClick={showLessHandler}
+                className="mt-4 text-blue-600 underline hover:text-blue-700"
+              >
+                Show less
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+</div>
+
+
     </>
   );
 };
