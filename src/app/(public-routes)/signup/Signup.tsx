@@ -238,31 +238,48 @@ const Signup = () => {
   // });
 
   return (
-    <>
-    <div className="flex min-h-screen items-center bg-gray-50">
-      <div className="mx-auto h-full max-w-4xl flex-1 bg-white shadow-xl">
-        <div className="flex flex-col md:flex-row">
-          <div className="relative h-[535px] md:h-auto md:w-[45%] hidden lg:block lg:w-1/2">
+<>
+<div className="flex min-h-screen items-center bg-gray-50">
+  <div className="mx-auto h-full max-w-4xl flex-1 bg-white shadow-xl">
+    <div className="flex flex-col md:flex-row">
+      {/* Visible only on large screens */}
+      <div className="relative h-[535px] md:h-auto md:w-[45%] hidden lg:block lg:w-1/2">
+        <Image
+          className="h-full w-full object-cover"
+          src={registerimg2}
+          alt="img"
+        />
+        <Link href="/">
+          <div className="absolute top-4 lg:top-7 left-4 flex items-center space-x-2 bg-white p-3 rounded-lg shadow-md">
             <Image
-              className="h-full w-full object-cover"
-              src={registerimg2}
-              alt="img"
+              src={logo}
+              alt="Logo"
+              className="h-6 w-6"
             />
-            <Link href="/">
-              <div className="absolute top-4 lg:top-7 left-4 flex items-center space-x-2 bg-white p-3 rounded-lg shadow-md">
-                <Image
-                  src={logo}
-                  alt="Logo"
-                  className="h-6 w-6"
-                />
-                <span className="font-poppins ml-2 text-sm md:text-base font-semibold tracking-widest text-[#031136]">
-                  ALANCED
-                </span>
-              </div>
-            </Link>
+            <span className="font-poppins ml-2 text-sm md:text-base font-semibold tracking-widest text-[#031136]">
+              ALANCED
+            </span>
           </div>
-          <div className="flex-1 flex items-center justify-center p-8 pt-4 sm:px-14 md:w-[57%]">
-            <div className="w-full">
+        </Link>
+      </div>
+      
+      {/* Visible only on smaller screens */}
+      <div className="flex-1 p-6 lg:hidden lg:w-1/2">
+        <Link href="/" className=" mb-6 flex items-center justify-center">
+          <Image
+            src={logo}
+            alt="Logo"
+            className="h-6 w-6"
+          />
+          <span className="font-poppins text-xl font-semibold text-[#031136] ml-2">
+            ALANCED
+          </span>
+        </Link>
+      </div>
+      
+      <div className="flex-1 flex items-center justify-center p-8 pt-4 sm:px-14 md:w-[57%]">
+        <div className="w-full">
+
               <div className="flex items-center justify-between">
                 <p className="inline-block text-xs md:text-sm">Already have an account?</p>
                 <Link href="/login">
