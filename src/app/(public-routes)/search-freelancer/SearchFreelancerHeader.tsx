@@ -1,15 +1,28 @@
 import Image from "next/image";
-import { Dispatch, FC, SetStateAction } from "react";
+import { FC, useEffect, useState } from "react";
 import halfBackground from "@/assets/images/half_background.png";
 import { IoMdSearch } from "react-icons/io";
 import hero2Image from "@/assets/images/hero2.png";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-interface IProps {
-  searchQuery: string;
-  setSearchQuery: Dispatch<SetStateAction<string>>;
-}
+interface IProps {}
 
-const SearchFreelancerHeader: FC<IProps> = ({ searchQuery, setSearchQuery }) => {
+const SearchFreelancerHeader: FC<IProps> = () => {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
+  const [searchQuery, setSearchQuery] = useState(searchParams.get("q")?.toString() ?? "");
+
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams);
+    if (searchQuery) {
+      params.set("q", searchQuery);
+    } else {
+      params.delete("q");
+    }
+    replace(`${pathname}?${params.toString()}`);
+  }, [searchQuery]);
+
   return (
     <div
       className="flex h-[50vh] items-end justify-center bg-cover bg-no-repeat pb-8"
