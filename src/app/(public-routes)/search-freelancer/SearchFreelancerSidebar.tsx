@@ -1,105 +1,152 @@
-import CityList from "@/constant/allSelectionData/CityList";
-import ExperienceLevel from "@/constant/allSelectionData/ExperienceLevel";
-import LanguageList from "@/constant/allSelectionData/LanguageList";
-import SkillsList from "@/constant/allSelectionData/SkillsList";
-import { Dispatch, FC, SetStateAction, useState } from "react";
+import cityList from "@/constant/allSelectionData/cityList";
+import experienceLevel from "@/constant/allSelectionData/experienceLevel";
+import languageList from "@/constant/allSelectionData/languageList";
+import skillsList from "@/constant/allSelectionData/skillsList";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 import { FaCheck } from "react-icons/fa6";
 
 interface ISearchFreelancerSidebarProps {
   setCurrentPage: Dispatch<SetStateAction<number>>;
-  setExpFilter: Dispatch<SetStateAction<string[]>>;
-  setCityFilter: Dispatch<SetStateAction<string[]>>;
-  setLanguageFilter: Dispatch<SetStateAction<string[]>>;
-  setSkillFilter: Dispatch<SetStateAction<string[]>>;
 }
 
-const SearchFreelancerSidebar: FC<ISearchFreelancerSidebarProps> = ({
-  setCurrentPage,
-  setExpFilter,
-  setCityFilter,
-  setLanguageFilter,
-  setSkillFilter,
-}) => {
-  const [expe] = useState(ExperienceLevel);
-  const [city] = useState(CityList);
-  const [req_skill] = useState(SkillsList);
-  const [language] = useState(LanguageList);
-  const initialSkillCount = 5; // Initial number of skills to show
+const SearchFreelancerSidebar: FC<ISearchFreelancerSidebarProps> = ({ setCurrentPage }) => {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
+  //---------------------
+  const [selectedExpLevel, setSelectedExpLevel] = useState<string[]>(
+    searchParams.getAll("explevel") ?? []
+  );
+  const [selectedCity, setSelectedCity] = useState<string[]>(searchParams.getAll("address") ?? []);
+  const [selectedlanguage, setSelectedLanguage] = useState<string[]>(
+    searchParams.getAll("language") ?? []
+  );
+  const [selectedSkills, setSelectedSkills] = useState<string[]>(
+    searchParams.getAll("skills") ?? []
+  );
+  // --------------------
+  const initialSkillCount = 5;
+  const initialCityCount = 5;
+  const initialLanguageCount = 5;
   const [showAllSkills, setShowAllSkills] = useState(false);
-  const [visibleSkills, setVisibleSkills] = useState(req_skill.slice(0, initialSkillCount));
+  const [visibleSkills, setVisibleSkills] = useState(skillsList.slice(0, initialSkillCount));
   const [showAllCity, setShowAllCity] = useState(false);
-  const initialCityCount = 5; // Initial number of cities to show
-  const [visibleCities, setVisibleCities] = useState(city.slice(0, initialCityCount));
+  const [visibleCities, setVisibleCities] = useState(cityList.slice(0, initialCityCount));
   const [showAllLanguage, setShowAllLanguage] = useState(false);
-  const initialLanguageCount = 5; // Initial number of language to show
-  const [visibleLanguages, setVisibleLanguages] = useState(language.slice(0, initialLanguageCount));
+  const [visibleLanguages, setVisibleLanguages] = useState(
+    languageList.slice(0, initialLanguageCount)
+  );
+
+  // ---> Updating Url search params
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams);
+
+    if (selectedSkills.length > 0) {
+      params.delete("skills");
+      selectedSkills.forEach((skill) => {
+        params.append("skills", skill);
+      });
+    } else {
+      params.delete("skills");
+    }
+
+    if (selectedExpLevel.length > 0) {
+      params.delete("explevel");
+      selectedExpLevel.forEach((exp) => {
+        params.append("explevel", exp);
+      });
+    } else {
+      params.delete("explevel");
+    }
+
+    if (selectedCity.length > 0) {
+      params.delete("address");
+      selectedCity.forEach((exp) => {
+        params.append("address", exp);
+      });
+    } else {
+      params.delete("address");
+    }
+
+    if (selectedlanguage.length > 0) {
+      params.delete("language");
+      selectedlanguage.forEach((exp) => {
+        params.append("language", exp);
+      });
+    } else {
+      params.delete("language");
+    }
+
+    router.replace(`${pathname}?${params.toString()}`);
+  }, [selectedSkills, selectedExpLevel, selectedCity, selectedlanguage]);
 
   const handleShowMoreSkills = () => {
-    setVisibleSkills(req_skill); // Show all skills
+    setVisibleSkills(skillsList);
     setShowAllSkills(true);
   };
 
   const handleShowLessSkills = () => {
-    setVisibleSkills(req_skill.slice(0, initialSkillCount)); // Show the initial count
+    setVisibleSkills(skillsList.slice(0, initialSkillCount));
     setShowAllSkills(false);
   };
 
-  const handleSkillFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSelectSkills = (e: React.ChangeEvent<HTMLInputElement>) => {
     const skills = e.target.value;
     if (e.target.checked) {
-      setSkillFilter((prevFilters) => [...prevFilters, skills]);
+      setSelectedSkills((prevFilters) => [...prevFilters, skills]);
     } else {
-      setSkillFilter((prevFilters) => prevFilters.filter((filter) => filter !== skills));
+      setSelectedSkills((prevFilters) => prevFilters.filter((filter) => filter !== skills));
     }
     setCurrentPage(1);
   };
 
   const handleShowMoreCity = () => {
-    setVisibleCities(city); // Show all cities
+    setVisibleCities(cityList);
     setShowAllCity(true);
   };
 
   const handleShowLessCity = () => {
-    setVisibleCities(city.slice(0, initialCityCount)); // Show the initial count
+    setVisibleCities(cityList.slice(0, initialCityCount));
     setShowAllCity(false);
   };
 
   const handleShowMoreLanguage = () => {
-    setVisibleLanguages(language); // Show all Languages
+    setVisibleLanguages(languageList);
     setShowAllLanguage(true);
   };
 
   const handleShowLessLanguage = () => {
-    setVisibleLanguages(language.slice(0, initialLanguageCount)); // Show the initial count
+    setVisibleLanguages(languageList.slice(0, initialLanguageCount));
     setShowAllLanguage(false);
   };
 
-  const handleExpFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSelectExpLevel = (e: React.ChangeEvent<HTMLInputElement>) => {
     const exp = e.target.value;
     if (e.target.checked) {
-      setExpFilter((prevFilters) => [...prevFilters, exp]);
+      setSelectedExpLevel((prevFilters) => [...prevFilters, exp]);
     } else {
-      setExpFilter((prevFilters) => prevFilters.filter((filter) => filter !== exp));
+      setSelectedExpLevel((prevFilters) => prevFilters.filter((filter) => filter !== exp));
     }
     setCurrentPage(1);
   };
 
-  const handleCityFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSelectCity = (e: React.ChangeEvent<HTMLInputElement>) => {
     const city = e.target.value;
     if (e.target.checked) {
-      setCityFilter((prevFilters) => [...prevFilters, city]);
+      setSelectedCity((prevFilters) => [...prevFilters, city]);
     } else {
-      setCityFilter((prevFilters) => prevFilters.filter((filter) => filter !== city));
+      setSelectedCity((prevFilters) => prevFilters.filter((filter) => filter !== city));
     }
     setCurrentPage(1);
   };
 
-  const handleLanguageFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSelectLanguage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const language = e.target.value;
     if (e.target.checked) {
-      setLanguageFilter((prevFilters) => [...prevFilters, language]);
+      setSelectedLanguage((prevFilters) => [...prevFilters, language]);
     } else {
-      setLanguageFilter((prevFilters) => prevFilters.filter((filter) => filter !== language));
+      setSelectedLanguage((prevFilters) => prevFilters.filter((filter) => filter !== language));
     }
     setCurrentPage(1);
   };
@@ -121,11 +168,11 @@ const SearchFreelancerSidebar: FC<ISearchFreelancerSidebarProps> = ({
                   className="hidden"
                   type="checkbox"
                   value={skill}
-                  onChange={handleSkillFilterChange}
+                  checked={selectedSkills.includes(skill)}
+                  onChange={handleSelectSkills}
                 />
                 <div className="checkbox-border-gradient mr-3 flex h-5 w-5 items-center justify-center rounded bg-transparent">
                   <span className="checkmark hidden">
-                    {/* <FaCheck className="text-sm" /> */}
                     <FaCheck className="text-sm" />
                   </span>
                 </div>
@@ -150,7 +197,7 @@ const SearchFreelancerSidebar: FC<ISearchFreelancerSidebarProps> = ({
               className="mt-5 cursor-pointer bg-white text-left text-xl font-normal"
               onClick={handleShowMoreSkills}
             >
-              +{req_skill.length - initialSkillCount} More
+              +{skillsList.length - initialSkillCount} More
             </button>
           </div>
         )}
@@ -161,7 +208,7 @@ const SearchFreelancerSidebar: FC<ISearchFreelancerSidebarProps> = ({
           <h1 className="mt-10 bg-white text-left text-xl font-normal">Citys</h1>
         </div>
 
-        {visibleCities.map((location, index) => (
+        {visibleCities.map((city, index) => (
           <div
             key={index}
             className="mt-4 flex flex-row"
@@ -171,8 +218,9 @@ const SearchFreelancerSidebar: FC<ISearchFreelancerSidebarProps> = ({
                 <input
                   className="hidden"
                   type="checkbox"
-                  value={location}
-                  onChange={handleCityFilterChange}
+                  value={city}
+                  checked={selectedCity.includes(city)}
+                  onChange={handleSelectCity}
                 />
                 <div className="checkbox-border-gradient mr-3 flex h-5 w-5 items-center justify-center rounded bg-transparent">
                   <span className="checkmark hidden">
@@ -180,7 +228,7 @@ const SearchFreelancerSidebar: FC<ISearchFreelancerSidebarProps> = ({
                   </span>
                 </div>
                 <span className="normal-checkbox mr-3 inline-block h-5 w-5 rounded border border-gray-300"></span>
-                <span className="font-normal text-[#797979]">{location}</span>
+                <span className="font-normal text-[#797979]">{city}</span>
               </label>
             </div>
           </div>
@@ -200,7 +248,7 @@ const SearchFreelancerSidebar: FC<ISearchFreelancerSidebarProps> = ({
               className="mt-5 cursor-pointer bg-white text-left text-xl font-normal"
               onClick={handleShowMoreCity}
             >
-              +{city.length - initialCityCount} More
+              +{cityList.length - initialCityCount} More
             </button>
           </div>
         )}
@@ -220,7 +268,8 @@ const SearchFreelancerSidebar: FC<ISearchFreelancerSidebarProps> = ({
                   className="hidden"
                   type="checkbox"
                   value={language}
-                  onChange={handleLanguageFilterChange}
+                  checked={selectedlanguage.includes(language)}
+                  onChange={handleSelectLanguage}
                 />
                 <div className="checkbox-border-gradient mr-3 flex h-5 w-5 items-center justify-center rounded bg-transparent">
                   <span className="checkmark hidden">
@@ -248,7 +297,7 @@ const SearchFreelancerSidebar: FC<ISearchFreelancerSidebarProps> = ({
               className="mt-5 cursor-pointer bg-white text-left text-xl font-normal"
               onClick={handleShowMoreLanguage}
             >
-              +{language.length - initialLanguageCount} More
+              +{languageList.length - initialLanguageCount} More
             </button>
           </div>
         )}
@@ -257,7 +306,7 @@ const SearchFreelancerSidebar: FC<ISearchFreelancerSidebarProps> = ({
         <div>
           <h1 className="mt-10 bg-white text-left text-xl font-normal">Experience Level</h1>
         </div>
-        {expe.map((exp, index) => (
+        {experienceLevel.map((exp, index) => (
           <div
             key={index}
             className="mt-4 flex flex-row"
@@ -268,7 +317,8 @@ const SearchFreelancerSidebar: FC<ISearchFreelancerSidebarProps> = ({
                   className="hidden"
                   type="checkbox"
                   value={exp}
-                  onChange={handleExpFilterChange}
+                  checked={selectedExpLevel.includes(exp)}
+                  onChange={handleSelectExpLevel}
                 />
                 <div className="checkbox-border-gradient mr-3 flex h-5 w-5 items-center justify-center rounded bg-transparent">
                   <span className="checkmark hidden">
