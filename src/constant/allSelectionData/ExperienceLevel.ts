@@ -1,8 +1,3 @@
-const ExperienceLevel : string[] = [
+const experienceLevel: string[] = ["Entry_Level", "Intermediate", "Expert"];
 
-    'Entry_Level',
-    'Intermediate',
-    'Expert'
-]
-
-export default ExperienceLevel
+export default experienceLevel;
