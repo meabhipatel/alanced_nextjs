@@ -3,14 +3,14 @@ import experienceLevel from "@/constant/allSelectionData/experienceLevel";
 import languageList from "@/constant/allSelectionData/languageList";
 import skillsList from "@/constant/allSelectionData/skillsList";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { FaCheck } from "react-icons/fa6";
 
 interface ISearchFreelancerSidebarProps {
-  setCurrentPage: Dispatch<SetStateAction<number>>;
+  // setCurrentPage: Dispatch<SetStateAction<number>>;
 }
 
-const SearchFreelancerSidebar: FC<ISearchFreelancerSidebarProps> = ({ setCurrentPage }) => {
+const SearchFreelancerSidebar: FC<ISearchFreelancerSidebarProps> = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
@@ -98,7 +98,7 @@ const SearchFreelancerSidebar: FC<ISearchFreelancerSidebarProps> = ({ setCurrent
     } else {
       setSelectedSkills((prevFilters) => prevFilters.filter((filter) => filter !== skills));
     }
-    setCurrentPage(1);
+    // setCurrentPage(1);
   };
 
   const handleShowMoreCity = () => {
@@ -128,7 +128,7 @@ const SearchFreelancerSidebar: FC<ISearchFreelancerSidebarProps> = ({ setCurrent
     } else {
       setSelectedExpLevel((prevFilters) => prevFilters.filter((filter) => filter !== exp));
     }
-    setCurrentPage(1);
+    // setCurrentPage(1);
   };
 
   const handleSelectCity = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -138,7 +138,7 @@ const SearchFreelancerSidebar: FC<ISearchFreelancerSidebarProps> = ({ setCurrent
     } else {
       setSelectedCity((prevFilters) => prevFilters.filter((filter) => filter !== city));
     }
-    setCurrentPage(1);
+    // setCurrentPage(1);
   };
 
   const handleSelectLanguage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -148,7 +148,7 @@ const SearchFreelancerSidebar: FC<ISearchFreelancerSidebarProps> = ({ setCurrent
     } else {
       setSelectedLanguage((prevFilters) => prevFilters.filter((filter) => filter !== language));
     }
-    setCurrentPage(1);
+    // setCurrentPage(1);
   };
 
   return (
