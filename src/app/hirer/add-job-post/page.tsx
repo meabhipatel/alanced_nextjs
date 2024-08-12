@@ -507,7 +507,7 @@ const postJob = () => {
 ) : (
   <button
     onClick={postJob}
-    className="font-cardo rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:outline-none"
+    className="font-cardo rounded-md bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-2 text-white focus:outline-none"
   >
     Post Job
   </button>

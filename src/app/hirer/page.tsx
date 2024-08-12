@@ -25,7 +25,7 @@ import axios from "axios";
 import { RxArrowLeft, RxArrowRight } from "react-icons/rx";
 import { errorLog } from "@/utils/errorLog";
 // import AddFreeHireRequest from "./HirerAllPopup/AddFreeHireRequest";            for use
-import AddFreeHireRequest from "@/components/AddFreeHireRequestPopup";
+import SendFreeLancerHireRequestPopup from "@/components/SendFreeLancerHireRequestPopup";
 import fileIcon from "@/assets/icons/file.png";
 import Link from "next/link";
 import Image from "next/image";
@@ -727,9 +727,9 @@ const HirerAfterLogin = () => {
                                 </button>
                               </div>
                               {isFreeHiringOpen[free.id] && (
-                                <AddFreeHireRequest
-                                  closeFreeHiring={() => closeFreeHiring(free.id)}
-                                  free={free}
+                                <SendFreeLancerHireRequestPopup
+                                  closePopup={() => closeFreeHiring(free.id)}
+                                  freelancer={free}
                                 />
                               )}
                             </div>
