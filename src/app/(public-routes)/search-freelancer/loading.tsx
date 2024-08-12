@@ -62,7 +62,7 @@ const Skeleton: FC<ISkeletonProps> = ({ height, width, style }) => {
         width,
         ...style,
       }}
-      className="animate-pulse bg-red-500 duration-300"
+      className="animate-pulse bg-gray-300 duration-300"
     ></div>
   );
 };
