@@ -15,7 +15,7 @@ import hero2Image from "@/assets/images/hero2.png";
 import Image from "next/image";
 import { RxArrowRight, RxArrowLeft } from "react-icons/rx";
 import { errorLog } from "@/utils/errorLog";
-import { RiVerifiedBadgeFill } from "react-icons/ri";
+// import { RiVerifiedBadgeFill } from "react-icons/ri";
 import { IoLocationOutline } from "react-icons/io5";
 import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io";
 import { BsCoin, BsSendCheck } from "react-icons/bs";
@@ -42,23 +42,6 @@ interface IFreelanceProject {
   project_owner_date_of_creation: string;
   project_owner: number;
 }
-
-// interface IAllPraposals {
-//   title: string;
-//   category: string;
-//   description: string;
-//   skills_required: string;
-//   Project_rate: "Hourly" | "Fixed";
-//   Project_budget: number | null;
-//   Project_min_hourly_rate: number;
-//   Project_max_hourly_rate: number;
-//   Project_experience_level: "Beginner" | "Intermediate" | "Expert";
-//   deadline: string;
-//   created_at: string;
-//   project_owner_first_Name: string;
-//   project_owner_address: string;
-//   project_owner_data_of_creation: string;
-// }
 
 interface IBid {
   id: number;
@@ -614,13 +597,13 @@ const FreelancerAfterLogin = () => {
                                   {bidsCount[project.id] ? bidsCount[project.id] : 0}
                                 </span>
                               </p>
-                              <RiVerifiedBadgeFill className="text-md mr-1 inline-block text-green-600" />
+                              {/* <RiVerifiedBadgeFill className="text-md mr-1 inline-block text-green-600" />
                               <p className="inline-block text-[14px] text-[#0A142F] opacity-50">
                                 Payment verified
                               </p>
                               <div className="mx-3 inline-block text-[16px] text-[#FFC107]">
                                 ★★★★★
-                              </div>
+                              </div> */}
                               <IoLocationOutline className="text-md mr-1 inline-block" />
                               <p className="inline-block text-[14px] text-[#0A142F] opacity-50">
                                 {highlightText(
