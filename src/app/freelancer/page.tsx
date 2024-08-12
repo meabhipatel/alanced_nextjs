@@ -1,28 +1,13 @@
 "use client";
 import React, { useState, useEffect } from "react";
-// import Navbar from "../../components/Layout/Navbar";
-// import HomeSection4 from "../../components/Layout/HomeSection4";
-// import Footer from "../../components/Layout/Footer";
-// import profilebg from "../../components/images/profilebg.png";
 import search from "@/assets/icons/SearchOutlined.png";
-// import certifybadge from "../../components/images/certifybadge.png";
 import ladder from "@/assets/images/ladder.png";
 import bag from "@/assets/images/bag.png";
-// import downarrow from "../../components/images/downarrow.png";
-// import thumbdown from "../../components/images/thumbdown.png";
-// import heart from "../../components/images/heart.png";
-// import { Link, useNavigate } from "react-router-dom";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 // import ViewProjectPopup from "./AllPopup/ViewProjectPopup";
 // import { GetViewAllProjectsListAction } from "../../redux/Freelancer/FreelancerAction";
-// import Skeleton from "react-loading-skeleton";
-// import "react-loading-skeleton/dist/skeleton.css";
 import axios from "axios";
-// import TaskOutlinedIcon from "@mui/icons-material/TaskOutlined";
-// import { IconButton, Typography } from "@material-tailwind/react";
-// import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
-// import { toast } from "react-toastify";
 import toast from "react-hot-toast";
 import { timeAgo } from "@/utils/timeFunction";
 import fileIcon from "@/assets/icons/file.png";
@@ -32,6 +17,8 @@ import { RxArrowRight, RxArrowLeft } from "react-icons/rx";
 import { errorLog } from "@/utils/errorLog";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
 import { IoLocationOutline } from "react-icons/io5";
+import { IoIosHeartEmpty } from "react-icons/io";
+import { BsCoin, BsSendCheck } from "react-icons/bs";
 
 interface IFreelanceProject {
   id: number;
@@ -464,32 +451,29 @@ const FreelancerAfterLogin = () => {
         </div>
         <div className="mx-5 mb-5 flex flex-col md:flex-row">
           <div className="w-full border-b border-l border-gray-200 border-opacity-30 bg-[#FFFFFF] py-8 pt-3 text-left md:w-[30%]">
-            <Link href="/saved-jobs">
+            <Link href="/freelancer/saved-jobs">
               <div className="flex items-center justify-between rounded-2xl border-b border-gray-200 border-opacity-30 px-4 py-4 hover:bg-[#e2f1f9] md:px-8">
                 <h1 className="mr-1 text-xl font-normal text-[#031136]">Saved Jobs</h1>
                 <div className="mr-5 flex items-center space-x-2 text-blue-600">
-                  <i className="bi bi-heart"></i>
-                  {/* <i class="bi bi-heart-fill"></i> */}
+                  <IoIosHeartEmpty className="text-2xl" />
                 </div>
               </div>
             </Link>
-            <Link href="/my-proposals">
+            <Link href="/freelancer/my-proposals">
               <div className="flex items-center justify-between rounded-2xl border-b border-gray-200 border-opacity-30 px-4 py-4 hover:bg-[#e2f1f9] md:px-8">
                 <h1 className="mr-1 text-xl font-normal text-[#031136]">Proposals</h1>
                 <div className="mr-5 flex items-center space-x-2 text-blue-600">
-                  <i className="bi bi-send-check"></i>
-                  {/* <i class="bi bi-send-check-fill"></i> */}
+                  <BsSendCheck className="text-2xl" />
                 </div>
               </div>
             </Link>
             <div className="flex items-center justify-between rounded-2xl border-b border-gray-200 border-opacity-30 px-4 py-4 hover:bg-[#e2f1f9] md:px-8">
               <h1 className="mr-1 text-xl font-normal text-[#031136]">Get Paid</h1>
               <div className="mr-5 flex items-center space-x-2 text-blue-600">
-                {/* <img src={downarrow} alt="" /> */}
-                <i className="bi bi-coin"></i>
+                <BsCoin className="text-2xl" />
               </div>
             </div>
-            <Link href="/projects">
+            <Link href="/search-job">
               <div className="mx-4 my-3 grid grid-cols-[2fr,1fr] gap-2 rounded-lg bg-[#e2f1f9] p-4 shadow-sm">
                 <div>
                   <h1 className="text-left text-lg text-[#031136]">Get Tips To Find Work</h1>
@@ -507,7 +491,7 @@ const FreelancerAfterLogin = () => {
                 </div>
               </div>
             </Link>
-            <Link href="/all-invitations">
+            <Link href="/freelancer/all-invitations">
               <div className="relative z-10 mx-4 grid grid-cols-[2fr,1fr] gap-2 rounded-lg bg-[#e2f1f9] p-4 shadow-sm">
                 <div>
                   <h1 className="text-left text-lg text-[#031136]">My Jobs</h1>
@@ -569,10 +553,7 @@ const FreelancerAfterLogin = () => {
                         expandedProjects[index] || words.length <= 50 ? words : words.slice(0, 50);
                       return (
                         <>
-                          <Link
-                            href="/view-project/full-detail"
-                            // state={{ project }}
-                          >
+                          <Link href="/view-project/details">
                             <div className="cursor-pointer border-b border-t border-gray-200 border-opacity-30 px-4 py-5 hover:bg-[#F6FAFD] md:px-8">
                               <div className="flex items-center justify-between">
                                 <p className="text-[18px] font-semibold text-[#0A142F]">

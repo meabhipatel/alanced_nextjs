@@ -1,6 +1,6 @@
 "use client";
 import CategoryList from "@/constant/allSelectionData/CategoryList";
-import SkillsList from "@/constant/allSelectionData/SkillsList";
+import SkillsList from "@/constant/allSelectionData/skillsList";
 import React, { useEffect, useRef, useState } from "react";
 
 interface Project {
