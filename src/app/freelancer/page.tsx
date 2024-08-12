@@ -17,7 +17,7 @@ import { RxArrowRight, RxArrowLeft } from "react-icons/rx";
 import { errorLog } from "@/utils/errorLog";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
 import { IoLocationOutline } from "react-icons/io5";
-import { IoIosHeartEmpty, IoIosHeart  } from "react-icons/io";
+import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io";
 import { BsCoin, BsSendCheck } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
@@ -76,30 +76,7 @@ interface Bids {
 }
 
 const FreelancerAfterLogin = () => {
-  //   const logindata = useSelector(state => state.login.login_data);
   const logindata = useSelector((state: RootState) => state.auth.userProfile);
-
-  // const logindata = {
-  //   id: 4,
-  //   first_Name: "sachin",
-  //   last_Name: "sharma",
-  //   email: "sachinsharmapeace@gmail.com",
-  //   contact: "",
-  //   Address: "",
-  //   images_logo: "/media/images_logo/profile8.jfif",
-  //   social_media: "",
-  //   skills: "['Python']",
-  //   about: "",
-  //   DOB: null,
-  //   gender: "",
-  //   map: "",
-  //   experience: 0,
-  //   qualification: "B.E",
-  //   category: "",
-  //   Language: "['Hindi']",
-  //   hourly_rate: 0,
-  //   experience_level: "",
-  // };
 
   const googleUserName = localStorage.getItem("googleUserName");
   const loginMethod = localStorage.getItem("loginMethod");
@@ -107,7 +84,7 @@ const FreelancerAfterLogin = () => {
   // const viewallprojects: any[] = [];
   //   const accessToken = useSelector(state => state.login.accessToken);
   //   const accessToken = useSelector((state) => state.login.accessToken) || localStorage.getItem("jwtToken");
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = localStorage.getItem("@accessToken");
   //   const [searchTerm, setSearchTerm] = useState("");
   const [searchTerm] = useState("");
   //   const dispatch = useDispatch();
@@ -345,10 +322,10 @@ const FreelancerAfterLogin = () => {
 
       if (updatedJob.isSaved) {
         toast.success("Job saved successfully!");
-        router.push("/freelancer/profile");
+        router.push("/freelancer");
       } else {
         toast.success("Job unsaved successfully!");
-        router.push("/freelancer/profile");
+        router.push("/freelancer");
       }
       //eslint-disable-next-line
       const updatedProjects = projectsToDisplay.map((p: any) => {
@@ -560,14 +537,14 @@ const FreelancerAfterLogin = () => {
                                 <p className="text-[18px] font-semibold text-[#0A142F]">
                                   {highlightText(project.title, searchQuery)}
                                 </p>
-                                <div className="flex items-center text-blue-600 space-x-2">
+                                <div className="flex items-center space-x-2 text-blue-600">
                                   <button
                                     className="h-8 w-8 rounded-full border border-gray-200 bg-white p-1"
                                     onClick={(event) => handleClick(event, index, project)}
                                   >
                                     {localStorage.getItem(`isSaved_${project.id}`) === "true" ? (
                                       // <i className="fa fa-heart p-1 text-blue-600"></i>
-                                      <IoIosHeart  className="text-xl" />
+                                      <IoIosHeart className="text-xl" />
                                     ) : (
                                       // <i className="fa fa-heart-o p-1"></i>
                                       <IoIosHeartEmpty className="text-xl" />
