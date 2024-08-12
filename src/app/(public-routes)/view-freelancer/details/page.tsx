@@ -295,7 +295,7 @@ const ViewFreelancerDetails = () => {
           </div>
         </div>
         <div>
-          <p className="font-cardo font-semibold text-left text-[22px]">Portfolio ({ProjectCount})({freelancerproject ? freelancerproject.length : 0})</p>
+          <p className="font-cardo font-semibold text-left text-[22px]">Portfolio ({ProjectCount})</p>
           <div className="relative ml-1 mt-2 w-20">
             <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
             <div className="rounded-lg border-b-2 border-gray-600"></div>
