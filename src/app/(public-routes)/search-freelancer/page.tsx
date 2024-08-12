@@ -10,6 +10,7 @@ import { IoLocationOutline } from "react-icons/io5";
 import { IFreelancer } from "@/interfaces";
 import { errorLog } from "@/utils/errorLog";
 import Pagination from "@/components/Pagination";
+import HireNowButtonAndPopup from "@/components/HireNowButtonAndPopup";
 
 export const metadata: Metadata = {
   title: "Search Freelancer at Alanced",
@@ -223,25 +224,17 @@ const Page: FC<IProps> = async ({ searchParams }) => {
 
                     <div className="flex flex-row">
                       <div className="absolute bottom-4 basis-8/12 cursor-pointer items-center text-[14px] font-bold text-blue-600 hover:underline">
-                        <Link
-                          href="/view-freelancer/details"
-                          // state={{ free }}
-                        >
+                        <Link href="/view-freelancer/details">
                           <p>View more detail</p>
                         </Link>
                       </div>
                       <div className="absolute bottom-2 right-6 ml-auto basis-4/12 items-center space-x-2">
-                        <Link href="/login">
+                        {/* <Link href="/login">
                           <span className="mt-4 inline-block rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-[10px] text-sm font-semibold text-white lg:mt-0">
                             Hire Now
                           </span>
-                        </Link>
-                        {/* <button
-                            className="mt-4 inline-block rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-[10px] text-sm font-semibold text-white lg:mt-0"
-                            onClick={() => openFreeHiring(free.id)}
-                          >
-                            Hire Now
-                          </button> */}
+                        </Link> */}
+                        <HireNowButtonAndPopup freelancer={freelancer} />
                       </div>
                       {/* {isFreeHiringOpen[free.id] && (
                           <AddFreeHireRequest

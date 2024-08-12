@@ -9,11 +9,11 @@ import { IHirerProfile, IError, IViewProject, IFreelancer } from "@/interfaces/i
 import { errorLog } from "@/utils/errorLog";
 
 interface IProps {
-  closeFreeHiring: (id: number) => void;
-  free: IFreelancer;
+  closePopup: (id: number) => void;
+  freelancer: IFreelancer;
 }
 
-const SendFreeLancerHireRequestPopup: FC<IProps> = ({ closeFreeHiring, free }) => {
+const SendFreeLancerHireRequestPopup: FC<IProps> = ({ closePopup, freelancer }) => {
   const handleClickInsidePopup = (event: MouseEvent) => {
     event.stopPropagation();
     event.preventDefault();
@@ -45,7 +45,7 @@ const SendFreeLancerHireRequestPopup: FC<IProps> = ({ closeFreeHiring, free }) =
   const [HiringBudget, setHiringBudget] = useState("");
   const [HiringBudgetType, setHiringBudgetType] = useState("");
   const [msg, setMsg] = useState("");
-  const id = free.id;
+  const id = freelancer.id;
   //   console.log(id, "chkfreelancerrriddddd");
   //   const [currentPage, setCurrentPage] = useState(1);
   //   const [totalPages, setTotalPages] = useState(0);
@@ -132,7 +132,7 @@ const SendFreeLancerHireRequestPopup: FC<IProps> = ({ closeFreeHiring, free }) =
 
       if (response.data.status === 200) {
         toast.success("Hiring Request Sent Successfully");
-        closeFreeHiring(id);
+        closePopup(id);
         handleSubmit();
       } else {
         errorLog(response.data.message);
@@ -163,7 +163,7 @@ const SendFreeLancerHireRequestPopup: FC<IProps> = ({ closeFreeHiring, free }) =
             <div className="flex items-center justify-between">
               <h1 className="font-cardo text-[26px] font-normal text-[#031136]">Add Data</h1>
               <button
-                onClick={() => closeFreeHiring(id)}
+                onClick={() => closePopup(id)}
                 className="text-gray-500 hover:text-gray-700"
               >
                 <i className="bi bi-x-lg"></i>
@@ -258,7 +258,7 @@ const SendFreeLancerHireRequestPopup: FC<IProps> = ({ closeFreeHiring, free }) =
                 </button>
                 <button
                   className="inline-block rounded bg-gradient-to-b from-[#0909E9] to-[#00D4FF] p-0.5"
-                  onClick={() => closeFreeHiring(id)}
+                  onClick={() => closePopup(id)}
                 >
                   <button className="bg-white px-2 py-1">
                     <p className="from-primary to-danger bg-gradient-to-r bg-clip-text px-[8px] py-[4px] text-sm font-semibold text-transparent">
