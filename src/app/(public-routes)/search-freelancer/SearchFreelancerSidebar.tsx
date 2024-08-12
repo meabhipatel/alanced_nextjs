@@ -6,9 +6,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { FC, useEffect, useState } from "react";
 import { FaCheck } from "react-icons/fa6";
 
-interface ISearchFreelancerSidebarProps {
-  // setCurrentPage: Dispatch<SetStateAction<number>>;
-}
+interface ISearchFreelancerSidebarProps {}
 
 const SearchFreelancerSidebar: FC<ISearchFreelancerSidebarProps> = () => {
   const searchParams = useSearchParams();
@@ -25,6 +23,7 @@ const SearchFreelancerSidebar: FC<ISearchFreelancerSidebarProps> = () => {
   const [selectedSkills, setSelectedSkills] = useState<string[]>(
     searchParams.getAll("skills") ?? []
   );
+
   // --------------------
   const initialSkillCount = 5;
   const initialCityCount = 5;
@@ -78,6 +77,8 @@ const SearchFreelancerSidebar: FC<ISearchFreelancerSidebarProps> = () => {
       params.delete("language");
     }
 
+    params.set("page", "1");
+
     router.replace(`${pathname}?${params.toString()}`);
   }, [selectedSkills, selectedExpLevel, selectedCity, selectedlanguage]);
 
@@ -98,7 +99,6 @@ const SearchFreelancerSidebar: FC<ISearchFreelancerSidebarProps> = () => {
     } else {
       setSelectedSkills((prevFilters) => prevFilters.filter((filter) => filter !== skills));
     }
-    // setCurrentPage(1);
   };
 
   const handleShowMoreCity = () => {
@@ -128,7 +128,6 @@ const SearchFreelancerSidebar: FC<ISearchFreelancerSidebarProps> = () => {
     } else {
       setSelectedExpLevel((prevFilters) => prevFilters.filter((filter) => filter !== exp));
     }
-    // setCurrentPage(1);
   };
 
   const handleSelectCity = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -138,7 +137,6 @@ const SearchFreelancerSidebar: FC<ISearchFreelancerSidebarProps> = () => {
     } else {
       setSelectedCity((prevFilters) => prevFilters.filter((filter) => filter !== city));
     }
-    // setCurrentPage(1);
   };
 
   const handleSelectLanguage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -148,7 +146,6 @@ const SearchFreelancerSidebar: FC<ISearchFreelancerSidebarProps> = () => {
     } else {
       setSelectedLanguage((prevFilters) => prevFilters.filter((filter) => filter !== language));
     }
-    // setCurrentPage(1);
   };
 
   return (

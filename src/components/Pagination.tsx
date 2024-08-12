@@ -13,14 +13,17 @@ const Pagination: FC<IProps> = ({ totalPages }) => {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(Number(searchParams.get("page")) ?? 1);
 
+  /** ---> Setting current page from url */
+  useEffect(() => {
+    setCurrentPage(Number(searchParams.get("page")) ?? 1);
+  }, [searchParams]);
+
   // ---> Updating Url search params
   useEffect(() => {
     const params = new URLSearchParams(searchParams);
 
     if (currentPage > 1) {
       params.set("page", currentPage.toString());
-    } else {
-      params.delete("page");
     }
 
     router.replace(`${pathname}?${params.toString()}`);
