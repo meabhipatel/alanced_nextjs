@@ -1,5 +1,5 @@
 "use client";
-import React, { ReactNode, FC } from "react";
+import React, { ReactNode, FC, Suspense } from "react";
 // import AddFreeHireRequest from "@/components/AddFreeHireRequestPopup";
 // import { IFreelancerHiringOpen, IFreelancer } from "@/interfaces/index";
 import SearchFreelancerHeader from "./SearchFreelancerHeader";
@@ -10,10 +10,6 @@ interface IProps {
 }
 
 const SearchFreelancerLayout: FC<IProps> = ({ children }) => {
-  // const location = useRouter();
-  // const searchParams = new URLSearchParams(location.search);
-  // const category = searchParams.get("category");
-
   //  for use
   // const logindata: IHirerProfile = {
   //   id: 5,
@@ -34,8 +30,6 @@ const SearchFreelancerLayout: FC<IProps> = ({ children }) => {
   // const googleUserName = localStorage.getItem("googleUserName");
   // const loginMethod = localStorage.getItem("loginMethod");
 
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [totalPages, setTotalPages] = useState(0);
   // const [isFreeHiringOpen, setIsFreeHiringOpen] = useState<IFreelancerHiringOpen>({});
 
   // const openFreeHiring = (freelancerId: number) => {
@@ -116,16 +110,6 @@ const SearchFreelancerLayout: FC<IProps> = ({ children }) => {
   //   displayName = logindata?.first_Name + " " + logindata?.last_Name;
   // }
 
-  // const prev = () => {
-  //   window.scrollTo(0, 0);
-  //   setCurrentPage((prev) => Math.max(prev - 1, 1));
-  // };
-
-  // const next = () => {
-  //   window.scrollTo(0, 0);
-  //   setCurrentPage((prev) => Math.min(prev + 1, totalPages));
-  // };
-
   return (
     <>
       {/* ---> page Header  */}
@@ -138,7 +122,7 @@ const SearchFreelancerLayout: FC<IProps> = ({ children }) => {
           <SearchFreelancerSidebar />
 
           {/* ---> card container  */}
-          {children}
+          <Suspense>{children}</Suspense>
         </div>
       </div>
     </>
