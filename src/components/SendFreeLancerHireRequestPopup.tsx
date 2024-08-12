@@ -5,15 +5,15 @@ import React, { FC, useEffect, useState, MouseEvent } from "react";
 import { toast } from "react-hot-toast";
 // import useWebSocket, { ReadyState } from "react-use-websocket";
 import useWebSocket from "react-use-websocket";
-import { IProps, IHirerProfile, IError, IViewProject } from "@/interfaces/index";
+import { IHirerProfile, IError, IViewProject, IFreelancer } from "@/interfaces/index";
 import { errorLog } from "@/utils/errorLog";
 
-// interface IProps {
-//   closeFreeHiring: (id: number) => void;
-//   free: IFreelancerHiringOpen;
-// }
+interface IProps {
+  closeFreeHiring: (id: number) => void;
+  free: IFreelancer;
+}
 
-const AddFreeHireRequest: FC<IProps> = ({ closeFreeHiring, free }) => {
+const SendFreeLancerHireRequestPopup: FC<IProps> = ({ closeFreeHiring, free }) => {
   const handleClickInsidePopup = (event: MouseEvent) => {
     event.stopPropagation();
     event.preventDefault();
@@ -46,10 +46,10 @@ const AddFreeHireRequest: FC<IProps> = ({ closeFreeHiring, free }) => {
   const [HiringBudgetType, setHiringBudgetType] = useState("");
   const [msg, setMsg] = useState("");
   const id = free.id;
-//   console.log(id, "chkfreelancerrriddddd");
-//   const [currentPage, setCurrentPage] = useState(1);
-//   const [totalPages, setTotalPages] = useState(0);
-//   const [searchQuery, setSearchQuery] = useState("");
+  //   console.log(id, "chkfreelancerrriddddd");
+  //   const [currentPage, setCurrentPage] = useState(1);
+  //   const [totalPages, setTotalPages] = useState(0);
+  //   const [searchQuery, setSearchQuery] = useState("");
 
   const [viewhirerProject, setViewhirerProject] = useState<IViewProject[]>([]);
 
@@ -58,8 +58,8 @@ const AddFreeHireRequest: FC<IProps> = ({ closeFreeHiring, free }) => {
     return `${names[0]}__${names[1]}`;
   }
 
-//   const { readyState, sendJsonMessage } = useWebSocket(
-  const {sendJsonMessage } = useWebSocket(
+  //   const { readyState, sendJsonMessage } = useWebSocket(
+  const { sendJsonMessage } = useWebSocket(
     `wss://api.alanced.com:8001/${createConversationName()}`,
     {
       onOpen: () => {
@@ -75,15 +75,15 @@ const AddFreeHireRequest: FC<IProps> = ({ closeFreeHiring, free }) => {
     }
   );
 
-//   const connectionStatus = {
-//     [ReadyState.CONNECTING]: "Connecting",
-//     [ReadyState.OPEN]: "Open",
-//     [ReadyState.CLOSING]: "Closing",
-//     [ReadyState.CLOSED]: "Closed",
-//     [ReadyState.UNINSTANTIATED]: "Uninstantiated",
-//   }[readyState];
+  //   const connectionStatus = {
+  //     [ReadyState.CONNECTING]: "Connecting",
+  //     [ReadyState.OPEN]: "Open",
+  //     [ReadyState.CLOSING]: "Closing",
+  //     [ReadyState.CLOSED]: "Closed",
+  //     [ReadyState.UNINSTANTIATED]: "Uninstantiated",
+  //   }[readyState];
 
-//   console.log("connection status -------------- ", connectionStatus);
+  //   console.log("connection status -------------- ", connectionStatus);
 
   function handleSubmit() {
     sendJsonMessage({
@@ -275,4 +275,4 @@ const AddFreeHireRequest: FC<IProps> = ({ closeFreeHiring, free }) => {
   );
 };
 
-export default AddFreeHireRequest;
+export default SendFreeLancerHireRequestPopup;
