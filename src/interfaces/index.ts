@@ -24,11 +24,6 @@ export interface IFreelancerHiringOpen {
   [key: number]: boolean;
 }
 
-export interface IProps {
-  closeFreeHiring: (id: number) => void;
-  free: IFreelancer;
-}
-
 export interface IFreelancer {
   id: number;
   email: string;
@@ -82,7 +77,7 @@ export interface IViewProject {
   id: number;
   title: string;
   description: string;
-  Project_Rate: 'Hourly' | 'Fixed'; // Assuming 'Hourly' or 'Fixed' as possible values
+  Project_Rate: "Hourly" | "Fixed"; // Assuming 'Hourly' or 'Fixed' as possible values
   Project_Fixed_Budget: number | null;
   Project_Min_Hourly_Rate: number;
   Project_Max_Hourly_Rate: number;
