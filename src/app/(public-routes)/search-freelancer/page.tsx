@@ -9,6 +9,7 @@ import { RiVerifiedBadgeFill } from "react-icons/ri";
 import { IoLocationOutline } from "react-icons/io5";
 import { IFreelancer } from "@/interfaces";
 import { errorLog } from "@/utils/errorLog";
+import Pagination from "@/components/Pagination";
 
 export const metadata: Metadata = {
   title: "Search Freelancer at Alanced",
@@ -28,9 +29,11 @@ interface IProps {
 }
 
 const Page: FC<IProps> = async ({ searchParams }) => {
-  const query = [];
-
   const { q: queryText, language, page, skills, explevel, address } = searchParams;
+
+  const query = [];
+  let data = [];
+  let totalPages = 1;
 
   if (queryText) {
     query.push(`search_query=${queryText}`);
@@ -71,13 +74,13 @@ const Page: FC<IProps> = async ({ searchParams }) => {
   }
 
   const queryString = query.join("&");
-  let data;
 
   try {
     const res = await axios.get(
       `https://www.api.alanced.com/account/freelancer/profile/view-all?${queryString}`
     );
     data = res.data.results;
+    totalPages = Math.ceil(res.data.count / 8);
   } catch (error) {
     errorLog(error);
   }
@@ -135,7 +138,6 @@ const Page: FC<IProps> = async ({ searchParams }) => {
                           alt=""
                           height={96}
                           width={96}
-                          // variant="rounded"
                           className="mr-4 h-24 w-24 rounded-lg"
                         />
                         <div>
@@ -313,64 +315,9 @@ const Page: FC<IProps> = async ({ searchParams }) => {
           })}
         </div>
       )}
-      {/* <div>
-      {totalPages > 1 && (
-        <div className="m-4 flex items-center justify-end gap-6">
-          <button
-            // size="sm"
-            // variant="outlined"
-            onClick={prev}
-            disabled={currentPage === 1}
-            className="rounded-lg p-1"
-            style={{
-              backgroundImage: "linear-gradient(45deg, #0909E9, #00D4FF)",
-              border: "none",
-            }}
-          >
-            <RxArrowLeft
-              // strokeWidth={2}
-              className="text-2xl text-white"
-            />
-          </button>
 
-          {[...Array(totalPages)].map((_, index) => {
-            const pageNumber = index + 1;
-            return (
-              <button
-                key={pageNumber}
-                className={`px-0 py-1 ${
-                  currentPage === pageNumber
-                    ? "cursor-pointer bg-gradient-to-r from-[#0909E9] to-[#00D4FF] bg-clip-text text-[14px] font-bold text-transparent"
-                    : "cursor-pointer text-[14px] font-bold text-[#0A142F]"
-                }`}
-                onClick={() => {
-                  setCurrentPage(pageNumber);
-                }}
-              >
-                {pageNumber}
-              </button>
-            );
-          })}
-
-          <button
-            // size="sm"
-            // variant="outlined"
-            onClick={next}
-            disabled={currentPage === totalPages}
-            className="rounded-lg p-1"
-            style={{
-              backgroundImage: "linear-gradient(45deg, #0909E9, #00D4FF)",
-              border: "none",
-            }}
-          >
-            <RxArrowRight
-              // strokeWidth={2}
-              className="text-2xl text-white"
-            />
-          </button>
-        </div>
-      )}
-    </div> */}
+      {/* ---> Pagination */}
+      <Pagination totalPages={totalPages} />
     </div>
   );
 };

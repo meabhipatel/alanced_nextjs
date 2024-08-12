@@ -10,10 +10,6 @@ interface IProps {
 }
 
 const SearchFreelancerLayout: FC<IProps> = ({ children }) => {
-  // const location = useRouter();
-  // const searchParams = new URLSearchParams(location.search);
-  // const category = searchParams.get("category");
-
   //  for use
   // const logindata: IHirerProfile = {
   //   id: 5,
@@ -115,16 +111,6 @@ const SearchFreelancerLayout: FC<IProps> = ({ children }) => {
   // } else if (loginMethod === "traditional") {
   //   displayName = logindata?.first_Name + " " + logindata?.last_Name;
   // }
-
-  // const prev = () => {
-  //   window.scrollTo(0, 0);
-  //   setCurrentPage((prev) => Math.max(prev - 1, 1));
-  // };
-
-  // const next = () => {
-  //   window.scrollTo(0, 0);
-  //   setCurrentPage((prev) => Math.min(prev + 1, totalPages));
-  // };
 
   return (
     <>
