@@ -1,5 +1,5 @@
 "use client";
-import React, { ReactNode, FC } from "react";
+import React, { ReactNode, FC, Suspense } from "react";
 // import AddFreeHireRequest from "@/components/AddFreeHireRequestPopup";
 // import { IFreelancerHiringOpen, IFreelancer } from "@/interfaces/index";
 import SearchFreelancerHeader from "./SearchFreelancerHeader";
@@ -30,8 +30,6 @@ const SearchFreelancerLayout: FC<IProps> = ({ children }) => {
   // const googleUserName = localStorage.getItem("googleUserName");
   // const loginMethod = localStorage.getItem("loginMethod");
 
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [totalPages, setTotalPages] = useState(0);
   // const [isFreeHiringOpen, setIsFreeHiringOpen] = useState<IFreelancerHiringOpen>({});
 
   // const openFreeHiring = (freelancerId: number) => {
@@ -124,7 +122,7 @@ const SearchFreelancerLayout: FC<IProps> = ({ children }) => {
           <SearchFreelancerSidebar />
 
           {/* ---> card container  */}
-          {children}
+          <Suspense>{children}</Suspense>
         </div>
       </div>
     </>
