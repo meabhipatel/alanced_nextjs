@@ -22,7 +22,7 @@ const Pagination: FC<IProps> = ({ totalPages }) => {
   useEffect(() => {
     const params = new URLSearchParams(searchParams);
 
-    if (currentPage > 1) {
+    if (currentPage >= 1) {
       params.set("page", currentPage.toString());
     }
 
