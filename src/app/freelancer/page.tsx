@@ -17,8 +17,10 @@ import { RxArrowRight, RxArrowLeft } from "react-icons/rx";
 import { errorLog } from "@/utils/errorLog";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
 import { IoLocationOutline } from "react-icons/io5";
-import { IoIosHeartEmpty } from "react-icons/io";
+import { IoIosHeartEmpty, IoIosHeart  } from "react-icons/io";
 import { BsCoin, BsSendCheck } from "react-icons/bs";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 interface IFreelanceProject {
   id: number;
@@ -75,7 +77,7 @@ interface Bids {
 
 const FreelancerAfterLogin = () => {
   //   const logindata = useSelector(state => state.login.login_data);
-  //   const logindata = useSelector((state) => state.login.login_data) || JSON.parse(localStorage.getItem("logindata"));
+  const logindata = useSelector((state: RootState) => state.auth.userProfile);
 
   // const logindata = {
   //   id: 4,
@@ -99,14 +101,13 @@ const FreelancerAfterLogin = () => {
   //   experience_level: "",
   // };
 
-  //   const googleUserName = localStorage.getItem("googleUserName");
-  //   const loginMethod = localStorage.getItem("loginMethod");
+  const googleUserName = localStorage.getItem("googleUserName");
+  const loginMethod = localStorage.getItem("loginMethod");
   // const viewallprojects = useSelector((state: any) => state.freelancer.viewallprojects);
   // const viewallprojects: any[] = [];
   //   const accessToken = useSelector(state => state.login.accessToken);
   //   const accessToken = useSelector((state) => state.login.accessToken) || localStorage.getItem("jwtToken");
-  const accessToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUzOTQyMjI2LCJpYXQiOjE3MjI0MDYyMjYsImp0aSI6IjA5OTA3MGI4OTQ5NDRkZDQ4ZWNiNTQwNzc4ZTE4OTNhIiwidXNlcl9pZCI6NH0.wSynaiGQ8ykuvLI-FNyd8B2XoYYDATI1QotxySyzRu0";
+  const accessToken = localStorage.getItem("accessToken");
   //   const [searchTerm, setSearchTerm] = useState("");
   const [searchTerm] = useState("");
   //   const dispatch = useDispatch();
@@ -119,17 +120,17 @@ const FreelancerAfterLogin = () => {
   //     dispatch(GetViewAllProjectsListAction())
   //   }, [])
 
-  //   let displayName;
+  let displayName;
 
-  //   if (loginMethod === "google") {
-  //     //   displayName = googleUserName;
-  //     displayName =
-  //       logindata.first_Name && logindata.last_Name
-  //         ? logindata?.first_Name + " " + logindata?.last_Name
-  //         : googleUserName;
-  //   } else if (loginMethod === "traditional") {
-  //     displayName = logindata?.first_Name + " " + logindata?.last_Name;
-  //   }
+  if (loginMethod === "google") {
+    //   displayName = googleUserName;
+    displayName =
+      logindata.first_Name && logindata.last_Name
+        ? logindata?.first_Name + " " + logindata?.last_Name
+        : googleUserName;
+  } else if (loginMethod === "traditional") {
+    displayName = logindata?.first_Name + " " + logindata?.last_Name;
+  }
 
   // const filteredProjects = viewallprojects
   //   ? viewallprojects.filter((project:IFreelanceProject) => project.category === logindata?.category)
@@ -244,8 +245,8 @@ const FreelancerAfterLogin = () => {
     };
   }
 
-  //   const { day, formattedDate, greeting } = getCurrentDateAndGreeting();
-  const { day, formattedDate } = getCurrentDateAndGreeting();
+  const { day, formattedDate, greeting } = getCurrentDateAndGreeting();
+  // const { day, formattedDate } = getCurrentDateAndGreeting();
 
   const [AllProposals, setAllProposals] = useState<IBid[]>([]);
 
@@ -269,7 +270,7 @@ const FreelancerAfterLogin = () => {
     };
 
     fetchData();
-  }, []);
+  }, [accessToken]);
   //   console.log("/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/", AllProposals);
 
   //   const [currentPage, setCurrentPage] = useState(1);
@@ -438,7 +439,7 @@ const FreelancerAfterLogin = () => {
               {day}, {formattedDate}
             </h1>
             <h1 className="py-1 text-start text-3xl font-semibold text-[#031136]">
-              {/* Good {greeting}, <span className="font-[500] capitalize">{displayName}</span> */}
+              Good {greeting}, <span className="font-[500] capitalize">{displayName}</span>
             </h1>
           </div>
           <div className="hidden h-full w-[40%] md:block">
@@ -559,15 +560,17 @@ const FreelancerAfterLogin = () => {
                                 <p className="text-[18px] font-semibold text-[#0A142F]">
                                   {highlightText(project.title, searchQuery)}
                                 </p>
-                                <div className="flex items-center space-x-2">
+                                <div className="flex items-center text-blue-600 space-x-2">
                                   <button
                                     className="h-8 w-8 rounded-full border border-gray-200 bg-white p-1"
                                     onClick={(event) => handleClick(event, index, project)}
                                   >
                                     {localStorage.getItem(`isSaved_${project.id}`) === "true" ? (
-                                      <i className="fa fa-heart p-1 text-blue-600"></i>
+                                      // <i className="fa fa-heart p-1 text-blue-600"></i>
+                                      <IoIosHeart  className="text-xl" />
                                     ) : (
-                                      <i className="fa fa-heart-o p-1"></i>
+                                      // <i className="fa fa-heart-o p-1"></i>
+                                      <IoIosHeartEmpty className="text-xl" />
                                     )}
                                   </button>
                                 </div>
