@@ -8,6 +8,7 @@ import { timeAgo } from "@/utils/timeFunction";
 import { IoLocationOutline } from "react-icons/io5";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { FiFileText } from "react-icons/fi";
+import Pagination from "@/components/Pagination";
 
 interface IProject {
   id: number;
@@ -64,8 +65,7 @@ const SearchJob: FC<IProps> = async ({ searchParams }) => {
 
   const query = [];
   let data: IProject[] = [];
-  let totalPages = 1; // eslint-disable-line
-
+  let totalPages = 1;
   if (queryText) {
     query.push(`search_query=${queryText}`);
   }
@@ -120,7 +120,7 @@ const SearchJob: FC<IProps> = async ({ searchParams }) => {
     );
     data = res.data.results;
 
-    totalPages = Math.ceil(res.data.count / 8); // eslint-disable-line
+    totalPages = Math.ceil(res.data.count / 8);
   } catch (error) {
     errorLog(error);
   }
@@ -215,26 +215,25 @@ const SearchJob: FC<IProps> = async ({ searchParams }) => {
   }
 
   return (
-    <>
-      {data !== null ? (
-        data.length > 0 ? (
-          <div className="mb-5 mt-10 flex w-full flex-col gap-y-3 md:ml-2 lg:w-[80%]">
-            {data && (
-              <>
-                {data.map((project: IProject, index: number) => {
-                  const words = project.description.split(" ");
-                  // const displayWords =
-                  //   expandedProjects[index] || words.length <= 30 ? words : words.slice(0, 30);
-                  const displayWords = words.slice(0, 30);
+    <div className="w-full">
+      {data.length > 0 ? (
+        <div className="mb-5 mt-10 flex w-full flex-col gap-y-3 md:ml-2">
+          {data && (
+            <>
+              {data.map((project: IProject, index: number) => {
+                const words = project.description.split(" ");
+                // const displayWords =
+                //   expandedProjects[index] || words.length <= 30 ? words : words.slice(0, 30);
+                const displayWords = words.slice(0, 30);
 
-                  return (
-                    <div
-                      key={index}
-                      className="flex w-full flex-col justify-between rounded-md bg-gray-50 p-2 duration-300 hover:bg-gray-100 md:flex-row md:px-12"
-                    >
-                      <div className="basis-9/12 text-left">
-                        <h1 className="text-lg">{highlightText(project.title, queryText ?? "")}</h1>
-                        {/* {AllProposals &&
+                return (
+                  <div
+                    key={index}
+                    className="flex w-full flex-col justify-between rounded-md bg-gray-50 p-2 duration-300 hover:bg-gray-100 md:flex-row md:px-12"
+                  >
+                    <div className="basis-9/12 text-left">
+                      <h1 className="text-lg">{highlightText(project.title, queryText ?? "")}</h1>
+                      {/* {AllProposals &&
                           AllProposals.map((all: IBid) => {
                             return (
                               <>
@@ -252,47 +251,47 @@ const SearchJob: FC<IProps> = async ({ searchParams }) => {
                               </>
                             );
                           })} */}
-                        <div className="mt-3 flex flex-row">
-                          <div className="mr-2 basis-4/12 border-2 border-b-0 border-l-0 border-t-0 border-r-[#797979]">
-                            <div className="flex flex-row items-center gap-3">
-                              <IoLocationOutline className="text-md" />
+                      <div className="mt-3 flex flex-row">
+                        <div className="mr-2 basis-4/12 border-2 border-b-0 border-l-0 border-t-0 border-r-[#797979]">
+                          <div className="flex flex-row items-center gap-3">
+                            <IoLocationOutline className="text-md" />
 
-                              <div className="text-[#797979]">
-                                {highlightText(
-                                  project.project_owner_location
-                                    ? project.project_owner_location
-                                    : "NA",
-                                  queryText ?? ""
-                                )}
-                              </div>
-                            </div>
-                          </div>
-                          <div className="mr-2 basis-4/12 border-2 border-b-0 border-l-0 border-t-0 border-r-[#797979]">
-                            <div className="flex flex-row items-center gap-3">
-                              <FaRegCalendarAlt className="text-md" />
-
-                              <div className="basis-10/12 text-[#797979]">
-                                {project.project_creation_date
-                                  ? timeAgo(project.project_creation_date)
-                                  : "Date not available"}
-                              </div>
-                            </div>
-                          </div>
-                          <div className="basis-4/12">
-                            <div className="flex flex-row items-center gap-3">
-                              <FiFileText className="text-md" />
-
-                              <div className="basis-10/12 text-[#797979]">
-                                {/* {bidsCount[project.id] ? bidsCount[project.id] : 0} Received */}
-                                N/A
-                              </div>
+                            <div className="text-[#797979]">
+                              {highlightText(
+                                project.project_owner_location
+                                  ? project.project_owner_location
+                                  : "NA",
+                                queryText ?? ""
+                              )}
                             </div>
                           </div>
                         </div>
+                        <div className="mr-2 basis-4/12 border-2 border-b-0 border-l-0 border-t-0 border-r-[#797979]">
+                          <div className="flex flex-row items-center gap-3">
+                            <FaRegCalendarAlt className="text-md" />
 
-                        <p className="py-3 text-[14px] text-[#0A142F] text-opacity-50">
-                          Job Description: {highlightText(displayWords.join(" "), queryText ?? "")}
-                          {/* {words.length > 30 && (
+                            <div className="basis-10/12 text-[#797979]">
+                              {project.project_creation_date
+                                ? timeAgo(project.project_creation_date)
+                                : "Date not available"}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="basis-4/12">
+                          <div className="flex flex-row items-center gap-3">
+                            <FiFileText className="text-md" />
+
+                            <div className="basis-10/12 text-[#797979]">
+                              {/* {bidsCount[project.id] ? bidsCount[project.id] : 0} Received */}
+                              N/A
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <p className="py-3 text-[14px] text-[#0A142F] text-opacity-50">
+                        Job Description: {highlightText(displayWords.join(" "), queryText ?? "")}
+                        {/* {words.length > 30 && (
                             <button
                               className="cursor-pointer pl-2 text-[18px] font-semibold text-[#031136]"
                               onClick={(event) => handleClick(event, index)}
@@ -300,158 +299,65 @@ const SearchJob: FC<IProps> = async ({ searchParams }) => {
                               {expandedProjects[index] ? "Less" : "More"}
                             </button>
                           )} */}
-                        </p>
-                        {project.skills_required &&
-                          JSON.parse(project.skills_required.replace(/'/g, '"')).map(
-                            (skill: string, index: number) => (
-                              <span
-                                key={index}
-                                className="my-2 mr-2 inline-block rounded border border-gray-300 px-4 py-1 text-[13px] text-[#0A142F] opacity-60"
-                              >
-                                {highlightText(skill, queryText ?? "")}
-                              </span>
-                            )
-                          )}
-                      </div>
-                      <div className="flex h-full flex-row items-center justify-center gap-5 md:flex-col md:items-end md:gap-2">
-                        <h1 className="text-right text-xl font-extrabold">
-                          $
-                          {project.rate === "Hourly"
-                            ? project.min_hourly_rate +
-                              "/hr" +
-                              " - " +
-                              "$" +
-                              project.max_hourly_rate +
-                              "/hr"
-                            : project.fixed_budget}
-                        </h1>
-                        <p className="mt-1 text-right text-sm text-[#797979]">
-                          {project.rate} Rate
-                        </p>
-                        <div className="">
-                          <Link href={`/view-project/details`}>
-                            <button className="h-12 w-36 rounded bg-gradient-to-r from-[#0909E9] to-[#00D4FF] text-sm font-bold text-white">
-                              View Detail
-                            </button>
-                          </Link>
-                        </div>
+                      </p>
+                      {project.skills_required &&
+                        JSON.parse(project.skills_required.replace(/'/g, '"')).map(
+                          (skill: string, index: number) => (
+                            <span
+                              key={index}
+                              className="my-2 mr-2 inline-block rounded border border-gray-300 px-4 py-1 text-[13px] text-[#0A142F] opacity-60"
+                            >
+                              {highlightText(skill, queryText ?? "")}
+                            </span>
+                          )
+                        )}
+                    </div>
+                    <div className="flex h-full flex-row items-center justify-center gap-5 md:flex-col md:items-end md:gap-2">
+                      <h1 className="text-right text-xl font-extrabold">
+                        $
+                        {project.rate === "Hourly"
+                          ? project.min_hourly_rate +
+                            "/hr" +
+                            " - " +
+                            "$" +
+                            project.max_hourly_rate +
+                            "/hr"
+                          : project.fixed_budget}
+                      </h1>
+                      <p className="mt-1 text-right text-sm text-[#797979]">{project.rate} Rate</p>
+                      <div className="">
+                        <Link href={`/view-project/details`}>
+                          <button className="h-12 w-36 rounded bg-gradient-to-r from-[#0909E9] to-[#00D4FF] text-sm font-bold text-white">
+                            View Detail
+                          </button>
+                        </Link>
                       </div>
                     </div>
-                  );
-                })}
-              </>
-            )}
-          </div>
-        ) : (
-          <div className="mx-auto">
-            <Image
-              src={fileIcon}
-              alt=""
-              className="ml-[30%] mt-[20%] h-[10%]"
-            />
-            <p className="mt-5 text-xl opacity-70">There are no results that match your search.</p>
-            <p className="mt-3 text-sm opacity-60">
-              Please try adjusting your search keywords or filters.
-            </p>
-          </div>
-        )
+                  </div>
+                );
+              })}
+            </>
+          )}
+        </div>
       ) : (
-        <div className="mt-10 basis-9/12">
-          {/* <Skeleton
-                height={50}
-                width={50}
-                inline={true}
-                style={{ float: "left" }}
-              />
-              <Skeleton
-                height={110}
-                width={700}
-                style={{ float: "left", marginLeft: 20 }}
-              />
-              <Skeleton
-                height={40}
-                width={100}
-                style={{ marginTop: 40 }}
-              />
-              <br />
-              <Skeleton
-                height={40}
-                width={100}
-                inline={true}
-                style={{ marginTop: 5, marginLeft: 70, float: "left" }}
-              />
-              <Skeleton
-                height={40}
-                width={100}
-                inline={true}
-                count={2}
-                style={{ marginTop: 5, marginLeft: 5, float: "left" }}
-              />
-
-              <Skeleton
-                height={50}
-                width={50}
-                inline={true}
-                style={{ float: "left", marginTop: 80, marginLeft: -382 }}
-              />
-              <Skeleton
-                height={110}
-                width={700}
-                style={{ float: "left", marginLeft: 70, marginTop: 35 }}
-              />
-              <Skeleton
-                height={40}
-                width={100}
-                style={{ marginTop: 125 }}
-              />
-              <br />
-              <Skeleton
-                height={40}
-                width={100}
-                inline={true}
-                style={{ marginTop: 5, marginLeft: 70, float: "left" }}
-              />
-              <Skeleton
-                height={40}
-                width={100}
-                inline={true}
-                count={2}
-                style={{ marginTop: 5, marginLeft: 5, float: "left" }}
-              />
-
-              <Skeleton
-                height={50}
-                width={50}
-                inline={true}
-                style={{ float: "left", marginTop: 80, marginLeft: -382 }}
-              />
-              <Skeleton
-                height={110}
-                width={700}
-                style={{ float: "left", marginLeft: 70, marginTop: 35 }}
-              />
-              <Skeleton
-                height={40}
-                width={100}
-                style={{ marginTop: 125 }}
-              />
-              <br />
-              <Skeleton
-                height={40}
-                width={100}
-                inline={true}
-                style={{ marginTop: 5, marginLeft: 70, float: "left" }}
-              />
-              <Skeleton
-                height={40}
-                width={100}
-                inline={true}
-                count={2}
-                style={{ marginTop: 5, marginLeft: 5, float: "left" }}
-              /> */}
+        <div className="mt-20">
+          <Image
+            src={fileIcon}
+            alt=""
+            className="mx-auto w-[18%]"
+          />
+          <p className="mt-5 bg-white text-center text-xl opacity-70">
+            There are no results that match your search.
+          </p>
+          <p className="mt-3 bg-white text-center text-sm opacity-60">
+            Please try adjusting your search keywords or filters.
+          </p>
         </div>
       )}
-    </>
+
+      {/* ---> Pagination */}
+      <Pagination totalPages={totalPages} />
+    </div>
   );
 };
 
