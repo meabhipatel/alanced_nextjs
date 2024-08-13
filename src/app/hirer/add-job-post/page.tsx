@@ -133,6 +133,18 @@ const AddJobPost = () => {
     setAddProject((prev: any) => ({ ...prev, rate: value })); // eslint-disable-line
   };
 
+  const stepsLabels = [
+    'Job Description',
+    'Skills',
+    'Budget',
+    'Deadline'
+];
+
+const postJob = () => {
+  // Your logic to post the job goes here
+  //console.log("Job posted!");
+};
+
   return (
     <div className="mx-4 mt-4 sm:mx-6 md:mx-8 lg:mx-12">
       <h1 className="font-cardo p-3 text-left text-xl font-normal text-[#031136] sm:text-2xl md:text-3xl">
@@ -472,29 +484,36 @@ const AddJobPost = () => {
             )}
           </div>
           <div className="mt-4 flex justify-between">
-            {step > 1 && (
-              <button
-                onClick={goToPreviousStep}
-                className="font-cardo rounded-md bg-gray-500 px-4 py-2 text-white hover:bg-gray-600 focus:outline-none"
-              >
-                Back
-              </button>
-            )}
-            {step < 5 ? (
-              <button
-                onClick={goToNextStep}
-                className="font-cardo rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:outline-none"
-              >
-                Next
-              </button>
-            ) : (
-              <button
-                type="submit"
-                className="font-cardo rounded-md bg-green-500 px-4 py-2 text-white hover:bg-green-600 focus:outline-none"
-              >
-                Post Job
-              </button>
-            )}
+          {step > 1 && (
+  <div className="inline-block rounded bg-gradient-to-b from-[#0909E9] to-[#00D4FF] p-0.5">
+    <button
+      onClick={goToPreviousStep}
+      className="bg-white px-11 py-1"
+    >
+      <p className="from-primary to-danger bg-gradient-to-r bg-clip-text px-[8px] py-[4px] text-sm font-semibold text-transparent">
+        Back
+      </p>
+    </button>
+  </div>
+)}
+
+{step < 5 ? (
+  <button
+    onClick={goToNextStep}
+    className="font-cardo rounded-md px-4 py-2 text-white bg-gradient-to-r from-[#0909E9] to-[#00D4FF] focus:outline-none ml-auto"
+  >
+    {`Next: ${stepsLabels[step - 1]}`}
+  </button>
+) : (
+  <button
+    onClick={postJob}
+    className="font-cardo rounded-md bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-2 text-white focus:outline-none"
+  >
+    Post Job
+  </button>
+)}
+
+
           </div>
         </div>
       </div>
