@@ -1,158 +1,175 @@
 "use client";
 import { useEffect, useState } from "react";
-import CategoryList from "@/constant/allSelectionData/CategoryList";
-import ExperienceLevel from "@/constant/allSelectionData/experienceLevel";
-import ProjectRate from "@/constant/allSelectionData/ProjectRate";
-import CityList from "@/constant/allSelectionData/cityList";
-import SkillsList from "@/constant/allSelectionData/skillsList";
+import categoryList from "@/constant/allSelectionData/categoryList";
+import experienceLevel from "@/constant/allSelectionData/experienceLevel";
+import projectRate from "@/constant/allSelectionData/projectRate";
+import cityList from "@/constant/allSelectionData/cityList";
+import skillsList from "@/constant/allSelectionData/skillsList";
 import { FaCheck } from "react-icons/fa6";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const SearchJobSidebar = () => {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
+  //---------------------
+  const [selectedExpLevel, setSelectedExpLevel] = useState<string[]>(
+    searchParams.getAll("explevel") ?? []
+  );
+  const [selectedCity, setSelectedCity] = useState<string[]>(searchParams.getAll("city") ?? []);
+  const [selectedCategory, setSelectedCategory] = useState<string[]>(
+    searchParams.getAll("category") ?? []
+  );
+  const [selectedSkills, setSelectedSkills] = useState<string[]>(
+    searchParams.getAll("skills") ?? []
+  );
+  const [selectedRateType, setSelectedRateType] = useState<string[]>(
+    searchParams.getAll("rate") ?? []
+  );
+  // --------------------
   const [showAll, setShowAll] = useState(false);
   const [showAllSkills, setShowAllSkills] = useState(false);
   const [showAllCity, setShowAllCity] = useState(false);
+  // --------------------
+  const initialCategoryCount = 5;
+  const initialSkillCount = 5;
+  const initialCityCount = 5;
 
-  const [cate] = useState(CategoryList);
-
-  const [city] = useState(CityList);
-  const [req_skill] = useState(SkillsList);
-
-  const [expe] = useState(ExperienceLevel);
-  const [type] = useState(ProjectRate);
-
-  const [categoryFilter, setCategoryFilter] = useState<string[]>([]);
-  const [skillFilter, setSkillFilter] = useState<string[]>([]);
-  const [expFilter, setExpFilter] = useState<string[]>([]);
-  const [rateFilter, setRateFilter] = useState<string[]>([]);
-  const [searchQuery, setSearchQuery] = useState(""); // eslint-disable-line
-  const [cityFilter, setCityFilter] = useState<string[]>([]);
-
-  const [currentPage, setCurrentPage] = useState(1);
-
-  /** --------------------------- */
-
+  /** ---> Updating Url search params */
   useEffect(() => {
-    const queryParameters = [];
+    const params = new URLSearchParams(searchParams);
 
-    if (categoryFilter.length > 0) {
-      queryParameters.push(`category=${categoryFilter.join("&category=")}`);
+    if (selectedSkills.length > 0) {
+      params.delete("skills");
+      selectedSkills.forEach((skill) => {
+        params.append("skills", skill);
+      });
+    } else {
+      params.delete("skills");
     }
 
-    if (skillFilter.length > 0) {
-      queryParameters.push(`skills_required=${skillFilter.join("&skills_required=")}`);
+    if (selectedExpLevel.length > 0) {
+      params.delete("explevel");
+      selectedExpLevel.forEach((exp) => {
+        params.append("explevel", exp);
+      });
+    } else {
+      params.delete("explevel");
     }
 
-    if (expFilter.length > 0) {
-      queryParameters.push(`experience_level=${expFilter.join("&experience_level=")}`);
+    if (selectedCity.length > 0) {
+      params.delete("city");
+      selectedCity.forEach((exp) => {
+        params.append("city", exp);
+      });
+    } else {
+      params.delete("city");
     }
 
-    if (rateFilter.length > 0) {
-      queryParameters.push(`rate=${rateFilter.join("&rate=")}`);
+    if (selectedCategory.length > 0) {
+      params.delete("category");
+      selectedCategory.forEach((exp) => {
+        params.append("category", exp);
+      });
+    } else {
+      params.delete("category");
     }
 
-    if (cityFilter.length > 0) {
-      queryParameters.push(`project_owner_location=${cityFilter.join("&project_owner_location=")}`);
+    if (selectedRateType.length > 0) {
+      params.delete("rate");
+      selectedRateType.forEach((exp) => {
+        params.append("rate", exp);
+      });
+    } else {
+      params.delete("rate");
     }
 
-    if (searchQuery) {
-      queryParameters.push(`search_query=${searchQuery}`);
-    }
+    params.set("page", "1");
 
-    queryParameters.push(`page=${currentPage}`);
-
-    const queryString = queryParameters.join("&"); // eslint-disable-line
-  }, [categoryFilter, skillFilter, expFilter, rateFilter, searchQuery, cityFilter, currentPage]);
+    router.replace(`${pathname}?${params.toString()}`);
+  }, [selectedCategory, selectedSkills, selectedExpLevel, selectedRateType, selectedCity]);
 
   /** --------------------------- */
-  const handleCategoryFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSelectCategory = (e: React.ChangeEvent<HTMLInputElement>) => {
     const category = e.target.value;
     if (e.target.checked) {
-      setCategoryFilter((prevFilters) => [...prevFilters, category]);
+      setSelectedCategory((prevFilters) => [...prevFilters, category]);
     } else {
-      setCategoryFilter((prevFilters) => prevFilters.filter((filter) => filter !== category));
+      setSelectedCategory((prevFilters) => prevFilters.filter((filter) => filter !== category));
     }
-    setCurrentPage(1);
   };
 
-  const handleSkillFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSelectSkills = (e: React.ChangeEvent<HTMLInputElement>) => {
     const skills = e.target.value;
     if (e.target.checked) {
-      setSkillFilter((prevFilters) => [...prevFilters, skills]);
+      setSelectedSkills((prevFilters) => [...prevFilters, skills]);
     } else {
-      setSkillFilter((prevFilters) => prevFilters.filter((filter) => filter !== skills));
+      setSelectedSkills((prevFilters) => prevFilters.filter((filter) => filter !== skills));
     }
-    setCurrentPage(1);
   };
 
-  const handleExpFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSelectExpLevel = (e: React.ChangeEvent<HTMLInputElement>) => {
     const exp = e.target.value;
     if (e.target.checked) {
-      setExpFilter((prevFilters) => [...prevFilters, exp]);
+      setSelectedExpLevel((prevFilters) => [...prevFilters, exp]);
     } else {
-      setExpFilter((prevFilters) => prevFilters.filter((filter) => filter !== exp));
+      setSelectedExpLevel((prevFilters) => prevFilters.filter((filter) => filter !== exp));
     }
-    setCurrentPage(1);
   };
 
-  const handleRateFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSelectProjectRateType = (e: React.ChangeEvent<HTMLInputElement>) => {
     const protype = e.target.value;
     if (e.target.checked) {
-      setRateFilter((prevFilters) => [...prevFilters, protype]);
+      setSelectedRateType((prevFilters) => [...prevFilters, protype]);
     } else {
-      setRateFilter((prevFilters) => prevFilters.filter((filter) => filter !== protype));
+      setSelectedRateType((prevFilters) => prevFilters.filter((filter) => filter !== protype));
     }
-    setCurrentPage(1);
   };
 
-  const handleCityFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSelectCity = (e: React.ChangeEvent<HTMLInputElement>) => {
     const city = e.target.value;
     if (e.target.checked) {
-      setCityFilter((prevFilters) => [...prevFilters, city]);
+      setSelectedCity((prevFilters) => [...prevFilters, city]);
     } else {
-      setCityFilter((prevFilters) => prevFilters.filter((filter) => filter !== city));
+      setSelectedCity((prevFilters) => prevFilters.filter((filter) => filter !== city));
     }
-    setCurrentPage(1);
   };
 
-  const initialCategoryCount = 5; // Initial number of categories to show
-
-  const [visibleCategories, setVisibleCategories] = useState(cate.slice(0, initialCategoryCount));
+  const [visibleCategories, setVisibleCategories] = useState(
+    categoryList.slice(0, initialCategoryCount)
+  );
 
   const handleShowMore = () => {
-    setVisibleCategories(cate); // Show all categories
+    setVisibleCategories(categoryList);
     setShowAll(true);
   };
 
   const handleShowLess = () => {
-    setVisibleCategories(cate.slice(0, initialCategoryCount)); // Show the initial count
+    setVisibleCategories(categoryList.slice(0, initialCategoryCount));
     setShowAll(false);
   };
 
-  const initialSkillCount = 5; // Initial number of skills to show
-
-  const [visibleSkills, setVisibleSkills] = useState(req_skill.slice(0, initialSkillCount));
+  const [visibleSkills, setVisibleSkills] = useState(skillsList.slice(0, initialSkillCount));
 
   const handleShowMoreSkills = () => {
-    setVisibleSkills(req_skill); // Show all skills
+    setVisibleSkills(skillsList);
     setShowAllSkills(true);
   };
 
   const handleShowLessSkills = () => {
-    setVisibleSkills(req_skill.slice(0, initialSkillCount)); // Show the initial count
+    setVisibleSkills(skillsList.slice(0, initialSkillCount));
     setShowAllSkills(false);
   };
 
-  const initialCityCount = 5; // Initial number of cities to show
-
-  const [visibleCities, setVisibleCities] = useState(city.slice(0, initialCityCount));
+  const [visibleCities, setVisibleCities] = useState(cityList.slice(0, initialCityCount));
 
   const handleShowMoreCity = () => {
-    setVisibleCities(city); // Show all cities
+    setVisibleCities(cityList);
     setShowAllCity(true);
   };
 
   const handleShowLessCity = () => {
-    setVisibleCities(city.slice(0, initialCityCount)); // Show the initial count
+    setVisibleCities(cityList.slice(0, initialCityCount));
     setShowAllCity(false);
   };
 
@@ -172,7 +189,8 @@ const SearchJobSidebar = () => {
                 className="hidden"
                 type="checkbox"
                 value={category}
-                onChange={handleCategoryFilterChange}
+                checked={selectedCategory.includes(category)}
+                onChange={handleSelectCategory}
               />
               <div className="checkbox-border-gradient mr-3 flex h-5 w-5 items-center justify-center rounded bg-transparent">
                 <span className="checkmark hidden">
@@ -201,16 +219,16 @@ const SearchJobSidebar = () => {
             className="mt-5 cursor-pointer text-left text-xl font-normal"
             onClick={handleShowMore}
           >
-            +{cate.length - initialCategoryCount} More
+            +{categoryList.length - initialCategoryCount} More
           </button>
         </div>
       )}
       <div>
         <h1 className="mt-10 text-left text-xl font-normal">Experience Level</h1>
       </div>
-      {expe.map((exp) => (
+      {experienceLevel.map((expLevel) => (
         <div
-          key={exp}
+          key={expLevel}
           className="mt-4 flex flex-row"
         >
           <div className="basis-8/12">
@@ -218,8 +236,9 @@ const SearchJobSidebar = () => {
               <input
                 className="hidden"
                 type="checkbox"
-                value={exp}
-                onChange={handleExpFilterChange}
+                value={expLevel}
+                checked={selectedExpLevel.includes(expLevel)}
+                onChange={handleSelectExpLevel}
               />
               <div className="checkbox-border-gradient mr-3 flex h-5 w-5 items-center justify-center rounded bg-transparent">
                 <span className="checkmark hidden">
@@ -228,7 +247,7 @@ const SearchJobSidebar = () => {
                 </span>
               </div>
               <span className="normal-checkbox mr-3 inline-block h-5 w-5 rounded border border-gray-300"></span>
-              <span className="font-normal text-[#797979]">{exp.replace(/_/g, " ")}</span>
+              <span className="font-normal text-[#797979]">{expLevel.replace(/_/g, " ")}</span>
             </label>
           </div>
         </div>
@@ -236,7 +255,7 @@ const SearchJobSidebar = () => {
       <div>
         <h1 className="mt-10 text-left text-xl font-normal">Project Type</h1>
       </div>
-      {type.map((protype, index) => (
+      {projectRate.map((rateType, index) => (
         <div
           key={index}
           className="mt-4 flex flex-row"
@@ -246,11 +265,12 @@ const SearchJobSidebar = () => {
               <input
                 className="peer sr-only"
                 type="checkbox"
-                value={protype}
-                onChange={handleRateFilterChange}
+                value={rateType}
+                checked={selectedRateType.includes(rateType)}
+                onChange={handleSelectProjectRateType}
               />
               <div className="dark:bg-white-700 peer h-6 w-11 rounded-full border-2 border-blue-300 bg-white from-[#0909E9] to-[#00D4FF] after:absolute after:left-[2px] after:top-0.5 after:h-5 after:w-5 after:rounded-full after:border after:bg-gradient-to-r after:transition-all after:content-[''] peer-checked:bg-gradient-to-r peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:ring-0 peer-focus:ring-blue-600 dark:border-gray-600"></div>
-              <span className="ml-3 text-base font-normal text-[#797979]">{protype}</span>
+              <span className="ml-3 text-base font-normal text-[#797979]">{rateType}</span>
             </label>
           </div>
         </div>
@@ -259,9 +279,9 @@ const SearchJobSidebar = () => {
       <div>
         <h1 className="mt-10 text-left text-xl font-normal">Skills</h1>
       </div>
-      {visibleSkills.map((skills) => (
+      {visibleSkills.map((skill) => (
         <div
-          key={skills}
+          key={skill}
           className="mt-4 flex flex-row"
         >
           <div className="basis-8/12">
@@ -269,17 +289,17 @@ const SearchJobSidebar = () => {
               <input
                 className="hidden"
                 type="checkbox"
-                value={skills}
-                onChange={handleSkillFilterChange}
+                value={skill}
+                checked={selectedSkills.includes(skill)}
+                onChange={handleSelectSkills}
               />
               <div className="checkbox-border-gradient mr-3 flex h-5 w-5 items-center justify-center rounded bg-transparent">
                 <span className="checkmark hidden">
-                  {/* <i className="bi bi-check-lg pr-0.5 pt-2"></i> */}
                   <FaCheck className="text-sm" />
                 </span>
               </div>
               <span className="normal-checkbox mr-3 inline-block h-5 w-5 rounded border border-gray-300"></span>
-              <span className="font-normal text-[#797979]">{skills}</span>
+              <span className="font-normal text-[#797979]">{skill}</span>
             </label>
           </div>
         </div>
@@ -299,14 +319,14 @@ const SearchJobSidebar = () => {
             className="mt-5 cursor-pointer text-left text-xl font-normal"
             onClick={handleShowMoreSkills}
           >
-            +{req_skill.length - initialSkillCount} More
+            +{skillsList.length - initialSkillCount} More
           </button>
         </div>
       )}
       <div>
         <h1 className="mt-10 text-left text-xl font-normal">Citys</h1>
       </div>
-      {visibleCities.map((location, index) => (
+      {visibleCities.map((city, index) => (
         <div
           key={index}
           className="mt-4 flex flex-row"
@@ -316,17 +336,17 @@ const SearchJobSidebar = () => {
               <input
                 className="hidden"
                 type="checkbox"
-                value={location}
-                onChange={handleCityFilterChange}
+                value={city}
+                checked={selectedCity.includes(city)}
+                onChange={handleSelectCity}
               />
               <div className="checkbox-border-gradient mr-3 flex h-5 w-5 items-center justify-center rounded bg-transparent">
                 <span className="checkmark hidden">
-                  {/* <i className="bi bi-check-lg pr-0.5 pt-2"></i> */}
                   <FaCheck className="text-sm" />
                 </span>
               </div>
               <span className="normal-checkbox mr-3 inline-block h-5 w-5 rounded border border-gray-300"></span>
-              <span className="font-normal text-[#797979]">{location}</span>
+              <span className="font-normal text-[#797979]">{city}</span>
             </label>
           </div>
         </div>
@@ -346,7 +366,7 @@ const SearchJobSidebar = () => {
             className="mt-5 cursor-pointer text-left text-xl font-normal"
             onClick={handleShowMoreCity}
           >
-            +{city.length - initialCityCount} More
+            +{cityList.length - initialCityCount} More
           </button>
         </div>
       )}
