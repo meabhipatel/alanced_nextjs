@@ -3,8 +3,11 @@ import axios from "axios";
 import fileIcon from "@/assets/icons/file.png";
 import Image from "next/image";
 import Link from "next/link";
-
 import { errorLog } from "@/utils/errorLog";
+import { timeAgo } from "@/utils/timeFunction";
+import { IoLocationOutline } from "react-icons/io5";
+import { FaRegCalendarAlt } from "react-icons/fa";
+import { FiFileText } from "react-icons/fi";
 
 interface IProject {
   id: number;
@@ -48,15 +51,16 @@ interface IProps {
   searchParams: {
     q?: string;
     skills?: string | string[];
-    language?: string | string[];
+    category?: string | string[];
     explevel?: string | string[];
-    address?: string | string[];
+    city?: string | string[];
+    rate?: string | string[];
     page?: string;
   };
 }
 
 const SearchJob: FC<IProps> = async ({ searchParams }) => {
-  const { q: queryText, language, page, skills, explevel, address } = searchParams;
+  const { q: queryText, category, page, skills, explevel, city, rate } = searchParams;
 
   const query = [];
   let data: IProject[] = [];
@@ -78,13 +82,14 @@ const SearchJob: FC<IProps> = async ({ searchParams }) => {
     }
   }
 
-  if (language) {
-    if (typeof language === "string") {
-      query.push(`Language=${language}`);
+  if (category) {
+    if (typeof category === "string") {
+      query.push(`category=${category}`);
     } else {
-      query.push(`Language=${language.join("&Language=")}`);
+      query.push(`category=${category.join("&category=")}`);
     }
   }
+
   if (explevel) {
     if (typeof explevel === "string") {
       query.push(`experience_level=${explevel}`);
@@ -92,11 +97,18 @@ const SearchJob: FC<IProps> = async ({ searchParams }) => {
       query.push(`experience_level=${explevel.join("&experience_level=")}`);
     }
   }
-  if (address) {
-    if (typeof address === "string") {
-      query.push(`Address=${address}`);
+  if (city) {
+    if (typeof city === "string") {
+      query.push(`Address=${city}`);
     } else {
-      query.push(`Address=${address.join("&Address=")}`);
+      query.push(`Address=${city.join("&Address=")}`);
+    }
+  }
+  if (rate) {
+    if (typeof rate === "string") {
+      query.push(`rate=${rate}`);
+    } else {
+      query.push(`rate=${rate.join("&rate=")}`);
     }
   }
 
@@ -113,33 +125,6 @@ const SearchJob: FC<IProps> = async ({ searchParams }) => {
     errorLog(error);
   }
   /** -------------------------- */
-
-  function timeAgo(postedTimeStr: string) {
-    const postedTime = new Date(postedTimeStr);
-    const currentTime = new Date();
-
-    const deltaInMilliseconds = currentTime.getTime() - postedTime.getTime();
-    const deltaInSeconds = Math.floor(deltaInMilliseconds / 1000);
-    const deltaInMinutes = Math.floor(deltaInSeconds / 60);
-    const deltaInHours = Math.floor(deltaInMinutes / 60);
-    const deltaInDays = Math.floor(deltaInHours / 24);
-
-    if (deltaInMinutes < 1) {
-      return "just now";
-    } else if (deltaInMinutes < 60) {
-      return `${deltaInMinutes} minute ago`;
-    } else if (deltaInHours < 24) {
-      return `${deltaInHours} hour ago`;
-    } else if (deltaInDays < 30) {
-      return `${deltaInDays} day ago`;
-    } else if (deltaInDays < 365) {
-      const months = Math.floor(deltaInDays / 30);
-      return `${months} month ago`;
-    } else {
-      const years = Math.floor(deltaInDays / 365);
-      return `${years} year ago`;
-    }
-  }
 
   // const handleToggleDescription = (index: number) => {
   //   const updatedState = [...expandedProjects];
@@ -248,10 +233,7 @@ const SearchJob: FC<IProps> = async ({ searchParams }) => {
                       className="flex w-full flex-col justify-between rounded-md bg-gray-50 p-2 duration-300 hover:bg-gray-100 md:flex-row md:px-12"
                     >
                       <div className="basis-9/12 text-left">
-                        <h1 className="text-lg">
-                          {/* {highlightText(project.title, searchQuery)} */}
-                          {project.title}
-                        </h1>
+                        <h1 className="text-lg">{highlightText(project.title, queryText ?? "")}</h1>
                         {/* {AllProposals &&
                           AllProposals.map((all: IBid) => {
                             return (
@@ -272,29 +254,23 @@ const SearchJob: FC<IProps> = async ({ searchParams }) => {
                           })} */}
                         <div className="mt-3 flex flex-row">
                           <div className="mr-2 basis-4/12 border-2 border-b-0 border-l-0 border-t-0 border-r-[#797979]">
-                            <div className="flex flex-row">
-                              <div className="basis-2/12">
-                                <i className="bi bi-geo-alt"></i>
-                              </div>
-                              <div className="basis-10/12 text-[#797979]">
-                                {/* {highlightText(
-                                      project.project_owner_location
-                                        ? project.project_owner_location
-                                        : "NA",
-                                      searchQuery
-                                    )} */}
-                                {project.project_owner_location}
+                            <div className="flex flex-row items-center gap-3">
+                              <IoLocationOutline className="text-md" />
+
+                              <div className="text-[#797979]">
+                                {highlightText(
+                                  project.project_owner_location
+                                    ? project.project_owner_location
+                                    : "NA",
+                                  queryText ?? ""
+                                )}
                               </div>
                             </div>
                           </div>
                           <div className="mr-2 basis-4/12 border-2 border-b-0 border-l-0 border-t-0 border-r-[#797979]">
-                            <div className="flex flex-row">
-                              <div className="basis-2/12">
-                                <i
-                                  className="fa fa-calendar"
-                                  aria-hidden="true"
-                                ></i>
-                              </div>
+                            <div className="flex flex-row items-center gap-3">
+                              <FaRegCalendarAlt className="text-md" />
+
                               <div className="basis-10/12 text-[#797979]">
                                 {project.project_creation_date
                                   ? timeAgo(project.project_creation_date)
@@ -303,19 +279,19 @@ const SearchJob: FC<IProps> = async ({ searchParams }) => {
                             </div>
                           </div>
                           <div className="basis-4/12">
-                            <div className="flex flex-row">
-                              <div className="basis-2/12">
-                                <i className="bi bi-file-text"></i>
+                            <div className="flex flex-row items-center gap-3">
+                              <FiFileText className="text-md" />
+
+                              <div className="basis-10/12 text-[#797979]">
+                                {/* {bidsCount[project.id] ? bidsCount[project.id] : 0} Received */}
+                                N/A
                               </div>
-                              {/* <div className="basis-10/12 text-[#797979]">
-                                {bidsCount[project.id] ? bidsCount[project.id] : 0} Received
-                              </div> */}
                             </div>
                           </div>
                         </div>
 
                         <p className="py-3 text-[14px] text-[#0A142F] text-opacity-50">
-                          Job Description: {highlightText(displayWords.join(" "), "searchQuery")}
+                          Job Description: {highlightText(displayWords.join(" "), queryText ?? "")}
                           {/* {words.length > 30 && (
                             <button
                               className="cursor-pointer pl-2 text-[18px] font-semibold text-[#031136]"
@@ -332,7 +308,7 @@ const SearchJob: FC<IProps> = async ({ searchParams }) => {
                                 key={index}
                                 className="my-2 mr-2 inline-block rounded border border-gray-300 px-4 py-1 text-[13px] text-[#0A142F] opacity-60"
                               >
-                                {highlightText(skill, "searchQuery")}
+                                {highlightText(skill, queryText ?? "")}
                               </span>
                             )
                           )}
@@ -353,10 +329,7 @@ const SearchJob: FC<IProps> = async ({ searchParams }) => {
                           {project.rate} Rate
                         </p>
                         <div className="">
-                          <Link
-                            href={`/view-project/details`}
-                            // state={{ project }}
-                          >
+                          <Link href={`/view-project/details`}>
                             <button className="h-12 w-36 rounded bg-gradient-to-r from-[#0909E9] to-[#00D4FF] text-sm font-bold text-white">
                               View Detail
                             </button>

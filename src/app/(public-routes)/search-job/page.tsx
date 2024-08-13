@@ -12,9 +12,10 @@ interface IProps {
   searchParams: {
     q?: string;
     skills?: string | string[];
-    language?: string | string[];
+    category?: string | string[];
     explevel?: string | string[];
-    address?: string | string[];
+    city?: string | string[];
+    rate?: string | string[];
     page?: string;
   };
 }
