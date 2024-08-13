@@ -18,7 +18,7 @@ const Loading = () => {
           return (
             <div
               key={index}
-              className="h-[400px] w-[95%] animate-pulse bg-gray-300 duration-300"
+              className="h-[400px] w-[95%] animate-pulse bg-gray-100 duration-300"
             ></div>
           );
         })}
