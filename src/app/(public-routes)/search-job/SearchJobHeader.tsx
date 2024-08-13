@@ -19,6 +19,7 @@ const SearchJobHeader = () => {
     } else {
       params.delete("q");
     }
+    // [::] TODO : have to implement debounce
     replace(`${pathname}?${params.toString()}`);
   }, [searchQuery]);
 
