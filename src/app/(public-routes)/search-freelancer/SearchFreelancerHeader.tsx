@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import { FC, useEffect, useState } from "react";
 import halfBackground from "@/assets/images/half_background.png";

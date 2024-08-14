@@ -1,68 +1,30 @@
-import React, { FC } from "react";
-
 const Loading = () => {
   return (
-    <div className="grid w-[70%] grid-cols-2 pl-3.5 md:w-full">
-      {[...Array(6)].map((_, index) => {
-        return (
-          <div
-            key={index}
-            className="relative mt-4 h-[467px] w-[26vw] flex-shrink-0 cursor-pointer rounded-lg border-t border-opacity-30 px-4 py-5 shadow-lg hover:bg-[#F6FAFD] md:px-8"
-          >
-            <Skeleton
-              height={90}
-              width={90}
-              style={{ borderRadius: "10%", float: "left" }}
-            />
-            <Skeleton
-              height={20}
-              width={200}
-              style={{ marginLeft: 10, marginTop: 20 }}
-            />
-            <Skeleton
-              height={20}
-              width={200}
-              style={{ marginLeft: 10, marginTop: 10 }}
-            />
-            <Skeleton
-              height={200}
-              width={300}
-              style={{ marginTop: 20 }}
-            />
-            <Skeleton
-              height={50}
-              width={200}
-              style={{ marginTop: 10 }}
-            />
-            <Skeleton
-              height={35}
-              width={80}
-              style={{ marginTop: 20, float: "right" }}
-            />
-          </div>
-        );
-      })}
+    <div className="w-full">
+      <div className="px-4 pt-4 md:px-8">
+        <div className="flex items-center">
+          <h1 className="mr-1 text-[21px] font-semibold text-[#031136]">
+            Freelancers that Matches your Job
+          </h1>
+        </div>
+        <div className="relative mt-3 w-40">
+          <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
+          <div className="rounded-lg border-b-2 border-gray-600"></div>
+        </div>
+      </div>
+
+      <div className="mt-5 grid w-full grid-cols-1 gap-3 md:grid-cols-2 lg:pl-3.5">
+        {[...Array(6)].map((_, index) => {
+          return (
+            <div
+              key={index}
+              className="h-[400px] w-[95%] animate-pulse bg-gray-100 duration-300"
+            ></div>
+          );
+        })}
+      </div>
     </div>
   );
 };
 
 export default Loading;
-
-interface ISkeletonProps {
-  height: number;
-  width: number;
-  style: React.CSSProperties;
-}
-
-const Skeleton: FC<ISkeletonProps> = ({ height, width, style }) => {
-  return (
-    <div
-      style={{
-        height,
-        width,
-        ...style,
-      }}
-      className="animate-pulse bg-gray-300 duration-300"
-    ></div>
-  );
-};
