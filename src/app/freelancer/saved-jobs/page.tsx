@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 // import { MdVerified } from "react-icons/md";
 import { IoLocationOutline } from "react-icons/io5";
 import axios from "axios";
@@ -33,7 +33,7 @@ const SavedJobs = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
 
-  const fetchSavedJobs = async () => {
+  const fetchSavedJobs = useCallback(async () => {
     try {
       const response = await axios.get(
         `https://www.api.alanced.com/freelance/View-all/SavedProjects?page=${currentPage}`,
@@ -59,7 +59,7 @@ const SavedJobs = () => {
         errorLog("An unknown error occurred");
       }
     }
-  };
+  }, [accessToken, currentPage]);
 
   const [expandedProjects, setExpandedProjects] = useState<boolean[]>([]);
 
