@@ -1,7 +1,7 @@
-'use client'
+"use client";
 import React, { useEffect, useState } from "react";
-import { MdVerified } from "react-icons/md";
-// import { IoLocationOutline, IoHeartCircleOutline } from "react-icons/io5";
+// import { MdVerified } from "react-icons/md";
+import { IoLocationOutline } from "react-icons/io5";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { timeAgo } from "@/utils/timeFunction";
@@ -9,7 +9,7 @@ import fileIcon from "@/assets/icons/file.png";
 import { errorLog } from "@/utils/errorLog";
 import Image from "next/image";
 import { RxArrowRight, RxArrowLeft } from "react-icons/rx";
-
+import { IoIosHeart } from "react-icons/io";
 
 interface IProject {
   Project_id: number;
@@ -146,15 +146,16 @@ const SavedJobs = () => {
                           {" "}
                           {job.Project_Name}
                         </p>
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-center justify-center">
                           <button
-                            className="h-8 w-8 cursor-pointer rounded-full border border-gray-200 bg-white p-1"
+                            className="cursor-pointer rounded-full border border-gray-200 bg-white p-1"
                             onClick={() => toggleJobSaveStatus(job.Project_id)}
                           >
-                            <i
+                            {/* <i
                               className="fa fa-heart p-1 text-blue-600"
                               aria-hidden="true"
-                            ></i>
+                            ></i> */}
+                            <IoIosHeart className="text-blue-500" />
                           </button>
                         </div>
                       </div>
@@ -187,16 +188,17 @@ const SavedJobs = () => {
                         alt=""
                         className="mr-1 inline-block h-5 w-5"
                       /> */}
-                      <MdVerified />
-                      <p className="font-inter inline-block text-[16px] font-normal text-[#0A142F] opacity-50">
-                        Payment verified
-                      </p>
-                      <div className="mx-3 inline-block text-[16px] text-[#FFC107]">★★★★★</div>
-                      {/* <img src={location} alt="" className='inline-block h-3 w-3 mr-1'/> */}
-                      <i className="bi bi-geo-alt mr-1 inline-block"></i>
-                      <p className="font-inter inline-block text-[16px] font-normal text-[#0A142F] opacity-50">
-                        {job.Project_Hirer_Location ? job.Project_Hirer_Location : "NA"}
-                      </p>
+                      <div className="flex items-center gap-1">
+                        {/* <MdVerified className="text-green-500" />
+                        <p className="font-inter inline-block text-[16px] font-normal text-[#0A142F] opacity-50">
+                          Payment verified
+                        </p>
+                        <div className="mx-3 inline-block text-[16px] text-[#FFC107]">★★★★★</div> */}
+                        <IoLocationOutline />
+                        <p className="font-inter inline-block text-[16px] font-normal text-[#0A142F] opacity-50">
+                          {job.Project_Hirer_Location ? job.Project_Hirer_Location : "N/A"}
+                        </p>
+                      </div>
                     </div>
                   );
                 })}
