@@ -1,4 +1,11 @@
+import { Metadata } from "next";
 import React from "react";
+
+export const metadata: Metadata = {
+  title: "Blogs | Alanced the best platform",
+  description:
+    "The best platform for search and hire freelancer in the central india. let's have a tour of freelancers.",
+};
 
 const page = () => {
   return (
