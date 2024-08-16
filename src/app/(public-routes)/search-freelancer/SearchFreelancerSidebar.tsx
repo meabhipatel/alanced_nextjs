@@ -1,3 +1,4 @@
+"use client";
 import cityList from "@/constant/allSelectionData/cityList";
 import experienceLevel from "@/constant/allSelectionData/experienceLevel";
 import languageList from "@/constant/allSelectionData/languageList";

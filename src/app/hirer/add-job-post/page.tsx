@@ -1,5 +1,5 @@
 "use client";
-import CategoryList from "@/constant/allSelectionData/CategoryList";
+import CategoryList from "@/constant/allSelectionData/categoryList";
 import SkillsList from "@/constant/allSelectionData/skillsList";
 import React, { useEffect, useRef, useState } from "react";
 

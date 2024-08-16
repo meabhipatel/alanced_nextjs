@@ -1,22 +1,22 @@
 import React, { ReactNode, FC, Suspense } from "react";
-import SearchFreelancerHeader from "./SearchFreelancerHeader";
-import SearchFreelancerSidebar from "./SearchFreelancerSidebar";
+import SearchJobHeader from "./SearchJobHeader";
+import SearchJobSidebar from "./SearchJobSidebar";
 
 interface IProps {
   children: ReactNode;
 }
 
-const SearchFreelancerLayout: FC<IProps> = ({ children }) => {
+const SearchJobLayout: FC<IProps> = ({ children }) => {
   return (
     <>
       {/* ---> page Header  */}
-      <SearchFreelancerHeader />
+      <SearchJobHeader />
 
       {/* ---> page Body  */}
       <div className="mt-1 px-2 xl:px-20">
         <div className="mx-5 mb-5 flex flex-col md:flex-row">
           {/* ---> side categoy bar */}
-          <SearchFreelancerSidebar />
+          <SearchJobSidebar />
 
           {/* ---> card container  */}
           <Suspense>{children}</Suspense>
@@ -26,4 +26,4 @@ const SearchFreelancerLayout: FC<IProps> = ({ children }) => {
   );
 };
 
-export default SearchFreelancerLayout;
+export default SearchJobLayout;
