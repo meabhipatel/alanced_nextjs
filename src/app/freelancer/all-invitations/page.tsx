@@ -4,7 +4,7 @@ import axios from 'axios';
 import Image from 'next/image';
 //import { useSelector } from 'react-redux';
 //import Skeleton from 'react-loading-skeleton';
-import { timeAgo } from '@/app/freelancer/all-invitations/time-functions';
+import { timeAgo } from '@/app/freelancer/time-functions';
 import { FaArrowRight, FaArrowLeft } from 'react-icons/fa';
 import file from '@/assets/icons/file.png';
 
