@@ -40,6 +40,7 @@ import { RxArrowRight, RxArrowLeft } from "react-icons/rx";
 // import EditLanguagePopup from "./AllPopup/EditLanguagePopup";                               for use
 // import EditEducationPopup from "./AllPopup/EditEducationPopup";                             for use
 // import AvailableOffPopup from "./AllPopup/AvailableOffPopup";                               for use
+// import AvailableOffPopup from "./EditProfileHeaderAvailableOffPopup";
 // import EditHrRatePopup from "./AllPopup/EditHrRatePopup";                                   for use
 // import AddCertificatesPopup from "./AllPopup/AddCertificatesPopup";        not in use
 // import AddEmploymentPopup from "./AllPopup/AddEmploymentPopup";                             for use
@@ -57,29 +58,30 @@ import Image from "next/image";
 import { errorLog } from "@/utils/errorLog";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
 import { IoLocationOutline } from "react-icons/io5";
+import { useAppSelector } from "@/store/hooks";
 
-interface FreelancerProfile {
-  id: number;
-  email: string;
-  first_Name: string;
-  last_Name: string;
-  contact: string;
-  Address: string;
-  DOB: Date | null;
-  gender: string;
-  experience: number;
-  type: string;
-  images_logo: string;
-  qualification: string;
-  social_media: string;
-  map: string;
-  skills: string; // Alternatively: string[] if you want to parse JSON string to array
-  category: string;
-  about: string;
-  Language: string; // Alternatively: string[] if you want to parse JSON string to array
-  hourly_rate: number;
-  experience_level: string;
-}
+// interface FreelancerProfile {
+//   id: number;
+//   email: string;
+//   first_Name: string;
+//   last_Name: string;
+//   contact: string;
+//   Address: string;
+//   DOB: Date | null;
+//   gender: string;
+//   experience: number;
+//   type: string;
+//   images_logo: string;
+//   qualification: string;
+//   social_media: string;
+//   map: string;
+//   skills: string; // Alternatively: string[] if you want to parse JSON string to array
+//   category: string;
+//   about: string;
+//   Language: string; // Alternatively: string[] if you want to parse JSON string to array
+//   hourly_rate: number;
+//   experience_level: string;
+// }
 
 interface Employment {
   emp_id: number;
@@ -124,41 +126,41 @@ interface FreelanceProject {
 const FreelancerSelfProfile = () => {
   // const accessToken = useSelector((state) => state.login.accessToken) || localStorage.getItem("jwtToken");    for remove
   // const jwtToken = localStorage.getItem("jwtToken");
-  // console.log(accessToken, "chkaccesstojken");                                                                for reomve
+  // console.log(accessToken, "chkaccesstojken");                                                                for remove
   // console.log(jwtToken, "chkjwttoken");
   // const freelancerselfprofile = useSelector((state) => state.freelancer.freelancerselfprofile);               for use
-  const freelancerselfprofile: FreelancerProfile[] = [
-    {
-      id: 4,
-      email: "sachinsharmapeace@gmail.com",
-      first_Name: "sachin",
-      last_Name: "sharma",
-      contact: "",
-      Address: "",
-      DOB: null,
-      gender: "",
-      experience: 0,
-      type: "FREELANCER",
-      images_logo: "/media/images_logo/profile8.jfif",
-      qualification: "B.E",
-      social_media: "",
-      map: "",
-      skills: "['Python']",
-      category: "",
-      about: "",
-      Language: "['Hindi']",
-      hourly_rate: 0,
-      experience_level: "",
-    },
-  ];
+  const freelancerselfprofile = useAppSelector((state) => state.auth.userProfile);
+  // const freelancerselfprofile: FreelancerProfile[] = [
+  //   {
+  //     id: 4,
+  //     email: "sachinsharmapeace@gmail.com",
+  //     first_Name: "sachin",
+  //     last_Name: "sharma",
+  //     contact: "",
+  //     Address: "",
+  //     DOB: null,
+  //     gender: "",
+  //     experience: 0,
+  //     type: "FREELANCER",
+  //     images_logo: "/media/images_logo/profile8.jfif",
+  //     qualification: "B.E",
+  //     social_media: "",
+  //     map: "",
+  //     skills: "['Python']",
+  //     category: "",
+  //     about: "",
+  //     Language: "['Hindi']",
+  //     hourly_rate: 0,
+  //     experience_level: "",
+  //   },
+  // ];
   // const dispatch = useDispatch();
   // const [isHovered, setIsHovered] = useState(false);            for use
   const [reviews, setReviews] = useState([]);
   const [bid, setBid] = useState([]);
   const [freelancerproject, setfreelancerproject] = useState<FreelanceProject[]>([]);
   const [freelanceremployment, setfreelanceremployment] = useState<Employment[]>([]);
-  const id =
-    freelancerselfprofile && freelancerselfprofile[0].id ? freelancerselfprofile[0].id : "";
+  const id = freelancerselfprofile && freelancerselfprofile.id ? freelancerselfprofile.id : "";
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
@@ -599,8 +601,8 @@ const FreelancerSelfProfile = () => {
       const formData = new FormData();
       formData.append("images_logo", selectedFile);
 
-      if (freelancerselfprofile && freelancerselfprofile[0]) {
-        freelancerselfprofile[0].images_logo = URL.createObjectURL(selectedFile);
+      if (freelancerselfprofile && freelancerselfprofile) {
+        freelancerselfprofile.images_logo = URL.createObjectURL(selectedFile);
       }
 
       // dispatch(UpdateFreelancerProfileAction(formData, accessToken));           for use
@@ -648,13 +650,13 @@ const FreelancerSelfProfile = () => {
 
   const maxWords = 50;
   const aboutText =
-    freelancerselfprofile && freelancerselfprofile[0] ? freelancerselfprofile[0].about : "";
+    freelancerselfprofile && freelancerselfprofile ? freelancerselfprofile.about : "";
   const words = aboutText.split(/\s+/).slice(0, maxWords);
   const truncatedText = words.join(" ") + (words.length >= maxWords && !isExpanded ? "..." : "");
 
   const imageUrl: string =
-    freelancerselfprofile && freelancerselfprofile[0]
-      ? "https://www.api.alanced.com" + freelancerselfprofile[0].images_logo
+    freelancerselfprofile && freelancerselfprofile
+      ? "https://www.api.alanced.com" + freelancerselfprofile.images_logo
       : "";
 
   return (
@@ -690,16 +692,16 @@ const FreelancerSelfProfile = () => {
             </div>
             <div className="mb-4 border-b border-gray-200 border-opacity-30 bg-[#FFFFFF] py-4 pl-8 text-left md:mb-0">
               <h1 className="font-cardo mb-3 mr-1 text-[21px] font-normal text-[#031136]">
-                {freelancerselfprofile && freelancerselfprofile[0].category
-                  ? freelancerselfprofile[0].category
+                {freelancerselfprofile && freelancerselfprofile.category
+                  ? freelancerselfprofile.category
                   : "Your Designation"}
               </h1>
               <div className="grid grid-cols-3 gap-3 md:grid-cols-3">
                 <div className="">
                   <h4 className="font-cardo text-[23px] font-bold text-[#031136]">
                     $
-                    {freelancerselfprofile && freelancerselfprofile[0]
-                      ? freelancerselfprofile[0].hourly_rate
+                    {freelancerselfprofile && freelancerselfprofile
+                      ? freelancerselfprofile.hourly_rate
                       : 0}
                   </h4>
                   <p className="font-inter text-[14px] text-[#0A142F] opacity-50">Hourly rate</p>
@@ -723,8 +725,8 @@ const FreelancerSelfProfile = () => {
                 </h1>
                 <div className="flex items-center space-x-2">
                   {freelancerselfprofile &&
-                  freelancerselfprofile[0] &&
-                  freelancerselfprofile[0].experience_level ? (
+                  freelancerselfprofile &&
+                  freelancerselfprofile.experience_level ? (
                     <button
                       className="h-6 w-6 cursor-pointer rounded-full border border-gray-200 bg-white p-1"
                       onClick={openExperienceLevel}
@@ -751,8 +753,8 @@ const FreelancerSelfProfile = () => {
                 </div>
               </div>
               <p className="font-inter py-1 text-[14px] text-[#0A142F]">
-                {freelancerselfprofile && freelancerselfprofile[0]
-                  ? freelancerselfprofile[0].experience_level.replace(/_/g, " ")
+                {freelancerselfprofile && freelancerselfprofile
+                  ? freelancerselfprofile.experience_level.replace(/_/g, " ")
                   : ""}
               </p>
             </div>
@@ -763,8 +765,8 @@ const FreelancerSelfProfile = () => {
                 </h1>
                 <div className="flex items-center space-x-2">
                   {freelancerselfprofile &&
-                  freelancerselfprofile[0] &&
-                  freelancerselfprofile[0].Language ? (
+                  freelancerselfprofile &&
+                  freelancerselfprofile.Language ? (
                     <button
                       className="h-6 w-6 cursor-pointer rounded-full border border-gray-200 bg-white p-1"
                       onClick={openEditLanguage}
@@ -790,10 +792,8 @@ const FreelancerSelfProfile = () => {
                   )} */}
                 </div>
               </div>
-              {freelancerselfprofile &&
-              freelancerselfprofile[0] &&
-              freelancerselfprofile[0].Language
-                ? JSON.parse(freelancerselfprofile[0].Language.replace(/'/g, '"')).map(
+              {freelancerselfprofile && freelancerselfprofile && freelancerselfprofile.Language
+                ? JSON.parse(freelancerselfprofile.Language.replace(/'/g, '"')).map(
                     (language: string, index: number) => (
                       <p
                         key={index}
@@ -814,8 +814,8 @@ const FreelancerSelfProfile = () => {
                 <RiVerifiedBadgeFill className="text-md mr-1 inline-block text-green-600" />
               </p>
               <p className="font-inter py-1 text-[14px] text-[#0A142F] opacity-50">
-                {freelancerselfprofile && freelancerselfprofile[0]
-                  ? `${freelancerselfprofile[0].first_Name} ${freelancerselfprofile[0].last_Name}`
+                {freelancerselfprofile && freelancerselfprofile
+                  ? `${freelancerselfprofile.first_Name} ${freelancerselfprofile.last_Name}`
                   : ""}
               </p>
             </div>
@@ -828,8 +828,8 @@ const FreelancerSelfProfile = () => {
                   <div className="flex items-center space-x-2">
                     {/* Display + icon only if qualification is not available */}
                     {!freelancerselfprofile ||
-                    !freelancerselfprofile[0] ||
-                    !freelancerselfprofile[0].qualification ? (
+                    !freelancerselfprofile ||
+                    !freelancerselfprofile.qualification ? (
                       <button
                         className="h-6 w-6 cursor-pointer rounded-full border border-gray-200 bg-white p-1"
                         onClick={openAddEducation}
@@ -849,15 +849,15 @@ const FreelancerSelfProfile = () => {
 
                 <div className="mt-5 flex items-center justify-between">
                   <p className="font-inter pt-1 text-[14px] text-[#0A142F]">
-                    {freelancerselfprofile && freelancerselfprofile[0]
-                      ? freelancerselfprofile[0].qualification
+                    {freelancerselfprofile && freelancerselfprofile
+                      ? freelancerselfprofile.qualification
                       : ""}
                   </p>
                   <div className="flex items-center space-x-2">
                     {/* Display edit icon only if qualification is available */}
                     {freelancerselfprofile &&
-                    freelancerselfprofile[0] &&
-                    freelancerselfprofile[0].qualification ? (
+                    freelancerselfprofile &&
+                    freelancerselfprofile.qualification ? (
                       <button
                         className="h-6 w-6 cursor-pointer rounded-full border border-gray-200 bg-white p-1"
                         onClick={openEditEducation}
@@ -1068,8 +1068,8 @@ const FreelancerSelfProfile = () => {
               <div className="w-full pl-8 pt-3 text-left md:w-3/4">
                 <div className="flex items-center">
                   <h1 className="font-cardo mr-1 text-[24px] font-normal text-[#031136]">
-                    {freelancerselfprofile && freelancerselfprofile[0]
-                      ? `${freelancerselfprofile[0].first_Name} ${freelancerselfprofile[0].last_Name}`
+                    {freelancerselfprofile && freelancerselfprofile
+                      ? `${freelancerselfprofile.first_Name} ${freelancerselfprofile.last_Name}`
                       : ""}
                   </h1>
                   <RiVerifiedBadgeFill className="text-md mr-1 inline-block text-green-600" />
@@ -1077,8 +1077,8 @@ const FreelancerSelfProfile = () => {
                 <div className="my-1 flex items-center">
                   <IoLocationOutline className="text-md mr-1 inline-block" />
                   <p className="font-inter text-[14px] text-[#797979]">
-                    {freelancerselfprofile && freelancerselfprofile[0].Address
-                      ? freelancerselfprofile[0].Address
+                    {freelancerselfprofile && freelancerselfprofile.Address
+                      ? freelancerselfprofile.Address
                       : "Your Location here"}
                   </p>
                 </div>
@@ -1147,10 +1147,8 @@ const FreelancerSelfProfile = () => {
             <div className="border-b border-gray-200 border-opacity-30 px-8 py-4 text-left">
               <h1 className="font-cardo text-[21px] font-normal text-[#031136]">View Profile</h1>
               <div className="my-3 flex flex-wrap">
-                {freelancerselfprofile &&
-                freelancerselfprofile[0] &&
-                freelancerselfprofile[0].skills
-                  ? JSON.parse(freelancerselfprofile[0].skills.replace(/'/g, '"')).map(
+                {freelancerselfprofile && freelancerselfprofile && freelancerselfprofile.skills
+                  ? JSON.parse(freelancerselfprofile.skills.replace(/'/g, '"')).map(
                       (skill: string, index: number) => (
                         <Link
                           key={index}
@@ -1192,8 +1190,8 @@ const FreelancerSelfProfile = () => {
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
                   <h1 className="font-cardo mr-2 text-[21px] font-normal text-[#031136]">
-                    {freelancerselfprofile && freelancerselfprofile[0].category
-                      ? freelancerselfprofile[0].category.replace(/_/g, " ")
+                    {freelancerselfprofile && freelancerselfprofile.category
+                      ? freelancerselfprofile.category.replace(/_/g, " ")
                       : "Your Designation"}
                   </h1>
                   <button
@@ -1201,10 +1199,8 @@ const FreelancerSelfProfile = () => {
                     onClick={openEditTitle}
                   >
                     <Image
-                      src={freelancerselfprofile && freelancerselfprofile[0].category ? edit : plus}
-                      alt={
-                        freelancerselfprofile && freelancerselfprofile[0].category ? "Edit" : "Add"
-                      }
+                      src={freelancerselfprofile && freelancerselfprofile.category ? edit : plus}
+                      alt={freelancerselfprofile && freelancerselfprofile.category ? "Edit" : "Add"}
                       className="align-middle"
                     />
                   </button>
@@ -1212,7 +1208,7 @@ const FreelancerSelfProfile = () => {
                 </div>
 
                 {/* <div className="flex items-center">
-        <h1 className="font-cardo text-[21px] text-[#031136] font-normal mr-2">{freelancerselfprofile && freelancerselfprofile[0].category ? freelancerselfprofile[0].category.replace(/_/g, ' ') : 'Your Designation'}</h1>
+        <h1 className="font-cardo text-[21px] text-[#031136] font-normal mr-2">{freelancerselfprofile && freelancerselfprofile.category ? freelancerselfprofile.category.replace(/_/g, ' ') : 'Your Designation'}</h1>
         <div className="p-1 w-6 h-6 bg-white rounded-full border border-gray-200 cursor-pointer" onClick={openEditTitle}>
             <Image src={edit} alt="Edit" className="align-middle" />
         </div>
@@ -1221,8 +1217,8 @@ const FreelancerSelfProfile = () => {
                 <div className="flex items-center">
                   <h1 className="font-cardo mr-2 text-[20px] font-bold text-[#031136]">
                     $
-                    {freelancerselfprofile && freelancerselfprofile[0]
-                      ? freelancerselfprofile[0].hourly_rate
+                    {freelancerselfprofile && freelancerselfprofile
+                      ? freelancerselfprofile.hourly_rate
                       : 0}
                     /Hr
                   </h1>
@@ -1298,8 +1294,8 @@ const FreelancerSelfProfile = () => {
               </div>
               <p className="font-inter py-2 text-[13px] text-[#0A142F] opacity-50">
                 Specializes in{" "}
-                {freelancerselfprofile && freelancerselfprofile[0].category
-                  ? freelancerselfprofile[0].category.replace(/_/g, " ")
+                {freelancerselfprofile && freelancerselfprofile.category
+                  ? freelancerselfprofile.category.replace(/_/g, " ")
                   : "Your Designation"}
               </p>
               <p className="font-inter text-[14px] text-[#0A142F] opacity-50">
@@ -1313,7 +1309,7 @@ const FreelancerSelfProfile = () => {
                   {isExpanded ? "See Less" : "See More"}
                 </button>
               )}
-              {/* <p className='font-inter opacity-50 text-[#0A142F] text-[14px]'>{freelancerselfprofile && freelancerselfprofile[0] ? freelancerselfprofile[0].about : ''}</p> 
+              {/* <p className='font-inter opacity-50 text-[#0A142F] text-[14px]'>{freelancerselfprofile && freelancerselfprofile ? freelancerselfprofile.about : ''}</p> 
    <h1 className="font-cardo text-[18px] text-[#031136] font-normal py-2 cursor-pointer">See More</h1> */}
             </div>
             <div
@@ -1545,8 +1541,8 @@ const FreelancerSelfProfile = () => {
                 </h1>
                 <div className="flex items-center space-x-2">
                   {freelancerselfprofile &&
-                  freelancerselfprofile[0] &&
-                  freelancerselfprofile[0].skills ? (
+                  freelancerselfprofile &&
+                  freelancerselfprofile.skills ? (
                     // If skills are available, show the edit icon
                     <button
                       className="h-6 w-6 cursor-pointer rounded-full border border-gray-200 bg-white p-1"
@@ -1582,8 +1578,8 @@ const FreelancerSelfProfile = () => {
         {isEditSkillOpen && <EditSkillPopup closeEditSkill={closeEditSkill}/>}
     </div>
     </div> */}
-              {freelancerselfprofile && freelancerselfprofile[0] && freelancerselfprofile[0].skills
-                ? JSON.parse(freelancerselfprofile[0].skills.replace(/'/g, '"')).map(
+              {freelancerselfprofile && freelancerselfprofile && freelancerselfprofile.skills
+                ? JSON.parse(freelancerselfprofile.skills.replace(/'/g, '"')).map(
                     (skill: string, index: number) => (
                       <Link
                         key={index}
