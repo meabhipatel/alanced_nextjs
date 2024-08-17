@@ -38,7 +38,7 @@ import { IoClose, IoLocationOutline } from "react-icons/io5";
 // import VideoIntroPopup from "./AllPopup/VideoIntroPopup";                  not in use
 // import HrsPerWeekPopup from "./AllPopup/HrsPerWeekPopup";                  not in use
 // import AddLanguagePopup from "./AllPopup/AddLanguagePopup";                not in use
-// import EditLanguagePopup from "./AllPopup/EditLanguagePopup";                               for use
+import EditLanguagePopup from "./EditLanguagePopup";
 // import EditEducationPopup from "./AllPopup/EditEducationPopup";                             for use
 // import AvailableOffPopup from "./AllPopup/AvailableOffPopup";                               for use
 import AvailableOffPopup from "./EditProfileHeaderPopup";
@@ -403,7 +403,7 @@ const FreelancerSelfProfile = () => {
   // const [isVideoIntroOpen, setIsVideoIntroOpen] = useState(false);
   // const [isHrsperWeekOpen, setIsHrsperWeekOpen] = useState(false);
   // const [isAddLanguageOpen, setIsAddLanguageOpen] = useState(false);
-  // const [isEditLanguageOpen, setIsEditLanguageOpen] = useState(false);
+  const [isEditLanguageOpen, setIsEditLanguageOpen] = useState(false);
   // const [isEditEducationOpen, setIsEditEducationOpen] = useState(false);
   const [isAvailableOffOpen, setIsAvailableOffOpen] = useState(false);
   // const [isHrRateOpen, setIsHrRateOpen] = useState(false);
@@ -505,12 +505,12 @@ const FreelancerSelfProfile = () => {
   // };
 
   const openEditLanguage = () => {
-    // setIsEditLanguageOpen(true);
+    setIsEditLanguageOpen(true);
   };
 
-  // const closeEditLanguage = () => {
-  //   setIsEditLanguageOpen(false);
-  // };
+  const closeEditLanguage = () => {
+    setIsEditLanguageOpen(false);
+  };
 
   // const openAddLanguage = () => {
   //   setIsAddLanguageOpen(true);
@@ -790,9 +790,9 @@ const FreelancerSelfProfile = () => {
                       />
                     </button>
                   )}
-                  {/* {isEditLanguageOpen && (
-                    <EditLanguagePopup closeEditLanguage={closeEditLanguage} />         for use
-                  )} */}
+                  {isEditLanguageOpen && (
+                    <EditLanguagePopup closeEditLanguage={closeEditLanguage} />
+                  )}
                 </div>
               </div>
               {freelancerselfprofile && freelancerselfprofile && freelancerselfprofile.Language
