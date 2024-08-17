@@ -41,7 +41,7 @@ import { IoClose, IoLocationOutline } from "react-icons/io5";
 // import EditLanguagePopup from "./AllPopup/EditLanguagePopup";                               for use
 // import EditEducationPopup from "./AllPopup/EditEducationPopup";                             for use
 // import AvailableOffPopup from "./AllPopup/AvailableOffPopup";                               for use
-import AvailableOffPopup from "./EditProfileHeader";
+import AvailableOffPopup from "./EditProfileHeaderPopup";
 // import EditHrRatePopup from "./AllPopup/EditHrRatePopup";                                   for use
 // import AddCertificatesPopup from "./AllPopup/AddCertificatesPopup";        not in use
 // import AddEmploymentPopup from "./AllPopup/AddEmploymentPopup";                             for use
@@ -49,7 +49,7 @@ import AvailableOffPopup from "./EditProfileHeader";
 // import TestimonialPopup from "./AllPopup/TestimonialPopup";                not in use
 // import FreelancerProjectsPopup from "./AllPopup/FreelancerProjectsPopup";  not in use
 import axios from "axios";
-// import EditExperienceLevelPopup from "./AllPopup/EditExperienceLevelPopup";                 for use
+import EditExperienceLevelPopup from "./EditExperienceLevelPopup";
 // import EditFreelancerProjectsPopup from "./AllPopup/EditFreelancerProjectsPopup";           for use
 import { formateDate, formatDateToDayMonthYear } from "@/utils/timeFunction";
 import Link from "next/link";
@@ -412,17 +412,17 @@ const FreelancerSelfProfile = () => {
   // const [isEditEmploymentOpen, setIsEditEmploymentOpen] = useState(false);
   // const [isTestimonialOpen, setIsTestimonialOpen] = useState(false);
   // //   const [isFreeProjectOpen, setIsFreeProjectOpen] = useState(false);
-  // const [isExperienceLevelOpen, setIsExperienceLevelOpen] = useState(false);
+  const [isExperienceLevelOpen, setIsExperienceLevelOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const openExperienceLevel = () => {
-    // setIsExperienceLevelOpen(true);
+    setIsExperienceLevelOpen(true);
   };
 
-  // const closeExperienceLevel = () => {
-  //   setIsExperienceLevelOpen(false);
-  // };
+  const closeExperienceLevel = () => {
+    setIsExperienceLevelOpen(false);
+  };
 
   //   const openFreeProject = (project) => {
   //     setSelectedProject(project);
@@ -750,9 +750,9 @@ const FreelancerSelfProfile = () => {
                       />
                     </button>
                   )}
-                  {/* {isExperienceLevelOpen && (
-                    <isExperienceLevelOpen closeExperienceLevel={closeExperienceLevel} />         for use
-                  )} */}
+                  {isExperienceLevelOpen && (
+                    <EditExperienceLevelPopup closeExperienceLevel={closeExperienceLevel} />
+                  )}
                 </div>
               </div>
               <p className="font-inter py-1 text-[14px] text-[#0A142F]">
