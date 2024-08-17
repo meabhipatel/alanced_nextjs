@@ -24,7 +24,7 @@ import fileIcon from "@/assets/icons/file.png";
 // import { useDispatch, useSelector } from "react-redux";
 // import { useDispatch } from "react-redux";
 import { RxArrowRight, RxArrowLeft } from "react-icons/rx";
-import { IoClose , IoLocationOutline } from "react-icons/io5";
+import { IoClose, IoLocationOutline } from "react-icons/io5";
 // import {
 //   GetFreelancerSelfProfileAction,
 //   UpdateFreelancerProfileAction,
