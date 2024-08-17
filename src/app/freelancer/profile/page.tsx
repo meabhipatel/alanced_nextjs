@@ -24,6 +24,7 @@ import fileIcon from "@/assets/icons/file.png";
 // import { useDispatch, useSelector } from "react-redux";
 // import { useDispatch } from "react-redux";
 import { RxArrowRight, RxArrowLeft } from "react-icons/rx";
+import { IoClose , IoLocationOutline } from "react-icons/io5";
 // import {
 //   GetFreelancerSelfProfileAction,
 //   UpdateFreelancerProfileAction,
@@ -57,7 +58,7 @@ import { axiosWithAuth } from "@/utils/axiosWithAuth";
 import Image from "next/image";
 import { errorLog } from "@/utils/errorLog";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
-import { IoLocationOutline } from "react-icons/io5";
+
 import { useAppSelector } from "@/store/hooks";
 
 // interface FreelancerProfile {
@@ -934,7 +935,8 @@ const FreelancerSelfProfile = () => {
                       onClick={handleModalClose}
                       className="text-gray-500 hover:text-gray-700"
                     >
-                      <i className="bi bi-x-lg"></i>
+                      {/* <i className="bi bi-x-lg"></i> */}
+                      <IoClose className="text-3xl" />
                     </button>
                   </div>
                   <div className="mx-8">
