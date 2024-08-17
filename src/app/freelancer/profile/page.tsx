@@ -40,7 +40,7 @@ import { RxArrowRight, RxArrowLeft } from "react-icons/rx";
 // import EditLanguagePopup from "./AllPopup/EditLanguagePopup";                               for use
 // import EditEducationPopup from "./AllPopup/EditEducationPopup";                             for use
 // import AvailableOffPopup from "./AllPopup/AvailableOffPopup";                               for use
-// import AvailableOffPopup from "./EditProfileHeaderAvailableOffPopup";
+import AvailableOffPopup from "./EditProfileHeader";
 // import EditHrRatePopup from "./AllPopup/EditHrRatePopup";                                   for use
 // import AddCertificatesPopup from "./AllPopup/AddCertificatesPopup";        not in use
 // import AddEmploymentPopup from "./AllPopup/AddEmploymentPopup";                             for use
@@ -305,7 +305,9 @@ const FreelancerSelfProfile = () => {
       });
   }, []);
 
-  const [isAvailable] = useState(localStorage.getItem("userAvailability") || "available");
+  const [isAvailable, setIsAvailable] = useState(
+    localStorage.getItem("userAvailability") || "available"
+  );
 
   useEffect(() => {
     localStorage.setItem("userAvailability", isAvailable);
@@ -402,7 +404,7 @@ const FreelancerSelfProfile = () => {
   // const [isAddLanguageOpen, setIsAddLanguageOpen] = useState(false);
   // const [isEditLanguageOpen, setIsEditLanguageOpen] = useState(false);
   // const [isEditEducationOpen, setIsEditEducationOpen] = useState(false);
-  // const [isAvailableOffOpen, setIsAvailableOffOpen] = useState(false);
+  const [isAvailableOffOpen, setIsAvailableOffOpen] = useState(false);
   // const [isHrRateOpen, setIsHrRateOpen] = useState(false);
   // const [isCertificatesOpen, setIsCertificatesOpen] = useState(false);
   // const [isAddEmploymentOpen, setIsAddEmploymentOpen] = useState(false);
@@ -486,12 +488,12 @@ const FreelancerSelfProfile = () => {
   // };
 
   const openAvailableOff = () => {
-    // setIsAvailableOffOpen(true);
+    setIsAvailableOffOpen(true);
   };
 
-  // const closeAvailableOff = () => {
-  //   setIsAvailableOffOpen(false);
-  // };
+  const closeAvailableOff = () => {
+    setIsAvailableOffOpen(false);
+  };
 
   const openEditEducation = () => {
     // setIsEditEducationOpen(true);
@@ -1114,13 +1116,13 @@ const FreelancerSelfProfile = () => {
                       alt="edit"
                     />
                   </button>
-                  {/* {isAvailableOffOpen && (
+                  {isAvailableOffOpen && (
                     <AvailableOffPopup
                       isAvailable={isAvailable}
                       setIsAvailable={setIsAvailable}
-                      closeAvailableOff={closeAvailableOff}        for use
+                      closeAvailableOff={closeAvailableOff}
                     />
-                  )} */}
+                  )}
                 </div>
                 <div className="mt-3 flex items-center">
                   {/* <Image src={jobsuccess} alt="" className="h-[22px] mr-2" /> */}
