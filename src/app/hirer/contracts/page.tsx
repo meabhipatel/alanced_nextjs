@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Image from 'next/image'; 
-import AddReviewPopup from './review-popup/page'; 
+import AddReviewPopup from '@/components/pop-up'; 
 import { formatDateInput } from '@/app/freelancer/time-functions';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'; 
 import { IoIosSearch } from "react-icons/io";
