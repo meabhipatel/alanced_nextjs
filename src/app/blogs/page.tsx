@@ -9,13 +9,8 @@ export const metadata: Metadata = {
 
 const page = () => {
   return (
-    <div className="h-screen w-full">
-      <iframe
-        title="blogs of wiz 91 "
-        src="https://wiz91.com/"
-        width={"100%"}
-        height={"100%"}
-      ></iframe>
+    <div className="flex h-screen w-full items-center justify-center">
+      <h1 className="text-3xl font-semibold">Blogs </h1>
     </div>
   );
 };
