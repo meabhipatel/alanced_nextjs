@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
-import { timeAgo } from '@/app/freelancer/time-functions';
+import { timeAgo } from '@/components/time-functions';
 import { FaArrowRight, FaArrowLeft } from 'react-icons/fa';
 import file from '@/assets/icons/file.png';
 

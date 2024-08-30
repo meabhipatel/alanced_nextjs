@@ -2,6 +2,10 @@
 import CategoryList from "@/constant/allSelectionData/categoryList";
 import SkillsList from "@/constant/allSelectionData/skillsList";
 import React, { useEffect, useRef, useState } from "react";
+//import Link from 'next/link';
+import axios from 'axios'; 
+
+
 
 interface Project {
   title?: string;
@@ -14,10 +18,11 @@ interface Project {
   min_hourly_rate?: string | null;
   max_hourly_rate?: string | null;
   experience_level?: string;
+
 }
 
 const AddJobPost = () => {
-  const [addProject, setAddProject] = useState<any>({}); // eslint-disable-line
+  const [addProject, setAddProject] = useState<Project>({}); // eslint-disable-line
   const [skills, setSkills] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedOption, setSelectedOption] = useState("hourly"); // eslint-disable-line
@@ -27,6 +32,8 @@ const AddJobPost = () => {
   const [isOpenSkill, setIsOpenSkill] = useState(false); // eslint-disable-line
   const [step, setStep] = useState(1);
   const [error, setError] = useState<string>(""); // eslint-disable-line
+  const [isValid, setIsValid] = useState<boolean>(false);
+
 
   const wrapperRef = useRef<HTMLDivElement>(null);
   const wrapperRefSkill = useRef<HTMLDivElement>(null);
@@ -37,6 +44,18 @@ const AddJobPost = () => {
   const filteredCategories = categories.filter((category) =>
     category.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const payload: Project ={
+    title: addProject.title,
+    description: addProject.description,
+    deadline: addProject.deadline,
+    skills_required: skills,
+    category: selectedCategory,
+    rate: selectedOption,
+    min_hourly_rate: addProject.min_hourly_rate || null,
+    max_hourly_rate: addProject.max_hourly_rate || null,
+    experience_level: addProject.experience_level,
+  };
 
   const filteredSkills = allSkills.filter(
     (skill) =>
@@ -52,12 +71,61 @@ const AddJobPost = () => {
     }
   };
 
+  const postJob = async () => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2NTMxMzQzLCJpYXQiOjE3MjQ5OTUzNDMsImp0aSI6IjUzNTdiZjczOWE4NjRmYmNhZGQ0NDkzZWZhNjZlZmUwIiwidXNlcl9pZCI6NX0.3s7MY0Hg_BTm5th-PLt_3HIYL9KZKndftLmi7udm_qI`,
+        },
+      };
+  
+      const response = await axios.post('https://www.api.alanced.com/freelance/Add/Project', payload, config);
+      //eslint-disable-next-line
+      console.log(response); 
+      // Optional: Process the response if needed
+      alert("Job posted successfully!");
+    } catch (error) {
+      setError("Failed to post job. Please try again.");
+      // Optionally, report the error to an external service or handle it silently
+    }
+  };
+  
+
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    switch(step) {
+      case 1:
+        setIsValid(Boolean(addProject.title && selectedCategory));
+      break;
+      case 2: 
+        setIsValid(Boolean(addProject.description));
+      break;    
+      case 3: 
+        setIsValid(skills.length > 0);
+      break;
+      case 4: {
+        // Wrap code with curly braces to create a new block scope
+        const isBudgetValid = Boolean(addProject.fixed_budget || (addProject.min_hourly_rate && addProject.max_hourly_rate));
+        setIsValid(isBudgetValid);
+        break;
+      }
+    
+      case 5: {
+        // Wrap code with curly braces to create a new block scope
+        const isDeadlineValid = Boolean(addProject.deadline && addProject.experience_level);
+        setIsValid(isDeadlineValid);
+        break;
+      }
+
+      }
+}, [step, addProject, skills, selectedCategory]);
+
 
   const onChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -81,32 +149,6 @@ const AddJobPost = () => {
     }));
     setError("");
   };
-  // eslint-disable-next-line
-  const [isValid, setIsValid] = useState<boolean>(false);
-  useEffect(() => {
-    switch (step) {
-      case 1:
-        setIsValid(addProject.title && selectedCategory);
-        break;
-      case 2:
-        setIsValid(!!addProject.description);
-        break;
-      case 3:
-        setIsValid(skills.length > 0);
-        break;
-      case 4:
-        setIsValid(
-          addProject.fixed_budget || (addProject.min_hourly_rate && addProject.max_hourly_rate)
-        );
-        break;
-      case 5:
-        setIsValid(addProject.deadline && addProject.experience_level);
-        break;
-      default:
-        setIsValid(false);
-        break;
-    }
-  }, [step, addProject, selectedCategory, skills]);
 
   const formatToDDMMYYYY = (dateStr: string) => {
     if (!dateStr) return "";
@@ -128,10 +170,7 @@ const AddJobPost = () => {
     setStep((prevStep) => Math.max(prevStep - 1, 1));
   };
 
-  const selectOptionHandler = (value: string) => {
-    setSelectedOption(value);
-    setAddProject((prev: any) => ({ ...prev, rate: value })); // eslint-disable-line
-  };
+
 
   const stepsLabels = [
     'Job Description',
@@ -140,10 +179,15 @@ const AddJobPost = () => {
     'Deadline'
 ];
 
-const postJob = () => {
-  // Your logic to post the job goes here
-  //console.log("Job posted!");
+const selectOptionHandler = (value: string) => {
+  setSelectedOption(value);
+  setAddProject((prev) => ({
+    ...prev,
+    rate: value,
+  }));
 };
+
+
 
   return (
     <div className="mx-4 mt-4 sm:mx-6 md:mx-8 lg:mx-12">
@@ -499,25 +543,31 @@ const postJob = () => {
 
 {step < 5 ? (
   <button
-    onClick={goToNextStep}
-    className="font-cardo rounded-md px-4 py-2 text-white bg-gradient-to-r from-[#0909E9] to-[#00D4FF] focus:outline-none ml-auto"
-  >
-    {`Next: ${stepsLabels[step - 1]}`}
-  </button>
+  onClick={goToNextStep}
+  className={`font-cardo rounded-md px-4 py-2 text-white focus:outline-none ml-auto ${
+    isValid ? 'bg-gradient-to-r from-[#0909E9] to-[#00D4FF]' : 'bg-gray-400 cursor-not-allowed'
+  }`}
+  disabled={!isValid}
+>
+  {`Next: ${stepsLabels[step - 1]}`}
+</button>
+
 ) : (
+  <div>
   <button
     onClick={postJob}
-    className="font-cardo rounded-md bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-2 text-white focus:outline-none"
+    className="rounded-md bg-green-500 px-4 py-2 text-white"
   >
     Post Job
   </button>
+  {error && <p className="text-red-500">{error}</p>}
+</div>
 )}
 
-
-          </div>
-        </div>
-      </div>
-    </div>
+       </div>
+     </div>
+   </div>
+ </div>
   );
 };
 

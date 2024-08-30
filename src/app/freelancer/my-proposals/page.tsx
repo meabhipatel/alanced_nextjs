@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { MdArrowForward, MdArrowBack } from 'react-icons/md';
 import Bag from '@/assets/icons/file.png';
-import { timeAgo } from '@/app/freelancer/time-functions';
+import { timeAgo } from '@/components/time-functions';
 
 interface Bid {
   bid_time: string;
