@@ -39,7 +39,8 @@ const SavedJobs = () => {
         `https://www.api.alanced.com/freelance/View-all/SavedProjects?page=${currentPage}`,
         {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2NTQ1NjU0LCJpYXQiOjE3MjUwMDk2NTQsImp0aSI6ImU2NjQ3YTg1MDJkMDRiMjk5Mjg0ODg0MjQxMDM2NTNjIiwidXNlcl9pZCI6NH0.d57YPt1OBtK7AVoCZ1JsPYsfuz2e42ACBQcpoApO-Lk
+`,
           },
         }
       );
@@ -76,7 +77,8 @@ const SavedJobs = () => {
         {},
         {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2NTQ1NjU0LCJpYXQiOjE3MjUwMDk2NTQsImp0aSI6ImU2NjQ3YTg1MDJkMDRiMjk5Mjg0ODg0MjQxMDM2NTNjIiwidXNlcl9pZCI6NH0.d57YPt1OBtK7AVoCZ1JsPYsfuz2e42ACBQcpoApO-Lk
+`,
           },
         }
       );

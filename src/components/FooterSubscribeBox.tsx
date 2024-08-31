@@ -1,35 +1,32 @@
 "use client";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { useState, ChangeEvent } from "react";
-
-// import { useDispatch, useSelector } from "react-redux";
-// import { AddUserSubscriptionAction } from "../../redux/User/UserAction";
-// import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 const FooterSubscribeBox = () => {
-  const [addUserSub, setAddUserSub] = useState({
+  const initialUserState = {
     email: "",
-  });
-  // const dispatch = useDispatch();
+  };
 
-  // const addsub = useSelector((state) => state.user.addsub);
-
-  // useEffect(() => {
-  //   if (addsub) {
-  //     setAddUserSub(initialUserState);
-  //   }
-  // }, [addsub]);
+  const [addUserSub, setAddUserSub] = useState(initialUserState);
 
   const AddUserSubscribe = () => {
     if (!addUserSub.email) {
-      // toast.error("Email is Required");
+      toast.error("Email is Required");
       return;
     }
 
     const formData = new URLSearchParams();
     formData.append("email", addUserSub.email);
 
-    // dispatch(AddUserSubscriptionAction(formData));
+    // Simulate an API call
+    console.log("Form Data Submitted: ", formData.toString());//eslint-disable-line
+
+    // Show success toast
+    toast.success("Subscribed successfully!");
+
+    // Reset state after submission
+    setAddUserSub(initialUserState);
   };
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -38,10 +35,13 @@ const FooterSubscribeBox = () => {
       [e.target.name]: e.target.value,
     });
   };
+
   return (
     <div className="col-span-2 p-1 md:p-4">
       <div className="-mt-6 w-full bg-[#F4F5F9] p-2">
-        <h5 className="ml-[23px] pt-[22px] text-start text-xl font-bold">Subscribe</h5>
+        <h5 className="ml-[23px] pt-[22px] text-start text-xl font-bold">
+          Subscribe
+        </h5>
         <div className="mt-5 flex w-full items-center px-2">
           <input
             type="email"
@@ -61,8 +61,8 @@ const FooterSubscribeBox = () => {
 
         <p className="pl-6 pt-3 text-left text-[14px] opacity-50">
           Hello, we are Lift Media. Our goal is to translate <br />
-          the positive effects from revolutionizing how <br /> companies engage with their clients &
-          their <br /> team.
+          the positive effects from revolutionizing how <br /> companies engage
+          with their clients & their <br /> team.
         </p>
       </div>
     </div>
