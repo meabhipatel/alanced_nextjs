@@ -26,27 +26,7 @@ const Navbar = () => {
   const dispatch = useAppDispatch();
   const { loginMethod, userType: loginType, isLoggedIn } = useAppSelector((state) => state.auth);
 
-  const logindata = {
-    id: 4,
-    first_Name: "sachin",
-    last_Name: "sharma",
-    email: "sachinsharmapeace@gmail.com",
-    contact: "",
-    Address: "",
-    images_logo: "/media/images/blank.png",
-    social_media: "",
-    skills: "['Python']",
-    about: "",
-    DOB: null,
-    gender: "",
-    map: "",
-    experience: 0,
-    qualification: "B.E",
-    category: "",
-    Language: "['Hindi']",
-    hourly_rate: 0,
-    experience_level: "",
-  };
+  const logindata = useAppSelector((state) => state.auth.userProfile);
   const googleUserName = `localStorage.getItem("googleUserName")`;
 
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -935,7 +915,7 @@ const Navbar = () => {
                         </button>
 
                         <div
-                          className={`transition-max-height -mt-3 w-full overflow-hidden duration-500 ease-in-out ${Findworkdropdown ? "max-h-full" : "max-h-0"}`}
+                          className={`-mt-3 w-full overflow-hidden transition-max-height duration-500 ease-in-out ${Findworkdropdown ? "max-h-full" : "max-h-0"}`}
                         >
                           <div className="py-1">
                             <Link
@@ -1007,7 +987,7 @@ const Navbar = () => {
                         </button>
 
                         <div
-                          className={`transition-max-height -mt-3 w-full overflow-hidden duration-500 ease-in-out ${MyJobsdropdown ? "max-h-full" : "max-h-0"}`}
+                          className={`-mt-3 w-full overflow-hidden transition-max-height duration-500 ease-in-out ${MyJobsdropdown ? "max-h-full" : "max-h-0"}`}
                         >
                           <div className="py-1">
                             <Link
@@ -1043,7 +1023,7 @@ const Navbar = () => {
                         </button>
 
                         <div
-                          className={`transition-max-height -mt-3 w-full overflow-hidden duration-500 ease-in-out ${MyJobsdropdown ? "max-h-full" : "max-h-0"} `}
+                          className={`-mt-3 w-full overflow-hidden transition-max-height duration-500 ease-in-out ${MyJobsdropdown ? "max-h-full" : "max-h-0"} `}
                         >
                           <div className="w-full py-1">
                             <Link
@@ -1098,7 +1078,7 @@ const Navbar = () => {
                         </button>
 
                         <div
-                          className={`transition-max-height -mt-3 w-full overflow-hidden duration-500 ease-in-out ${Reportsdropdown ? "max-h-full" : "max-h-0"}`}
+                          className={`-mt-3 w-full overflow-hidden transition-max-height duration-500 ease-in-out ${Reportsdropdown ? "max-h-full" : "max-h-0"}`}
                         >
                           <div className="py-1">
                             <Link
@@ -1126,7 +1106,7 @@ const Navbar = () => {
                         </button>
 
                         <div
-                          className={`transition-max-height -mt-3 w-full overflow-hidden duration-500 ease-in-out ${Reportsdropdown ? "max-h-full" : "max-h-0"}`}
+                          className={`-mt-3 w-full overflow-hidden transition-max-height duration-500 ease-in-out ${Reportsdropdown ? "max-h-full" : "max-h-0"}`}
                         >
                           <div className="py-1">
                             <Link
