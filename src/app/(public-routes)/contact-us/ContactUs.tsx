@@ -12,6 +12,7 @@ const ContactUs = () => {
 
   const [addUser, setAddUser] = useState(initialUserState);
   const [show, toggleShow] = useState(false);
+  const [error, setError] = useState(""); // State to manage validation errors
 
   const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setAddUser({
@@ -21,7 +22,26 @@ const ContactUs = () => {
   };
 
   const AddUserContact = () => {
+    // Basic validation
+    if (
+      !addUser.Applicant_Name ||
+      !addUser.Applicant_Email ||
+      !addUser.Applicant_Contact ||
+      !addUser.Message
+    ) {
+      setError("Please fill out all fields.");
+      return;
+    }
+
+    // Simulate form submission
     toggleShow(true);
+    setError(""); // Clear previous errors
+
+    setTimeout(() => {
+      alert("Your data has been submitted successfully!");
+      setAddUser(initialUserState); // Clear the form
+      toggleShow(false); // Hide loader
+    }, 2000); // Simulate a delay for form submission
   };
 
   const Loader = () => {
@@ -42,6 +62,11 @@ const ContactUs = () => {
         </div>
         <div className="my-4 md:flex">
           <div className="flex-1 py-4">
+            {error && (
+              <div className="mb-4 rounded-md bg-red-100 p-3 text-red-800">
+                {error}
+              </div>
+            )}
             <input
               type="text"
               className="my-2 w-full rounded-md border px-2 py-1.5 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"

@@ -12,12 +12,9 @@ const HeroSection = () => {
         style={{ backgroundImage: `url(${heroBackground.src})` }}
       >
         <div className="pt-28 text-left sm:pt-40">
-          <h1 className="text-lg font-semibold tracking-wider text-[#797979]">
-            <span className="indent-4 text-[#031136]">Popular:</span> Design Art Business Video
-            Editing
-          </h1>
+
           <h6 className="mt-2 text-[50px] font-semibold leading-[67.7px] text-[#031136]">
-            Find & Hire <br /> Top 3% of expert <br /> on Alanced
+          Unlock Access <br /> to Premier Experts <br /> and Talent with Alanced
           </h6>
           <h1 className="mb-3.5 mt-6 text-[16px] font-normal leading-[26px] text-[#797979]">
             With the largest professional creative community online, simply <br /> search through
