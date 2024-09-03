@@ -98,3 +98,32 @@ input[type="radio"]:checked:after {
 .no-scroll {
   overflow: hidden;
 }
+
+/* Animation to slide in from right */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Animation to slide out to left */
+@keyframes slideOutLeft {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* Slide entry and exit */
+.slide-enter {
+  animation: slideInRight 1s forwards;
+}
+
+.slide-exit {
+  animation: slideOutLeft 1s forwards;
+}

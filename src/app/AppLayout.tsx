@@ -22,6 +22,7 @@ const AppLayout: FC<IProps> = ({ children }) => {
   ];
 
   return (
+    
     <div className="mx-auto max-w-[1536px] bg-white">
       {!withoutNavbarScreens.includes(pathname) && (
         <>

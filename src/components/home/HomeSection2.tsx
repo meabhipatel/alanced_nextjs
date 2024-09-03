@@ -76,7 +76,7 @@ const HomeSection2 = () => {
   return (
     <>
       <div className="mb-10 mt-10 text-3xl">
-        <h1 className="text-center">Find Top Freelancer</h1>
+        <h1 className="text-center font-serif">Find Top Freelancer</h1>
         <div className="mx-auto mt-5 w-20 border-b border-gray-600"></div>
       </div>
       <div className="mt-10 grid grid-cols-1 gap-6 px-5 sm:grid-cols-2 md:px-24 lg:grid-cols-4">
@@ -105,7 +105,7 @@ const HomeSection2 = () => {
         </Link>
       </div>
 
-      <div className="container mx-auto mb-10 mt-16 px-6 text-center text-3xl">
+      <div className="container mx-auto mb-10 mt-16 px-6 text-center text-3xl font-serif">
         <h2>It’s Easy to Get Work Done on Alanced</h2>
         <div className="mx-auto mt-5 w-20 border-b border-gray-600"></div>
       </div>

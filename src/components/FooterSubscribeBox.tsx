@@ -42,10 +42,10 @@ const FooterSubscribeBox = () => {
         <h5 className="ml-[23px] pt-[22px] text-start text-xl font-bold">
           Subscribe
         </h5>
-        <div className="mt-5 flex w-full items-center px-2">
+        <div className="mt-5 flex w-full items-center px-5">
           <input
             type="email"
-            className="h-10 w-full p-2 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+            className="h-10 w-80 p-2 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
             placeholder="Email Address"
             name="email"
             onChange={onChange}
@@ -59,7 +59,7 @@ const FooterSubscribeBox = () => {
           </button>
         </div>
 
-        <p className="pl-6 pt-3 text-left text-[14px] opacity-50">
+        <p className="pl-6 pt-3 text-left text-[14px] opacity-60">
           Hello, we are Lift Media. Our goal is to translate <br />
           the positive effects from revolutionizing how <br /> companies engage
           with their clients & their <br /> team.
