@@ -4,6 +4,7 @@ import logoTransparent from "@/assets/images/alanced_transparent.png";
 import { FaFacebookF, FaLinkedinIn } from "react-icons/fa6";
 import { BsTwitterX } from "react-icons/bs";
 import FooterSubscribeBox from "./FooterSubscribeBox";
+import { FaInstagram } from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -108,6 +109,13 @@ const Footer = () => {
                 className="ml-2 flex h-8 w-8 items-center justify-center rounded-full border-2 border-gray-400 from-[#0909E9] to-[#00D4FF] py-1 text-center text-gray-600 duration-1000 hover:border-[#6f7cf3] hover:bg-gradient-to-r hover:text-white"
               >
                 <BsTwitterX />
+              </Link>
+              <Link
+                href="https://www.instagram.com/alancedjobs/"
+                target="blank(_blank)"
+                className="ml-2 flex h-8 w-8 items-center justify-center rounded-full border-2 border-gray-400 from-[#0909E9] to-[#00D4FF] py-1 text-center text-gray-600 duration-1000 hover:border-[#6f7cf3] hover:bg-gradient-to-r hover:text-white"
+              >
+                <FaInstagram />
               </Link>
             </div>
           </div>

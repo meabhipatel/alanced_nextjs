@@ -76,7 +76,7 @@ const HomeSection3 = () => {
       {/* ---> Work Your Way section*/}
       <div>
         <h1 className="pt-16 text-center text-xl font-semibold text-[#0A142F] md:text-[26px] font-serif">
-          Work Your Way
+          Flexible Payment Options for Your Freelance Work.
         </h1>
         <div className="mx-auto mt-3.5 w-20 border-b-2 border-gray-300"></div>
         <div className="my-12 md:my-0" />

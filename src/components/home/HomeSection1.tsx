@@ -43,8 +43,7 @@ const toggleText = () => {
         </div>
         <div className="w-full p-4 text-left md:w-[50%]">
           <h4 className="mt-5 text-4xl text-[#0A142F] md:text-2xl font-serif font-semibold">
-            Simple Solutions for Complex <br />
-            Connections
+          Best Freelance Websites for<br/> Beginners & Experts!
           </h4>
           <p className="mt-3 text-sm leading-6 text-gray-600 md:text-base justify-normal">
           Welcome to Alanced, the best freelance platform, where your journey to success in the digital

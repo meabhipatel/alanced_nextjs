@@ -10,7 +10,7 @@ import navback from "@/assets/images/nav_background.png";
 // import { timeAgo } from "../../container/freelancer/TimeFunctions";
 import { FiMenu } from "react-icons/fi";
 import { MdAccountCircle, MdClose } from "react-icons/md";
-import { FaBell, FaChevronDown } from "react-icons/fa6";
+import { FaBell, FaChevronDown , FaFacebookF, FaLinkedinIn } from "react-icons/fa6";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -20,6 +20,9 @@ import { TbLogout } from "react-icons/tb";
 import { ELoginMethod, handleLogoutUserAction } from "@/store/features/auth/authSlice";
 import cookies from "js-cookie";
 import { IoChevronDown } from "react-icons/io5";
+import { FaInstagram } from "react-icons/fa";
+
+import { BsTwitterX } from "react-icons/bs";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -396,6 +399,39 @@ const Navbar = () => {
                   </span>
                 </Link>
               </div>
+
+              <div className="flex flex-1 justify-end p-4 mt-4 pr-0 pt-1">
+            <div className="flex sm:justify-center md:justify-end xl:justify-start">
+              <Link
+                href="https://in.linkedin.com/company/wiz91-technologies"
+                target="blank(_blank)"
+                className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-gray-400 from-[#0909E9] to-[#00D4FF] py-1 text-center text-gray-600 duration-1000 hover:border-[#6f7cf3] hover:bg-gradient-to-r hover:text-white"
+              >
+                <FaLinkedinIn />
+              </Link>
+              <Link
+                href="https://www.facebook.com/"
+                target="blank(_blank)"
+                className="ml-2 flex h-8 w-8 items-center justify-center rounded-full border-2 border-gray-400 from-[#0909E9] to-[#00D4FF] py-1 text-center text-gray-600 duration-300 hover:border-[#6f7cf3] hover:bg-gradient-to-r hover:text-white"
+              >
+                <FaFacebookF />
+              </Link>
+              <Link
+                href="https://twitter.com/"
+                target="blank(_blank)"
+                className="ml-2 flex h-8 w-8 items-center justify-center rounded-full border-2 border-gray-400 from-[#0909E9] to-[#00D4FF] py-1 text-center text-gray-600 duration-1000 hover:border-[#6f7cf3] hover:bg-gradient-to-r hover:text-white"
+              >
+                <BsTwitterX />
+              </Link>
+              <Link
+                href="https://www.instagram.com/alancedjobs/"
+                target="blank(_blank)"
+                className="mr-2 flex h-8 w-8 ml-2 items-center justify-center rounded-full border-2 border-gray-400 from-[#0909E9] to-[#00D4FF] py-1 text-center text-gray-600 duration-1000 hover:border-[#6f7cf3] hover:bg-gradient-to-r hover:text-white"
+              >
+                <FaInstagram />
+              </Link>
+            </div>
+          </div>
 
               <div className="">
                 <Link href="/login">
