@@ -49,14 +49,14 @@ const Login = () => {
           router.push("/hirer");
         }
       } else {
-        toast.error("Please provide correct credentials.");
+        toast.error(res.payload.message);
       }
     }
   };
 
   return (
     <div className="flex min-h-screen w-full items-center bg-gray-50 px-4 lg:px-0">
-      <div className="flex flex-col lg:flex-row lg:max-w-4xl w-full mx-auto bg-white rounded-lg shadow-lg">
+      <div className="mx-auto flex w-full flex-col rounded-lg bg-white shadow-lg lg:max-w-4xl lg:flex-row">
         <div className="relative hidden lg:block lg:w-1/2">
           <Image
             className="h-full w-full object-cover"
@@ -64,47 +64,49 @@ const Login = () => {
             alt="Login Hero Image"
           />
           <Link href="/">
-            <div className="absolute top-4 left-4 flex items-center space-x-2 bg-white p-3 rounded-lg shadow-md">
+            <div className="absolute left-4 top-4 flex items-center space-x-2 rounded-lg bg-white p-3 shadow-md">
               <Image
                 src={logo}
                 alt="Logo"
                 className="h-6 w-6"
               />
-              <span className="font-poppins text-lg font-semibold text-[#031136]">
-                ALANCED
-              </span>
+              <span className="font-poppins text-lg font-semibold text-[#031136]">ALANCED</span>
             </div>
           </Link>
         </div>
 
         <div className="flex-1 p-6 lg:w-1/2">
-          <Link href="/" className=" lg:hidden mb-6 flex items-center justify-center">
+          <Link
+            href="/"
+            className="mb-6 flex items-center justify-center lg:hidden"
+          >
             <Image
               src={logo}
               alt="Logo"
               className="h-6 w-6"
             />
-            <span className="font-poppins text-xl font-semibold text-[#031136] ml-2">
-              ALANCED
-            </span>
+            <span className="font-poppins ml-2 text-xl font-semibold text-[#031136]">ALANCED</span>
           </Link>
 
           <div className="mb-6 flex items-center justify-between">
             <p className="text-sm">Don&apos;t have an account?</p>
             <Link href="/signup-options">
-              <span className="bg-gradient-to-r from-[#0909E9] to-[#00D4FF] text-white px-4 py-2 rounded-lg text-sm font-semibold">
+              <span className="rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-2 text-sm font-semibold text-white">
                 Sign Up
               </span>
             </Link>
           </div>
 
-          <h1 className="font-cardo text-2xl mb-6 text-gray-700">
+          <h1 className="font-cardo mb-6 text-2xl text-gray-700">
             Welcome Sign In to <br />
             Learn Encourage Share, Continue.
           </h1>
 
           <div className="mb-4">
-            <label htmlFor="email" className="block text-sm font-cardo">
+            <label
+              htmlFor="email"
+              className="font-cardo block text-sm"
+            >
               Email Address <span className="text-red-500">*</span>
             </label>
             <input
@@ -119,7 +121,10 @@ const Login = () => {
           </div>
 
           <div className="mb-4">
-            <label htmlFor="password" className="block text-sm font-cardo">
+            <label
+              htmlFor="password"
+              className="font-cardo block text-sm"
+            >
               Password <span className="text-red-500">*</span>
             </label>
             <div className="relative">
@@ -136,12 +141,12 @@ const Login = () => {
                 onClick={togglePasswordVisibility}
                 className="absolute right-3 top-1/2 -translate-y-1/2"
               >
-                {inputType === "password" ? <FaEyeSlash /> :<IoEyeSharp />}
+                {inputType === "password" ? <FaEyeSlash /> : <IoEyeSharp />}
               </button>
             </div>
           </div>
 
-          <div className="flex items-center justify-between mb-6">
+          <div className="mb-6 flex items-center justify-between">
             <label className="flex items-center text-sm">
               <input
                 className="mr-2 leading-tight accent-blue-600"
@@ -157,11 +162,11 @@ const Login = () => {
 
           <button
             disabled={isLoading}
-            className="w-full bg-gradient-to-r from-[#0909E9] to-[#00D4FF] text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors duration-150 focus:outline-none"
+            className="w-full rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-2 text-sm font-semibold text-white transition-colors duration-150 focus:outline-none"
             onClick={handleLogin}
           >
             {isLoading ? (
-              <div className="mx-auto h-5 w-5 animate-spin border-2 border-transparent border-r-white border-t-white rounded-full"></div>
+              <div className="mx-auto h-5 w-5 animate-spin rounded-full border-2 border-transparent border-r-white border-t-white"></div>
             ) : (
               "Sign In"
             )}
@@ -174,14 +179,14 @@ const Login = () => {
           </div>
 
           <button
-            className="w-full flex items-center justify-center gap-2 border border-gray-200 bg-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors duration-150"
+            className="flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-semibold transition-colors duration-150"
             onClick={() => {}}
           >
             <FcGoogle className="text-xl" />
             Sign In with Google
           </button>
 
-          <p className="text-xs pt-2">
+          <p className="pt-2 text-xs">
             Don&apos;t have an account?{" "}
             <Link href="/signup-options">
               <span className="text-yellow-400">Create an account</span>
