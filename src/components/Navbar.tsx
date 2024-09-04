@@ -10,7 +10,7 @@ import navback from "@/assets/images/nav_background.png";
 // import { timeAgo } from "../../container/freelancer/TimeFunctions";
 import { FiMenu } from "react-icons/fi";
 import { MdAccountCircle, MdClose } from "react-icons/md";
-import { FaBell, FaChevronDown , FaFacebookF, FaLinkedinIn } from "react-icons/fa6";
+import { FaBell, FaChevronDown, FaFacebookF, FaLinkedinIn } from "react-icons/fa6";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -362,98 +362,131 @@ const Navbar = () => {
         backgroundImage: `url(${!dontNeedMTScreens.includes(pathname) ? navback.src : isScrolled ? navback.src : ""})`,
       }}
     >
-      <nav className="flex items-center justify-between lg:p-6 lg:px-12">
+      <nav className="flex items-center justify-between lg:p-6 lg:px-6">
         {!isLoggedIn ? (
-          <div className="relative flex w-full items-center justify-between p-5 lg:p-0">
-            <Link href={"/"}>
-              <div className="flex flex-shrink-0 items-center">
+          <div className="relative flex w-full items-center justify-between gap-3 p-5 lg:p-0">
+            <Link
+              href={"/"}
+              className="w-[20%]"
+            >
+              <div className="flex items-center gap-2">
                 <Image
                   src={logo}
                   alt="logo"
                 />
-                <span className="font-poppins ml-2 text-[23px] font-semibold tracking-widest text-[#031136]">
+                <span className="font-poppins text-[23px] font-semibold tracking-widest text-[#031136]">
                   ALANCED
                 </span>
               </div>
             </Link>
-            <div className="mt-0 hidden w-full flex-grow lg:flex lg:w-auto lg:items-center">
-              <div className="text-sm lg:ml-[45px] lg:flex-grow">
+
+            <div className="hidden w-full items-center justify-between gap-4 lg:flex">
+              {/* ---> Navigation items  */}
+              <div className="flex gap-5 text-[#031136]">
                 <Link href="/search-freelancer">
-                  <span className="mt-4 block text-[16px] text-[#031136] lg:mr-12 lg:mt-0 lg:inline-block">
-                    Search Freelancer
-                  </span>
+                  <span>Search Freelancer</span>
                 </Link>
                 <Link href="/search-job">
-                  <span className="mt-4 block text-[16px] text-[#031136] lg:mr-12 lg:mt-0 lg:inline-block">
-                    Search Job
-                  </span>
+                  <span>Search Job</span>
                 </Link>
                 <Link href="/why-alanced">
-                  <span className="mt-4 block text-[16px] text-[#031136] lg:mr-12 lg:mt-0 lg:inline-block">
-                    Why Alanced
-                  </span>
+                  <span>Why Alanced</span>
                 </Link>
                 <Link href="/contact-us">
-                  <span className="mt-4 block text-[16px] text-[#031136] lg:mt-0 lg:inline-block">
-                    Contact Us
-                  </span>
+                  <span>Contact Us</span>
                 </Link>
               </div>
 
-              <div className="flex flex-1 justify-end p-4 mt-4 pr-0 pt-1">
-            <div className="flex sm:justify-center md:justify-end xl:justify-start">
-              <Link
-                href="LinkedIn: https://www.linkedin.com/company/alancedjobs/
-"
-                target="blank(_blank)"
-                className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-gray-400 from-[#0909E9] to-[#00D4FF] py-1 text-center text-gray-600 duration-1000 hover:border-[#6f7cf3] hover:bg-gradient-to-r hover:text-white"
-              >
-                <FaLinkedinIn />
-              </Link>
-              <Link
-                href="https://www.facebook.com/alancedjobs"
-                target="blank(_blank)"
-                className="ml-2 flex h-8 w-8 items-center justify-center rounded-full border-2 border-gray-400 from-[#0909E9] to-[#00D4FF] py-1 text-center text-gray-600 duration-300 hover:border-[#6f7cf3] hover:bg-gradient-to-r hover:text-white"
-              >
-                <FaFacebookF />
-              </Link>
-              <Link
-                href="https://x.com/Alancedjobs"
-                target="blank(_blank)"
-                className="ml-2 flex h-8 w-8 items-center justify-center rounded-full border-2 border-gray-400 from-[#0909E9] to-[#00D4FF] py-1 text-center text-gray-600 duration-1000 hover:border-[#6f7cf3] hover:bg-gradient-to-r hover:text-white"
-              >
-                <BsTwitterX />
-              </Link>
-              <Link
-                href="https://www.instagram.com/alancedjobs/"
-                target="blank(_blank)"
-                className="mr-2 flex h-8 w-8 ml-2 items-center justify-center rounded-full border-2 border-gray-400 from-[#0909E9] to-[#00D4FF] py-1 text-center text-gray-600 duration-1000 hover:border-[#6f7cf3] hover:bg-gradient-to-r hover:text-white"
-              >
-                <FaInstagram />
-              </Link>
-            </div>
-          </div>
-
-              <div className="">
-                <Link href="/login">
-                  <span className="mr-2 mt-4 inline-block rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-[10px] text-sm font-semibold text-white lg:mt-0">
-                    Sign In
-                  </span>
-                </Link>
-                <div className="inline-block rounded bg-gradient-to-b from-[#0909E9] to-[#00D4FF] p-0.5">
-                  <Link href="/signup-options">
-                    <button className="rounded-[3px] bg-[#e1f9ff] px-2 py-1">
-                      <p className="from-primary to-danger bg-gradient-to-r bg-clip-text px-[6px] py-[4px] text-sm font-semibold text-transparent">
-                        Sign Up
-                      </p>
-                    </button>
+              <div className="flex gap-3">
+                {/* ---> Social icons  */}
+                <div className="flex justify-center">
+                  <Link
+                    href="https://www.linkedin.com/company/alancedjobs/"
+                    target="_blank"
+                    className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-gray-400 from-[#0909E9] to-[#00D4FF] py-1 text-center text-gray-600 duration-500 hover:border-[#6f7cf3] hover:bg-gradient-to-r hover:text-white"
+                  >
+                    <FaLinkedinIn className="text-sm" />
                   </Link>
+                  <Link
+                    href="https://www.facebook.com/alancedjobs"
+                    target="_blank"
+                    className="ml-2 flex h-7 w-7 items-center justify-center rounded-full border-2 border-gray-400 from-[#0909E9] to-[#00D4FF] py-1 text-center text-gray-600 duration-300 hover:border-[#6f7cf3] hover:bg-gradient-to-r hover:text-white"
+                  >
+                    <FaFacebookF className="text-sm" />
+                  </Link>
+                  <Link
+                    href="https://x.com/Alancedjobs"
+                    target="_blank"
+                    className="ml-2 flex h-7 w-7 items-center justify-center rounded-full border-2 border-gray-400 from-[#0909E9] to-[#00D4FF] py-1 text-center text-gray-600 duration-1000 hover:border-[#6f7cf3] hover:bg-gradient-to-r hover:text-white"
+                  >
+                    <BsTwitterX className="text-sm" />
+                  </Link>
+                  <Link
+                    href="https://www.instagram.com/alancedjobs/"
+                    target="_blank"
+                    className="ml-2 mr-2 flex h-7 w-7 items-center justify-center rounded-full border-2 border-gray-400 from-[#0909E9] to-[#00D4FF] py-1 text-center text-gray-600 duration-1000 hover:border-[#6f7cf3] hover:bg-gradient-to-r hover:text-white"
+                  >
+                    <FaInstagram className="text-sm" />
+                  </Link>
+                </div>
+
+                {/* ---> Login Signup buttons  */}
+                <div className="flex items-center gap-2">
+                  <Link href="/login">
+                    <div className="flex h-7 w-14 items-center justify-center rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] text-xs font-semibold text-white lg:mt-0">
+                      Sign In
+                    </div>
+                  </Link>
+                  <div className="flex h-7 w-14 items-center justify-center rounded bg-gradient-to-b from-[#0909E9] to-[#00D4FF] p-[2px]">
+                    <Link
+                      href="/signup-options"
+                      className="h-full w-full"
+                    >
+                      <div className="flex h-full w-full items-center justify-center rounded-[2px] bg-[#e1f9ff]">
+                        <p className="from-primary to-danger bg-gradient-to-r bg-clip-text text-xs font-semibold text-transparent">
+                          Sign Up
+                        </p>
+                      </div>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* ---> mobile menu button */}
-            <div className="lg:hidden">
+            <div className="flex items-center gap-1 sm:gap-3 lg:hidden">
+              {/* ---> Social icons in Small devices.  */}
+              <div className="flex">
+                <Link
+                  href="https://www.linkedin.com/company/alancedjobs/"
+                  target="_blank"
+                  className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-gray-400 from-[#0909E9] to-[#00D4FF] py-1 text-center text-gray-600 duration-500 hover:border-[#6f7cf3] hover:bg-gradient-to-r hover:text-white"
+                >
+                  <FaLinkedinIn className="text-sm" />
+                </Link>
+                <Link
+                  href="https://www.facebook.com/alancedjobs"
+                  target="_blank"
+                  className="ml-2 flex h-7 w-7 items-center justify-center rounded-full border-2 border-gray-400 from-[#0909E9] to-[#00D4FF] py-1 text-center text-gray-600 duration-300 hover:border-[#6f7cf3] hover:bg-gradient-to-r hover:text-white"
+                >
+                  <FaFacebookF className="text-sm" />
+                </Link>
+                <Link
+                  href="https://x.com/Alancedjobs"
+                  target="_blank"
+                  className="ml-2 flex h-7 w-7 items-center justify-center rounded-full border-2 border-gray-400 from-[#0909E9] to-[#00D4FF] py-1 text-center text-gray-600 duration-1000 hover:border-[#6f7cf3] hover:bg-gradient-to-r hover:text-white"
+                >
+                  <BsTwitterX className="text-sm" />
+                </Link>
+                <Link
+                  href="https://www.instagram.com/alancedjobs/"
+                  target="_blank"
+                  className="ml-2 mr-2 flex h-7 w-7 items-center justify-center rounded-full border-2 border-gray-400 from-[#0909E9] to-[#00D4FF] py-1 text-center text-gray-600 duration-1000 hover:border-[#6f7cf3] hover:bg-gradient-to-r hover:text-white"
+                >
+                  <FaInstagram className="text-sm" />
+                </Link>
+              </div>
+
               <button
                 onClick={() => setIsMobileMenuOpen((prev) => !prev)}
                 className=""

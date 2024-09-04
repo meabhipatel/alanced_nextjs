@@ -13,7 +13,7 @@ const HeroSection = () => {
   // Array of slide titles with HTML line breaks
   const slideContents: string[] = [
     "Unlock Access<br /> to Premier Experts<br /> and Talent with Alanced",
-    "Quality Work,<br /> Anywhere, Anytime<br /> With Top Freelance Website",
+    "Quality Work, Anywhere, Anytime With Top Freelance Website",
   ];
 
   useEffect(() => {
@@ -53,8 +53,7 @@ const HeroSection = () => {
 
           {/* Static Subtitle */}
           <h1 className="mb-3.5 mt-72 text-[16px] font-normal leading-[26px] text-[#797979]">
-            With the largest professional creative community online, simply <br /> search through
-            from our website
+          With Alanced, easily connect with top freelancers ready to <br/>tackle any project you need, exactly when you need it. 
           </h1>
 
           {/* CTA Button */}
