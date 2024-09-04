@@ -22,6 +22,7 @@ import { axiosIntance } from "@/utils/axiosIntance";
 import { IoEyeSharp } from "react-icons/io5";
 import { FaEyeSlash } from "react-icons/fa6";
 import { usePathname } from "next/navigation";
+import { AxiosError } from "axios";
 
 interface IFreelancer {
   first_Name: string;
@@ -117,6 +118,9 @@ const Signup = () => {
         toast.success(res.data?.message);
       }
     } catch (error) {
+      if (error instanceof AxiosError) {
+        toast.error(error.response?.data.message);
+      }
       errorLog(error);
     } finally {
       setIsLoading(false);
