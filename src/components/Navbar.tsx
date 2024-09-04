@@ -454,7 +454,39 @@ const Navbar = () => {
             </div>
 
             {/* ---> mobile menu button */}
-            <div className="lg:hidden">
+            <div className="flex items-center gap-1 sm:gap-3 lg:hidden">
+              {/* ---> Social icons in Small devices.  */}
+              <div className="flex">
+                <Link
+                  href="https://www.linkedin.com/company/alancedjobs/"
+                  target="_blank"
+                  className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-gray-400 from-[#0909E9] to-[#00D4FF] py-1 text-center text-gray-600 duration-500 hover:border-[#6f7cf3] hover:bg-gradient-to-r hover:text-white"
+                >
+                  <FaLinkedinIn className="text-sm" />
+                </Link>
+                <Link
+                  href="https://www.facebook.com/alancedjobs"
+                  target="_blank"
+                  className="ml-2 flex h-7 w-7 items-center justify-center rounded-full border-2 border-gray-400 from-[#0909E9] to-[#00D4FF] py-1 text-center text-gray-600 duration-300 hover:border-[#6f7cf3] hover:bg-gradient-to-r hover:text-white"
+                >
+                  <FaFacebookF className="text-sm" />
+                </Link>
+                <Link
+                  href="https://x.com/Alancedjobs"
+                  target="_blank"
+                  className="ml-2 flex h-7 w-7 items-center justify-center rounded-full border-2 border-gray-400 from-[#0909E9] to-[#00D4FF] py-1 text-center text-gray-600 duration-1000 hover:border-[#6f7cf3] hover:bg-gradient-to-r hover:text-white"
+                >
+                  <BsTwitterX className="text-sm" />
+                </Link>
+                <Link
+                  href="https://www.instagram.com/alancedjobs/"
+                  target="_blank"
+                  className="ml-2 mr-2 flex h-7 w-7 items-center justify-center rounded-full border-2 border-gray-400 from-[#0909E9] to-[#00D4FF] py-1 text-center text-gray-600 duration-1000 hover:border-[#6f7cf3] hover:bg-gradient-to-r hover:text-white"
+                >
+                  <FaInstagram className="text-sm" />
+                </Link>
+              </div>
+
               <button
                 onClick={() => setIsMobileMenuOpen((prev) => !prev)}
                 className=""
