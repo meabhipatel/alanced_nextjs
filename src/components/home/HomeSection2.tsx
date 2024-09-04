@@ -119,11 +119,9 @@ const HomeSection2 = () => {
           />
           <h4 className="mt-3 text-center text-xl font-semibold">Post a Job</h4>
           <p className="mt-2 text-center text-xs font-semibold opacity-40">
-            Create your free job posting and
-            <br />
-            start receiving Quotes within
-            <br />
-            hours.
+
+          Create a free job posting for <br/>your project and start receiving quotes<br/> from freelancers within hours.
+
           </p>
         </div>
         <div className="flex flex-col items-center">
@@ -133,23 +131,19 @@ const HomeSection2 = () => {
           />
           <h4 className="mt-3 text-center text-xl font-semibold">Hire Freelancers</h4>
           <p className="mt-2 text-center text-xs font-semibold opacity-40">
-            Compare the Quotes you receive
-            <br />
-            and hire the best freelance
-            <br />
-            professionals for the job.
+
+          Create a free job posting for your<br/> project and start receiving quotes<br/> from freelancers within hours.
+
           </p>
         </div>
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center sm:mt-9">
           <Image
             src={doneIcon}
             alt="done-icon"
           />
           <h4 className="mt-3 text-center text-xl font-semibold">Get Work Done</h4>
           <p className="mt-2 text-center text-xs font-semibold opacity-40">
-            Decide on how and when <br /> payments will be made and use <br />
-            WorkRooms to collaborate,
-            <br /> communicate and track work.
+          Set payment terms and schedules, and<br/> use Work Rooms for collaboration, communication, and tracking progress. We&apos;ve made our freelance platform easy to <br/>track and manage work.
           </p>
         </div>
         <div className="flex flex-col items-center">
@@ -159,8 +153,7 @@ const HomeSection2 = () => {
           />
           <h4 className="mt-3 text-center text-xl font-semibold">Make Secure Payments</h4>
           <p className="mt-2 text-center text-xs font-semibold opacity-40">
-            Choose from multiple payment <br /> methods with SafePay payment <br /> protection.
-          </p>
+          Make secure payments with SafePay protection and various payment options. Alanced ensures full security for your transactions.          </p>
         </div>
       </div>
       <div className="container mx-auto mt-8 px-6 text-center">
