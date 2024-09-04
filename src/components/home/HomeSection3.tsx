@@ -11,7 +11,7 @@ import { BsArrowRight } from "react-icons/bs";
 
 const HomeSection3 = () => {
   // State to track which dropdown is open
-  const [openDropdown, setOpenDropdown] = useState<number | null>(null);
+  const [openDropdown, setOpenDropdown] = useState<number | null>(0);
 
   const toggleDropdown = (index: number) => {
     if (openDropdown === index) {
