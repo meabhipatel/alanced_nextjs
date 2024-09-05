@@ -37,16 +37,15 @@ const HeroSection = () => {
   return (
     <>
       <div
-        className="flex h-[110vh] justify-center bg-cover px-5"
+        className="flex h-[110vh] justify-center sm:h-[110vh] lg:h-[110vh] px-5"
         style={{ backgroundImage: `url(${heroBackground.src})` }}
       >
         {/* Container for Titles and Static Content */}
         <div className="pt-28 text-left sm:pt-40 lg:pt-28 lg:text-2xl relative overflow-hidden">
           {/* Animated Titles */}
-{/* Animated Titles */}
         <div className={`absolute ${animateClass}`} key={currentIndex}>
         <h6
-        className={`mt-10 text-[35px] sm:text-[45px] md:text-[50px] font-semibold leading-[40px] sm:leading-[50px] md:leading-[55px] text-[#031136]`}
+        className={`mt-10 md:mt-3 sm:mt-3 text-[45px] sm:text-[50px] md:text-[50px] font-semibold leading-[40px] sm:leading-[50px] md:leading-[55px] text-[#031136]`}
       dangerouslySetInnerHTML={{ __html: slideContents[currentIndex] }}
      />
       </div>
