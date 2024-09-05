@@ -21,7 +21,7 @@ import { errorLog } from "@/utils/errorLog";
 import { axiosIntance } from "@/utils/axiosIntance";
 import { IoEyeSharp } from "react-icons/io5";
 import { FaEyeSlash } from "react-icons/fa6";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { AxiosError } from "axios";
 
 interface IFreelancer {
@@ -33,6 +33,7 @@ interface IFreelancer {
 
 const Signup = () => {
   const pathname = usePathname();
+  const router = useRouter();
   const [userInfo, setUserInfo] = useState<IFreelancer>({
     first_Name: "",
     last_Name: "",
@@ -42,7 +43,6 @@ const Signup = () => {
   const [inputType, setInputType] = useState("password");
   const [isLoading, setIsLoading] = useState(false);
   // const dispatch = useDispatch();
-  // const router = useRouter();
   // const addfree = useSelector((state:any) => state.freelancer.addfree);
   // console.log(addfree);
   // const [show, toogleShow] = useState(false);
@@ -117,6 +117,7 @@ const Signup = () => {
         const res = await axiosIntance.post("/account/hirer/registration", formData);
         toast.success(res.data?.message);
       }
+      router.push("/login");
     } catch (error) {
       if (error instanceof AxiosError) {
         toast.error(error.response?.data.message);
