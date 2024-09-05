@@ -45,7 +45,7 @@ const toggleText = () => {
           <h4 className="mt-5 text-4xl text-[#0A142F] md:text-2xl font-serif font-semibold">
           Best Freelance Websites for<br/> Beginners & Experts!
           </h4>
-          <p className="mt-3 text-sm leading-6 text-gray-600 md:text-base justify-normal">
+          <p className="mt-3 text-sm leading-6 text-gray-600 md:text-base text-justify">
           Welcome to Alanced, the best freelance platform, where your journey to success in the digital
           realm begins! Our Freelance Job Portal is designed to help beginners and seasoned professionals
           alike navigate the complex web of professional connections with ease. Offering a reliable and user-friendly interface,
@@ -53,11 +53,11 @@ const toggleText = () => {
           you can effortlessly curate your portfolio, showcasing your diverse skills and expertise, from 
           graphic design to web development. Every project you take on will resonate with clarity and purpose,
           leaving a lasting impression on potential clients. Join us in navigating the dynamic landscape of freelancing with confidence,
-          Knowing that your portfolio is more than just a collection of works&mdash;it&apos;s a compelling narrative of your professional journey and achievements.
+          Knowing that your portfolio is more than just a collection of works it&apos;s a compelling narrative of your professional journey and achievements.
           </p>
 
         {showFullText && (
-        <p className="mt-4 text-sm leading-6 text-gray-600 md:text-base justify-normal">
+        <p className="mt-4 text-sm leading-6 text-gray-600 md:text-base text-justify">
         Alanced is your go-to platform for all things freelancing, offering a comprehensive solution for those seeking freelance job sites that cater 
         to both beginners and experienced professionals. Whether you&apos;re looking to boost your freelancer earning potential or find part-time freelance jobs that fit your schedule,
         Alanced has you covered. Our platform features a variety of freelance job boards, making it easy to discover new opportunities and expand your client base. Additionally,

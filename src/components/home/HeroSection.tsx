@@ -11,11 +11,17 @@ const HeroSection = () => {
   const [animateClass, setAnimateClass] = useState("slide-enter");
 
   // Array of slide titles with HTML line breaks
-  const slideContents: string[] = [
-    "Unlock Access<br /> to Premier Experts<br /> and Talent with Alanced",
-    "Quality Work, Anywhere, Anytime With Top Freelance Website",
+  // Array of slides with titles and subtitles
+  const slideContents: { title: string; subtitle: string }[] = [
+    {
+      title: "Unlock Access<br /> to Premier Experts<br /> and Talent with Alanced",
+      subtitle: "With Alanced, easily connect with top freelancers ready to <br/>tackle any project you need, exactly when you need it."
+    },
+    {
+      title: "Quality Work, Anywhere, Anytime With Top Freelance Website",
+      subtitle: "Kickstart your freelance career with Alanced – where your next big opportunity is just one step away."
+    }
   ];
-
   useEffect(() => {
     // Automatically change slides every 3 seconds
     const interval = setInterval(() => {
@@ -42,20 +48,17 @@ const HeroSection = () => {
       >
         {/* Container for Titles and Static Content */}
         <div className="pt-28 text-left sm:pt-40 lg:pt-28 lg:text-2xl relative overflow-hidden">
-          {/* Animated Titles */}
-{/* Animated Titles */}
-        <div className={`absolute ${animateClass}`} key={currentIndex}>
-        <h6
-        className={`mt-10 text-[35px] sm:text-[45px] md:text-[50px] font-semibold leading-[40px] sm:leading-[50px] md:leading-[55px] text-[#031136]`}
-      dangerouslySetInnerHTML={{ __html: slideContents[currentIndex] }}
-     />
-      </div>
-
-          {/* Static Subtitle */}
-          <h1 className="mb-3.5 mt-72 text-[16px] font-normal leading-[26px] text-[#797979]">
-          With Alanced, easily connect with top freelancers ready to <br/>tackle any project you need, exactly when you need it. 
-          </h1>
-
+          {/* Animated Titles and Subtitles */}
+          <div className={`absolute ${animateClass}`} key={currentIndex}>
+            <h6
+              className="mt-10 text-[35px] sm:text-[45px] md:text-[50px] font-semibold leading-[40px] sm:leading-[50px] md:leading-[55px] text-[#031136]"
+              dangerouslySetInnerHTML={{ __html: slideContents[currentIndex].title }}
+            />
+            <p
+              className="mb-3.5 mt-10 text-[16px] font-normal leading-[26px] text-[#797979]"
+              dangerouslySetInnerHTML={{ __html: slideContents[currentIndex].subtitle }}
+            />
+          </div>
           {/* CTA Button */}
           <Link href={"/signup-options"}>
             <span className="mr-2 inline-block rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-[10px] text-sm font-semibold text-white lg:mt-0">
