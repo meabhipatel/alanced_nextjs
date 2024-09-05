@@ -11,7 +11,7 @@ import { BsArrowRight } from "react-icons/bs";
 
 const HomeSection3 = () => {
   // State to track which dropdown is open
-  const [openDropdown, setOpenDropdown] = useState<number | null>(null);
+  const [openDropdown, setOpenDropdown] = useState<number | null>(0);
 
   const toggleDropdown = (index: number) => {
     if (openDropdown === index) {
@@ -26,7 +26,7 @@ const HomeSection3 = () => {
       {/* "Why Over 3 Million People Choose Us" section */}
       <div className="mt-10 bg-[#F6FAFD] pb-7">
         <h1 className="pt-6 text-center text-xl font-semibold text-[#0A142F] md:text-[26px]">
-          Why Over 3 Million People Choose Us
+        Why Over 3 Million People Choose Us for Freelance Jobs Online
         </h1>
         <div className="mx-auto mt-3.5 w-1/4 border-b-2 border-gray-300 sm:w-1/6"></div>
         <div className="mt-8 grid grid-cols-1 gap-4 px-4 text-center md:grid-cols-3 lg:px-32">

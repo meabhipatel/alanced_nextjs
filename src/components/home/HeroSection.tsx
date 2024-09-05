@@ -13,7 +13,7 @@ const HeroSection = () => {
   // Array of slide titles with HTML line breaks
   const slideContents: string[] = [
     "Unlock Access<br /> to Premier Experts<br /> and Talent with Alanced",
-    "Quality Work,<br /> Anywhere, Anytime<br /> With Top Freelance Website",
+    "Quality Work, Anywhere, Anytime With Top Freelance Website",
   ];
 
   useEffect(() => {
@@ -37,24 +37,22 @@ const HeroSection = () => {
   return (
     <>
       <div
-        className="flex h-[110vh] justify-center bg-cover px-5"
+        className="flex h-[110vh] justify-center sm:h-[110vh] lg:h-[110vh] px-5"
         style={{ backgroundImage: `url(${heroBackground.src})` }}
       >
         {/* Container for Titles and Static Content */}
         <div className="pt-28 text-left sm:pt-40 lg:pt-28 lg:text-2xl relative overflow-hidden">
           {/* Animated Titles */}
-{/* Animated Titles */}
         <div className={`absolute ${animateClass}`} key={currentIndex}>
         <h6
-        className={`mt-10 text-[35px] sm:text-[45px] md:text-[50px] font-semibold leading-[40px] sm:leading-[50px] md:leading-[55px] text-[#031136]`}
+        className={`mt-10 md:mt-3 sm:mt-3 text-[45px] sm:text-[50px] md:text-[50px] font-semibold leading-[40px] sm:leading-[50px] md:leading-[55px] text-[#031136]`}
       dangerouslySetInnerHTML={{ __html: slideContents[currentIndex] }}
      />
       </div>
 
           {/* Static Subtitle */}
           <h1 className="mb-3.5 mt-72 text-[16px] font-normal leading-[26px] text-[#797979]">
-            With the largest professional creative community online, simply <br /> search through
-            from our website
+          With Alanced, easily connect with top freelancers ready to <br/>tackle any project you need, exactly when you need it. 
           </h1>
 
           {/* CTA Button */}

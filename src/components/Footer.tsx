@@ -90,8 +90,7 @@ const Footer = () => {
           <div className="flex flex-1 justify-end p-4 pr-0 pt-1">
             <div className="flex sm:justify-center md:justify-end xl:justify-start">
               <Link
-                href="LinkedIn: https://www.linkedin.com/company/alancedjobs/
-"
+                href=" https://www.linkedin.com/company/alancedjobs/"
                 target="blank(_blank)"
                 className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-gray-400 from-[#0909E9] to-[#00D4FF] py-1 text-center text-gray-600 duration-1000 hover:border-[#6f7cf3] hover:bg-gradient-to-r hover:text-white"
               >
