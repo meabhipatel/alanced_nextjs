@@ -10,7 +10,7 @@ import navback from "@/assets/images/nav_background.png";
 // import { timeAgo } from "../../container/freelancer/TimeFunctions";
 import { FiMenu } from "react-icons/fi";
 import { MdAccountCircle, MdClose } from "react-icons/md";
-import { FaBell, FaChevronDown, FaFacebookF, FaLinkedinIn } from "react-icons/fa6";
+import { FaBell, FaChevronDown} from "react-icons/fa6";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -20,9 +20,7 @@ import { TbLogout } from "react-icons/tb";
 import { ELoginMethod, handleLogoutUserAction } from "@/store/features/auth/authSlice";
 import cookies from "js-cookie";
 import { IoChevronDown } from "react-icons/io5";
-import { FaInstagram } from "react-icons/fa";
 
-import { BsTwitterX } from "react-icons/bs";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -398,38 +396,7 @@ const Navbar = () => {
               </div>
 
               <div className="flex gap-3">
-                {/* ---> Social icons  */}
-                <div className="flex justify-center">
-                  <Link
-                    href="https://www.linkedin.com/company/alancedjobs/"
-                    target="_blank"
-                    className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-gray-400 from-[#0909E9] to-[#00D4FF] py-1 text-center text-gray-600 duration-500 hover:border-[#6f7cf3] hover:bg-gradient-to-r hover:text-white"
-                  >
-                    <FaLinkedinIn className="text-sm" />
-                  </Link>
-                  <Link
-                    href="https://www.facebook.com/alancedjobs"
-                    target="_blank"
-                    className="ml-2 flex h-7 w-7 items-center justify-center rounded-full border-2 border-gray-400 from-[#0909E9] to-[#00D4FF] py-1 text-center text-gray-600 duration-300 hover:border-[#6f7cf3] hover:bg-gradient-to-r hover:text-white"
-                  >
-                    <FaFacebookF className="text-sm" />
-                  </Link>
-                  <Link
-                    href="https://x.com/Alancedjobs"
-                    target="_blank"
-                    className="ml-2 flex h-7 w-7 items-center justify-center rounded-full border-2 border-gray-400 from-[#0909E9] to-[#00D4FF] py-1 text-center text-gray-600 duration-1000 hover:border-[#6f7cf3] hover:bg-gradient-to-r hover:text-white"
-                  >
-                    <BsTwitterX className="text-sm" />
-                  </Link>
-                  <Link
-                    href="https://www.instagram.com/alancedjobs/"
-                    target="_blank"
-                    className="ml-2 mr-2 flex h-7 w-7 items-center justify-center rounded-full border-2 border-gray-400 from-[#0909E9] to-[#00D4FF] py-1 text-center text-gray-600 duration-1000 hover:border-[#6f7cf3] hover:bg-gradient-to-r hover:text-white"
-                  >
-                    <FaInstagram className="text-sm" />
-                  </Link>
-                </div>
-
+              
                 {/* ---> Login Signup buttons  */}
                 <div className="flex items-center gap-2">
                   <Link href="/login">
@@ -455,38 +422,6 @@ const Navbar = () => {
 
             {/* ---> mobile menu button */}
             <div className="flex items-center gap-1 sm:gap-3 lg:hidden">
-              {/* ---> Social icons in Small devices.  */}
-              <div className="flex">
-                <Link
-                  href="https://www.linkedin.com/company/alancedjobs/"
-                  target="_blank"
-                  className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-gray-400 from-[#0909E9] to-[#00D4FF] py-1 text-center text-gray-600 duration-500 hover:border-[#6f7cf3] hover:bg-gradient-to-r hover:text-white"
-                >
-                  <FaLinkedinIn className="text-sm" />
-                </Link>
-                <Link
-                  href="https://www.facebook.com/alancedjobs"
-                  target="_blank"
-                  className="ml-2 flex h-7 w-7 items-center justify-center rounded-full border-2 border-gray-400 from-[#0909E9] to-[#00D4FF] py-1 text-center text-gray-600 duration-300 hover:border-[#6f7cf3] hover:bg-gradient-to-r hover:text-white"
-                >
-                  <FaFacebookF className="text-sm" />
-                </Link>
-                <Link
-                  href="https://x.com/Alancedjobs"
-                  target="_blank"
-                  className="ml-2 flex h-7 w-7 items-center justify-center rounded-full border-2 border-gray-400 from-[#0909E9] to-[#00D4FF] py-1 text-center text-gray-600 duration-1000 hover:border-[#6f7cf3] hover:bg-gradient-to-r hover:text-white"
-                >
-                  <BsTwitterX className="text-sm" />
-                </Link>
-                <Link
-                  href="https://www.instagram.com/alancedjobs/"
-                  target="_blank"
-                  className="ml-2 mr-2 flex h-7 w-7 items-center justify-center rounded-full border-2 border-gray-400 from-[#0909E9] to-[#00D4FF] py-1 text-center text-gray-600 duration-1000 hover:border-[#6f7cf3] hover:bg-gradient-to-r hover:text-white"
-                >
-                  <FaInstagram className="text-sm" />
-                </Link>
-              </div>
-
               <button
                 onClick={() => setIsMobileMenuOpen((prev) => !prev)}
                 className=""
