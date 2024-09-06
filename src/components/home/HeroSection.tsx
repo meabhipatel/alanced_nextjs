@@ -37,7 +37,8 @@ const HeroSection = () => {
   return (
     <>
       <div
-        className="flex h-[110vh] justify-center sm:h-[110vh] lg:h-[110vh] px-5"
+        //className="flex h-[90vh] justify-center sm:h-[110vh] md:h-[90vh] lg:h-[110vh] px-5"
+        className="flex h-[70vh] lg:h-[110vh] justify-center px-5 sm:h-[250vh] md:h-[65vh]"
         style={{ backgroundImage: `url(${heroBackground.src})` }}
       >
         {/* Container for Titles and Static Content */}
@@ -45,13 +46,13 @@ const HeroSection = () => {
           {/* Animated Titles */}
         <div className={`absolute ${animateClass}`} key={currentIndex}>
         <h6
-        className={`mt-10 md:mt-3 sm:mt-3 text-[45px] sm:text-[50px] md:text-[50px] font-semibold leading-[40px] sm:leading-[50px] md:leading-[55px] text-[#031136]`}
+        className={`mt-10 md:mt-3 sm:mt-3 text-[35px] sm:text-[20px] md:text-[50px] font-semibold leading-[40px] sm:leading-[50px] md:leading-[55px] text-[#031136]`}
       dangerouslySetInnerHTML={{ __html: slideContents[currentIndex] }}
      />
       </div>
 
           {/* Static Subtitle */}
-          <h1 className="mb-3.5 mt-72 text-[16px] font-normal leading-[26px] text-[#797979]">
+          <h1 className="mb-3.5 mt-60 md:pt-6 text-[16px] font-normal leading-[26px] text-[#797979]">
           With Alanced, easily connect with top freelancers ready to <br/>tackle any project you need, exactly when you need it. 
           </h1>
 
