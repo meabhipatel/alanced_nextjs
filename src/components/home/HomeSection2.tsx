@@ -100,9 +100,9 @@ const HomeSection2 = () => {
 </div>
 
       <div className="mt-8 text-center">
-        <Link href="search-freelancer">
+        <Link href="/signup-options">
           <span className="mt-4 inline-block rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-[10px] text-sm font-semibold text-white lg:mt-0">
-            See All Skills
+            Get Started
           </span>
         </Link>
       </div>
@@ -157,9 +157,9 @@ const HomeSection2 = () => {
         </div>
       </div>
       <div className="container mx-auto mt-8 px-6 text-center">
-        <Link href="/contact-us">
+        <Link href="/signup-options">
           <span className="inline-block rounded border bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-2 text-sm font-semibold text-white">
-            See How Alanced Work
+            Get Started
           </span>
         </Link>
       </div>
