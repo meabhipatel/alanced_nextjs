@@ -46,7 +46,7 @@ const HeroSection = () => {
           {/* Animated Titles */}
         <div className={`absolute ${animateClass}`} key={currentIndex}>
         <h6
-        className={`mt-10 md:mt-3 sm:mt-3 text-[35px] sm:text-[20px] md:text-[50px] font-semibold leading-[40px] sm:leading-[50px] md:leading-[55px] text-[#031136]`}
+        className={`mt-10 md:mt-3 sm:mt-3 text-[30px] sm:text-[20px] md:text-[50px] font-semibold leading-[40px] sm:leading-[50px] md:leading-[55px] text-[#031136]`}
       dangerouslySetInnerHTML={{ __html: slideContents[currentIndex] }}
      />
       </div>
