@@ -38,7 +38,7 @@ const HeroSection = () => {
     <>
       <div
         //className="flex h-[90vh] justify-center sm:h-[110vh] md:h-[90vh] lg:h-[110vh] px-5"
-        className="flex h-[70vh] lg:h-[110vh] justify-center px-5 sm:h-[250vh] md:h-[65vh]"
+        className="flex h-[76vh] lg:h-[110vh] justify-center px-5 sm:h-[310vh] md:h-[65vh]"
         style={{ backgroundImage: `url(${heroBackground.src})` }}
       >
         {/* Container for Titles and Static Content */}
@@ -58,7 +58,7 @@ const HeroSection = () => {
 
           {/* CTA Button */}
           <Link href={"/signup-options"}>
-            <span className="mr-2 inline-block rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-[10px] text-sm font-semibold text-white lg:mt-0">
+            <span className="mr-2 inline-block rounded border border-none bg-gradient-to-r mb-2 from-[#0909E9] to-[#00D4FF] px-4 py-[10px] text-sm font-semibold text-white lg:mt-0">
               Get Started
             </span>
           </Link>
