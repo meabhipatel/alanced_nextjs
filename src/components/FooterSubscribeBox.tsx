@@ -52,7 +52,7 @@ const FooterSubscribeBox = () => {
             value={addUserSub.email}
           />
           <button
-            className="inline-block h-10 w-12 rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-[12px] text-sm font-semibold text-white lg:mt-0"
+            className="inline-block h-10 w-9 rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-3 py-[12px] text-sm font-semibold text-white lg:mt-0"
             onClick={AddUserSubscribe}
           >
             <FaArrowRightLong />
