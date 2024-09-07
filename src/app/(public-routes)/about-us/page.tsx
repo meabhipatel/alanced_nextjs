@@ -1,66 +1,49 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About us",
+  title: "About Us",
   description:
-    "The best platform for search and hire freelancer in the central india. let's have a tour of freelancers.",
+    "The best platform for searching and hiring freelancers in Central India. Explore our freelancers today.",
 };
 
 const AboutPage: React.FC = () => {
   return (
-    <div className="mx-[5%] mt-20 lg:mx-[9%]">
-      <h1 className="font-cardo p-3 text-left text-2xl font-semibold text-blue-600 sm:text-3xl md:text-4xl">
+    <div className="mx-auto my-10 max-w-6xl px-4 sm:px-6 lg:px-8">
+      <h1 className="text-3xl font-semibold text-blue-600 sm:text-4xl md:text-5xl mb-4">
         About Us
       </h1>
       <div className="relative mb-6 mt-1 w-48">
         <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
         <div className="rounded-lg border-b-2 border-gray-600"></div>
       </div>
-      <h2 className="font-inter mb-4 text-left text-lg font-semibold text-[#031136] md:text-xl">
+      <h2 className="text-2xl font-semibold text-[#031136] mb-4">
         Welcome to Alanced: Empowering Freelancers Worldwide
       </h2>
-      <div className="font-inter text-md space-y-6 text-left text-[#031136] md:text-lg">
+      <div className="space-y-6 text-[#031136] text-lg leading-relaxed">
         <p>
-          At Alanced, we are dedicated to revolutionizing the freelance industry by providing a
-          robust platform where talent meets opportunity. Our mission is to empower freelancers of
-          all backgrounds to thrive in their careers, offering a diverse range of projects and
-          resources to support their professional growth.
+          At Alanced, we are committed to revolutionizing the freelance industry by providing one of the best platforms where talent meets opportunity. Whether you&apos;re searching for freelance work or seeking top websites for professional growth, Alanced is your go-to platform. We empower freelancers from all backgrounds by offering diverse projects and resources to help you excel in your career. Explore freelance jobs and discover new possibilities with Alanced—your trusted partner in freelance work.
         </p>
-        <p className="font-semibold">Why Choose Alanced?</p>
-        <ul className="list-inside list-disc space-y-4">
+        <p className="font-semibold text-lg">Why Choose Alanced for Remote Jobs?</p>
+        <ul className="list-disc list-inside space-y-4">
           <li>
-            <span className="font-semibold">Diverse Opportunities:</span> Explore a wide array of
-            freelance projects across various industries and skill sets. Whether you specialize in
-            creative arts, technology, business consulting, or any other field, you&apos;ll find
-            exciting opportunities to showcase your expertise.
+            <span className="font-semibold">Varied Opportunities:</span> Find freelance projects that match your skills and interests across a wide range of industries. Whether you&apos;re a creative professional, tech expert, or business consultant, Alanced has opportunities that let you put your talents to work.
           </li>
           <li>
-            <span className="font-semibold">Secure and Efficient:</span> We prioritize your security
-            and convenience with a seamless payment system and user-friendly interface. Manage your
-            projects effortlessly, communicate with clients, and receive payments securely—all
-            within the Alanced platform.
+            <span className="font-semibold">Safe and Simple:</span> We ensure you can work without worry. With a secure payment system and easy-to-use platform, you can focus on your projects while managing your work, communicating with clients, and getting paid—all in one place.
           </li>
           <li>
-            <span className="font-semibold">Community Support:</span> Join a vibrant community of
-            freelancers where collaboration and learning thrive. Connect with like-minded
-            professionals, share insights, and build valuable relationships that enhance your
-            freelance journey.
+            <span className="font-semibold">Supportive Community:</span> Join a welcoming community of freelancers where you can collaborate, share knowledge, and build connections. Surround yourself with like-minded professionals who are eager to support each other&apos;s freelance journeys.
           </li>
           <li>
-            <span className="font-semibold">Empowering Freelancers:</span> At Alanced, we believe in
-            empowering freelancers to take control of their careers. Whether you&apos;re starting
-            your freelance journey or looking to expand your client base, our platform provides the
-            tools and support you need to succeed.
+            <span className="font-semibold">Freelancers in Control:</span> Alanced is all about helping freelancers succeed. Whether you&apos;re just starting out or looking to grow your client base, our platform gives you the tools and resources to take control of your freelance career and thrive.
           </li>
         </ul>
-        <p className="font-semibold">Join the Alanced Community</p>
+        <p className="font-semibold text-lg">Become a Part of the Alanced Community</p>
         <p>
-          Join thousands of freelancers who have already discovered the benefits of Alanced. Take
-          the next step in your freelance career and experience the freedom and opportunities that
-          await you. Sign up today and embark on a journey of growth and success with Alanced.
+          Join the growing number of freelancers who have unlocked new opportunities with Alanced. Elevate your freelance career by becoming part of a community that values growth, freedom, and success. Sign up today to start your journey toward a brighter future with Alanced, your best remote work portal.
         </p>
-        <p className="text-center font-semibold">
-          Empowerment. Opportunity. Success. Welcome to Alanced, where your freelance future begins.
+        <p className="text-center font-semibold text-lg mt-6">
+          Empowerment. Opportunity. Achievement. Welcome to Alanced, where your freelance journey takes off.
         </p>
       </div>
     </div>

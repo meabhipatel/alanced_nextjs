@@ -59,10 +59,8 @@ const FooterSubscribeBox = () => {
           </button>
         </div>
 
-        <p className="pl-6 pt-3 text-left text-[14px] opacity-60">
-          Hello, we are Lift Media. Our goal is to translate <br />
-          the positive effects from revolutionizing how <br /> companies engage
-          with their clients & their <br /> team.
+        <p className="pl-6 pt-3 text-[14px] opacity-60 text-wrap text-justify">
+        Subscribe to a Alanced freelance job portal,<br/> designed to support and empower both<br/> businesses and freelancers alike. 
         </p>
       </div>
     </div>
