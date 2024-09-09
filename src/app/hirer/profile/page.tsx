@@ -1,8 +1,6 @@
 "use client";
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import freelancercover from "@/assets/images/freelancercover.png";
-// import HirerCompanyPopup from "../hirer/HirerAllPopup/CompanyPopup";
-// import HirerContactPopup from "./HirerAllPopup/ContactPopup";
 
 import toast from "react-hot-toast";
 import Image from "next/image";
@@ -13,6 +11,8 @@ import { MdClose, MdModeEditOutline } from "react-icons/md";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
 import HirerAccountPopup from "@/components/HirerAccountPopup";
 import { errorLog } from "@/utils/errorLog";
+import HirerCompanyPopup from "@/components/HirerCompanyPopup";
+import HirerContactPopup from "@/components/HirerContactPopup";
 
 const hirerSelfProfileObj: IHirerProfile = {
   id: 0,
@@ -115,20 +115,10 @@ const HirerProfile = () => {
     setIsAccountOpen(false);
   };
 
-  const handleEditDetails = () => {
-    setIsDetailsOpen(true);
-  };
-
-  // eslint-disable-next-line
   const handleDetailsClose = () => {
     setIsDetailsOpen(false);
   };
 
-  const handleEditContacts = () => {
-    setIsContactsOpen(true);
-  };
-
-  // eslint-disable-next-line
   const handleContactsClose = () => {
     setIsContactsOpen(false);
   };
@@ -486,14 +476,20 @@ const HirerProfile = () => {
               </div>
               <button
                 className="float-right ml-auto mt-1 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-gray-200 bg-white p-1"
-                onClick={handleEditDetails}
+                onClick={() => setIsDetailsOpen(true)}
               >
                 <MdModeEditOutline className="text-xl" />
               </button>
               <div className="flex items-center justify-between"></div>
             </div>
 
-            {/* {isDetails && <HirerCompanyPopup handleDetailsClose={handleDetailsClose} />} */}
+            {isDetails && (
+              <HirerCompanyPopup
+                handleDetailsClose={handleDetailsClose}
+                hirerSelfProfile={hirerSelfProfile}
+                fetchHirerProfile={fetchHirerProfile}
+              />
+            )}
             <div
               className="flex border-b border-gray-200 border-opacity-30 px-4 py-6 text-left md:px-8"
               id="workHistory"
@@ -539,13 +535,19 @@ const HirerProfile = () => {
               </div>
               <button
                 className="float-right ml-auto mt-1 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-gray-200 bg-white p-1"
-                onClick={handleEditContacts}
+                onClick={() => setIsContactsOpen(true)}
               >
                 <MdModeEditOutline className="text-xl" />
               </button>
             </div>
 
-            {/* {isContacts && <HirerContactPopup handleContactsClose={handleContactsClose} />} */}
+            {isContacts && (
+              <HirerContactPopup
+                handleContactsClose={handleContactsClose}
+                hirerSelfProfile={hirerSelfProfile}
+                fetchHirerProfile={fetchHirerProfile}
+              />
+            )}
           </div>
         </div>
       </div>
