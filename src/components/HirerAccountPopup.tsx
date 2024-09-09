@@ -1,35 +1,33 @@
 import { IHirerProfile } from "@/interfaces";
 import { axiosWithAuth } from "@/utils/axiosWithAuth";
-import React, { Dispatch, FC, SetStateAction, useState } from "react";
+import React, { FC, useState } from "react";
 import toast from "react-hot-toast";
 import { MdClose } from "react-icons/md";
+import Loader from "./Loader";
 
 interface IProps {
-  isAvailable: string;
-  setIsAvailable: Dispatch<SetStateAction<string>>;
   handleAccountClose: () => void;
   hirerSelfProfile: IHirerProfile;
   fetchHirerProfile: () => void;
 }
 
 const HirerAccountPopup: FC<IProps> = ({
-  isAvailable,
-  //   setIsAvailable,
   handleAccountClose,
   hirerSelfProfile,
   fetchHirerProfile,
 }) => {
-  const [localAvailability, setLocalAvailability] = useState(isAvailable);
   const [first_Name, setfirst_Name] = useState(hirerSelfProfile.first_Name);
   const [last_Name, setlast_Name] = useState(hirerSelfProfile.last_Name);
   const [email, setemail] = useState(hirerSelfProfile.email);
+  const [isUpdating, setIsUpdating] = useState(false);
 
   const handleSave = async () => {
+    setIsUpdating(true);
     const formData = new FormData();
     formData.append("first_Name", first_Name);
     formData.append("last_Name", last_Name);
     formData.append("email", email);
-    formData.append("availableStatus", localAvailability);
+
     const res = await axiosWithAuth.put("/account/hirer/profile/update", formData);
     toast.success(res.data.message);
     fetchHirerProfile();
@@ -96,7 +94,8 @@ const HirerAccountPopup: FC<IProps> = ({
                     placeholder=""
                   />
                 </div>
-                <div className="mr-auto mt-3 flex items-center justify-start gap-6 space-x-4">
+                {/* ---> Commented for now . may use in future */}
+                {/* <div className="mr-auto mt-3 flex items-center justify-start gap-6 space-x-4">
                   <label className="flex items-center">
                     <input
                       type="radio"
@@ -119,13 +118,16 @@ const HirerAccountPopup: FC<IProps> = ({
                     />
                     Off
                   </label>
-                </div>
+                </div> */}
               </div>
 
-              <div className="mt-8 flex justify-end">
-                <button onClick={handleSave}>
-                  <span className="mr-3 inline-block rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-[10px] text-sm font-semibold text-white">
-                    Save
+              <div className="mt-8 flex justify-end gap-3">
+                <button
+                  onClick={handleSave}
+                  disabled={isUpdating}
+                >
+                  <span className="flex w-20 items-center justify-center rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] py-[10px] text-sm font-semibold text-white">
+                    {isUpdating ? <Loader /> : "Save"}
                   </span>
                 </button>
                 <div className="inline-block rounded bg-gradient-to-b from-[#0909E9] to-[#00D4FF] p-0.5">

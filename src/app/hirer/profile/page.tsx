@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import freelancercover from "@/assets/images/freelancercover.png";
 
 import toast from "react-hot-toast";
@@ -39,7 +39,6 @@ const HirerProfile = () => {
     const [year, month, day] = dateStr.split("-");
     return `${day}-${month}-${year}`;
   };
-  const [isHovered, setIsHovered] = useState(false); // eslint-disable-line
   const [reviews, setReviews] = useState([]); // eslint-disable-line
 
   /** ---> Fetching Hirer profile data. */
@@ -56,48 +55,13 @@ const HirerProfile = () => {
     }
   };
 
-  // eslint-disable-next-line
-  function handleMouseEnter() {
-    setIsHovered(true);
-  }
-
-  function handleMouseLeave() {
-    setIsHovered(false);
-  }
-
-  // eslint-disable-next-line
-  function combinedClick() {
-    handlePinClick();
-    handleMouseLeave();
-  }
-
-  const [isAvailable, setIsAvailable] = useState(
-    localStorage.getItem("userAvailability") || "available"
-  );
-
-  useEffect(() => {
-    localStorage.setItem("userAvailability", isAvailable);
-  }, [isAvailable]);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAccount, setIsAccountOpen] = useState(false);
-  const [isDetails, setIsDetailsOpen] = useState(false); // eslint-disable-line
-  const [isContacts, setIsContactsOpen] = useState(false); // eslint-disable-line
-
-  const [isAvailableOffOpen, setIsAvailableOffOpen] = useState(false); // eslint-disable-line
+  const [isDetails, setIsDetailsOpen] = useState(false);
+  const [isContacts, setIsContactsOpen] = useState(false);
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
-
-  // eslint-disable-next-line
-  const openAvailableOff = () => {
-    setIsAvailableOffOpen(true);
-  };
-
-  // eslint-disable-next-line
-  const closeAvailableOff = () => {
-    setIsAvailableOffOpen(false);
-  };
 
   const handleEditClick = () => {
     setIsModalOpen(true);
@@ -153,7 +117,6 @@ const HirerProfile = () => {
         errorLog(error);
       });
     setIsModalOpen(false);
-    // navigate('/hirer/profile-edit');
   };
 
   // eslint-disable-next-line
@@ -167,21 +130,6 @@ const HirerProfile = () => {
     height: "2px",
     background: "linear-gradient(90deg, #0909E9, #00D4FF)",
   };
-
-  const [showCopyMessage, setShowCopyMessage] = useState(false); // eslint-disable-line
-  const profileLink = "https://www.api.alanced.com/freelancer/edit-profile";
-
-  const handlePinClick = useCallback(() => {
-    navigator.clipboard
-      .writeText(profileLink)
-      .then(() => {
-        setShowCopyMessage(true);
-        setTimeout(() => setShowCopyMessage(false), 2000);
-      })
-      .catch((error) => {
-        errorLog(error);
-      });
-  }, [profileLink]);
 
   return (
     <>
@@ -424,8 +372,6 @@ const HirerProfile = () => {
 
             {isAccount && (
               <HirerAccountPopup
-                isAvailable={isAvailable}
-                setIsAvailable={setIsAvailable}
                 handleAccountClose={handleAccountClose}
                 hirerSelfProfile={hirerSelfProfile}
                 fetchHirerProfile={fetchHirerProfile}
