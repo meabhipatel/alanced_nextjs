@@ -3,6 +3,8 @@ import React, { FC, useState } from "react";
 import { IHirerProfile } from "@/interfaces";
 import { axiosWithAuth } from "@/utils/axiosWithAuth";
 import toast from "react-hot-toast";
+import Loader from "./Loader";
+import { MdClose } from "react-icons/md";
 
 interface IProps {
   handleDetailsClose: () => void;
@@ -20,8 +22,10 @@ const HirerCompanyPopup: FC<IProps> = ({
     hirerSelfProfile.Company_Establish ?? ""
   );
   const [social_media, setsocial_media] = useState(hirerSelfProfile.social_media);
+  const [isUpdating, setIsUpdating] = useState(false);
 
   const handleSave = async () => {
+    setIsUpdating(true);
     const formData = new FormData();
     formData.append("Company_Name", Company_Name);
     formData.append("Company_Establish", formatToDDMMYYYY(Company_Establish));
@@ -50,7 +54,7 @@ const HirerCompanyPopup: FC<IProps> = ({
                 onClick={handleDetailsClose}
                 className="text-gray-500 hover:text-gray-700"
               >
-                <i className="bi bi-x-lg"></i>
+                <MdClose className="text-xl" />
               </button>
             </div>
             <div className="mx-8">
@@ -98,12 +102,14 @@ const HirerCompanyPopup: FC<IProps> = ({
                 </div>
               </div>
 
-              <div className="mt-8 flex justify-end">
+              <div className="mt-8 flex justify-end gap-3">
                 <button
                   onClick={handleSave}
-                  className="mr-3 inline-block rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-[10px] text-sm font-semibold text-white"
+                  disabled={isUpdating}
                 >
-                  Save
+                  <span className="flex w-20 items-center justify-center rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] py-[10px] text-sm font-semibold text-white">
+                    {isUpdating ? <Loader /> : "Save"}
+                  </span>
                 </button>
 
                 <div className="inline-block rounded bg-gradient-to-b from-[#0909E9] to-[#00D4FF] p-0.5">
