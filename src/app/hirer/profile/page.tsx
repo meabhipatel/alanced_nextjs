@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
-import freelancercover from "@/assets/images/freelancercover.png";
 
 import toast from "react-hot-toast";
 import Image from "next/image";
@@ -13,6 +12,7 @@ import HirerAccountPopup from "@/components/HirerAccountPopup";
 import { errorLog } from "@/utils/errorLog";
 import HirerCompanyPopup from "@/components/HirerCompanyPopup";
 import HirerContactPopup from "@/components/HirerContactPopup";
+import Loader from "@/components/Loader";
 
 const hirerSelfProfileObj: IHirerProfile = {
   id: 0,
@@ -33,6 +33,7 @@ const hirerSelfProfileObj: IHirerProfile = {
 
 const HirerProfile = () => {
   const [hirerSelfProfile, setHirerSelfProfile] = useState<IHirerProfile>(hirerSelfProfileObj);
+  const [isLoading, setIsLoading] = useState(true);
 
   const formatToDDMMYYYY = (dateStr: string) => {
     if (!dateStr) return "";
@@ -48,10 +49,13 @@ const HirerProfile = () => {
 
   const fetchHirerProfile = async () => {
     try {
+      setIsLoading(true);
       const res = await axiosWithAuth.get("/account/hirer/selfprofile/view");
       setHirerSelfProfile(res.data.data[0]);
     } catch (error) {
       errorLog(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -131,15 +135,20 @@ const HirerProfile = () => {
     background: "linear-gradient(90deg, #0909E9, #00D4FF)",
   };
 
+  if (isLoading) {
+    return (
+      <div className="flex h-[80vh] w-full items-center justify-center">
+        <Loader
+          color="primary"
+          size="lg"
+        />
+      </div>
+    );
+  }
+
   return (
     <>
       <div className="mx-[9%] mt-4">
-        <Image
-          src={freelancercover}
-          alt=""
-          className="mb-4 h-[272px] w-full"
-        />
-
         <div className="flex flex-col md:flex-row">
           <div className="border border-gray-200 border-opacity-30 bg-white md:w-[30%]">
             <div className="relative mb-4 border-b border-gray-200 border-opacity-30 p-4 py-8 md:mb-0">
