@@ -10,7 +10,7 @@ import navback from "@/assets/images/nav_background.png";
 // import { timeAgo } from "../../container/freelancer/TimeFunctions";
 import { FiMenu } from "react-icons/fi";
 import { MdAccountCircle, MdClose } from "react-icons/md";
-import { FaBell, FaChevronDown} from "react-icons/fa6";
+import { FaBell, FaChevronDown } from "react-icons/fa6";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -20,7 +20,6 @@ import { TbLogout } from "react-icons/tb";
 import { ELoginMethod, handleLogoutUserAction } from "@/store/features/auth/authSlice";
 import cookies from "js-cookie";
 import { IoChevronDown } from "react-icons/io5";
-
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -396,15 +395,14 @@ const Navbar = () => {
               </div>
 
               <div className="flex gap-3">
-              
                 {/* ---> Login Signup buttons  */}
                 <div className="flex items-center gap-2">
                   <Link href="/login">
-                    <div className="flex h-7 w-14 items-center justify-center rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] text-xs font-semibold text-white lg:mt-0">
+                    <div className="flex h-8 w-16 items-center justify-center rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] text-xs font-semibold text-white lg:mt-0">
                       Sign In
                     </div>
                   </Link>
-                  <div className="flex h-7 w-14 items-center justify-center rounded bg-gradient-to-b from-[#0909E9] to-[#00D4FF] p-[2px]">
+                  <div className="flex h-8 w-16 items-center justify-center rounded bg-gradient-to-b from-[#0909E9] to-[#00D4FF] p-[2px]">
                     <Link
                       href="/signup-options"
                       className="h-full w-full"
