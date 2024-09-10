@@ -31,7 +31,7 @@ const HeroSearchBox = () => {
           <div className="flex w-full items-center justify-center gap-3 md:w-[40%]">
             <div>
               <select
-                className="block h-12  w-28 rounded-lg bg-gray-100 p-2.5 text-sm font-normal text-[#797979]"
+                className="block h-12 w-28 rounded-lg bg-gray-100 p-2.5 text-sm font-normal text-[#797979]"
                 onChange={handleSearchTypeChange}
               >
                 <option value="Talent">Talent</option>

@@ -12,8 +12,8 @@ const HeroSection = () => {
 
   // Array of slide titles with HTML line breaks
   const slideContents: string[] = [
-    "Unlock Access<br /> to Premier Experts<br /> and Talent with Alanced",
-    "Quality Work, Anywhere, Anytime With Top Freelance Website",
+    "Unlock Access <br/> to Premier Experts <br/> and Talent with <br/> Alanced",
+    "Quality Work, <br/> Anywhere, Anytime <br/> With Top Freelance <br/> Website",
   ];
 
   useEffect(() => {
@@ -37,28 +37,36 @@ const HeroSection = () => {
   return (
     <>
       <div
-        //className="flex h-[90vh] justify-center sm:h-[110vh] md:h-[90vh] lg:h-[110vh] px-5"
-        className="flex h-[76vh] lg:h-[110vh] justify-center px-5 sm:h-[310vh] md:h-[65vh]"
+        className="flex h-[35rem] items-start justify-center px-5 sm:h-[40rem] sm:px-14 lg:h-[45rem] lg:items-center"
         style={{ backgroundImage: `url(${heroBackground.src})` }}
       >
         {/* Container for Titles and Static Content */}
-        <div className="pt-28 text-left sm:pt-40 lg:pt-28 lg:text-2xl relative overflow-hidden">
+        <div className="w-full overflow-hidden pt-28 text-left sm:pt-40 lg:w-[50%] lg:pt-28 lg:text-2xl">
           {/* Animated Titles */}
-        <div className={`absolute ${animateClass}`} key={currentIndex}>
-        <h6
-        className={`mt-10 md:mt-3 sm:mt-3 text-[30px] sm:text-[20px] md:text-[50px] font-semibold leading-[40px] sm:leading-[50px] md:leading-[55px] text-[#031136]`}
-      dangerouslySetInnerHTML={{ __html: slideContents[currentIndex] }}
-     />
-      </div>
+
+          <div
+            className={`${animateClass} `}
+            key={currentIndex}
+          >
+            <h2
+              className={`text-[30px] font-semibold leading-[40px] text-[#031136] sm:mt-3 sm:text-[40px] sm:leading-[50px] md:mt-3 md:text-[50px] md:leading-[55px]`}
+              dangerouslySetInnerHTML={{ __html: slideContents[currentIndex] }}
+            />
+          </div>
 
           {/* Static Subtitle */}
-          <h1 className="mb-3.5 mt-60 md:pt-6 text-[16px] font-normal leading-[26px] text-[#797979]">
-          With Alanced, easily connect with top freelancers ready to <br/>tackle any project you need, exactly when you need it. 
+          <h1 className="mb-8 mt-10 text-[16px] font-normal leading-[26px] text-[#797979] md:hidden md:pt-6">
+            With Alanced, easily connect with <br /> top freelancers ready to tackle any <br />
+            project you need, exactly when you need it.
+          </h1>
+          <h1 className="mb-5 mt-10 hidden text-xl font-normal leading-[26px] text-[#797979] md:block md:pt-6">
+            With Alanced, easily connect with top freelancers ready to <br />
+            tackle any project you need, exactly when you need it.
           </h1>
 
           {/* CTA Button */}
           <Link href={"/signup-options"}>
-            <span className="mr-2 inline-block rounded border border-none bg-gradient-to-r mb-2 from-[#0909E9] to-[#00D4FF] px-4 py-[10px] text-sm font-semibold text-white lg:mt-0">
+            <span className="mb-2 mr-2 inline-block rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-[10px] text-sm font-semibold text-white lg:mt-0">
               Get Started
             </span>
           </Link>
