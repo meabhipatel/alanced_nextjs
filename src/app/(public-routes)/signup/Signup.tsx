@@ -1,20 +1,10 @@
 "use client";
 import React, { useState } from "react";
-// import { Link, useNavigate } from "react-router-dom";
-// import registerimg from "../../components/images/register.png";
-// import google from "@/assets/images/google.png";
-// import box from "../../components/images/box.png";
 import registerimg2 from "@/assets/images/register2.png";
-// import { useDispatch, useSelector } from "react-redux";
-// import { AddNewFreelancerAction } from "../../redux/Freelancer/FreelancerAction";
 import logo from "@/assets/images/alanced.png";
 import { toast } from "react-hot-toast";
-// import "font-awesome/css/font-awesome.min.css";
-// import { Alert, Typography } from "@material-tailwind/react";
 // import { useGoogleLogin } from "@react-oauth/google";
-// import axios from "axios";
 import Link from "next/link";
-// import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { FcGoogle } from "react-icons/fc";
 import { errorLog } from "@/utils/errorLog";
@@ -95,7 +85,8 @@ const Signup = () => {
     }
     if (!validatePassword(userInfo.password)) {
       toast.error(
-        "Password must contain atleast 8 characters,one numeric digit,one uppercase & lowercase letter and one special character, e.g., ! @ # ?"
+        "Password must contain atleast 8 characters, numeric digit, uppercase & lowercase letter and special character",
+        { duration: 3000 }
       );
       return;
     }
@@ -136,83 +127,6 @@ const Signup = () => {
       [e.target.name]: e.target.value,
     });
   };
-
-  const handle_password_alert = () => {
-    if (typeof userInfo.password !== "undefined") {
-      if (validatePassword(userInfo.password) === false) {
-        return (
-          // <alert
-          <span
-            className="mb-1 mt-1 bg-gradient-to-r from-[#0909E9] to-[#00D4FF] font-semibold text-white"
-            // animate={{ mount: { y: 0 }, unmount: { y: 100 } }}
-          >
-            {/* <Typography className="">
-              Ensure that these requirements are met:
-            </Typography> */}
-            <p className="text-left">
-              1. Password must contain atleast 8 characters
-              <br />
-              2. One numeric digit <br />
-              3. One uppercase & lowercase letter <br />
-              4. One special character, e.g., ! @ # ?
-            </p>
-          </span>
-          // </alert>
-        );
-      }
-    }
-  };
-
-  // const handlealert = ()=>{
-  //     if (typeof(userInfo.email)!="undefined"){
-  //         if(validateEmail(userInfo.email)==false){
-  //           return   <Alert className='mb-2 mt-1 bg-gradient-to-r from-[#0909E9] to-[#00D4FF]  text-white font-semibold' animate={{mount:{ y:0 }, unmount:{ y: 100},}}>
-  //           <Typography className="">
-  //             Please give valid email address
-  //           </Typography>
-  //         </Alert>
-  //         }
-  //       }}
-
-  //       let a=false
-  //       // const handleDisable_btn= ()=> {
-  //       if(typeof(userInfo.first_Name)==='undefined'){
-  //           a=true
-  //       } else if(typeof(userInfo.last_Name)==='undefined'){
-  //           a=true
-  //       }else if(typeof(userInfo.email)==='undefined'){
-  //           a=true
-  //       }else if(validateEmail(userInfo.email)==false){
-  //         a=true
-  //       }else if(typeof(userInfo.password)==='undefined'){
-  //           a=true
-  //       }else if(validatePassword(userInfo.password)==false){
-  //           a=true
-  //       }else if(userInfo.first_Name==""){
-  //           a=true
-  //       }else if(userInfo.last_Name==""){
-  //           a=true
-  //       }else if(userInfo.email==""){
-  //           a=true
-  //       }
-  //       else if(userInfo.password==""){
-  //           a=true
-  //       }
-
-  //       const handleDisable_btn= ()=> {
-  //       if (a==true){
-  //           return true
-  //       }
-  //       }
-
-  // const handleallalert = ()=>{
-  //     if (a==true){
-  //     return  <Alert className='mb-2 mt-2 bg-gradient-to-r from-[#0909E9] to-[#00D4FF]  text-white font-semibold' animate={{mount:{ y:0 }, unmount:{ y: 100},}}>
-  //     <Typography className="">
-  //     All fields must be required
-  //     </Typography>
-  //     </Alert>
-  //     }}
 
   // const logins = useGoogleLogin({
   //   onSuccess: async (response) => {
@@ -385,7 +299,7 @@ const Signup = () => {
                     </button>
                   </div>
                 </div>
-                {handle_password_alert()}
+
                 <button
                   className="focus:shadow-outline-blue mt-4 block w-full rounded-lg border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-2 text-center text-sm font-semibold leading-5 text-white transition-colors duration-150 focus:outline-none"
                   onClick={handleRegisterUser}
