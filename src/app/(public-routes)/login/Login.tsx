@@ -156,7 +156,7 @@ const Login = () => {
               <span>Remember me</span>
             </label>
             <Link href="/reset-password">
-              <span className="text-xs text-yellow-400">Reset Password</span>
+              <span className="text-xs text-yellow-400">Forget Password</span>
             </Link>
           </div>
 
