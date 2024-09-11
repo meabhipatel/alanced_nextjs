@@ -2,7 +2,7 @@
 import React from 'react';
 import { IoIosSearch } from "react-icons/io";
 // import 'react-loading-skeleton/dist/skeleton.css';
-import { formatDateInput } from '@/components/time-functions';
+import { formatDateInput } from '@/utils/timeFunction';
 import axios from 'axios';
 //import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
