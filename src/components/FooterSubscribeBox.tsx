@@ -59,9 +59,11 @@ const FooterSubscribeBox = () => {
           </button>
         </div>
 
-        <p className="pl-6 pt-3 text-[14px] opacity-60 text-wrap text-justify">
-        Subscribe to a Alanced freelance job portal,<br/> designed to support and empower both<br/> businesses and freelancers alike. 
+        <p className="pl-6 pt-3 text-[14px] opacity-60 text-justify max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg leading-tight">
+        Subscribe to an Alanced freelance job portal, designed to support and empower both businesses and freelancers alike.
         </p>
+
+
       </div>
     </div>
   );
