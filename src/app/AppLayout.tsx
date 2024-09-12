@@ -19,10 +19,10 @@ const AppLayout: FC<IProps> = ({ children }) => {
     "/signup/hirer",
     "/signup-options",
     "/reset-password",
+    "/forget-password",
   ];
 
   return (
-    
     <div className="mx-auto max-w-[1536px] bg-white">
       {!withoutNavbarScreens.includes(pathname) && (
         <>
