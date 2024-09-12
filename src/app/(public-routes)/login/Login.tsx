@@ -9,7 +9,7 @@ import { IoEyeSharp } from "react-icons/io5";
 import { FaEyeSlash } from "react-icons/fa6";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { handleLoginAsync, handleLoginWithGoogleAsync } from "@/store/features/auth/authApi";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { ELoginMethod, EUserType } from "@/store/features/auth/authSlice";
 import { useGoogleLogin } from "@react-oauth/google";
@@ -24,7 +24,7 @@ interface IAuthDetails {
 const Login = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { isloading, isLoggedIn } = useAppSelector((state) => state.auth);
+  const { isloading, isLoggedIn, userType } = useAppSelector((state) => state.auth);
   const [authDetails, setAuthDetails] = useState<IAuthDetails>({ email: "", password: "" });
   const [inputType, setInputType] = useState("password");
 
@@ -109,7 +109,11 @@ const Login = () => {
 
   /** ---> If user already Logged in navigating to previous screen. */
   if (isLoggedIn) {
-    return router.back();
+    if (userType === "FREELANCER") {
+      return redirect("/freelancer");
+    } else {
+      return redirect("/hirer");
+    }
   }
 
   return (
