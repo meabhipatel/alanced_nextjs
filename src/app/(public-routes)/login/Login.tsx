@@ -101,6 +101,10 @@ const Login = () => {
         toast.error("Something went wrong. Please try again.");
       }
     },
+    onError: (error) => {
+      errorLog(error);
+      toast.error("Login with google failed", { duration: 2000 });
+    },
   });
 
   const handleClickGoogleButton = () => {

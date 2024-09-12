@@ -162,6 +162,10 @@ const Signup = () => {
         toast.error("Something went wrong. Please try again.");
       }
     },
+    onError: (error) => {
+      errorLog(error);
+      toast.error("Signup with google failed", { duration: 2000 });
+    },
   });
 
   const handleClickGoogleButton = () => {
