@@ -36,64 +36,65 @@ const HirerAccountPopup: FC<IProps> = ({
 
   return (
     <>
-      <div className="fixed inset-0 z-10 mt-10 overflow-y-auto">
-        <div className="fixed inset-0 bg-black opacity-50"></div>
-        <div className="flex min-h-screen items-center justify-center">
-          <div className="relative z-20 w-[90%] rounded-lg bg-white p-6 md:w-[50%]">
-            <div className="text-right">
-              <button
-                onClick={handleAccountClose}
-                className="text-gray-500 hover:text-gray-700"
-              >
-                <MdClose className="text-xl" />
-              </button>
+  <div className="fixed inset-0 z-10 mt-10 overflow-y-auto">
+  <div className="fixed inset-0 bg-black opacity-50"></div>
+  <div className="flex min-h-screen items-center justify-center">
+    <div className="relative z-20 w-[90%] rounded-lg bg-white p-4 sm:p-6 md:w-[75%] lg:w-[50%]">
+      <div className="text-right">
+        <button
+          onClick={handleAccountClose}
+          className="text-gray-500 hover:text-gray-700"
+        >
+          <MdClose className="text-xl" />
+        </button>
+      </div>
+      <div className="mx-4 md:mx-8">
+        <h1 className="font-cardo text-left text-[21px] font-normal text-[#031136]">
+          Edit Account
+        </h1>
+        <div className="mb-2 mt-4 flex flex-col items-center">
+          <div className="flex w-full flex-col sm:flex-row gap-5">
+            <div className="flex w-full flex-col">
+            <label htmlFor="first_Name" className="text-left">First Name</label>              
+            <input
+                type="text"
+                name="first_Name"
+                value={first_Name}
+                onChange={(e) => {
+                  setfirst_Name(e.target.value);
+                }}
+                className="mb-6 mt-2 w-full rounded-md border px-2 py-1.5 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                placeholder=""
+              />
             </div>
-            <div className="mx-8">
-              <h1 className="font-cardo text-left text-[21px] font-normal text-[#031136]">
-                Edit Account
-              </h1>
-              <div className="mb-2 mt-4 flex flex-col items-center">
-                <div className="flex w-full gap-5">
-                  <div className="flex w-full flex-col">
-                    <span className="text-left">First Name</span>
-                    <input
-                      type="text"
-                      name="first_Name"
-                      value={first_Name}
-                      onChange={(e) => {
-                        setfirst_Name(e.target.value);
-                      }}
-                      className="mb-6 mt-2 w-full rounded-md border px-2 py-1.5 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
-                      placeholder=""
-                    />
-                  </div>
-                  <div className="flex w-full flex-col">
-                    <span className="text-left">Last Name</span>
-                    <input
-                      type="text"
-                      name="last_Name"
-                      value={last_Name}
-                      onChange={(e) => {
-                        setlast_Name(e.target.value);
-                      }}
-                      className="mb-6 mt-2 w-full rounded-md border px-2 py-1.5 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
-                      placeholder=""
-                    />
-                  </div>
-                </div>
-                <div className="flex w-full flex-col">
-                  <span className="text-left">Email</span>
-                  <input
-                    type="text"
-                    name="email"
-                    value={email}
-                    onChange={(e) => {
-                      setemail(e.target.value);
-                    }}
-                    className="mb-6 mt-2 w-full rounded-md border px-2 py-1.5 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
-                    placeholder=""
-                  />
-                </div>
+            <div className="flex w-full flex-col">
+            <label htmlFor="last_Name" className="text-left">Last Name</label>
+            <input
+                type="text"
+                name="last_Name"
+                value={last_Name}
+                onChange={(e) => {
+                  setlast_Name(e.target.value);
+                }}
+                className="mb-6 mt-2 w-full rounded-md border px-2 py-1.5 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                placeholder=""
+              />
+            </div>
+          </div>
+          <div className="flex w-full flex-col">
+          <label htmlFor="email" className="text-left">Email</label>
+          <input
+              type="email"
+              name="email"
+              value={email}
+              onChange={(e) => {
+                setemail(e.target.value);
+              }}
+              className="mb-6 mt-2 w-full rounded-md border px-2 py-1.5 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+              placeholder="example@example.com"
+            />
+          </div>
+
                 {/* ---> Commented for now . may use in future */}
                 {/* <div className="mr-auto mt-3 flex items-center justify-start gap-6 space-x-4">
                   <label className="flex items-center">
@@ -121,26 +122,28 @@ const HirerAccountPopup: FC<IProps> = ({
                 </div> */}
               </div>
 
-              <div className="mt-8 flex justify-end gap-3">
-                <button
-                  onClick={handleSave}
-                  disabled={isUpdating}
-                >
-                  <span className="flex w-20 items-center justify-center rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] py-[10px] text-sm font-semibold text-white">
-                    {isUpdating ? <Loader /> : "Save"}
-                  </span>
-                </button>
-                <div className="inline-block rounded bg-gradient-to-b from-[#0909E9] to-[#00D4FF] p-0.5">
-                  <button
-                    className="rounded-sm bg-white px-2 py-1"
-                    onClick={handleAccountClose}
-                  >
-                    <p className="from-primary to-danger bg-gradient-to-r bg-clip-text px-[8px] py-[4px] text-sm font-semibold text-transparent">
-                      Cancel
-                    </p>
-                  </button>
-                </div>
-              </div>
+              <div className="mt-8 flex flex-col-reverse items-center justify-end gap-3 sm:flex-row sm:justify-end">
+            <button
+            onClick={handleSave}
+            disabled={isUpdating}
+            className="w-full sm:w-auto"
+  >
+          <span className="flex w-full sm:w-20 items-center justify-center rounded border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] py-[10px] text-sm font-semibold text-white">
+        {isUpdating ? <Loader /> : "Save"}
+        </span>
+    </button>
+    <div className="inline-block w-full sm:w-auto rounded bg-gradient-to-b from-[#0909E9] to-[#00D4FF] p-0.5">
+      <button
+      className="w-full sm:w-auto rounded-sm bg-white px-2 py-1"
+      onClick={handleAccountClose}
+    >
+      <p className="from-primary to-danger bg-gradient-to-r bg-clip-text px-[8px] py-[4px] text-sm font-semibold text-transparent">
+        Cancel
+      </p>
+    </button>
+  </div>
+</div>
+
             </div>
           </div>
         </div>

@@ -40,88 +40,93 @@ const HirerContactPopup: FC<IProps> = ({
   };
 
   return (
-    <>
-      <div className="fixed inset-0 z-10 mt-10 overflow-y-auto">
-        <div className="fixed inset-0 bg-black opacity-50"></div>
-        <div className="flex min-h-screen items-center justify-center">
-          <div className="relative z-20 w-[90%] rounded-lg bg-white p-4 md:w-[36%]">
-            <div className="text-right">
-              <button
-                onClick={handleContactsClose}
-                className="text-gray-500 hover:text-gray-700"
-              >
-                <MdClose className="text-xl" />
-              </button>
-            </div>
-            <div className="mx-8">
-              <h1 className="font-cardo text-left text-[21px] font-normal text-[#031136]">
-                Edit Company Contacts
-              </h1>
-              <div className="mb-2 mt-4 flex flex-col items-center">
-                <div className="flex w-full gap-5">
-                  <div className="flex w-full flex-col">
-                    <span className="text-left">Phone</span>
-                    <input
-                      type="tel"
-                      value={contact}
-                      onChange={(e) => handleContactInputChange(e.target.value)}
-                      className="mb-6 mt-2 w-full rounded-md border px-2 py-1.5 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
-                      placeholder="Contact Number"
-                    />
-                  </div>
-                </div>
-                <div className="flex w-full flex-col">
-                  <span className="text-left">Address</span>
-                  <select
-                    value={Address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    className="mb-6 mt-2 w-full rounded-md border bg-white px-2 py-1.5 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
-                  >
-                    <option
-                      disabled
-                      selected
-                      value=""
-                    >
-                      City
-                    </option>
-                    {cityList.map((location) => (
-                      <option
-                        key={location}
-                        value={location}
-                      >
-                        {location}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
+<>
+  <div className="fixed inset-0 z-10 mt-10 overflow-y-auto">
+    <div className="fixed inset-0 bg-black opacity-50"></div>
+    <div className="flex min-h-screen items-center justify-center">
+      <div className="relative z-20 w-[90%] rounded-lg bg-white p-4 sm:p-6 md:w-[75%] lg:w-[50%]">
+        {/* Close Button */}
+        <div className="text-right">
+          <button
+            onClick={handleContactsClose}
+            className="text-gray-500 hover:text-gray-700"
+          >
+            <MdClose className="text-xl" />
+          </button>
+        </div>
 
-              <div className="mt-8 flex justify-end gap-3">
-                <button
-                  onClick={handleSave}
-                  disabled={isUpdating}
-                >
-                  <span className="flex w-20 items-center justify-center rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] py-[10px] text-sm font-semibold text-white">
-                    {isUpdating ? <Loader /> : "Save"}
-                  </span>
-                </button>
-                <div className="inline-block rounded bg-gradient-to-b from-[#0909E9] to-[#00D4FF] p-0.5">
-                  <button
-                    className="rounded-sm bg-white px-2 py-1"
-                    onClick={handleContactsClose}
-                    disabled={isUpdating}
-                  >
-                    <p className="from-primary to-danger bg-gradient-to-r bg-clip-text px-[8px] py-[4px] text-sm font-semibold text-transparent">
-                      Cancel
-                    </p>
-                  </button>
-                </div>
+        {/* Modal Content */}
+        <div className="mx-4 md:mx-8">
+          <h1 className="font-cardo text-left text-[21px] font-normal text-[#031136]">
+            Edit Company Contacts
+          </h1>
+
+          {/* Form Inputs */}
+          <div className="mb-2 mt-4 flex flex-col items-center">
+            {/* Phone Input */}
+            <div className="flex w-full flex-col sm:flex-row gap-5">
+              <div className="flex w-full flex-col">
+                <span className="text-left">Phone</span>
+                <input
+                  type="tel"
+                  value={contact}
+                  onChange={(e) => handleContactInputChange(e.target.value)}
+                  className="mb-6 mt-2 w-full rounded-md border px-2 py-1.5 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                  placeholder="Contact Number"
+                />
               </div>
+            </div>
+
+            {/* Address Input */}
+            <div className="flex w-full flex-col">
+              <span className="text-left">Address</span>
+              <select
+                value={Address}
+                onChange={(e) => setAddress(e.target.value)}
+                className="mb-6 mt-2 w-full rounded-md border bg-white px-2 py-1.5 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+              >
+                <option disabled selected value="">
+                  City
+                </option>
+                {cityList.map((location) => (
+                  <option key={location} value={location}>
+                    {location}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="mt-8 flex flex-col-reverse items-center justify-end gap-3 sm:flex-row sm:justify-end">
+            <button
+              onClick={handleSave}
+              disabled={isUpdating}
+              className="w-full sm:w-auto"
+            >
+              <span className="flex sm:w-20 w-full items-center justify-center rounded border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] py-[10px] text-sm font-semibold text-white">
+                {isUpdating ? <Loader /> : "Save"}
+              </span>
+            </button>
+            
+            <div className="inline-block w-full sm:w-auto rounded bg-gradient-to-b from-[#0909E9] to-[#00D4FF] p-0.5">
+              <button
+                className="w-full sm:w-auto rounded-sm bg-white px-2 py-1"
+                onClick={handleContactsClose}
+                disabled={isUpdating}
+              >
+                <p className="from-primary to-danger bg-gradient-to-r bg-clip-text px-[8px] py-[4px] text-sm font-semibold text-transparent">
+                  Cancel
+                </p>
+              </button>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
+  </div>
+</>
+
   );
 };
 
