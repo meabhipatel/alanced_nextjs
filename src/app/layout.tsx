@@ -5,6 +5,8 @@ import StoreProvider from "./StoreProvider";
 import AppLayout from "./AppLayout";
 import AuthProvider from "@/components/AuthProvider";
 import Script from "next/script";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { NEXT_PUBLIC_GOOGLE_CLIENT_ID } from "@/config";
 
 const poppins = Poppins({ weight: "400", subsets: ["latin"] });
 
@@ -56,9 +58,11 @@ export default function RootLayout({
       </head>
       <body className={poppins.className}>
         <StoreProvider>
-          <AuthProvider>
-            <AppLayout>{children}</AppLayout>
-          </AuthProvider>
+          <GoogleOAuthProvider clientId={NEXT_PUBLIC_GOOGLE_CLIENT_ID!}>
+            <AuthProvider>
+              <AppLayout>{children}</AppLayout>
+            </AuthProvider>
+          </GoogleOAuthProvider>
         </StoreProvider>
       </body>
     </html>
