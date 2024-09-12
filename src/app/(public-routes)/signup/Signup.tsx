@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import registerimg2 from "@/assets/images/register2.png";
 import logo from "@/assets/images/alanced.png";
 import { toast } from "react-hot-toast";
-// import { useGoogleLogin } from "@react-oauth/google";
+import { useGoogleLogin } from "@react-oauth/google";
 import Link from "next/link";
 import Image from "next/image";
 import { FcGoogle } from "react-icons/fc";
@@ -12,7 +12,8 @@ import { axiosIntance } from "@/utils/axiosIntance";
 import { IoEyeSharp } from "react-icons/io5";
 import { FaEyeSlash } from "react-icons/fa6";
 import { usePathname, useRouter } from "next/navigation";
-import { AxiosError } from "axios";
+import axios, { AxiosError } from "axios";
+import { useAppSelector } from "@/store/hooks";
 
 interface IFreelancer {
   first_Name: string;
@@ -32,12 +33,7 @@ const Signup = () => {
   });
   const [inputType, setInputType] = useState("password");
   const [isLoading, setIsLoading] = useState(false);
-  // const dispatch = useDispatch();
-  // const addfree = useSelector((state:any) => state.freelancer.addfree);
-  // console.log(addfree);
-  // const [show, toogleShow] = useState(false);
-  // const [emailval, setemailval] = useState(false);
-  // const [allfieldval, setallfieldval] = useState(false);
+  const { isLoggedIn } = useAppSelector((state) => state.auth);
 
   const togglePasswordVisibility = () => {
     setInputType(inputType === "password" ? "text" : "password");
@@ -117,8 +113,6 @@ const Signup = () => {
     } finally {
       setIsLoading(false);
     }
-
-    // dispatch(AddNewFreelancerAction(formData));
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -128,40 +122,57 @@ const Signup = () => {
     });
   };
 
-  // const logins = useGoogleLogin({
-  //   onSuccess: async (response) => {
-  //     try {
-  //       const res = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo", {
-  //         headers: {
-  //           Authorization: `Bearer ${response.access_token}`,
-  //         },
-  //       });
+  const handleGoogleSignup = useGoogleLogin({
+    onSuccess: async (response) => {
+      try {
+        const res = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo", {
+          headers: {
+            Authorization: `Bearer ${response.access_token}`,
+          },
+        });
 
-  //       const payload = {
-  //         email: res.data.email,
-  //         type: "FREELANCER",
-  //       };
+        const payload = {
+          email: res.data.email,
+          first_Name: res.data.given_name,
+          last_Name: res.data.family_name,
+          type: "FREELANCER",
+        };
 
-  //       const registrationResponse = await axios.post(
-  //         "https://www.api.alanced.com/account/google-sign-up/",
-  //         payload
-  //       );
-  //       if (
-  //         registrationResponse.data &&
-  //         registrationResponse.data.status === 200 &&
-  //         registrationResponse.data.message === "Email already exists"
-  //       ) {
-  //         toast.error("This email already exists");
-  //       } else {
-  //         router.push("/");
-  //         toast.success(payload.type.toLowerCase() + " Registration Successful");
-  //       }
-  //     } catch (err) {
-  //       console.log(err);
-  //       toast.error("Something went wrong. Please try again.");
-  //     }
-  //   },
-  // });
+        if (pathname === "/signup/hirer") {
+          payload.type = "HIRER";
+        }
+
+        const registrationResponse = await axios.post(
+          "https://www.api.alanced.com/account/google-sign-up/",
+          payload
+        );
+
+        if (
+          registrationResponse.data &&
+          registrationResponse.data.status === 200 &&
+          registrationResponse.data.message === "Email already exists"
+        ) {
+          toast.error("This email already exists", { duration: 2000 });
+        } else {
+          router.push("/login");
+          toast.success(payload.type.toLowerCase() + " Registration Successful");
+        }
+      } catch (error) {
+        errorLog(error);
+        toast.error("Something went wrong. Please try again.");
+      }
+    },
+  });
+
+  const handleClickGoogleButton = () => {
+    handleGoogleSignup();
+  };
+
+  /** ---> If user already Logged in navigating to previous screen. */
+
+  if (isLoggedIn) {
+    return router.back();
+  }
 
   return (
     <>
@@ -319,7 +330,7 @@ const Signup = () => {
 
                 <button
                   className="focus:shadow-outline-blue font-jost flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2 text-center text-sm font-semibold leading-5 text-black transition-colors duration-150 focus:outline-none"
-                  // onClick={logins}
+                  onClick={handleClickGoogleButton}
                 >
                   <FcGoogle className="text-xl md:text-2xl" />
                   Sign Up with Google
