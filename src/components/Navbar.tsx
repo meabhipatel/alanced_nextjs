@@ -2,12 +2,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import logo from "@/assets/images/alanced.png";
 import navback from "@/assets/images/nav_background.png";
-// import { useDispatch, useSelector } from "react-redux";
-// import { LogoutAction } from "../../redux/Auth/AuthAction";
-// import axios from "axios";
-// import alancedlogo from "@/assets/images/alanced_transparent.png";
-
-// import { timeAgo } from "../../container/freelancer/TimeFunctions";
 import { FiMenu } from "react-icons/fi";
 import { MdAccountCircle, MdClose } from "react-icons/md";
 import { FaBell, FaChevronDown } from "react-icons/fa6";
@@ -17,26 +11,22 @@ import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { dontNeedMTScreens } from "./DynamicMarginTop";
 import { TbLogout } from "react-icons/tb";
-import { ELoginMethod, handleLogoutUserAction } from "@/store/features/auth/authSlice";
+import { handleLogoutUserAction } from "@/store/features/auth/authSlice";
 import cookies from "js-cookie";
 import { IoChevronDown } from "react-icons/io5";
 
 const Navbar = () => {
   const pathname = usePathname();
   const dispatch = useAppDispatch();
-  const { loginMethod, userType: loginType, isLoggedIn } = useAppSelector((state) => state.auth);
-
+  const { userType: loginType, isLoggedIn } = useAppSelector((state) => state.auth);
   const logindata = useAppSelector((state) => state.auth.userProfile);
-  const googleUserName = `localStorage.getItem("googleUserName")`;
-
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const dropdownRef = useRef(null);
   const notificationsDropdownRef = useRef(null);
   const [Findworkdropdown, setFindworkDropdown] = useState(false);
   const [MyJobsdropdown, setMyJobsDropdown] = useState(false);
   const [Reportsdropdown, setReportsDropdown] = useState(false);
-  const hirerImage = "hirereimage";
-  const [isScrolled, setIsScrolled] = useState(false); // eslint-disable-line
+  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   /** ---> Closing mobile menu bar and drop down on route change */
@@ -60,56 +50,12 @@ const Navbar = () => {
     };
   }, [isMobileMenuOpen]);
 
-  const freelanceImage = "freelancerImage";
-  var imagedata = useState(null); // eslint-disable-line
-  if (hirerImage !== null) {
-    // imagedata = hirerImage;
-  }
-  if (loginType === "FREELANCER") {
-    if (freelanceImage !== null) {
-      //   imagedata = freelanceImage[0];
-    }
-  }
-
-  let displayName;
-
-  if (loginMethod === ELoginMethod.GOOGLE) {
-    // displayName = googleUserName;
-    displayName =
-      logindata.first_Name && logindata.last_Name
-        ? logindata?.first_Name + " " + logindata?.last_Name
-        : googleUserName;
-  } else if (loginMethod === ELoginMethod.TRADITIONAL) {
-    displayName = logindata?.first_Name + " " + logindata?.last_Name;
-  }
-
-  // const handleClickOutside = (event: any) => {
-  //   // eslint-disable-next-line
-  //   if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-  //     // Clicked outside the dropdown, close it
-  //     setDropdownVisible(false);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   // Add event listener when the component mounts
-  //   document.addEventListener("mousedown", handleClickOutside);
-
-  //   // Clean up the event listener when the component unmounts
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, []);
-
-  // const isLoggedIn = Boolean(accessToken || googleUserName);
-
   const handleLogout = () => {
     /** ---> Clearing local storage */
     localStorage.removeItem("@userType");
     localStorage.removeItem("@userProfile");
     localStorage.removeItem("@accessToken");
     localStorage.removeItem("@loginMethod");
-    // localStorage.removeItem("googleUserName");
 
     /** ---> Clearing cookies */
     cookies.remove("token");
@@ -329,24 +275,6 @@ const Navbar = () => {
   }, []);
 
   return (
-    // <div
-    //   className={`fixed top-0 z-50 w-full max-w-[1536px] bg-cover ${
-    //     !dontNeedMTScreens.includes(router.pathname)
-    //       ? "bg-white"
-    //       : isScrolled
-    //         ? "bg-white"
-    //         : "bg-transparent"
-    //   } bg-top`}
-    //   style={{
-    //     backgroundImage: `url(${!dontNeedMTScreens.includes(router.pathname) ? navback : isScrolled ? navback : ""})`,
-    //   }}
-    //   onMouseLeave={(e) => {
-    //     setFindworkDropdown();
-    //     setMyJobsDropdown();
-    //     setReportsDropdown();
-    //   }}
-    // >
-
     <div
       className={`fixed top-0 z-50 w-full max-w-[1536px] bg-transparent bg-cover bg-top ${
         !dontNeedMTScreens.includes(pathname)
@@ -809,7 +737,7 @@ const Navbar = () => {
                       className="font-cardo flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-[#0909E9] to-[#00D4FF] p-1 text-xl font-bold text-white"
                       onClick={() => setDropdownVisible(!dropdownVisible)}
                     >
-                      {displayName && displayName[0].toUpperCase()}
+                      {logindata.first_Name.toUpperCase()}
                     </button>
                   )}
                   {dropdownVisible && (
@@ -830,11 +758,11 @@ const Navbar = () => {
                               className="font-cardo mx-auto my-5 flex h-20 w-20 cursor-pointer items-center justify-center rounded-full bg-gradient-to-r from-[#0909E9] to-[#00D4FF] p-1 text-4xl font-bold text-white"
                               onClick={() => setDropdownVisible(!dropdownVisible)}
                             >
-                              {displayName && displayName[0].toUpperCase()}
+                              {logindata.first_Name.toUpperCase()}
                             </button>
                           )}
-                          <h1 className="font-cardo px-2 text-center text-[19px] text-[#031136]">
-                            {displayName}
+                          <h1 className="font-cardo px-2 text-center text-[19px] capitalize text-[#031136]">
+                            {logindata.first_Name} {logindata.last_Name}
                           </h1>
                           <h1 className="font-cardo mb-3 text-center text-lg text-gray-500">
                             {loginType === "FREELANCER" ? loginType.toLowerCase() : "client"}
