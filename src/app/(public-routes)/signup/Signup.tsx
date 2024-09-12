@@ -11,7 +11,7 @@ import { errorLog } from "@/utils/errorLog";
 import { axiosIntance } from "@/utils/axiosIntance";
 import { IoEyeSharp } from "react-icons/io5";
 import { FaEyeSlash } from "react-icons/fa6";
-import { usePathname, useRouter } from "next/navigation";
+import { redirect, usePathname, useRouter } from "next/navigation";
 import axios, { AxiosError } from "axios";
 import { useAppSelector } from "@/store/hooks";
 
@@ -33,7 +33,7 @@ const Signup = () => {
   });
   const [inputType, setInputType] = useState("password");
   const [isLoading, setIsLoading] = useState(false);
-  const { isLoggedIn } = useAppSelector((state) => state.auth);
+  const { isLoggedIn, userType } = useAppSelector((state) => state.auth);
 
   const togglePasswordVisibility = () => {
     setInputType(inputType === "password" ? "text" : "password");
@@ -169,9 +169,12 @@ const Signup = () => {
   };
 
   /** ---> If user already Logged in navigating to previous screen. */
-
   if (isLoggedIn) {
-    return router.back();
+    if (userType === "FREELANCER") {
+      return redirect("/freelancer");
+    } else {
+      return redirect("/hirer");
+    }
   }
 
   return (
