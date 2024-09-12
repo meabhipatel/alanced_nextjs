@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { handleLoginAsync } from "./authApi";
+import { handleLoginAsync, handleLoginWithGoogleAsync } from "./authApi";
 import { IUserProfile } from "@/interfaces";
 import cookies from "js-cookie";
 
@@ -102,6 +102,29 @@ export const authSlice = createSlice({
       cookies.set("token", actions.payload.data.token.access);
     });
     builder.addCase(handleLoginAsync.rejected, (state, actions) => {
+      state.isloading = false;
+      const payload = actions.payload as { message: string };
+      state.error = payload.message;
+    });
+
+    /** ---> Cases for google login */
+    builder.addCase(handleLoginWithGoogleAsync.pending, (state) => {
+      state.isloading = true;
+    });
+    builder.addCase(handleLoginWithGoogleAsync.fulfilled, (state, actions) => {
+      state.isloading = false;
+      state.isLoggedIn = true;
+      state.loginMethod = ELoginMethod.GOOGLE;
+      const userType = actions.payload.data.type;
+      const userProfile = actions.payload.data.login_data as IUserProfile;
+      state.userType = userType;
+      state.userProfile = userProfile;
+      localStorage.setItem("@userType", userType);
+      localStorage.setItem("@userProfile", JSON.stringify(userProfile));
+      localStorage.setItem("@accessToken", actions.payload.data.token.access);
+      cookies.set("token", actions.payload.data.token.access);
+    });
+    builder.addCase(handleLoginWithGoogleAsync.rejected, (state, actions) => {
       state.isloading = false;
       const payload = actions.payload as { message: string };
       state.error = payload.message;
