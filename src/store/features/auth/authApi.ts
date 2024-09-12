@@ -21,3 +21,23 @@ export const handleLoginAsync = createAsyncThunk(
     }
   }
 );
+
+interface IGoogleLoginData {
+  email: string;
+  type: string;
+}
+
+export const handleLoginWithGoogleAsync = createAsyncThunk(
+  "auth/google-login",
+  async (data: IGoogleLoginData, { rejectWithValue }) => {
+    try {
+      const res = await axiosIntance.post("/account/google-login/", data);
+      return res.data;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        return rejectWithValue(error.response?.data);
+      }
+      throw error;
+    }
+  }
+);

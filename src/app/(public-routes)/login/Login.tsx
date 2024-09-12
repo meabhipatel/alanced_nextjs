@@ -8,10 +8,13 @@ import { FcGoogle } from "react-icons/fc";
 import { IoEyeSharp } from "react-icons/io5";
 import { FaEyeSlash } from "react-icons/fa6";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { handleLoginAsync } from "@/store/features/auth/authApi";
-import { useRouter } from "next/navigation";
+import { handleLoginAsync, handleLoginWithGoogleAsync } from "@/store/features/auth/authApi";
+import { redirect, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { EUserType } from "@/store/features/auth/authSlice";
+import { ELoginMethod, EUserType } from "@/store/features/auth/authSlice";
+import { useGoogleLogin } from "@react-oauth/google";
+import axios from "axios";
+import { errorLog } from "@/utils/errorLog";
 
 interface IAuthDetails {
   email: string;
@@ -21,10 +24,9 @@ interface IAuthDetails {
 const Login = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const isLoading = useAppSelector((state) => state.auth.isloading);
+  const { isloading, isLoggedIn, userType } = useAppSelector((state) => state.auth);
   const [authDetails, setAuthDetails] = useState<IAuthDetails>({ email: "", password: "" });
   const [inputType, setInputType] = useState("password");
-  const [rememberMe, setRememberMe] = useState(false); //eslint-disable-line
 
   const togglePasswordVisibility = () => {
     setInputType(inputType === "password" ? "text" : "password");
@@ -38,7 +40,7 @@ const Login = () => {
     if (!authDetails.email || !authDetails.password) {
       toast.error("Email and password Both fields are required");
     } else {
-      localStorage.setItem("@loginMethod", "TRADITIONAL");
+      localStorage.setItem("@loginMethod", ELoginMethod.TRADITIONAL);
       const res = await dispatch(handleLoginAsync(authDetails));
 
       if (res.meta.requestStatus === "fulfilled") {
@@ -53,6 +55,66 @@ const Login = () => {
       }
     }
   };
+
+  const checkEmailExists = async (email: string) => {
+    const response = await axios.post("https://www.api.alanced.com/account/check-email/", {
+      email,
+    });
+    return response.data;
+  };
+
+  const handleGoogleLogin = useGoogleLogin({
+    onSuccess: async (response) => {
+      try {
+        const googleProfile = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo", {
+          headers: {
+            Authorization: `Bearer ${response.access_token}`,
+          },
+        });
+
+        const emailCheckResponse = await checkEmailExists(googleProfile.data.email);
+
+        if (emailCheckResponse.exists) {
+          const payload = {
+            email: googleProfile.data.email,
+            type: emailCheckResponse.type,
+          };
+
+          localStorage.setItem("@loginMethod", ELoginMethod.GOOGLE);
+          const res = await dispatch(handleLoginWithGoogleAsync(payload));
+
+          if (res.meta.requestStatus === "fulfilled") {
+            const userType = res.payload.data.type;
+            if (userType === EUserType.FREELANCER) {
+              return router.push("/freelancer");
+            } else {
+              return router.push("/hirer");
+            }
+          } else {
+            toast.error(res.payload.message);
+          }
+        } else {
+          toast.error("You're not a Registered user, Please signup first.");
+        }
+      } catch (error) {
+        errorLog(error);
+        toast.error("Something went wrong. Please try again.");
+      }
+    },
+  });
+
+  const handleClickGoogleButton = () => {
+    handleGoogleLogin();
+  };
+
+  /** ---> If user already Logged in navigating to previous screen. */
+  if (isLoggedIn) {
+    if (userType === "FREELANCER") {
+      return redirect("/freelancer");
+    } else {
+      return redirect("/hirer");
+    }
+  }
 
   return (
     <div className="flex min-h-screen w-full items-center bg-gray-50 px-4 lg:px-0">
@@ -146,26 +208,18 @@ const Login = () => {
             </div>
           </div>
 
-          <div className="mb-6 flex items-center justify-between">
-            <label className="flex items-center text-sm">
-              <input
-                className="mr-2 leading-tight accent-blue-600"
-                type="checkbox"
-                onChange={(e) => setRememberMe(e.target.checked)}
-              />
-              <span>Remember me</span>
-            </label>
-            <Link href="/reset-password">
-              <span className="text-xs text-yellow-400">Forget Password</span>
+          <div className="mb-6 flex items-center justify-end">
+            <Link href="/forget-password">
+              <span className="text-xs font-semibold text-yellow-600">Forget Password</span>
             </Link>
           </div>
 
           <button
-            disabled={isLoading}
+            disabled={isloading}
             className="w-full rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-2 text-sm font-semibold text-white transition-colors duration-150 focus:outline-none"
             onClick={handleLogin}
           >
-            {isLoading ? (
+            {isloading ? (
               <div className="mx-auto h-5 w-5 animate-spin rounded-full border-2 border-transparent border-r-white border-t-white"></div>
             ) : (
               "Sign In"
@@ -180,7 +234,7 @@ const Login = () => {
 
           <button
             className="flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-semibold transition-colors duration-150"
-            onClick={() => {}}
+            onClick={handleClickGoogleButton}
           >
             <FcGoogle className="text-xl" />
             Sign In with Google
@@ -189,7 +243,7 @@ const Login = () => {
           <p className="pt-2 text-xs">
             Don&apos;t have an account?{" "}
             <Link href="/signup-options">
-              <span className="text-yellow-400">Create an account</span>
+              <span className="font-semibold text-yellow-600">Create an account</span>
             </Link>{" "}
             It takes less than a minute.
           </p>

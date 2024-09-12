@@ -41,7 +41,7 @@ function ResetPasswordPage() {
             />
           </div>
           <button className="w-full rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF] py-2 text-white transition-colors hover:from-[#00D4FF] hover:to-[#0909E9]">
-            Send Password Reset Email
+            Submit
           </button>
         </div>
       </div>
