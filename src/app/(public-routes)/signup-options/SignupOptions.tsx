@@ -6,10 +6,19 @@ import freelancer from "@/assets/images/freelancer.png";
 import logo from "@/assets/images/alanced.png";
 import Image from "next/image";
 import Link from "next/link";
+import { useAppSelector } from "@/store/hooks";
+import { useRouter } from "next/navigation";
 
 const SignupOptions = () => {
+  const router = useRouter();
   type OptionType = "client" | "freelancer";
   const [selectedOption, setSelectedOption] = useState<OptionType>("client");
+  const { isLoggedIn } = useAppSelector((state) => state.auth);
+
+  /** ---> If user already Logged in navigating to previous screen. */
+  if (isLoggedIn) {
+    return router.back();
+  }
 
   return (
     <div
