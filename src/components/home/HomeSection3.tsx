@@ -22,48 +22,51 @@ const HomeSection3 = () => {
   };
 
   return (
-    <div>
-      {/* "Why Over 3 Million People Choose Us" section */}
-      <div className="mt-10 bg-[#F6FAFD] pb-7">
-        <h1 className="pt-6 text-center text-xl font-semibold text-[#0A142F] md:text-[26px]">
-        Why Over 3 Million People Choose Us for Freelance Jobs Online
-        </h1>
-        <div className="mx-auto mt-3.5 w-1/4 border-b-2 border-gray-300 sm:w-1/6"></div>
-        <div className="mt-8 grid grid-cols-1 gap-4 px-4 text-center md:grid-cols-3 lg:px-32">
-          <div className="flex flex-col items-center p-4">
-            <Image src={credibilityIcon} alt="" className="mx-auto" />
-            <p className="opacity-50">01</p>
-            <h5 className="py-4 font-semibold text-[#0A142F]">Credibility</h5>
-            <p className="opacity-50">
-              We verify Freelancers, publish their feedback scores and All-Time Transaction Data to help you identify time-tested professionals across the globe.
-            </p>
-            <div className="mt-3 flex h-8 w-14 items-center justify-center rounded-md border border-black">
-              <BsArrowRight className="text-xl" />
-            </div>
-          </div>
-          <div className="flex flex-col items-center p-4">
-            <Image src={flexibilityIcon} alt="" className="mx-auto" />
-            <p className="opacity-50">02</p>
-            <h5 className="py-4 font-semibold text-[#0A142F]">Flexibility</h5>
-            <p className="opacity-50">
-              We provide multiple Payment terms and flexible Agreements to enable you to work the way you want.
-            </p>
-            <div className="mt-3 flex h-8 w-14 items-center justify-center rounded-md border border-black">
-              <BsArrowRight className="text-xl" />
-            </div>
-          </div>
-          <div className="flex flex-col items-center p-4">
-            <Image src={valueIcon} alt="" className="mx-auto" />
-            <p className="opacity-50">03</p>
-            <h5 className="py-4 font-semibold text-[#0A142F]">Value</h5>
-            <p className="opacity-50">
-              We have the lowest fees in the industry, providing you with maximum value at minimum cost.
-            </p>
-            <div className="mt-3 flex h-8 w-14 items-center justify-center rounded-md border border-black">
-              <BsArrowRight className="text-xl" />
-            </div>
-          </div>
+<div>
+  {/* "Why Over 3 Million People Choose Us" section */}
+  <div className="mt-10 bg-[#F6FAFD] pb-7">
+    <h1 className="pt-6 text-center text-xl font-semibold text-[#0A142F] sm:text-2xl md:text-[26px]">
+      Why Over 3 Million People Choose Us for Freelance Jobs Online
+    </h1>
+    <div className="mx-auto mt-3.5 w-2/4 border-b-2 border-gray-300 sm:w-1/4 md:w-1/6"></div>
+    <div className="mt-8 grid grid-cols-1 gap-6 px-6 text-center sm:grid-cols-2 md:grid-cols-3 lg:px-32">
+      {/* Credibility Card */}
+      <div className="flex flex-col items-center p-4 h-full">
+        <Image src={credibilityIcon} alt="" className="mx-auto w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24" />
+        <h5 className="py-4 text-lg font-semibold text-[#0A142F] sm:text-xl md:text-2xl">Credibility</h5>
+        <p className="opacity-50 text-sm sm:text-base md:text-lg">
+          We verify Freelancers, publish their feedback scores and All-Time Transaction Data to help you identify time-tested professionals across the globe.
+        </p>
+        <div className="lg:mt-4 mt-4 flex h-8 w-14 items-center justify-center rounded-md border border-black">
+          <BsArrowRight className="text-xl" />
         </div>
+      </div>
+
+      {/* Flexibility Card */}
+      <div className="flex flex-col items-center p-4 h-full">
+        <Image src={flexibilityIcon} alt="" className="mx-auto w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24" />
+        <h5 className="py-4 text-lg font-semibold text-[#0A142F] sm:text-xl md:text-2xl">Flexibility</h5>
+        <p className="opacity-50 text-sm sm:text-base md:text-lg">
+          We provide multiple Payment terms and flexible Agreements to enable you to work the way you want.
+        </p>
+        <div className="lg:mt-auto mt-4 flex h-8 w-14 items-center justify-center rounded-md border border-black">
+          <BsArrowRight className="text-xl" />
+        </div>
+      </div>
+
+      {/* Value Card */}
+      <div className="flex flex-col items-center p-4 h-full">
+        <Image src={valueIcon} alt="" className="mx-auto w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24" />
+        <h5 className="py-4 text-lg font-semibold text-[#0A142F] sm:text-xl md:text-2xl">Value</h5>
+        <p className="opacity-50 text-sm sm:text-base md:text-lg">
+          We have the lowest fees in the industry, providing you with maximum value at minimum cost.
+        </p>
+        <div className="lg:mt-auto mt-4 flex h-8 w-14 items-center justify-center rounded-md border border-black">
+          <BsArrowRight className="text-xl" />
+        </div>
+      </div>
+    </div>
+
         <div className="mt-5 text-center">
           <Link href="/why-alanced">
             <span className="rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-[10px] text-sm font-semibold text-white">

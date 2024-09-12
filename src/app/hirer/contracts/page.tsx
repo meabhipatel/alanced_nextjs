@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Image from 'next/image'; 
 import AddReviewPopup from '@/components/pop-up'; 
-import { formatDateInput } from '@/components/time-functions';
+import { formatDateInput } from '@/utils/timeFunction';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'; 
 import { IoIosSearch } from "react-icons/io";
 import contractimg from '@/assets/images/Frame.png'; 
