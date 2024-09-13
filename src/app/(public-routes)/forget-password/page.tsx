@@ -8,9 +8,11 @@ import toast from "react-hot-toast";
 import { errorLog } from "@/utils/errorLog";
 import { axiosIntance } from "@/utils/axiosIntance";
 import { AxiosError } from "axios";
+import Loader from "@/components/Loader";
 
 function ForgetPassword() {
   const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleForgetPassword = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -18,6 +20,7 @@ function ForgetPassword() {
       toast.error("Email is Required");
       return;
     }
+    setIsLoading(true);
 
     const formData = new FormData();
     formData.append("email", email);
@@ -25,12 +28,14 @@ function ForgetPassword() {
     try {
       const res = await axiosIntance.post("/account/forgot-password", formData);
 
-      toast.success(res.data.message);
+      toast.success(res.data.message, { duration: 3000 });
     } catch (error) {
       if (error instanceof AxiosError) {
         toast.error(error.response?.data.message);
       }
       errorLog(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -75,9 +80,9 @@ function ForgetPassword() {
           </div>
           <button
             type="submit"
-            className="w-full rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF] py-2 text-white transition-colors hover:from-[#00D4FF] hover:to-[#0909E9]"
+            className="flex h-10 w-full items-center justify-center rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF] text-white transition-colors hover:from-[#00D4FF] hover:to-[#0909E9]"
           >
-            Submit
+            {isLoading ? <Loader /> : "Submit"}
           </button>
         </form>
       </div>
