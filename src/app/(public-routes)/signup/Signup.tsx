@@ -142,10 +142,7 @@ const Signup = () => {
           payload.type = "HIRER";
         }
 
-        const registrationResponse = await axios.post(
-          "https://www.api.alanced.com/account/google-sign-up/",
-          payload
-        );
+        const registrationResponse = await axiosIntance.post("/account/google-sign-up/", payload);
 
         if (
           registrationResponse.data &&
