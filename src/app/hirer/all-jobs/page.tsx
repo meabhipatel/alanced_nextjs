@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { IoIosSearch } from 'react-icons/io';
 import axios from 'axios';
-import { useRouter } from 'next/navigation'; // Ensure you're importing from 'next/navigation'
+import { useRouter } from 'next/navigation'; 
 
 interface Project {
   title: string;
