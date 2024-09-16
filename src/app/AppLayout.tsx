@@ -18,23 +18,23 @@ const AppLayout: FC<IProps> = ({ children }) => {
     "/signup/freelancer",
     "/signup/hirer",
     "/signup-options",
-    "/reset-password",
     "/forget-password",
   ];
 
   return (
     <div className="mx-auto max-w-[1536px] bg-white">
-      {!withoutNavbarScreens.includes(pathname) && (
-        <>
-          <Navbar />
-          <DynamicMarginTop />
-        </>
-      )}
+      {!withoutNavbarScreens.includes(pathname) &&
+        !pathname.startsWith("/reset-user-password/") && (
+          <>
+            <Navbar />
+            <DynamicMarginTop />
+          </>
+        )}
 
       {children}
-      {!withoutNavbarScreens.includes(pathname) && pathname !== "/freelancer/messages" && (
-        <Footer />
-      )}
+      {!withoutNavbarScreens.includes(pathname) &&
+        pathname !== "/freelancer/messages" &&
+        !pathname.startsWith("/reset-user-password/") && <Footer />}
       <Toaster toastOptions={{ duration: 2000 }} />
     </div>
   );
