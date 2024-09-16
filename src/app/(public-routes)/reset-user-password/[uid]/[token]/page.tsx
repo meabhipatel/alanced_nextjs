@@ -2,107 +2,50 @@
 import React, { FC, useState } from "react";
 import logo from "@/assets/images/alanced.png";
 import chooseoption from "@/assets/images/chooseoption.png";
-// import { Link, useNavigate, useParams } from "react-router-dom";
 import Link from "next/link";
-// import { useRouter } from "next/router";
 import Image from "next/image";
-
-// import { useDispatch, useSelector } from "react-redux";
-// import { ResetPasswordAction } from "../../redux/User/UserAction";
 import toast from "react-hot-toast";
 import { errorLog } from "@/utils/errorLog";
-import axios, { AxiosError } from "axios";
-// import { errorLog } from "@/utils/errorLog";
+import { AxiosError } from "axios";
+import { axiosIntance } from "@/utils/axiosIntance";
+import Loader from "@/components/Loader";
+import { useRouter } from "next/navigation";
 
 interface IProps {
   params: { uid: string; token: string };
 }
 
 const ResetPassword: FC<IProps> = ({ params: { uid, token } }) => {
-  // const router = useRouter();
-  //   const { uid, token } = useParams();
-  // const { uid, token } = router.query;
-  // errorLog(uid);
-  // errorLog(token);
-  // console.log(uid, token);
+  const router = useRouter();
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const initialUserState = {
-    password: "",
-    password2: "",
-  };
-
-  const [resetuserpass, setResetUserPass] = useState(initialUserState);
-  //   const dispatch = useDispatch();
-  //   const navigate = useNavigate();
-
-  //   const resetpass = useSelector((state) => state.user.resetpass);
-  //   const [show, toogleShow] = useState(false);
-
-  const [showPassword1, setShowPassword1] = useState(false);
-  const [showPassword2, setShowPassword2] = useState(false);
-
-  const togglePasswordVisibility1 = () => {
-    setShowPassword1(!showPassword1);
-  };
-
-  const togglePasswordVisibility2 = () => {
-    setShowPassword2(!showPassword2);
-  };
-
-  //   useEffect(() => {
-  //     if (resetpass) {
-  //       setResetUserPass(initialUserState);
-  //     }
-  //   }, [resetpass]);
-
-  //   const Loader = () =>{
-  //     if(resetpass==false || resetpass == true){
-  //         toogleShow(false)
-  //         navigate('/login')
-  //     }
-  //     return(
-  //         <>
-  //         <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-white mx-auto"></div>
-  //         </>
-  //     )
-  // }
-
-  const ResetUserPassword = async () => {
-    if (!resetuserpass.password || !resetuserpass.password2) {
+  const handleResetPassword = async () => {
+    if (!newPassword || !confirmPassword) {
       toast.error("Both Fields are Required");
       return;
+    } else if (newPassword !== confirmPassword) {
+      return toast.error("Password must match.");
     }
+    setIsLoading(true);
 
-    const formData = new URLSearchParams();
-    formData.append("password", resetuserpass.password);
-    formData.append("password2", resetuserpass.password2);
-
-    // dispatch(ResetPasswordAction(uid, token, formData));
+    const formData = new FormData();
+    formData.append("password", newPassword);
+    formData.append("password2", confirmPassword);
     try {
-      // Make API request to reset the password
-      const response = await axios.post(
-        `http://localhost:8000/account/password/reset/${uid}/${token}/`,
-        formData
-      );
-
-      // Handle success response
+      await axiosIntance.post(`/account/password/reset/${uid}/${token}`, formData);
       toast.success("Password has been reset successfully!");
-      errorLog(response.data);
+      router.replace("/login");
     } catch (error) {
-      // Handle error response
-      toast.error("Failed to reset password");
       if (error instanceof AxiosError) {
+        toast.error(error.response?.data.message);
         errorLog(error.response?.data || error.message);
       }
+    } finally {
+      setIsLoading(false);
     }
-    // toogleShow(true)
-  };
-
-  const onChange = (e: { target: { name: string; value: string } }) => {
-    setResetUserPass({
-      ...resetuserpass,
-      [e.target.name]: e.target.value,
-    });
   };
 
   return (
@@ -132,7 +75,7 @@ const ResetPassword: FC<IProps> = ({ params: { uid, token } }) => {
           </span>
         </div>
       </Link>
-      <div className="h-[460px] w-[350px] max-w-2xl border border-blue-300 bg-white p-10 pt-7 shadow-lg lg:h-[340px] lg:w-[550px]">
+      <div className="w-[350px] max-w-2xl border border-blue-300 bg-white p-10 pt-7 shadow-lg lg:w-[550px]">
         <h3 className="font-cardo mb-8 text-center text-xl">Reset Your Password</h3>
         <div className="text-left">
           <label
@@ -145,21 +88,15 @@ const ResetPassword: FC<IProps> = ({ params: { uid, token } }) => {
         <div className="relative">
           <input
             id="new-password"
-            type={showPassword1 ? "text" : "password"}
+            name="new-password"
+            type={showPassword ? "text" : "password"}
             className="mb-5 mt-2 w-full rounded-md border px-2 py-1.5 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
             placeholder="•••••••••••"
-            name="password"
-            onChange={onChange}
-            value={resetuserpass.password}
+            onChange={(e) => setNewPassword(e.target.value)}
+            value={newPassword}
           />
-          <button
-            onClick={togglePasswordVisibility1}
-            className="absolute inset-y-0 right-0 mb-2.5 flex cursor-pointer items-center pr-3"
-          >
-            <i className={`fa ${showPassword1 ? "fa-eye" : "fa-eye-slash"} text-blue-600`}></i>
-          </button>
         </div>
-        {/* <input type="password" className='border mt-2 mb-5 py-1.5 px-2 rounded-md w-full focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600' placeholder='•••••••••••' name='password' onChange={onChange} value={resetuserpass.password}/> */}
+
         <div className="text-left">
           <label
             htmlFor="confirm-password"
@@ -171,26 +108,35 @@ const ResetPassword: FC<IProps> = ({ params: { uid, token } }) => {
         <div className="relative">
           <input
             id="confirm-password"
-            type={showPassword2 ? "text" : "password"}
-            className="mb-5 mt-2 w-full rounded-md border px-2 py-1.5 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+            name="confirm-password"
+            type={showPassword ? "text" : "password"}
+            className="mb-4 mt-2 w-full rounded-md border px-2 py-1.5 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
             placeholder="•••••••••••"
-            name="password2"
-            onChange={onChange}
-            value={resetuserpass.password2}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            value={confirmPassword}
           />
-          <button
-            onClick={togglePasswordVisibility2}
-            className="absolute inset-y-0 right-0 mb-1 flex cursor-pointer items-center pr-3"
-          >
-            <i className={`fa ${showPassword2 ? "fa-eye" : "fa-eye-slash"} text-blue-600`}></i>
-          </button>
         </div>
-        {/* <input type="password" className='border mt-2 mb-5 py-1.5 px-2 rounded-md w-full focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600' placeholder='•••••••••••' name='password2' onChange={onChange} value={resetuserpass.password2}/> */}
+        <div className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            name="show-password"
+            id="show-password"
+            onChange={(e) => setShowPassword(e.target.checked)}
+            checked={showPassword}
+          />
+          <label
+            htmlFor="show-password"
+            className="select-none text-xs"
+          >
+            Show Password
+          </label>
+        </div>
+
         <button
-          onClick={ResetUserPassword}
-          className="focus:shadow-outline-blue mt-2 block w-full rounded-md border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-2 text-center text-sm font-semibold leading-5 text-white transition-colors duration-150 focus:outline-none"
+          onClick={handleResetPassword}
+          className="focus:shadow-outline-blue mt-4 block w-full rounded-md border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-2 text-center text-sm font-semibold leading-5 text-white transition-colors duration-150 focus:outline-none"
         >
-          Reset Password
+          {isLoading ? <Loader /> : "Reset Password"}
         </button>
       </div>
     </div>
