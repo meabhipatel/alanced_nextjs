@@ -10,7 +10,7 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 import { FiFileText } from "react-icons/fi";
 import Pagination from "@/components/Pagination";
 
-interface IProject {
+export interface IProject {
   id: number;
   title: string;
   description: string;
@@ -326,7 +326,7 @@ const SearchJob: FC<IProps> = async ({ searchParams }) => {
                       </h1>
                       <p className="mt-1 text-right text-sm text-[#797979]">{project.rate} Rate</p>
                       <div className="">
-                        <Link href={`/view-project/details`}>
+                        <Link href={`/view-project/details/${project.id}`}>
                           <button className="h-12 w-36 rounded bg-gradient-to-r from-[#0909E9] to-[#00D4FF] text-sm font-bold text-white">
                             View Detail
                           </button>
