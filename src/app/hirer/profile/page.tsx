@@ -212,82 +212,83 @@ const HirerProfile = () => {
                     <p className="font-cardo pt-2 text-left text-[17px] font-normal text-[#031136]">
                       Show Clients The Best Version Of Yourself!
                     </p>
-                    <div className="mb-2 mt-4 flex items-center justify-between">
-                      <div className="relative h-[200px] w-[200px] overflow-hidden">
-                        {selectedFile ? (
-                          <Image
-                            className="absolute inset-0 h-full w-full object-cover"
-                            src={URL.createObjectURL(selectedFile)}
-                            alt="Profile"
-                          />
-                        ) : (
-                          <Image
-                            className="absolute inset-0 h-full w-full object-cover"
-                            src={`https://www.api.alanced.com/${hirerSelfProfile.images_logo}`}
-                            alt="Profile"
-                            width={200}
-                            height={200}
-                          />
-                        )}
-                      </div>
-                      <div className="relative h-28 w-28 overflow-hidden">
-                        {selectedFile ? (
-                          <Image
-                            className="absolute inset-0 h-full w-full object-cover"
-                            src={URL.createObjectURL(selectedFile)}
-                            alt="Profile"
-                          />
-                        ) : (
-                          <Image
-                            className="absolute inset-0 h-full w-full object-cover"
-                            src={`https://www.api.alanced.com/${hirerSelfProfile.images_logo}`}
-                            alt="Profile"
-                            width={112}
-                            height={112}
-                          />
-                        )}
-                      </div>
-                      <div className="relative h-20 w-20 overflow-hidden">
-                        {selectedFile ? (
-                          <Image
-                            className="absolute inset-0 h-full w-full object-cover"
-                            src={URL.createObjectURL(selectedFile)}
-                            alt="Profile"
-                          />
-                        ) : (
-                          <Image
-                            className="absolute inset-0 h-full w-full object-cover"
-                            src={`https://www.api.alanced.com/${hirerSelfProfile.images_logo}`}
-                            alt="Profile"
-                            width={80}
-                            height={80}
-                          />
-                        )}
-                      </div>
-                      <div className="relative h-16 w-16 overflow-hidden">
-                        {selectedFile ? (
-                          <Image
-                            className="absolute inset-0 h-full w-full object-cover"
-                            src={URL.createObjectURL(selectedFile)}
-                            alt="Profile"
-                          />
-                        ) : (
-                          <Image
-                            className="absolute inset-0 h-full w-full object-cover"
-                            src={`https://www.api.alanced.com/${hirerSelfProfile.images_logo}`}
-                            alt="Profile"
-                            width={64}
-                            height={64}
-                          />
-                        )}
-                      </div>
-                      <input
-                        type="file"
-                        ref={inputRef}
-                        style={{ display: "none" }}
-                        onChange={handleFileChange}
-                        accept="image/*"
-                      />
+                    <div className="mb-2 mt-4 flex flex-wrap gap-4 items-center justify-center md:justify-between">
+  <div className="relative h-40 w-40 md:h-[200px] md:w-[200px] overflow-hidden">
+    {selectedFile ? (
+      <Image
+        className="absolute inset-0 h-full w-full object-cover"
+        src={URL.createObjectURL(selectedFile)}
+        alt="Profile"
+      />
+    ) : (
+      <Image
+        className="absolute inset-0 h-full w-full object-cover"
+        src={`https://www.api.alanced.com/${hirerSelfProfile.images_logo}`}
+        alt="Profile"
+        width={200}
+        height={200}
+      />
+    )}
+  </div>
+  <div className="relative h-20 w-20 sm:h-24 sm:w-24 md:h-28 md:w-28 overflow-hidden">
+    {selectedFile ? (
+      <Image
+        className="absolute inset-0 h-full w-full object-cover"
+        src={URL.createObjectURL(selectedFile)}
+        alt="Profile"
+      />
+    ) : (
+      <Image
+        className="absolute inset-0 h-full w-full object-cover"
+        src={`https://www.api.alanced.com/${hirerSelfProfile.images_logo}`}
+        alt="Profile"
+        width={112}
+        height={112}
+      />
+    )}
+  </div>
+  <div className="relative h-16 w-16 sm:h-20 sm:w-20 md:h-24 md:w-24 overflow-hidden">
+    {selectedFile ? (
+      <Image
+        className="absolute inset-0 h-full w-full object-cover"
+        src={URL.createObjectURL(selectedFile)}
+        alt="Profile"
+      />
+    ) : (
+      <Image
+        className="absolute inset-0 h-full w-full object-cover"
+        src={`https://www.api.alanced.com/${hirerSelfProfile.images_logo}`}
+        alt="Profile"
+        width={80}
+        height={80}
+      />
+    )}
+  </div>
+  <div className="relative h-12 w-12 sm:h-16 sm:w-16 md:h-20 md:w-20 overflow-hidden">
+    {selectedFile ? (
+      <Image
+        className="absolute inset-0 h-full w-full object-cover"
+        src={URL.createObjectURL(selectedFile)}
+        alt="Profile"
+      />
+    ) : (
+      <Image
+        className="absolute inset-0 h-full w-full object-cover"
+        src={`https://www.api.alanced.com/${hirerSelfProfile.images_logo}`}
+        alt="Profile"
+        width={64}
+        height={64}
+      />
+    )}
+  </div>
+  <input
+    type="file"
+    ref={inputRef}
+    style={{ display: "none" }}
+    onChange={handleFileChange}
+    accept="image/*"
+  />
+
                     </div>
                     <p className="font-cardo pt-2 text-left text-[17px] font-normal text-[#031136]">
                       Must Be An Actual Photo Of You.

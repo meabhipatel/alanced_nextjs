@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import logoTransparent from "@/assets/images/alanced_transparent.png";
+import logoTransparent from "@/assets/images/alanced.png";
 import { FaFacebookF, FaLinkedinIn } from "react-icons/fa6";
 import { BsTwitterX } from "react-icons/bs";
 import FooterSubscribeBox from "./FooterSubscribeBox";

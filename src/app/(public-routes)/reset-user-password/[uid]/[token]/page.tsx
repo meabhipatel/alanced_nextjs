@@ -50,94 +50,73 @@ const ResetPassword: FC<IProps> = ({ params: { uid, token } }) => {
 
   return (
     <div
-      className="relative flex h-screen items-center justify-center"
+      className="relative flex h-screen bg-cover bg-center px-5"
       style={{
         backgroundImage: `url(${chooseoption.src})`,
-        backgroundSize: "850px 550px",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
       }}
     >
-      <Link
-        href="/"
-        onClick={() => {
-          window.scrollTo(0, 0);
-        }}
-      >
-        <div className="absolute left-1/2 top-[50px] flex -translate-x-1/2 transform items-center space-x-2 bg-[#E2F9EE] p-3 sm:left-1/4 md:left-[331.2px] lg:rounded-bl-none lg:rounded-br lg:rounded-tl-none lg:rounded-tr lg:bg-white">
-          <Image
-            src={logo}
-            alt="Logo"
-            className="h-5 w-5 md:h-6 md:w-6"
-          />
-          <span className="font-poppins ml-2 text-[15px] font-semibold tracking-widest text-[#031136] md:text-[16px]">
-            ALANCED
-          </span>
-        </div>
+      <Link href="/" className="absolute left-7 top-7 flex items-center md:left-9 md:top-9">
+        <Image src={logo} alt="Logo" width={50} height={50} />
+        <span className="font-poppins ml-2 text-[20px] font-semibold tracking-widest text-[#031136] md:text-[23px]">
+          ALANCED
+        </span>
       </Link>
-      <div className="w-[350px] max-w-2xl border border-blue-300 bg-white p-10 pt-7 shadow-lg lg:w-[550px]">
-        <h3 className="font-cardo mb-8 text-center text-xl">Reset Your Password</h3>
-        <div className="text-left">
-          <label
-            htmlFor="new-password"
-            className="font-cardo text-sm"
-          >
-            New Password <span className="text-red-500">*</span>
-          </label>
-        </div>
-        <div className="relative">
-          <input
-            id="new-password"
-            name="new-password"
-            type={showPassword ? "text" : "password"}
-            className="mb-5 mt-2 w-full rounded-md border px-2 py-1.5 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
-            placeholder="•••••••••••"
-            onChange={(e) => setNewPassword(e.target.value)}
-            value={newPassword}
-          />
-        </div>
+      <div className="flex h-full w-full items-center justify-center">
+        <div className="mx-auto w-full max-w-md border border-blue-300 bg-white p-6 shadow-lg md:max-w-xl md:p-8">
+          <h3 className="mb-4 text-center text-xl md:text-2xl">Reset Your Password</h3>
+          <p className="mb-6 text-start text-gray-700">
+            Enter your new password and confirm it to reset.
+          </p>
+          <div className="text-left">
+            <label htmlFor="new-password" className="font-cardo text-sm">
+              New Password <span className="text-red-500">*</span>
+            </label>
+            <input
+              id="new-password"
+              name="new-password"
+              type={showPassword ? "text" : "password"}
+              className="mb-5 mt-2 w-full rounded-md border px-2 py-1.5 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+              placeholder="•••••••••••"
+              onChange={(e) => setNewPassword(e.target.value)}
+              value={newPassword}
+            />
+          </div>
 
-        <div className="text-left">
-          <label
-            htmlFor="confirm-password"
-            className="font-cardo text-sm"
-          >
-            Confirm New Password <span className="text-red-500">*</span>
-          </label>
-        </div>
-        <div className="relative">
-          <input
-            id="confirm-password"
-            name="confirm-password"
-            type={showPassword ? "text" : "password"}
-            className="mb-4 mt-2 w-full rounded-md border px-2 py-1.5 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
-            placeholder="•••••••••••"
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            value={confirmPassword}
-          />
-        </div>
-        <div className="flex items-center gap-2">
-          <input
-            type="checkbox"
-            name="show-password"
-            id="show-password"
-            onChange={(e) => setShowPassword(e.target.checked)}
-            checked={showPassword}
-          />
-          <label
-            htmlFor="show-password"
-            className="select-none text-xs"
-          >
-            Show Password
-          </label>
-        </div>
+          <div className="text-left">
+            <label htmlFor="confirm-password" className="font-cardo text-sm">
+              Confirm New Password <span className="text-red-500">*</span>
+            </label>
+            <input
+              id="confirm-password"
+              name="confirm-password"
+              type={showPassword ? "text" : "password"}
+              className="mb-4 mt-2 w-full rounded-md border px-2 py-1.5 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+              placeholder="•••••••••••"
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              value={confirmPassword}
+            />
+          </div>
 
-        <button
-          onClick={handleResetPassword}
-          className="focus:shadow-outline-blue mt-4 block w-full rounded-md border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-2 text-center text-sm font-semibold leading-5 text-white transition-colors duration-150 focus:outline-none"
-        >
-          {isLoading ? <Loader /> : "Reset Password"}
-        </button>
+          <div className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              name="show-password"
+              id="show-password"
+              onChange={(e) => setShowPassword(e.target.checked)}
+              checked={showPassword}
+            />
+            <label htmlFor="show-password" className="select-none text-xs">
+              Show Password
+            </label>
+          </div>
+
+          <button
+            onClick={handleResetPassword}
+            className="focus:shadow-outline-blue mt-4 block w-full rounded-md bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-2 text-center text-sm font-semibold leading-5 text-white transition-colors duration-150 focus:outline-none hover:from-[#00D4FF] hover:to-[#0909E9]"
+          >
+            {isLoading ? <Loader /> : "Reset Password"}
+          </button>
+        </div>
       </div>
     </div>
   );
