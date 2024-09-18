@@ -474,7 +474,6 @@ const FreelancerAfterLogin = () => {
           {/* {viewallprojects != null ?  */}
           <div className="w-full border border-gray-200 border-opacity-30 bg-[#FFFFFF] py-8 pt-3 text-left md:w-[70%]">
             <div className="border-b border-gray-200 border-opacity-30 px-4 pt-4 md:px-8">
-              {/* <h1 className=" text-[21px] text-[#031136] font-normal mr-1">Jobs You Might Like</h1> */}
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
                   <h1 className="mr-1 text-[21px] font-normal text-[#031136]">
@@ -514,7 +513,7 @@ const FreelancerAfterLogin = () => {
                         expandedProjects[index] || words.length <= 50 ? words : words.slice(0, 50);
                       return (
                         <>
-                          <Link href="/view-project/details">
+                          <Link href={`/view-project/details/${project.id}`}>
                             <div className="cursor-pointer border-b border-t border-gray-200 border-opacity-30 px-4 py-5 hover:bg-[#F6FAFD] md:px-8">
                               <div className="flex items-center justify-between">
                                 <p className="text-[18px] font-semibold text-[#0A142F]">
