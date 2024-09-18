@@ -4,9 +4,6 @@ import search from "@/assets/icons/SearchOutlined.png";
 import ladder from "@/assets/images/ladder.png";
 import bag from "@/assets/images/bag.png";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-// import ViewProjectPopup from "./AllPopup/ViewProjectPopup";
-// import { GetViewAllProjectsListAction } from "../../redux/Freelancer/FreelancerAction";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { timeAgo } from "@/utils/timeFunction";
@@ -15,12 +12,12 @@ import hero2Image from "@/assets/images/hero2.png";
 import Image from "next/image";
 import { RxArrowRight, RxArrowLeft } from "react-icons/rx";
 import { errorLog } from "@/utils/errorLog";
-// import { RiVerifiedBadgeFill } from "react-icons/ri";
 import { IoLocationOutline } from "react-icons/io5";
 import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io";
 import { BsCoin, BsSendCheck } from "react-icons/bs";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
+import { useAppSelector } from "@/store/hooks";
+import { axiosIntance } from "@/utils/axiosIntance";
+import { axiosWithAuth } from "@/utils/axiosWithAuth";
 
 interface IFreelanceProject {
   id: number;
@@ -59,84 +56,35 @@ interface Bids {
 }
 
 const FreelancerAfterLogin = () => {
-  const logindata = useSelector((state: RootState) => state.auth.userProfile);
-
-  const googleUserName = localStorage.getItem("googleUserName");
-  const loginMethod = localStorage.getItem("loginMethod");
-  // const viewallprojects = useSelector((state: any) => state.freelancer.viewallprojects);
-  // const viewallprojects: any[] = [];
-  //   const accessToken = useSelector(state => state.login.accessToken);
-  //   const accessToken = useSelector((state) => state.login.accessToken) || localStorage.getItem("jwtToken");
-  const accessToken = localStorage.getItem("@accessToken");
-  //   const [searchTerm, setSearchTerm] = useState("");
-  const [searchTerm] = useState("");
-  //   const dispatch = useDispatch();
-  const router = useRouter();
+  const { userProfile } = useAppSelector((state) => state.auth);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
-
-  //   React.useEffect(() => {
-  //     dispatch(GetViewAllProjectsListAction())
-  //   }, [])
-
-  let displayName;
-
-  if (loginMethod === "google") {
-    //   displayName = googleUserName;
-    displayName =
-      logindata.first_Name && logindata.last_Name
-        ? logindata?.first_Name + " " + logindata?.last_Name
-        : googleUserName;
-  } else if (loginMethod === "traditional") {
-    displayName = logindata?.first_Name + " " + logindata?.last_Name;
-  }
-
-  // const filteredProjects = viewallprojects
-  //   ? viewallprojects.filter((project:IFreelanceProject) => project.category === logindata?.category)
-  //   : [];
-
-  const filteredProjects: any[] = []; // eslint-disable-line
-
-  // eslint-disable-next-line
-  const searchFilteredProjects = filteredProjects.filter((project: any) => {
-    const skills = JSON.parse(project.skills_required.replace(/'/g, '"'));
-    return (
-      skills.some((skill: string) => skill.toLowerCase().includes(searchTerm.toLowerCase())) ||
-      project.category.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  });
-
-  const projectsToDisplay = searchFilteredProjects.length > 0 ? searchFilteredProjects : [];
   const [expandedProjects, setExpandedProjects] = useState<boolean[]>([]);
-
   const [viewProject, setViewProject] = useState<IFreelanceProject[]>([]);
-  //   const userCategory = logindata?.category
 
+  /** ---> Fetching projects data on load. */
   useEffect(() => {
+    handleFetchAllProject();
+  }, [searchQuery, currentPage]);
+
+  const handleFetchAllProject = async () => {
     const queryParameters = [];
 
     if (searchQuery) {
       queryParameters.push(`search_query=${searchQuery}`);
     }
-
     queryParameters.push(`page=${currentPage}`);
-
     const queryString = queryParameters.join("&");
 
-    axios
-      .get(`https://www.api.alanced.com/freelance/view-all/Project/?${queryString}`)
-      .then((response) => {
-        setViewProject(response.data.results);
-        setTotalPages(Math.ceil(response.data.count / 8));
-        // const projectsMatchingCategory = response.data.results.filter(project => project.category === userCategory);
-        // setViewProject(projectsMatchingCategory);
-        // setTotalPages(Math.ceil(projectsMatchingCategory.length / 8));
-      })
-      .catch((error) => {
-        errorLog(error);
-      });
-  }, [searchQuery, currentPage]);
+    try {
+      const res = await axiosIntance.get(`/freelance/view-all/Project/?${queryString}`);
+      setViewProject(res.data.results);
+      setTotalPages(Math.ceil(res.data.count / 8));
+    } catch (error) {
+      errorLog(error);
+    }
+  };
 
   const handleToggleDescription = (index: number) => {
     const updatedState = [...expandedProjects];
@@ -206,119 +154,31 @@ const FreelancerAfterLogin = () => {
   }
 
   const { day, formattedDate, greeting } = getCurrentDateAndGreeting();
-  // const { day, formattedDate } = getCurrentDateAndGreeting();
 
   const [AllProposals, setAllProposals] = useState<IBid[]>([]);
 
-  //   console.log("All Proposal --------------- >", AllProposals);
-
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
       try {
-        const response1 = await axios.get(
-          "https://www.api.alanced.com/freelance/view/freelancer-all-self/bid",
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          }
-        );
-        setAllProposals(response1.data.data);
+        const res = await axiosWithAuth.get("/freelance/view/freelancer-all-self/bid");
+        setAllProposals(res.data.data);
       } catch (error) {
         errorLog(error);
       }
     };
 
     fetchData();
-  }, [accessToken]);
-  //   console.log("/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/", AllProposals);
+  }, []);
 
-  //   const [currentPage, setCurrentPage] = useState(1);
-  //   const [categorySearch, setCategorySearch] = useState('');
-
-  //   useEffect(() => {
-  //       setCurrentPage(1);
-  //   }, [categorySearch]);
-
-  //   const jobsPerPage = 5;
-  //   const indexOfLastJob = currentPage * jobsPerPage;
-  //   const indexOfFirstJob = indexOfLastJob - jobsPerPage;
-
-  //   const filteredJobs = projectsToDisplay?.filter(project =>
-  //       project.skills_required.toLowerCase().includes(categorySearch.toLowerCase())
-  //   ) || [];
-
-  //   const currentJobs = filteredJobs.slice(indexOfFirstJob, indexOfLastJob);
-  //   const totalPages = Math.ceil((filteredJobs.length || 0) / jobsPerPage);
-  //   const next = () => {
-  //       window.scrollTo(0, 0);
-  //       if (currentPage === totalPages) return;
-  //       setCurrentPage(currentPage + 1);
-  //   };
-
-  //   const prev = () => {
-  //       window.scrollTo(0, 0);
-  //       if (currentPage === 1) return;
-  //       setCurrentPage(currentPage - 1);
-  //   };
-
-  //   const chunkArray = (array, size:number) => {
-  //     let chunked = [];
-  //     if (viewallprojects != null) {
-  //       for (let i = 0; i < array.length; i += size) {
-  //         chunked.push(array.slice(i, i + size));
-  //       }
-  //     }
-  //     return chunked;
-  //   };
-
-  //   const chunkedFree = chunkArray(projectsToDisplay);
-  //eslint-disable-next-line
-  const toggleSaveProject = async (project: any) => {
+  const toggleSaveProject = async (project: IFreelanceProject) => {
     try {
-      let response;
+      const res = await axiosWithAuth.post(`/freelance/saved-projects/${project.id}`);
 
-      if (project.isSaved) {
-        response = await axios.delete(
-          `https://www.api.alanced.com/freelance/saved-projects/${project.id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          }
-        );
-      } else {
-        response = await axios.post(
-          `https://www.api.alanced.com/freelance/saved-projects/${project.id}`,
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          }
-        );
-      }
-
-      const updatedJob = response.data;
-
-      localStorage.setItem(`isSaved_${project.id}`, JSON.stringify(updatedJob.isSaved));
-
-      if (updatedJob.isSaved) {
+      if (res.data.isSaved) {
         toast.success("Job saved successfully!");
-        router.push("/freelancer");
       } else {
         toast.success("Job unsaved successfully!");
-        router.push("/freelancer");
       }
-      //eslint-disable-next-line
-      const updatedProjects = projectsToDisplay.map((p: any) => {
-        if (p.id === updatedJob.id) {
-          return updatedJob;
-        }
-        return p;
-      });
-
-      projectsToDisplay.push(updatedProjects);
     } catch (error) {
       errorLog(error);
     }
@@ -398,8 +258,9 @@ const FreelancerAfterLogin = () => {
             <h1 className="text-xl font-normal text-[#031136]">
               {day}, {formattedDate}
             </h1>
-            <h1 className="py-1 text-start text-3xl font-semibold text-[#031136]">
-              Good {greeting}, <span className="font-[500] capitalize">{displayName}</span>
+            <h1 className="py-1 text-start text-3xl font-medium text-[#031136]">
+              Good {greeting},{" "}
+              <span className="font-semibold capitalize">{userProfile.first_Name}</span>
             </h1>
           </div>
           <div className="hidden h-full w-[40%] md:block">
@@ -471,7 +332,6 @@ const FreelancerAfterLogin = () => {
               </div>
             </Link>
           </div>
-          {/* {viewallprojects != null ?  */}
           <div className="w-full border border-gray-200 border-opacity-30 bg-[#FFFFFF] py-8 pt-3 text-left md:w-[70%]">
             <div className="border-b border-gray-200 border-opacity-30 px-4 pt-4 md:px-8">
               <div className="flex items-center justify-between">
@@ -525,10 +385,8 @@ const FreelancerAfterLogin = () => {
                                     onClick={(event) => handleClick(event, index, project)}
                                   >
                                     {localStorage.getItem(`isSaved_${project.id}`) === "true" ? (
-                                      // <i className="fa fa-heart p-1 text-blue-600"></i>
                                       <IoIosHeart className="text-xl" />
                                     ) : (
-                                      // <i className="fa fa-heart-o p-1"></i>
                                       <IoIosHeartEmpty className="text-xl" />
                                     )}
                                   </button>
@@ -540,7 +398,6 @@ const FreelancerAfterLogin = () => {
                                     <div key={proposal}>
                                       {project.id === all.project_id ? (
                                         <span className="flex w-fit items-center justify-center text-blue-600">
-                                          {/* <TaskOutlinedIcon className="mr-1 text-blue-600" /> */}
                                           Already Applied
                                         </span>
                                       ) : (
@@ -596,13 +453,7 @@ const FreelancerAfterLogin = () => {
                                   {bidsCount[project.id] ? bidsCount[project.id] : 0}
                                 </span>
                               </p>
-                              {/* <RiVerifiedBadgeFill className="text-md mr-1 inline-block text-green-600" />
-                              <p className="inline-block text-[14px] text-[#0A142F] opacity-50">
-                                Payment verified
-                              </p>
-                              <div className="mx-3 inline-block text-[16px] text-[#FFC107]">
-                                ★★★★★
-                              </div> */}
+
                               <IoLocationOutline className="text-md mr-1 inline-block" />
                               <p className="inline-block text-[14px] text-[#0A142F] opacity-50">
                                 {highlightText(
@@ -687,47 +538,9 @@ const FreelancerAfterLogin = () => {
               </div>
             )}
             <div>
-              {/* {projectsToDisplay?.length > 5 && (
-                    <div className="flex justify-end items-center gap-6 m-4">
-                        <IconButton
-                            size="sm"
-                            variant="outlined"
-                            onClick={prev}
-                            disabled={currentPage === 1}
-                            style={{ backgroundImage: 'linear-gradient(45deg, #0909E9, #00D4FF)', border: 'none' }}
-                        >
-                            <ArrowLeftIcon strokeWidth={2} className="h-4 w-4 text-white" />
-                        </IconButton>
-                        
-                        {[...Array(totalPages)].map((_, index) => {
-                            const pageNumber = index + 1;
-                            return (
-                                <span
-                                    key={pageNumber}
-                                    className={`px-0 py-1 ${currentPage === pageNumber ? 'bg-clip-text text-transparent bg-gradient-to-r from-[#0909E9] to-[#00D4FF] font-bold  text-[14px] cursor-pointer' : 'text-[#0A142F] font-bold  text-[14px] cursor-pointer'}`}
-                                    onClick={() => setCurrentPage(pageNumber)}
-                                >
-                                    {pageNumber}
-                                </span>
-                            );
-                        })}
-
-                        <IconButton
-                            size="sm"
-                            variant="outlined"
-                            onClick={next}
-                            disabled={currentPage === totalPages}
-                            style={{ backgroundImage: 'linear-gradient(45deg, #0909E9, #00D4FF)', border: 'none' }}
-                        >
-                            <ArrowRightIcon strokeWidth={2} className="h-4 w-4 text-white" />
-                        </IconButton>
-                    </div>
-                )} */}
               {totalPages > 1 && (
                 <div className="m-4 flex items-center justify-end gap-6">
                   <button
-                    // size="sm"
-                    // variant="outlined"
                     onClick={prev}
                     disabled={currentPage === 1}
                     style={{
@@ -735,10 +548,7 @@ const FreelancerAfterLogin = () => {
                       border: "none",
                     }}
                   >
-                    <RxArrowLeft
-                      //   strokeWidth={2}
-                      className="text-2xl text-white"
-                    />
+                    <RxArrowLeft className="text-2xl text-white" />
                   </button>
 
                   {[...Array(totalPages)].map((_, index) => {
@@ -762,8 +572,6 @@ const FreelancerAfterLogin = () => {
                   })}
 
                   <button
-                    // size="sm"
-                    // variant="outlined"
                     onClick={next}
                     disabled={currentPage === totalPages}
                     style={{
@@ -771,10 +579,7 @@ const FreelancerAfterLogin = () => {
                       border: "none",
                     }}
                   >
-                    <RxArrowRight
-                      //   strokeWidth={2}
-                      className="text-2xl text-white"
-                    />
+                    <RxArrowRight className="text-2xl text-white" />
                   </button>
                 </div>
               )}
@@ -782,8 +587,6 @@ const FreelancerAfterLogin = () => {
           </div>
         </div>
       </div>
-      {/* <HomeSection4 /> */}
-      {/* <Footer /> */}
     </>
   );
 };
