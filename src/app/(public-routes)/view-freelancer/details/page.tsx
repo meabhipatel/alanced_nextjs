@@ -176,10 +176,10 @@ const ViewFreelancerDetails = () => {
 
   return (
 <>
-<div className="p-4">
+      <div className="p-9">
         <div className="flex flex-col lg:flex-row lg:items-center">
           <div className="flex items-center flex-col lg:flex-row">
-            <div className="relative h-24 w-24 ml-8 lg:ml-4 mt-4 lg:mt-0">
+            <div className="relative h-24 w-24 ml-6 lg:ml-8 mt-4 lg:mt-0">
               <Image
                 src={"https://www.api.alanced.com" + freelancer.images_logo}
                 alt="Profile"
@@ -227,51 +227,52 @@ const ViewFreelancerDetails = () => {
     </div>
 
     {/* Left Aligned Information Sections */}
-    <div className="mt-6 flex flex-col lg:flex-row lg:space-x-8">
-      <div className="flex flex-col ml-6 space-y-5">
-        <div>
-          <h1 className="font-cardo font-medium text-[20px] text-left">Experience level</h1>
-          <p className="font-cardo font-semibold text-lg text-gray-500 text-left">
+    <div className="mt-6 flex flex-col lg:flex-row lg:space-x-8 lg:mt-8">
+      <div className="flex flex-col space-y-6 lg:space-y-8 lg:w-1/2 lg:ml-6">
+      {/* Experience Level */}
+        <div className="bg-white p-4 rounded-lg shadow-md">
+          <h1 className="font-cardo font-medium text-xl text-gray-800">Experience Level</h1>
+          <p className="font-cardo font-semibold text-lg text-gray-600 mt-1">
             {freelancer.experience_level ? freelancer.experience_level.replace(/_/g, " ") : "NA"}
           </p>
-        </div>
-        <div>
-          <h1 className="font-cardo font-medium text-[20px] text-left">Category</h1>
-          <p className="font-cardo font-semibold text-lg text-gray-500 text-left">
+    </div>
+        <div className="bg-white p-4 rounded-lg shadow-md">
+          <h1 className="font-cardo font-medium text-xl text-gray-800">Category</h1>
+          <p className="font-cardo font-semibold text-lg text-gray-600 mt-1 ">
             {freelancer.category ? freelancer.category : "NA"}
           </p>
         </div>
-        <div>
-          <h1 className="font-cardo font-medium text-[20px] text-left">Hourly Rate</h1>
-          <p className="font-cardo font-semibold text-lg text-gray-500 text-left">
+        <div className="bg-white p-4 rounded-lg shadow-md">
+          <h1 className="font-cardo font-medium text-xl">Hourly Rate</h1>
+          <p className="font-cardo font-semibold text-lg text-gray-600 mt-1">
             ${freelancer.hourly_rate ? freelancer.hourly_rate : 0}
           </p>
         </div>
-        <div>
-          <h1 className="font-cardo font-medium text-[20px] text-left">Educations</h1>
-          <p className="font-cardo font-semibold text-lg text-gray-500 text-left">
+        <div className= "bg-white p-4 rounded-lg shadow-md">
+          <h1 className="font-cardo font-medium text-xl">Educations</h1>
+          <p className="font-cardo font-semibold text-lg text-gray-600 mt-1">
             {freelancer.qualification ? freelancer.qualification : "NA"}
           </p>
         </div>
-        <div>
-          <h1 className="font-cardo font-medium text-[20px] text-left ">Languages</h1>
+        <div className="bg-white p-4 rounded-lg shadow-md">
+          <h1 className="font-cardo font-medium text-xl ">Languages</h1>
           {freelancer && freelancer.Language
             ? JSON.parse(freelancer.Language.replace(/'/g, '"')).map((language: string, index: number) => (
-              <p key={index} className="font-cardo font-semibold text-lg text-gray-500 text-left mb-4">
+              <p key={index} className="font-cardo font-semibold text-lg text-gray-600 mt-1">
                 {language}
               </p>
             ))
             : null}
         </div>
       </div>
-      <div className="flex flex-col lg:mt-8 lg:left-4 space-y-6">
+      <div className="flex flex-col mt-8 lg:left-4 space-y-6">
         <div>
           <p className="font-cardo font-semibold text-left text-[22px]">About Freelancer</p>
           <div className="relative ml-1 mt-2 w-28">
             <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
             <div className="rounded-lg border-b-2 border-gray-600"></div>
           </div>
-          <p className="font-inter py-5 pr-8 text-left text-[14px] text-[#031136] opacity-50">
+          <p className="font-inter py-5 pr-8 text-[14px] text-[#031136] opacity-50 text-justify">
             {freelancer.about ? freelancer.about : "NA"}
           </p>
         </div>
@@ -281,7 +282,7 @@ const ViewFreelancerDetails = () => {
             <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
             <div className="rounded-lg border-b-2 border-gray-600"></div>
           </div>
-          <div className="mt-5 text-left flex flex-wrap gap-3">
+          <div className="mt-8 text-left flex flex-wrap gap-3">
             {freelancer.skills
               ? JSON.parse(freelancer.skills.replace(/'/g, '"')).map((skill: string, index: number) => (
                 <div
@@ -295,12 +296,12 @@ const ViewFreelancerDetails = () => {
           </div>
         </div>
         <div>
-          <p className="font-cardo font-semibold text-left text-[22px]">Portfolio ({ProjectCount})</p>
+          <p className="font-cardo font-semibold text-left text-[22px] mt-4">Portfolio ({ProjectCount})</p>
           <div className="relative ml-1 mt-2 w-20">
             <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
             <div className="rounded-lg border-b-2 border-gray-600"></div>
           </div>
-          <div className="-mx-2 flex flex-wrap">
+          <div className="-mx-2 flex flex-wrap mt-4">
             {freelancerproject &&
               freelancerproject.map((project: any, index) => ( //eslint-disable-line
                 <button
@@ -370,7 +371,7 @@ const ViewFreelancerDetails = () => {
               </div>
             )}
           </div>
-          <div className="mt-6">
+          <div className="mt-4">
         <p className="font-cardo font-semibold text-left text-[22px]">Reviews ({reviews ? reviews.length : 0})</p>
         <div className="relative ml-1 mt-2 w-20">
           <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>

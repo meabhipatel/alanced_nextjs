@@ -11,7 +11,7 @@ const Footer = () => {
     <footer className="footer-1 bg-white py-8 sm:py-12">
       <div className="w-full px-5 lg:px-10">
         {/* ---> footer navigations  */}
-        <hr className="mx-28 my-9"></hr>
+        <hr className="mx-4 my-6 sm:mx-5"></hr>
         <div className="grid w-full grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-5">
           <div className="p-1 text-left md:p-4">
             <h5 className="mb-6 text-xl font-bold">Company Info</h5>
