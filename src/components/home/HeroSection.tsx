@@ -57,7 +57,7 @@ const HeroSection = () => {
           {/* Static Subtitle */}
           <h1 className="mb-8 mt-10 text-[16px] font-normal leading-[26px] text-[#797979] md:hidden md:pt-6">
             With Alanced, easily connect with <br /> top freelancers ready to tackle any <br />
-            project you need, exactly when you need i..
+            project you need, exactly when you need it. 
           </h1>
           <h1 className="mb-5 mt-10 hidden text-xl font-normal leading-[26px] text-[#797979] md:block md:pt-6">
             With Alanced, easily connect with top freelancers ready to <br />
