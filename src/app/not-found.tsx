@@ -9,7 +9,7 @@ const NotFound = () => {
         href="/"
         className="mt-3 text-sm text-blue-700/70 hover:text-blue-700 hover:underline"
       >
-        Return Hom
+        Return Home
       </Link>
     </div>
   );

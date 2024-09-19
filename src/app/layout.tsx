@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(`${process.env.NEXT_PUBLIC_APP_BASE_URL}`),
   title: {
     default: "Alanced",
-    template: "%s - Best platform for freelance",
+    template: "%s - Best platform for freelancer",
   },
   description:
     "Discover a diverse range of freelance opportunities on Alanced.com. Connect with talented professionals, manage projects efficiently, and grow your business with our secure, user-friendly platform. Join Alanced.com today and find the perfect freelance talent to meet your needs.",
