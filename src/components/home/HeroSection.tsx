@@ -61,7 +61,7 @@ const HeroSection = () => {
           </h1>
           <h1 className="mb-5 mt-10 hidden text-xl font-normal leading-[26px] text-[#797979] md:block md:pt-6">
             With Alanced, easily connect with top freelancers ready to <br />
-            tackle any project you need, exactly when you need it.
+            tackle any project you need, exactly when you need it..
           </h1>
 
           {/* CTA Button */}
