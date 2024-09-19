@@ -41,7 +41,7 @@ const HeroSection = () => {
         style={{ backgroundImage: `url(${heroBackground.src})` }}
       >
         {/* Container for Titles and Static Content */}
-        <div className="w-full overflow-hidden pt-28 text-left sm:pt-40 lg:w-[50%] lg:pt-28 lg:text-2xl">
+        <div className="w-full overflow-hidden pt-28 text-left sm:pt-40 lg:w-[50%] lg:pt-6 lg:text-2xl">
           {/* Animated Titles */}
 
           <div
