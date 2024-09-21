@@ -15,8 +15,7 @@ import { useAppSelector } from "@/store/hooks";
 import { axiosWithAuth } from "@/utils/axiosWithAuth";
 import { IProject } from "../(public-routes)/search-job/SearchJob";
 import ProjectCard from "@/components/ProjectCard";
-
-// Test commit for vercel deployment...
+import Loader from "@/components/Loader";
 
 export interface IFreelanceProject extends IProject {
   is_applied: boolean;
@@ -30,6 +29,7 @@ const FreelancerAfterLogin = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
   const [viewProject, setViewProject] = useState<IFreelanceProject[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   /** ---> Fetching projects data on load. */
   useEffect(() => {
@@ -46,11 +46,14 @@ const FreelancerAfterLogin = () => {
     const queryString = queryParameters.join("&");
 
     try {
+      setIsLoading(true);
       const res = await axiosWithAuth.get(`/freelance/view-all/Project/?${queryString}`);
       setViewProject(res.data.results);
       setTotalPages(Math.ceil(res.data.count / 8));
     } catch (error) {
       errorLog(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -120,6 +123,7 @@ const FreelancerAfterLogin = () => {
   return (
     <>
       <div className="px-5 lg:px-24 lg:pt-5">
+        {/* --- > Page Header */}
         <div className="flex h-40 w-full bg-[#F6FAFD] md:h-52">
           <div className="flex w-full flex-col items-start justify-center p-2 md:w-[60%] md:pl-10">
             <h1 className="text-xl font-normal text-[#031136]">
@@ -138,7 +142,10 @@ const FreelancerAfterLogin = () => {
             />
           </div>
         </div>
+
+        {/* --- > Body */}
         <div className="mx-5 mb-5 flex flex-col md:flex-row">
+          {/* --- > Side container */}
           <div className="w-full border-b border-l border-gray-200 border-opacity-30 bg-[#FFFFFF] py-8 pt-3 text-left md:w-[30%]">
             <Link href="/freelancer/saved-jobs">
               <div className="flex items-center justify-between rounded-2xl border-b border-gray-200 border-opacity-30 px-4 py-4 hover:bg-[#e2f1f9] md:px-8">
@@ -199,6 +206,8 @@ const FreelancerAfterLogin = () => {
               </div>
             </Link>
           </div>
+
+          {/* --- > Project card container */}
           <div className="w-full border border-gray-200 border-opacity-30 bg-[#FFFFFF] py-8 pt-3 text-left md:w-[70%]">
             <div className="border-b border-gray-200 border-opacity-30 px-4 pt-4 md:px-8">
               <div className="flex items-center justify-between">
@@ -230,81 +239,93 @@ const FreelancerAfterLogin = () => {
                 <br /> Ordered by most relevant.
               </p>
             </div>
-            {viewProject.length > 0 ? (
-              <div>
-                {viewProject.map((project) => {
-                  return (
-                    <ProjectCard
-                      key={project.id}
-                      project={project}
-                      searchQuery={searchQuery}
-                    />
-                  );
-                })}
+
+            {isLoading ? (
+              <div className="flex h-[50vh] w-full items-center justify-center">
+                <Loader
+                  size="lg"
+                  color="primary"
+                />
               </div>
             ) : (
-              <div className="mx-auto">
-                <Image
-                  src={fileIcon}
-                  alt=""
-                  className="ml-[42%] mt-[20%] h-[10%]"
-                />
-                <p className="mt-5 text-center text-xl opacity-70">
-                  There are no results that match your search.
-                </p>
-                <p className="mt-3 text-center text-sm opacity-60">
-                  Please try adjusting your search keywords or filters.
-                </p>
-              </div>
-            )}
+              <>
+                {viewProject.length > 0 ? (
+                  <div>
+                    {viewProject.map((project) => {
+                      return (
+                        <ProjectCard
+                          key={project.id}
+                          project={project}
+                          searchQuery={searchQuery}
+                        />
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className="mx-auto">
+                    <Image
+                      src={fileIcon}
+                      alt=""
+                      className="ml-[42%] mt-[20%] h-[10%]"
+                    />
+                    <p className="mt-5 text-center text-xl opacity-70">
+                      There are no results that match your search.
+                    </p>
+                    <p className="mt-3 text-center text-sm opacity-60">
+                      Please try adjusting your search keywords or filters.
+                    </p>
+                  </div>
+                )}
 
-            <div>
-              {totalPages > 1 && (
-                <div className="m-4 flex items-center justify-end gap-6">
-                  <button
-                    onClick={prev}
-                    disabled={currentPage === 1}
-                    style={{
-                      backgroundImage: "linear-gradient(45deg, #0909E9, #00D4FF)",
-                      border: "none",
-                    }}
-                  >
-                    <RxArrowLeft className="text-2xl text-white" />
-                  </button>
-
-                  {[...Array(totalPages)].map((_, index) => {
-                    const pageNumber = index + 1;
-                    return (
+                <div>
+                  {totalPages > 1 && (
+                    <div className="m-4 flex items-center justify-end gap-6">
                       <button
-                        key={pageNumber}
-                        className={`px-0 py-1 ${
-                          currentPage === pageNumber
-                            ? "cursor-pointer bg-gradient-to-r from-[#0909E9] to-[#00D4FF] bg-clip-text text-[14px] font-bold text-transparent"
-                            : "cursor-pointer text-[14px] font-bold text-[#0A142F]"
-                        }`}
-                        onClick={() => {
-                          window.scrollTo(0, 0);
-                          setCurrentPage(pageNumber);
+                        onClick={prev}
+                        disabled={currentPage === 1}
+                        style={{
+                          backgroundImage: "linear-gradient(45deg, #0909E9, #00D4FF)",
+                          border: "none",
                         }}
                       >
-                        {pageNumber}
+                        <RxArrowLeft className="text-2xl text-white" />
                       </button>
-                    );
-                  })}
 
-                  <button
-                    onClick={next}
-                    disabled={currentPage === totalPages}
-                    style={{
-                      backgroundImage: "linear-gradient(45deg, #0909E9, #00D4FF)",
-                      border: "none",
-                    }}
-                  >
-                    <RxArrowRight className="text-2xl text-white" />
-                  </button>
+                      {[...Array(totalPages)].map((_, index) => {
+                        const pageNumber = index + 1;
+                        return (
+                          <button
+                            key={pageNumber}
+                            className={`px-0 py-1 ${
+                              currentPage === pageNumber
+                                ? "cursor-pointer bg-gradient-to-r from-[#0909E9] to-[#00D4FF] bg-clip-text text-[14px] font-bold text-transparent"
+                                : "cursor-pointer text-[14px] font-bold text-[#0A142F]"
+                            }`}
+                            onClick={() => {
+                              window.scrollTo(0, 0);
+                              setCurrentPage(pageNumber);
+                            }}
+                          >
+                            {pageNumber}
+                          </button>
+                        );
+                      })}
+
+                      <button
+                        onClick={next}
+                        disabled={currentPage === totalPages}
+                        style={{
+                          backgroundImage: "linear-gradient(45deg, #0909E9, #00D4FF)",
+                          border: "none",
+                        }}
+                      >
+                        <RxArrowRight className="text-2xl text-white" />
+                      </button>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
+              </>
+            )}
           </div>
         </div>
       </div>
