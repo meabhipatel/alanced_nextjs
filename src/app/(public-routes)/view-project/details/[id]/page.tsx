@@ -14,6 +14,7 @@ import { useAppSelector } from "@/store/hooks";
 import { axiosWithAuth } from "@/utils/axiosWithAuth";
 import { IProject } from "@/app/(public-routes)/search-job/SearchJob";
 import Loader from "@/components/Loader";
+import { useRouter } from "next/navigation";
 
 interface IProps {
   params: {
@@ -21,13 +22,16 @@ interface IProps {
   };
 }
 
+interface IProjectDetils extends IProject {
+  is_applied: boolean;
+  total_bid_count: number;
+}
+
 const ViewProjectDetail: FC<IProps> = ({ params: { id } }) => {
+  const router = useRouter();
   const { isLoggedIn } = useAppSelector((state) => state.auth);
-  const [BidCount, setBidCount] = useState(0); // eslint-disable-line
-  const [AllProposals, setAllProposals] = useState<any>(); // eslint-disable-line
-  const [projectDetails, setProjectDetails] = useState<IProject | null>(null);
+  const [projectDetails, setProjectDetails] = useState<IProjectDetils | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const clickable = false;
 
   useEffect(() => {
     handleFetchProjectDetails();
@@ -50,34 +54,9 @@ const ViewProjectDetail: FC<IProps> = ({ params: { id } }) => {
     }
   };
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`https://www.api.alanced.com/freelance/View/bids/${id}`)
-  //     .then((response) => {
-  //       setBidCount(response.data.count);
-  //     })
-  //     .catch((error) => {
-  //       errorLog(error);
-  //     });
-  // }, []);
-
-  // React.useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       // Fetch doc API
-  //       const response1 = await axios.get("https://www.api.alanced.com/freelance/view/freelancer-all-self/bid", {
-  //         headers: {
-  //           Authorization: `Bearer ${accessToken}`,
-  //         },
-  //       });
-  //       setAllProposals(response1.data.data);
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
+  const handleNavigateToSendProposal = () => {
+    router.push("/freelancer/send-proposal");
+  };
 
   if (isLoading) {
     return (
@@ -92,13 +71,20 @@ const ViewProjectDetail: FC<IProps> = ({ params: { id } }) => {
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-      {clickable ? (
-        <div className="mt-4 flex h-16 items-center rounded-md bg-blue-100 pl-5 pt-2 text-left">
-          <MdLightbulbOutline />
-          <span className="ml-4">You have already submitted a proposal for this project.</span>
+      {projectDetails?.is_applied ? (
+        <div className="mt-4 flex h-16 gap-3 rounded-md bg-blue-100 pl-5 pt-3 text-left">
+          <div className="pt-1">
+            <MdLightbulbOutline />
+          </div>
+          <div className="flex flex-col">
+            <span className="">You have already submitted a proposal for this project. </span>
+            <span className="text-sm font-semibold text-blue-700">
+              <Link href={`/freelancer/view-proposal/${projectDetails.id}`}>View Proposal</Link>
+            </span>
+          </div>
         </div>
       ) : null}
-      {projectDetails?.is_hired && !clickable ? (
+      {projectDetails?.is_hired && !projectDetails?.is_applied ? (
         <div className="mt-4 flex h-16 items-center rounded-md bg-blue-100 pl-5 pt-2 text-left">
           <MdDoDisturbAlt />
           <span className="ml-4">This project is closed, you can&apos;t add a proposal now</span>
@@ -200,24 +186,27 @@ const ViewProjectDetail: FC<IProps> = ({ params: { id } }) => {
           </div>
           <div className="mt-5">
             <h1 className="text-base font-normal">
-              Proposals: <span className="opacity-[50%]">{BidCount ? BidCount : 0}</span>
+              Proposals: <span className="opacity-[50%]">{projectDetails?.total_bid_count}</span>
             </h1>
           </div>
         </div>
         <div className="mt-10 w-full lg:mt-0 lg:w-4/12">
           <div className="ml-0 mt-6 lg:ml-[16%]">
             {isLoggedIn ? (
-              <Link href="/freelancer/send-proposal">
+              <button
+                disabled={projectDetails?.is_applied || projectDetails?.is_hired}
+                onClick={handleNavigateToSendProposal}
+              >
                 <span
                   className={
-                    clickable || projectDetails?.is_hired
+                    projectDetails?.is_applied || projectDetails?.is_hired
                       ? "rounded border border-none bg-slate-200 px-12 py-[15px] text-base font-normal text-white lg:mt-0"
                       : "rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-12 py-[15px] text-base font-normal text-white lg:mt-0"
                   }
                 >
                   Apply Now
                 </span>
-              </Link>
+              </button>
             ) : (
               <Link href="/login">
                 <span className="rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-12 py-[15px] text-base font-normal text-white lg:mt-0">
