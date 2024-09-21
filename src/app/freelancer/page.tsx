@@ -4,57 +4,24 @@ import search from "@/assets/icons/SearchOutlined.png";
 import ladder from "@/assets/images/ladder.png";
 import bag from "@/assets/images/bag.png";
 import Link from "next/link";
-import axios from "axios";
-import toast from "react-hot-toast";
-import { timeAgo } from "@/utils/timeFunction";
 import fileIcon from "@/assets/icons/file.png";
 import hero2Image from "@/assets/images/hero2.png";
 import Image from "next/image";
 import { RxArrowRight, RxArrowLeft } from "react-icons/rx";
 import { errorLog } from "@/utils/errorLog";
-import { IoLocationOutline } from "react-icons/io5";
-import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io";
+import { IoIosHeartEmpty } from "react-icons/io";
 import { BsCoin, BsSendCheck } from "react-icons/bs";
 import { useAppSelector } from "@/store/hooks";
-import { axiosIntance } from "@/utils/axiosIntance";
 import { axiosWithAuth } from "@/utils/axiosWithAuth";
+import { IProject } from "../(public-routes)/search-job/SearchJob";
+import ProjectCard from "@/components/ProjectCard";
 
 // Test commit for vercel deployment...
 
-interface IFreelanceProject {
-  id: number;
-  title: string;
-  description: string;
-  rate: "Hourly" | "Fixed";
-  fixed_budget: number | null;
-  min_hourly_rate: number;
-  max_hourly_rate: number;
-  deadline: string;
-  skills_required: string;
-  category: string;
-  project_owner_name: string;
-  project_creation_date: string;
-  project_owner_location: string;
-  project_owner_contact: string;
-  experience_level: "Beginner" | "Intermediate" | "Expert";
-  is_hired: boolean;
-  project_owner_date_of_creation: string;
-  project_owner: number;
-}
-
-interface IBid {
-  id: number;
-  bid_amount: number;
-  description: string;
-  bid_type: string;
-  bid_time: string;
-  freelancer_id: number;
-  project_id: number;
-  project: IFreelanceProject;
-}
-
-interface Bids {
-  [key: string]: number;
+export interface IFreelanceProject extends IProject {
+  is_applied: boolean;
+  is_saved: boolean;
+  total_bid_count: number;
 }
 
 const FreelancerAfterLogin = () => {
@@ -62,7 +29,6 @@ const FreelancerAfterLogin = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
-  const [expandedProjects, setExpandedProjects] = useState<boolean[]>([]);
   const [viewProject, setViewProject] = useState<IFreelanceProject[]>([]);
 
   /** ---> Fetching projects data on load. */
@@ -80,18 +46,12 @@ const FreelancerAfterLogin = () => {
     const queryString = queryParameters.join("&");
 
     try {
-      const res = await axiosIntance.get(`/freelance/view-all/Project/?${queryString}`);
+      const res = await axiosWithAuth.get(`/freelance/view-all/Project/?${queryString}`);
       setViewProject(res.data.results);
       setTotalPages(Math.ceil(res.data.count / 8));
     } catch (error) {
       errorLog(error);
     }
-  };
-
-  const handleToggleDescription = (index: number) => {
-    const updatedState = [...expandedProjects];
-    updatedState[index] = !updatedState[index];
-    setExpandedProjects(updatedState);
   };
 
   const prev = () => {
@@ -156,101 +116,6 @@ const FreelancerAfterLogin = () => {
   }
 
   const { day, formattedDate, greeting } = getCurrentDateAndGreeting();
-
-  const [AllProposals, setAllProposals] = useState<IBid[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axiosWithAuth.get("/freelance/view/freelancer-all-self/bid");
-        setAllProposals(res.data.data);
-      } catch (error) {
-        errorLog(error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  const toggleSaveProject = async (project: IFreelanceProject) => {
-    try {
-      const res = await axiosWithAuth.post(`/freelance/saved-projects/${project.id}`);
-
-      if (res.data.isSaved) {
-        toast.success("Job saved successfully!");
-      } else {
-        toast.success("Job unsaved successfully!");
-      }
-    } catch (error) {
-      errorLog(error);
-    }
-  };
-
-  const handleClick = (
-    event: React.MouseEvent<HTMLButtonElement>,
-    index: number,
-    project: IFreelanceProject
-  ) => {
-    event.stopPropagation();
-    event.preventDefault();
-    handleToggleDescription(index);
-    toggleSaveProject(project);
-  };
-
-  const [bidsCount, setBidsCount] = useState<Bids>({});
-
-  useEffect(() => {
-    const fetchBidsForAllProjects = async () => {
-      const bids: Bids = {};
-
-      for (const project of viewProject || []) {
-        try {
-          const response = await axios.get(
-            `https://www.api.alanced.com/freelance/View/bids/${project.id}`
-          );
-          if (response.status === 200) {
-            bids[project.id] = response.data.count;
-          } else {
-            errorLog(response.data.message || "Error fetching bids");
-            bids[project.id] = 0;
-          }
-        } catch (err: unknown) {
-          if (err instanceof Error) {
-            errorLog(err.message);
-          } else {
-            errorLog(" An unknown error occured");
-          }
-          bids[project.id] = 0;
-        }
-      }
-
-      setBidsCount(bids);
-    };
-
-    fetchBidsForAllProjects();
-  }, [viewProject]);
-
-  function highlightText(text: string, query: string) {
-    if (!query) {
-      return text;
-    }
-
-    const regex = new RegExp(`(${query})`, "gi");
-    return text.split(regex).map((part, index) => {
-      if (index % 2 === 1) {
-        return (
-          <span
-            key={index}
-            style={{ backgroundColor: "#73cbfa" }}
-          >
-            {part}
-          </span>
-        );
-      } else {
-        return <span key={index}>{part}</span>;
-      }
-    });
-  }
 
   return (
     <>
@@ -365,180 +230,34 @@ const FreelancerAfterLogin = () => {
                 <br /> Ordered by most relevant.
               </p>
             </div>
-            {viewProject !== null ? (
-              viewProject.length > 0 ? (
-                <div>
-                  {viewProject &&
-                    viewProject.map((project, index) => {
-                      const words = project.description.split(" ");
-                      const displayWords =
-                        expandedProjects[index] || words.length <= 50 ? words : words.slice(0, 50);
-                      return (
-                        <>
-                          <Link href={`/view-project/details/${project.id}`}>
-                            <div className="cursor-pointer border-b border-t border-gray-200 border-opacity-30 px-4 py-5 hover:bg-[#F6FAFD] md:px-8">
-                              <div className="flex items-center justify-between">
-                                <p className="text-[18px] font-semibold text-[#0A142F]">
-                                  {highlightText(project.title, searchQuery)}
-                                </p>
-                                <div className="flex items-center space-x-2 text-blue-600">
-                                  <button
-                                    className="h-8 w-8 rounded-full border border-gray-200 bg-white p-1"
-                                    onClick={(event) => handleClick(event, index, project)}
-                                  >
-                                    {localStorage.getItem(`isSaved_${project.id}`) === "true" ? (
-                                      <IoIosHeart className="text-xl" />
-                                    ) : (
-                                      <IoIosHeartEmpty className="text-xl" />
-                                    )}
-                                  </button>
-                                </div>
-                              </div>
-                              {AllProposals &&
-                                AllProposals.map((all: IBid, proposal) => {
-                                  return (
-                                    <div key={proposal}>
-                                      {project.id === all.project_id ? (
-                                        <span className="flex w-fit items-center justify-center text-blue-600">
-                                          Already Applied
-                                        </span>
-                                      ) : (
-                                        ""
-                                      )}
-                                    </div>
-                                  );
-                                })}
-                              <p className="py-3 text-[13px] text-[#0A142F] opacity-50">
-                                {highlightText(project.rate, searchQuery)} -{" "}
-                                {highlightText(
-                                  project.experience_level.replace(/_/g, " "),
-                                  searchQuery
-                                )}{" "}
-                                - Est. Budget: $
-                                {project.rate === "Hourly"
-                                  ? project.min_hourly_rate +
-                                    "/hr" +
-                                    " - " +
-                                    "$" +
-                                    project.max_hourly_rate +
-                                    "/hr"
-                                  : project.fixed_budget}{" "}
-                                - Posted {timeAgo(project.project_creation_date)}
-                              </p>
-                              <p className="py-3 text-[14px] text-[#0A142F] text-opacity-50">
-                                Job Description:{" "}
-                                {highlightText(displayWords.join(" "), searchQuery)}
-                                {words.length > 50 && (
-                                  <button
-                                    className="cursor-pointer pl-2 text-[18px] font-semibold text-[#031136]"
-                                    onClick={(event) => handleClick(event, index, project)}
-                                  >
-                                    {expandedProjects[index] ? "Less" : "More"}
-                                  </button>
-                                )}
-                              </p>
-                              {JSON.parse(project.skills_required.replace(/'/g, '"')).map(
-                                (skill: string, index: number) => (
-                                  <Link
-                                    key={index}
-                                    href=""
-                                  >
-                                    <span className="my-2 mr-2 inline-block rounded border border-gray-300 px-4 py-1 text-[13px] text-[#0A142F] opacity-50">
-                                      {highlightText(skill, searchQuery)}
-                                    </span>
-                                  </Link>
-                                )
-                              )}
-                              <p className="mr-1 py-1 text-[14px] text-[#0A142F]">
-                                Proposals :{" "}
-                                <span className="opacity-50">
-                                  {bidsCount[project.id] ? bidsCount[project.id] : 0}
-                                </span>
-                              </p>
-
-                              <IoLocationOutline className="text-md mr-1 inline-block" />
-                              <p className="inline-block text-[14px] text-[#0A142F] opacity-50">
-                                {highlightText(
-                                  project.project_owner_location
-                                    ? project.project_owner_location
-                                    : "NA",
-                                  searchQuery
-                                )}
-                              </p>
-                            </div>
-                          </Link>
-                        </>
-                      );
-                    })}
-                </div>
-              ) : (
-                <div className="mx-auto">
-                  <Image
-                    src={fileIcon}
-                    alt=""
-                    className="ml-[42%] mt-[20%] h-[10%]"
-                  />
-                  <p className="mt-5 text-center text-xl opacity-70">
-                    There are no results that match your search.
-                  </p>
-                  <p className="mt-3 text-center text-sm opacity-60">
-                    Please try adjusting your search keywords or filters.
-                  </p>
-                </div>
-              )
-            ) : (
+            {viewProject.length > 0 ? (
               <div>
-                {[...Array(8)].map((index) => {
+                {viewProject.map((project) => {
                   return (
-                    <div
-                      key={index}
-                      className="mb-5"
-                    >
-                      {/* <Skeleton
-                        height={30}
-                        width={200}
-                        style={{ marginLeft: 20, marginTop: 20 }}
-                      />
-                      <Skeleton
-                        height={30}
-                        width={300}
-                        style={{ marginLeft: 20, marginTop: 10 }}
-                      />
-                      <Skeleton
-                        height={110}
-                        width={700}
-                        style={{ marginLeft: 20, marginTop: 10 }}
-                      />
-                      <Skeleton
-                        height={30}
-                        width={100}
-                        inline={true}
-                        style={{ marginTop: 5, marginLeft: 70, float: "left" }}
-                      />
-                      <Skeleton
-                        height={30}
-                        width={100}
-                        inline={true}
-                        count={2}
-                        style={{ marginTop: 5, marginLeft: 5, float: "left" }}
-                      />
-                      <br />
-                      <br />
-                      <Skeleton
-                        height={20}
-                        width={200}
-                        style={{ marginLeft: 20 }}
-                      />
-                      <Skeleton
-                        height={20}
-                        width={250}
-                        style={{ marginLeft: 20, marginTop: 10 }}
-                      /> */}
-                    </div>
+                    <ProjectCard
+                      key={project.id}
+                      project={project}
+                      searchQuery={searchQuery}
+                    />
                   );
                 })}
               </div>
+            ) : (
+              <div className="mx-auto">
+                <Image
+                  src={fileIcon}
+                  alt=""
+                  className="ml-[42%] mt-[20%] h-[10%]"
+                />
+                <p className="mt-5 text-center text-xl opacity-70">
+                  There are no results that match your search.
+                </p>
+                <p className="mt-3 text-center text-sm opacity-60">
+                  Please try adjusting your search keywords or filters.
+                </p>
+              </div>
             )}
+
             <div>
               {totalPages > 1 && (
                 <div className="m-4 flex items-center justify-end gap-6">
