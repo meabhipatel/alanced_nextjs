@@ -10,7 +10,7 @@ const SafetySecurityPage: React.FC = () => {
   return (
     <div className="mx-[5%] mt-20 lg:mx-[9%]">
       <h1 className="font-cardo p-3 text-left text-2xl font-semibold text-blue-600 sm:text-3xl md:text-4xl">
-        Safety and Security at Alanced
+        Safety and Security 
       </h1>
       <div className="relative mb-6 mt-1 w-48">
       <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
@@ -19,46 +19,35 @@ const SafetySecurityPage: React.FC = () => {
 
       <div className="font-inter sm:text-md space-y-4 text-left text-sm text-[#031136] md:text-lg">
         <p>
-          At Alanced, ensuring the safety and security of our users is our top priority. We are
-          committed to providing a trustworthy platform where freelancers and clients can
-          collaborate with confidence. Here&apos;s how we prioritize your safety:
+        At Alanced, we place the utmost importance on ensuring the safety and security of our users. Our mission is to provide a reliable platform where freelancers and clients can collaborate with confidence. 
+        <br />Here are the key measures we implement to prioritize your security :
         </p>
-        <h3 className="font-semibold">Secure Payments:</h3>
+        <h3 className="font-semibold">Secure Payment Systems:</h3>
         <p>
-          We utilize advanced encryption and secure payment gateways to safeguard your financial
-          transactions. Your payment details are protected at every step of the process.
+        We employ advanced encryption protocols and trusted payment gateways to protect your financial transactions. Your payment details are safeguarded at every stage of the process.
         </p>
-        <h3 className="font-semibold">Data Protection:</h3>
+        <h3 className="font-semibold">Data Privacy and Protection:</h3>
         <p>
-          Your personal information is treated with the utmost confidentiality. We adhere to strict
-          data protection regulations to ensure that your data is safe from unauthorized access or
-          misuse.
+        Your personal information is handled with the highest level of confidentiality. We adhere to stringent data protection regulations to ensure your information is secure from unauthorized access and misuse.
         </p>
-        <h3 className="font-semibold">Verified Users:</h3>
+        <h3 className="font-semibold">Verified User Base:</h3>
         <p>
-          We verify the identity of all users to maintain the integrity of our platform. This helps
-          create a community of trusted freelancers and clients who are committed to professionalism
-          and reliability.
+        To maintain the integrity of our platform, we verify the identity of all users. This fosters a trusted community of professionals, ensuring a reliable and professional experience for freelancers and clients alike.
         </p>
-        <h3 className="font-semibold">Dispute Resolution:</h3>
+        <h3 className="font-semibold">Dispute Resolution Mechanisms:</h3>
         <p>
-          In the rare event of a dispute, our dedicated support team is available to facilitate fair
-          and efficient resolutions. We strive to ensure that all parties are treated fairly and
-          transparently.
+        In the event of a dispute, our dedicated support team is available to facilitate a fair and transparent resolution process, ensuring equitable outcomes for all parties involved.
         </p>
-        <h3 className="font-semibold">Constant Monitoring:</h3>
+        <h3 className="font-semibold">Continuous Security Monitoring:</h3>
         <p>
-          Our platform undergoes continuous monitoring and updates to identify and address potential
-          security threats proactively. This ongoing vigilance helps us maintain a secure
-          environment for all users.
+        Our platform undergoes constant monitoring and updates to proactively address potential security risks. This ongoing vigilance ensures a safe and secure environment for all users.
         </p>
         <p>
-          At Alanced, your peace of mind is paramount. Join our community and experience a secure
-          and reliable platform where you can focus on what matters most—building your freelance
-          career or finding the perfect freelancer for your project.
+        At Alanced, we are committed to providing a secure and trustworthy platform so you can focus on what truly matters—building your freelance career or finding the right talent for your project
         </p>
-        <p className="font-semibold">
-          Trust. Integrity. Security. Welcome to Alanced, where your safety comes first.
+        <p>Explore Alanced, one of the top freelance websites, for secure and professional freelance work opportunities.</p>
+        <p className="font-semibold text-center text-lg">
+        Alanced—where trust, integrity, and security come first.
         </p>
       </div>
     </div>

@@ -13,7 +13,7 @@ interface Project {
 }
 
 const Page = () => {
-  const router = useRouter(); // Initialize useRouter
+  const router = useRouter();
   const [projects, setProjects] = useState<Project[]>([]);
   const [selectedTab, setSelectedTab] = useState('All Job Posts');
   const [searchQuery, setSearchQuery] = useState('');
@@ -49,8 +49,8 @@ const Page = () => {
           setProjects([]);
         }
       } catch (error) {
-       //eslint-disable-next-line
-        console.error('Error fetching projects:', error);
+      //eslint-disable-next-line
+      console.error('Error fetching projects:', error);
         setProjects([]);
       }
     };
@@ -80,13 +80,14 @@ const Page = () => {
   };
 
   return (
-    <div className="p-6 bg-white">
-      <div className="flex items-center justify-start space-x-4 mb-6">
+    <div className="p-4 md:p-6 bg-white">
+      {/* Tab Section */}
+      <div className="flex flex-col md:flex-row items-center justify-start md:space-x-4 mb-4 md:mb-6">
         <button
           onClick={() => handleTabChange('All Job Posts')}
-          className={`px-6 py-2 font-semibold rounded-lg ${
+          className={`w-full md:w-auto px-4 md:px-6 py-2 font-semibold rounded-lg text-center ${
             selectedTab === 'All Job Posts'
-              ? 'bg-gradient-to-r from-blue-700 to-cyan-400 text-white'
+              ? 'bg-gradient-to-r from-[#0909E9] to-[#00D4FF] text-white'
               : 'bg-transparent text-gray-500 border border-gray-300'
           }`}
         >
@@ -94,9 +95,9 @@ const Page = () => {
         </button>
         <button
           onClick={() => handleTabChange('All Contracts')}
-          className={`px-6 py-2 font-semibold rounded-lg ${
+          className={`w-full md:w-auto mt-2 md:mt-0 px-4 md:px-6 py-2 font-semibold rounded-lg text-center ${
             selectedTab === 'All Contracts'
-              ? 'bg-gradient-to-r from-blue-700 to-cyan-400 text-white'
+              ? 'bg-gradient-to-r from-[#0909E9] to-[#00D4FF] text-white'
               : 'bg-transparent text-gray-500 border border-gray-300'
           }`}
         >
@@ -104,7 +105,8 @@ const Page = () => {
         </button>
       </div>
 
-      <div className="flex items-center border border-gray-300 rounded-lg p-2 mb-6">
+      {/* Search Bar */}
+      <div className="flex flex-col md:flex-row items-center border border-gray-300 rounded-lg p-2 mb-6">
         <IoIosSearch className="text-gray-500 w-6 h-6" />
         <input
           type="text"
@@ -113,41 +115,47 @@ const Page = () => {
           onChange={handleSearch}
           className="ml-2 outline-none w-full text-sm p-1"
         />
-        <button className="bg-gradient-to-r from-blue-700 to-cyan-400 p-2 rounded-lg text-white">
+        <button className="mt-2 md:mt-0 bg-gradient-to-r from-blue-700 to-cyan-400 p-2 rounded-lg text-white">
           <IoIosSearch className="w-5 h-5" />
         </button>
       </div>
 
+      {/* Projects Section */}
       <div className="space-y-4">
         {Array.isArray(projects) && projects.length > 0 ? (
           projects.map((project, index) => (
-            <div key={index} className="p-4 border rounded-lg">
+            <div key={index} className="p-4 border rounded-lg bg-gray-50 shadow-sm">
               <h3 className="text-lg font-semibold">{project.title}</h3>
-              <p className="text-sm text-gray-500">{project.Project_Rate} - {project.experience_level}</p>
-              <p className="text-sm text-gray-400">Posted {new Date(project.Project_created_at).toLocaleDateString()}</p>
+              <p className="text-sm text-gray-500">
+                {project.Project_Rate} - {project.experience_level}
+              </p>
+              <p className="text-sm text-gray-400">
+                Posted {new Date(project.Project_created_at).toLocaleDateString()}
+              </p>
             </div>
           ))
         ) : (
-          <p>No projects found</p>
+          <p className="text-center text-gray-500">No projects found</p>
         )}
       </div>
 
+      {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex justify-between items-center mt-6">
           <button
             onClick={prevPage}
             disabled={currentPage === 1}
-            className="px-4 py-2 bg-gray-200 rounded-lg"
+            className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 transition"
           >
             Previous
           </button>
-          <p>
+          <p className="text-gray-600">
             Page {currentPage} of {totalPages}
           </p>
           <button
             onClick={nextPage}
             disabled={currentPage === totalPages}
-            className="px-4 py-2 bg-gray-200 rounded-lg"
+            className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 transition"
           >
             Next
           </button>
