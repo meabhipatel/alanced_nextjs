@@ -99,7 +99,7 @@ export const authSlice = createSlice({
       localStorage.setItem("@userType", userType);
       localStorage.setItem("@userProfile", JSON.stringify(userProfile));
       localStorage.setItem("@accessToken", actions.payload.data.token.access);
-      cookies.set("token", actions.payload.data.token.access);
+      cookies.set("token", actions.payload.data.token.access, { expires: 30 });
     });
     builder.addCase(handleLoginAsync.rejected, (state, actions) => {
       state.isloading = false;
