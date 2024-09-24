@@ -11,11 +11,11 @@ const Pagination: FC<IProps> = ({ totalPages }) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
-  const [currentPage, setCurrentPage] = useState(Number(searchParams.get("page")) ?? 1);
+  const [currentPage, setCurrentPage] = useState(Number(searchParams.get("page") ?? 1));
 
   /** ---> Setting current page from url */
   useEffect(() => {
-    setCurrentPage(Number(searchParams.get("page")) ?? 1);
+    setCurrentPage(Number(searchParams.get("page") ?? 1));
   }, [searchParams]);
 
   // ---> Updating Url search params
