@@ -10,9 +10,9 @@ const TermsPage: React.FC = () => {
   return (
     <div className="mx-[5%] mt-20 lg:mx-[1%] xl:mx-0">
       <div className="my-2 border border-gray-200 border-opacity-30 bg-[#FFFFFF] px-8 py-5 text-left">
-        <h1 className="font-cardo p-3 text-left text-[26px] font-normal text-blue-600">
+        <div className="font-cardo p-3 text-left text-[26px] font-normal text-blue-600">
           Terms &amp; Conditions
-        </h1>
+        </div>
         <div className="relative mb-6 mt-1 w-[220px]">
           <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
           <div className="rounded-lg border-b-2 border-gray-600"></div>
@@ -23,7 +23,7 @@ const TermsPage: React.FC = () => {
           govern your use of our website and services.
         </p>
 
-        <h2 className="font-inter mt-4 text-lg font-semibold md:text-xl">User Responsibilities</h2>
+        <h1 className="font-inter mt-4 text-lg font-semibold md:text-xl">User Responsibilities</h1>
         <ul className="mt-2 list-inside list-disc space-y-2">
           <li>You must be at least 18 years old to use Alanced.</li>
           <li>

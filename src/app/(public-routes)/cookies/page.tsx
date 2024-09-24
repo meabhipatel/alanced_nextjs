@@ -9,21 +9,21 @@ export const metadata: Metadata = {
 const Cookies = () => {
   return (
     <>
-      <div className="mx-4 sm:mx-6 md:mx-8 lg:mx-10 xl:mx-12 mt-20">
-        <h1 className="font-cardo p-3 text-left text-2xl font-semibold text-blue-600 sm:text-3xl md:text-4xl">
+      <div className="mx-4 mt-20 sm:mx-6 md:mx-8 lg:mx-10 xl:mx-12">
+        <div className="font-cardo p-3 text-left text-2xl font-semibold text-blue-600 sm:text-3xl md:text-4xl">
           Cookies
-        </h1>
+        </div>
         <div className="relative mb-6 mt-1 w-36">
           <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
           <div className="rounded-lg border-b-2 border-gray-600"></div>
         </div>
-        <div className="my-2 border border-gray-200 border-opacity-30 bg-[#FFFFFF] px-4 sm:px-6 lg:px-8 py-5 text-left">
+        <div className="my-2 border border-gray-200 border-opacity-30 bg-[#FFFFFF] px-4 py-5 text-left sm:px-6 lg:px-8">
           <p>
             At Alanced, we use cookies to enhance your experience and improve the functionality of
             our platform. This Cookie Policy explains how we use cookies and similar technologies
             when you visit our website.
           </p>
-          <h2 className="mt-4 text-lg font-semibold">What are Cookies?</h2>
+          <h1 className="mt-4 text-lg font-semibold">What are Cookies?</h1>
           <p>
             Cookies are small text files that are stored on your device when you visit a website.
             They help websites remember your preferences and enhance your browsing experience.

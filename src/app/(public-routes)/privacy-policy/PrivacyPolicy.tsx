@@ -3,9 +3,9 @@ import { useState } from "react";
 
 const InformationWeCollectContent = () => (
   <>
-    <h2 className="font-inter pt-2 text-left text-lg font-semibold text-[#031136]">
+    <h1 className="font-inter pt-2 text-left text-lg font-semibold text-[#031136]">
       Information We Collect
-    </h2>
+    </h1>
     <div className="relative mb-6 mt-1 w-48">
       <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
       <div className="rounded-lg border-b-2 border-gray-600"></div>

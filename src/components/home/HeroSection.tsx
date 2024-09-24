@@ -55,14 +55,14 @@ const HeroSection = () => {
           </div>
 
           {/* Static Subtitle */}
-          <h1 className="mb-8 mt-10 text-[16px] font-normal leading-[26px] text-[#797979] md:hidden md:pt-6">
+          <h2 className="mb-8 mt-10 text-[16px] font-normal leading-[26px] text-[#797979] md:hidden md:pt-6">
             With Alanced, easily connect with <br /> top freelancers ready to tackle any <br />
-            project you need, exactly when you need it. 
-          </h1>
-          <h1 className="mb-5 mt-10 hidden text-xl font-normal leading-[26px] text-[#797979] md:block md:pt-6">
+            project you need, exactly when you need it.
+          </h2>
+          <h2 className="mb-5 mt-10 hidden text-xl font-normal leading-[26px] text-[#797979] md:block md:pt-6">
             With Alanced, easily connect with top freelancers ready to <br />
             tackle any project you need, exactly when you need it.
-          </h1>
+          </h2>
 
           {/* CTA Button */}
           <Link href={"/signup-options"}>

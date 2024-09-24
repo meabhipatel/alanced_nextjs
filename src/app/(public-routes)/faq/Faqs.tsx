@@ -23,10 +23,10 @@ const Faqs: FC<IProps> = ({ faqs }) => {
           className="mx-2 mt-1 border border-gray-200 border-opacity-30 p-3"
         >
           <div className="flex items-center justify-between">
-            <h1 className="font-inter text-md text-left font-semibold text-[#031136]">
+            <div className="font-inter text-md text-left font-semibold text-[#031136]">
               <FaQuestionCircle className="mr-1 inline-block text-blue-700" />
               {faq.question}
-            </h1>
+            </div>
             <button
               onClick={() => toggleOpen(index)}
               onKeyDown={(e) => e.key === "Enter" && toggleOpen(index)}

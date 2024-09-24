@@ -76,28 +76,28 @@ const HomeSection2 = () => {
   return (
     <>
       <div className="mb-10 mt-10 text-3xl">
-        <h1 className="text-center font-serif">Find Top & Professional Freelancer </h1>
+        <div className="text-center font-serif">Find Top & Professional Freelancer </div>
         <div className="mx-auto mt-5 w-20 border-b border-gray-600"></div>
       </div>
       <div className="mt-10 grid grid-cols-1 gap-6 px-5 sm:grid-cols-2 md:px-24 lg:grid-cols-4">
-  {cardData.map((item, idx) => (
-    <div
-      key={idx}
-      className="rounded p-5 shadow flex flex-col items-center text-center md:items-start md:text-left"
-      style={{ background: item.bgColor }}
-    >
-      <Image
-        src={item.icon}
-        alt="icon"
-        className="mb-4 md:mb-0"
-      />
-      <div className="text-center md:text-left">
-        <h3 className="text-xl font-semibold">{item.title1} &</h3>
-        <h3 className="text-xl font-semibold">{item.title2}</h3>
+        {cardData.map((item, idx) => (
+          <div
+            key={idx}
+            className="flex flex-col items-center rounded p-5 text-center shadow md:items-start md:text-left"
+            style={{ background: item.bgColor }}
+          >
+            <Image
+              src={item.icon}
+              alt="icon"
+              className="mb-4 md:mb-0"
+            />
+            <div className="text-center md:text-left">
+              <h3 className="text-xl font-semibold">{item.title1} &</h3>
+              <h3 className="text-xl font-semibold">{item.title2}</h3>
+            </div>
+          </div>
+        ))}
       </div>
-    </div>
-  ))}
-</div>
 
       <div className="mt-8 text-center">
         <Link href="/signup-options">
@@ -107,7 +107,7 @@ const HomeSection2 = () => {
         </Link>
       </div>
 
-      <div className="container mx-auto mb-10 mt-16 px-6 text-center text-3xl font-serif">
+      <div className="container mx-auto mb-10 mt-16 px-6 text-center font-serif text-3xl">
         <h2>It’s Easy to Get Work Done on Alanced</h2>
         <div className="mx-auto mt-5 w-20 border-b border-gray-600"></div>
       </div>
@@ -119,9 +119,9 @@ const HomeSection2 = () => {
           />
           <h4 className="mt-3 text-center text-xl font-semibold">Post a Job</h4>
           <p className="mt-2 text-center text-xs font-semibold opacity-40">
-
-          Create a free job posting for <br/>your project and start receiving quotes<br/> from freelancers within hours.
-
+            Create a free job posting for <br />
+            your project and start receiving quotes
+            <br /> from freelancers within hours.
           </p>
         </div>
         <div className="flex flex-col items-center">
@@ -131,9 +131,9 @@ const HomeSection2 = () => {
           />
           <h4 className="mt-3 text-center text-xl font-semibold">Hire Freelancers</h4>
           <p className="mt-2 text-center text-xs font-semibold opacity-40">
-
-          Create a free job posting for your<br/> project and start receiving quotes<br/> from freelancers within hours.
-
+            Create a free job posting for your
+            <br /> project and start receiving quotes
+            <br /> from freelancers within hours.
           </p>
         </div>
         <div className="flex flex-col items-center sm:mt-9">
@@ -143,7 +143,10 @@ const HomeSection2 = () => {
           />
           <h4 className="mt-3 text-center text-xl font-semibold">Get Work Done</h4>
           <p className="mt-2 text-center text-xs font-semibold opacity-40">
-          Set payment terms and schedules, and<br/> use Work Rooms for collaboration, communication, and tracking progress. We&apos;ve made our freelance platform easy to <br/>track and manage work.
+            Set payment terms and schedules, and
+            <br /> use Work Rooms for collaboration, communication, and tracking progress.
+            We&apos;ve made our freelance platform easy to <br />
+            track and manage work.
           </p>
         </div>
         <div className="flex flex-col items-center">
@@ -153,7 +156,9 @@ const HomeSection2 = () => {
           />
           <h4 className="mt-3 text-center text-xl font-semibold">Make Secure Payments</h4>
           <p className="mt-2 text-center text-xs font-semibold opacity-40">
-          Make secure payments with SafePay protection and various payment options. Alanced ensures full security for your transactions.          </p>
+            Make secure payments with SafePay protection and various payment options. Alanced
+            ensures full security for your transactions.{" "}
+          </p>
         </div>
       </div>
       <div className="container mx-auto mt-8 px-6 text-center">
