@@ -10,7 +10,10 @@
 		"prepare": "husky"
 	},
 	"lint-staged": {
-		"*.{js,ts,jsx,tsx,json,css,md}": "next lint"
+		"*.{js,ts,jsx,tsx,json,css,md}": [
+			"prettier --write",
+			"next lint"
+		  ]
 	},
 	"dependencies": {
 		"@react-oauth/google": "^0.12.1",
