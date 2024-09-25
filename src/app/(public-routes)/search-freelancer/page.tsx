@@ -171,6 +171,7 @@ const Page: FC<IProps> = async ({ searchParams }) => {
                           <Link
                             href={""}
                             key={skillIndex}
+                            style={{ marginRight: "6px", fontSize: "14px" }}
                           >
                             {/* <span
                                 className={`my-2 mr-2 inline-block rounded border border-gray-300 px-4 py-1 text-[13px] text-[#0A142F] opacity-50 ${

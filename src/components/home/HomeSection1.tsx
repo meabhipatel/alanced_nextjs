@@ -39,10 +39,10 @@ const HomeSection1 = () => {
           </div>
         </div>
         <div className="w-full p-4 text-left md:w-[50%]">
-          <h4 className="mt-5 font-serif text-4xl font-semibold text-[#0A142F] md:text-2xl">
+          <h1 className="mt-5 font-serif text-4xl font-semibold text-[#0A142F] md:text-2xl">
             Best Freelance Websites for
             <br /> Beginners & Experts!
-          </h4>
+          </h1>
           <p className="mt-3 text-justify text-sm leading-6 text-gray-600 md:text-base">
             Welcome to Alanced, the best freelance platform, where your journey to success in the
             digital realm begins! Our Freelance Job Portal is designed to help beginners and

@@ -69,9 +69,9 @@ const WhyAlanced = () => {
               />
             </div>
             <div className="mt-5 basis-9/12">
-              <h1 className="text-left text-[22px] font-semibold">
+              <div className="text-left text-[22px] font-semibold">
                 Create your profile (it’s free)
-              </h1>
+              </div>
               <p className="mb-5 mt-3 text-left text-[15px] opacity-50">
                 Include only your professional skills and experience that are relevant to the job
                 you&apos;re targeting. This is especially helpful if your skills and work history
@@ -107,9 +107,9 @@ const WhyAlanced = () => {
               />
             </div>
             <div className="mt-5 basis-9/12">
-              <h1 className="text-left text-[22px] font-semibold">
+              <div className="text-left text-[22px] font-semibold">
                 Safe and Reliable payment method.
-              </h1>
+              </div>
               <p className="mb-5 mt-3 text-left text-[15px] opacity-50">
                 A secure and reliable payment method refers to a financial transaction process that
                 safeguards sensitive data, such as personal and financial information, while
@@ -122,17 +122,17 @@ const WhyAlanced = () => {
         {/* ---> Page section 2 */}
         <div className="mt-12 flex flex-col gap-1 rounded border border-gray-200 md:flex-row">
           <div className="basis-6/12 border-gray-200 p-3 md:ml-16 md:border-r">
-            <h1 className="mt-8 text-left text-[24px] font-semibold">
+            <div className="mt-8 text-left text-[24px] font-semibold">
               Create a job posting and hire talent.
-            </h1>
+            </div>
             <div className="relative mt-2 w-32">
               <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
               <div className="rounded-lg border-b-2 border-gray-600"></div>
             </div>
-            <h1 className="mt-3 text-left text-[18px] opacity-70">
+            <div className="mt-3 text-left text-[18px] opacity-70">
               Discover the perfect talent match in our Talent <br />
               Marketplace.
-            </h1>
+            </div>
             <p className="mt-4 text-left text-[15px] opacity-70">
               Publish your job listing on the global job market and <br /> anticipate a wave of
               proposals from skilled
@@ -154,17 +154,17 @@ const WhyAlanced = () => {
             </div>
           </div>
           <div className="basis-6/12 border-t p-3 md:ml-16">
-            <h1 className="mt-8 text-left text-[24px] font-semibold">
+            <div className="mt-8 text-left text-[24px] font-semibold">
               Explore projects and get opportunities.
-            </h1>
+            </div>
             <div className="relative mt-2 w-32">
               <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
               <div className="rounded-lg border-b-2 border-gray-600"></div>
             </div>
-            <h1 className="mt-3 text-left text-[18px] opacity-70">
+            <div className="mt-3 text-left text-[18px] opacity-70">
               Initiate essential tasks without delay using Project
               <br /> Catalog.
-            </h1>
+            </div>
             <p className="mt-4 text-left text-[15px] opacity-70">
               Dive into a world of projects and unlock valuable work.
               <br /> discover a realm of possibilities and embark on <br />
@@ -190,7 +190,7 @@ const WhyAlanced = () => {
         {/* ---> Page section 3 */}
         <div className="mb-5 mt-12 flex flex-col-reverse md:flex-row">
           <div className="ml-4 basis-9/12">
-            <h1 className="mt-6 text-left text-[26px] font-semibold">We are available 24/7</h1>
+            <div className="mt-6 text-left text-[26px] font-semibold">We are available 24/7</div>
             <div className="relative mt-2 w-32">
               <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
               <div className="rounded-lg border-b-2 border-gray-600"></div>
