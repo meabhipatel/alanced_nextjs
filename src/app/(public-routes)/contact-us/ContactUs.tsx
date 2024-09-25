@@ -52,20 +52,16 @@ const ContactUs = () => {
 
   return (
     <div className="mx-[5%] mt-20 md:mx-[9%]">
-        <h1 className="font-cardo p-3 text-left text-[28px] font-normal text-blue-600">
-          Contact Us
-        </h1>
-        <div className="relative mt-1 w-40">
-          <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
-          <div className="rounded-lg border-b-2 border-gray-600"></div>
-        </div>
+      <div className="font-cardo p-3 text-left text-[28px] font-normal text-blue-600">
+        Contact Us
+      </div>
+      <div className="relative mt-1 w-40">
+        <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
+        <div className="rounded-lg border-b-2 border-gray-600"></div>
+      </div>
       <div className="my-4 md:flex md:justify-between">
         <div className="flex-1 py-4">
-          {error && (
-            <div className="mb-4 rounded-md bg-red-100 p-3 text-red-800">
-              {error}
-            </div>
-          )}
+          {error && <div className="mb-4 rounded-md bg-red-100 p-3 text-red-800">{error}</div>}
           <input
             type="text"
             className="my-2 w-full rounded-md border px-2 py-1.5 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
@@ -107,21 +103,23 @@ const ContactUs = () => {
           </button>
         </div>
         <div className="flex-1 px-8">
-          <h2 className="font-inter pt-5 text-left text-lg font-semibold text-[#031136]">
+          <div className="font-inter pt-5 text-left text-lg font-semibold text-[#031136]">
             Reach Out Directly:
-          </h2>
-          <h3 className="font-inter text-md pt-1 text-left font-semibold text-[#031136]">
+          </div>
+          <h1 className="font-inter text-md pt-1 text-left font-semibold text-[#031136]">
             <i className="bi bi-envelope-at mr-1 text-blue-600"></i>
             Email: <span className="font-normal opacity-80">contact@alanced.com</span>
-          </h3>
-          <h3 className="font-inter text-md pt-1 text-left font-semibold text-[#031136]">
+          </h1>
+          <h2 className="font-inter text-md pt-1 text-left font-semibold text-[#031136]">
             <i className="bi bi-telephone mr-1 text-blue-600"></i>
             Phone: <span className="font-normal opacity-80">0731-4100910</span>
-          </h3>
+          </h2>
           <h3 className="font-inter text-md pt-1 text-left font-semibold text-[#031136]">
             <i className="bi bi-geo-alt mr-1 text-blue-600"></i>
-            Address: <span className="font-normal opacity-80">
-              202, Krishna Classic, Phadnis Colony Above AXIS Bank, AB Road Indore M P, 452001, India
+            Address:{" "}
+            <span className="font-normal opacity-80">
+              202, Krishna Classic, Phadnis Colony Above AXIS Bank, AB Road Indore M P, 452001,
+              India
             </span>
           </h3>
         </div>

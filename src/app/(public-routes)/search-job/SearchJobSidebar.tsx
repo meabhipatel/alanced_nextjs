@@ -176,7 +176,7 @@ const SearchJobSidebar = () => {
   return (
     <div className="sticky top-24 hidden h-[90vh] w-full overflow-y-auto bg-[#FFFFFF] py-8 pt-3 text-left md:w-[25%] lg:block">
       <div>
-        <h1 className="text-left text-xl font-normal">Category</h1>
+        <div className="text-left text-xl font-normal">Category</div>
       </div>
       {visibleCategories.map((category, index) => (
         <div
@@ -224,7 +224,7 @@ const SearchJobSidebar = () => {
         </div>
       )}
       <div>
-        <h1 className="mt-10 text-left text-xl font-normal">Experience Level</h1>
+        <div className="mt-10 text-left text-xl font-normal">Experience Level</div>
       </div>
       {experienceLevel.map((expLevel) => (
         <div
@@ -253,7 +253,7 @@ const SearchJobSidebar = () => {
         </div>
       ))}
       <div>
-        <h1 className="mt-10 text-left text-xl font-normal">Project Type</h1>
+        <div className="mt-10 text-left text-xl font-normal">Project Type</div>
       </div>
       {projectRate.map((rateType, index) => (
         <div
@@ -277,7 +277,7 @@ const SearchJobSidebar = () => {
       ))}
 
       <div>
-        <h1 className="mt-10 text-left text-xl font-normal">Skills</h1>
+        <div className="mt-10 text-left text-xl font-normal">Skills</div>
       </div>
       {visibleSkills.map((skill) => (
         <div
@@ -324,7 +324,7 @@ const SearchJobSidebar = () => {
         </div>
       )}
       <div>
-        <h1 className="mt-10 text-left text-xl font-normal">Citys</h1>
+        <div className="mt-10 text-left text-xl font-normal">Cities</div>
       </div>
       {visibleCities.map((city, index) => (
         <div

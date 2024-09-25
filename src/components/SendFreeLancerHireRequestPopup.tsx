@@ -7,6 +7,7 @@ import { toast } from "react-hot-toast";
 import useWebSocket from "react-use-websocket";
 import { IHirerProfile, IError, IViewProject, IFreelancer } from "@/interfaces/index";
 import { errorLog } from "@/utils/errorLog";
+import { IoMdClose } from "react-icons/io";
 
 interface IProps {
   closePopup: (id: number) => void;
@@ -160,6 +161,12 @@ const SendFreeLancerHireRequestPopup: FC<IProps> = ({ closePopup, freelancer }) 
         <div className="fixed inset-0 bg-black opacity-50"></div>
         <div className="flex min-h-screen items-center justify-center">
           <div className="relative z-20 w-[90%] rounded-lg bg-white p-6 px-8 md:w-[50%]">
+            <button
+              onClick={() => closePopup(freelancer.id)}
+              className="absolute right-3 top-3 text-gray-500 hover:text-gray-700"
+            >
+              <IoMdClose size={24} />
+            </button>
             <div className="flex items-center justify-between">
               <h1 className="font-cardo text-[26px] font-normal text-[#031136]">Add Data</h1>
               <button

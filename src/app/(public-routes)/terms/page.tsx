@@ -136,7 +136,7 @@ const TermsPage: React.FC = () => {
           .
         </p>
 
-        <p className="mt-4">Thank you for choosing Alanced!</p>
+        <p className="mt-4 text-center text-lg font-semibold">Thank you for choosing Alanced!</p>
       </div>
     </div>
   );

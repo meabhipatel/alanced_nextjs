@@ -89,7 +89,7 @@ const WhyAlanced = () => {
               />
             </div>
             <div className="mt-5 basis-9/12">
-              <h1 className="text-left text-[22px] font-semibold">Foster financial growth</h1>
+              <div className="text-left text-[22px] font-semibold">Foster financial growth</div>
               <p className="mb-5 mt-3 text-left text-[15px] opacity-50">
                 Foster financial growth&quot; refers to the deliberate actions or strategies aimed
                 at nurturing and encouraging the expansion of one&apos;s financial resources,

@@ -30,10 +30,10 @@ const SearchJobHeader = () => {
     >
       <div className="flex w-[95%] rounded-md bg-white p-5 text-2xl sm:w-[80%]">
         <div className="flex w-full flex-col items-start pt-5 text-start">
-          <h1>Projects List</h1>
-          <p className="mt-2 text-sm font-normal text-[#797979]">
+          <div>Projects List</div>
+          <h1 className="mt-2 text-sm font-normal text-[#797979]">
             Explore high-paying freelance opportunities and land your dream job now!
-          </p>
+          </h1>
           <div className="mt-4 flex h-14 w-full items-center rounded-md bg-gray-50 p-3 shadow-md">
             <div className="flex w-full flex-row">
               <IoMdSearch className="h-6 w-6 text-[#797979]" />

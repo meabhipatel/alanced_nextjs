@@ -153,7 +153,7 @@ const SearchFreelancerSidebar: FC<ISearchFreelancerSidebarProps> = () => {
     <div className="sticky top-24 hidden h-[90vh] w-full overflow-y-auto bg-[#FFFFFF] py-8 pt-3 text-left md:w-[25%] lg:block">
       <div className="skills">
         <div>
-          <h1 className="bg-white text-left text-xl font-normal">Skills</h1>
+          <div className="bg-white text-left text-xl font-normal">Skills</div>
         </div>
         {visibleSkills.map((skill, index) => (
           <div
@@ -203,7 +203,7 @@ const SearchFreelancerSidebar: FC<ISearchFreelancerSidebarProps> = () => {
 
       <div className="location">
         <div>
-          <h1 className="mt-10 bg-white text-left text-xl font-normal">Citys</h1>
+          <div className="mt-10 bg-white text-left text-xl font-normal">Cities</div>
         </div>
 
         {visibleCities.map((city, index) => (
@@ -253,7 +253,7 @@ const SearchFreelancerSidebar: FC<ISearchFreelancerSidebarProps> = () => {
       </div>
       <div className="language">
         <div>
-          <h1 className="mt-10 bg-white text-left text-xl font-normal">Languages</h1>
+          <div className="mt-10 bg-white text-left text-xl font-normal">Languages</div>
         </div>
         {visibleLanguages.map((language, index) => (
           <div
@@ -302,7 +302,7 @@ const SearchFreelancerSidebar: FC<ISearchFreelancerSidebarProps> = () => {
       </div>
       <div className="level">
         <div>
-          <h1 className="mt-10 bg-white text-left text-xl font-normal">Experience Level</h1>
+          <div className="mt-10 bg-white text-left text-xl font-normal">Experience Level</div>
         </div>
         {experienceLevel.map((exp, index) => (
           <div

@@ -232,7 +232,7 @@ const SearchJob: FC<IProps> = async ({ searchParams }) => {
                     className="flex w-full flex-col justify-between rounded-md bg-gray-50 p-2 duration-300 hover:bg-gray-100 md:flex-row md:px-12"
                   >
                     <div className="basis-9/12 text-left">
-                      <h1 className="text-lg">{highlightText(project.title, queryText ?? "")}</h1>
+                      <div className="text-lg">{highlightText(project.title, queryText ?? "")}</div>
                       {/* {AllProposals &&
                           AllProposals.map((all: IBid) => {
                             return (
@@ -313,7 +313,7 @@ const SearchJob: FC<IProps> = async ({ searchParams }) => {
                         )}
                     </div>
                     <div className="flex h-full flex-row items-center justify-center gap-5 md:flex-col md:items-end md:gap-2">
-                      <h1 className="text-right text-xl font-extrabold">
+                      <div className="text-right text-xl font-extrabold">
                         $
                         {project.rate === "Hourly"
                           ? project.min_hourly_rate +
@@ -323,7 +323,7 @@ const SearchJob: FC<IProps> = async ({ searchParams }) => {
                             project.max_hourly_rate +
                             "/hr"
                           : project.fixed_budget}
-                      </h1>
+                      </div>
                       <p className="mt-1 text-right text-sm text-[#797979]">{project.rate} Rate</p>
                       <div className="">
                         <Link href={`/view-project/details/${project.id}`}>

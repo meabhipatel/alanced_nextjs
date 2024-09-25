@@ -112,9 +112,9 @@ const Page: FC<IProps> = async ({ searchParams }) => {
     <div className="w-full bg-[#FFFFFF] pb-8 pt-3 text-left lg:w-[70%]">
       <div className="px-4 pt-4 md:px-8">
         <div className="flex items-center">
-          <h1 className="mr-1 text-[21px] font-semibold text-[#031136]">
+          <div className="mr-1 text-[21px] font-semibold text-[#031136]">
             Freelancers that Matches your Job
-          </h1>
+          </div>
         </div>
         <div className="relative mt-3 w-40">
           <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
