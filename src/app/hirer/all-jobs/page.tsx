@@ -2,8 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
-import axios from "axios";
 import { useRouter } from "next/navigation";
+import { axiosWithAuth } from "@/utils/axiosWithAuth";
 
 interface Project {
   title: string;
@@ -14,7 +14,6 @@ interface Project {
 
 const Page = () => {
   const router = useRouter();
-  const accessToken = localStorage.getItem("@accessToken");
   const [projects, setProjects] = useState<Project[]>([]);
   const [selectedTab, setSelectedTab] = useState("All Job Posts");
   const [searchQuery, setSearchQuery] = useState("");
@@ -34,13 +33,8 @@ const Page = () => {
 
         const queryString = queryParameters.join("&");
 
-        const response = await axios.get(
-          `https://www.api.alanced.com/freelance/view/hirer-self/Project?${queryString}`,
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          }
+        const response = await axiosWithAuth.get(
+          `/freelance/view/hirer-self/Project?${queryString}`
         );
 
         if (response.data && Array.isArray(response.data.results)) {
