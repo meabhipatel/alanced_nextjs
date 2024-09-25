@@ -1,22 +1,23 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
-import { IoIosSearch } from 'react-icons/io';
-import axios from 'axios';
-import { useRouter } from 'next/navigation'; 
+import React, { useEffect, useState } from "react";
+import { IoIosSearch } from "react-icons/io";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 interface Project {
   title: string;
   Project_Rate: number;
   experience_level: string;
-  Project_created_at: string; 
+  Project_created_at: string;
 }
 
 const Page = () => {
   const router = useRouter();
+  const accessToken = localStorage.getItem("@accessToken");
   const [projects, setProjects] = useState<Project[]>([]);
-  const [selectedTab, setSelectedTab] = useState('All Job Posts');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedTab, setSelectedTab] = useState("All Job Posts");
+  const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
 
@@ -31,13 +32,13 @@ const Page = () => {
 
         queryParameters.push(`page=${currentPage}`);
 
-        const queryString = queryParameters.join('&');
+        const queryString = queryParameters.join("&");
 
         const response = await axios.get(
           `https://www.api.alanced.com/freelance/view/hirer-self/Project?${queryString}`,
           {
             headers: {
-              Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU3OTk4ODc1LCJpYXQiOjE3MjY0NjI4NzUsImp0aSI6ImMyZTVjZGM2OTQzYTQyZjU5MGI2MThlZjk0ZmZmOTIwIiwidXNlcl9pZCI6NX0.2QnOmbYtqP9C_hVueBk2pH4CqqPCMvX1H1CXQEyynDI`,
+              Authorization: `Bearer ${accessToken}`,
             },
           }
         );
@@ -49,8 +50,8 @@ const Page = () => {
           setProjects([]);
         }
       } catch (error) {
-      //eslint-disable-next-line
-      console.error('Error fetching projects:', error);
+        //eslint-disable-next-line
+        console.error("Error fetching projects:", error);
         setProjects([]);
       }
     };
@@ -72,33 +73,33 @@ const Page = () => {
 
   const handleTabChange = (tab: string) => {
     setSelectedTab(tab);
-    if (tab === 'All Contracts') {
-      router.push('/hirer/contracts');
-    } else if (tab === 'All Job Posts') {
-      router.push('/hirer/all-jobs');
+    if (tab === "All Contracts") {
+      router.push("/hirer/contracts");
+    } else if (tab === "All Job Posts") {
+      router.push("/hirer/all-jobs");
     }
   };
 
   return (
-    <div className="p-4 md:p-6 bg-white">
+    <div className="bg-white p-4 md:p-6">
       {/* Tab Section */}
-      <div className="flex flex-col md:flex-row items-center justify-start md:space-x-4 mb-4 md:mb-6">
+      <div className="mb-4 flex flex-col items-center justify-start md:mb-6 md:flex-row md:space-x-4">
         <button
-          onClick={() => handleTabChange('All Job Posts')}
-          className={`w-full md:w-auto px-4 md:px-6 py-2 font-semibold rounded-lg text-center ${
-            selectedTab === 'All Job Posts'
-              ? 'bg-gradient-to-r from-[#0909E9] to-[#00D4FF] text-white'
-              : 'bg-transparent text-gray-500 border border-gray-300'
+          onClick={() => handleTabChange("All Job Posts")}
+          className={`w-full rounded-lg px-4 py-2 text-center font-semibold md:w-auto md:px-6 ${
+            selectedTab === "All Job Posts"
+              ? "bg-gradient-to-r from-[#0909E9] to-[#00D4FF] text-white"
+              : "border border-gray-300 bg-transparent text-gray-500"
           }`}
         >
           All Job Posts
         </button>
         <button
-          onClick={() => handleTabChange('All Contracts')}
-          className={`w-full md:w-auto mt-2 md:mt-0 px-4 md:px-6 py-2 font-semibold rounded-lg text-center ${
-            selectedTab === 'All Contracts'
-              ? 'bg-gradient-to-r from-[#0909E9] to-[#00D4FF] text-white'
-              : 'bg-transparent text-gray-500 border border-gray-300'
+          onClick={() => handleTabChange("All Contracts")}
+          className={`mt-2 w-full rounded-lg px-4 py-2 text-center font-semibold md:mt-0 md:w-auto md:px-6 ${
+            selectedTab === "All Contracts"
+              ? "bg-gradient-to-r from-[#0909E9] to-[#00D4FF] text-white"
+              : "border border-gray-300 bg-transparent text-gray-500"
           }`}
         >
           All Contracts
@@ -106,17 +107,17 @@ const Page = () => {
       </div>
 
       {/* Search Bar */}
-      <div className="flex flex-col md:flex-row items-center border border-gray-300 rounded-lg p-2 mb-6">
-        <IoIosSearch className="text-gray-500 w-6 h-6" />
+      <div className="mb-6 flex flex-col items-center rounded-lg border border-gray-300 p-2 md:flex-row">
+        <IoIosSearch className="h-6 w-6 text-gray-500" />
         <input
           type="text"
           placeholder="Search Projects"
           value={searchQuery}
           onChange={handleSearch}
-          className="ml-2 outline-none w-full text-sm p-1"
+          className="ml-2 w-full p-1 text-sm outline-none"
         />
-        <button className="mt-2 md:mt-0 bg-gradient-to-r from-blue-700 to-cyan-400 p-2 rounded-lg text-white">
-          <IoIosSearch className="w-5 h-5" />
+        <button className="mt-2 rounded-lg bg-gradient-to-r from-blue-700 to-cyan-400 p-2 text-white md:mt-0">
+          <IoIosSearch className="h-5 w-5" />
         </button>
       </div>
 
@@ -124,7 +125,10 @@ const Page = () => {
       <div className="space-y-4">
         {Array.isArray(projects) && projects.length > 0 ? (
           projects.map((project, index) => (
-            <div key={index} className="p-4 border rounded-lg bg-gray-50 shadow-sm">
+            <div
+              key={index}
+              className="rounded-lg border bg-gray-50 p-4 shadow-sm"
+            >
               <h3 className="text-lg font-semibold">{project.title}</h3>
               <p className="text-sm text-gray-500">
                 {project.Project_Rate} - {project.experience_level}
@@ -141,11 +145,11 @@ const Page = () => {
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex justify-between items-center mt-6">
+        <div className="mt-6 flex items-center justify-between">
           <button
             onClick={prevPage}
             disabled={currentPage === 1}
-            className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 transition"
+            className="rounded-lg bg-gray-200 px-4 py-2 transition hover:bg-gray-300"
           >
             Previous
           </button>
@@ -155,7 +159,7 @@ const Page = () => {
           <button
             onClick={nextPage}
             disabled={currentPage === totalPages}
-            className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 transition"
+            className="rounded-lg bg-gray-200 px-4 py-2 transition hover:bg-gray-300"
           >
             Next
           </button>
