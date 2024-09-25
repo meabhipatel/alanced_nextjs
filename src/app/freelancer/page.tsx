@@ -7,7 +7,6 @@ import Link from "next/link";
 import fileIcon from "@/assets/icons/file.png";
 import hero2Image from "@/assets/images/hero2.png";
 import Image from "next/image";
-import { RxArrowRight, RxArrowLeft } from "react-icons/rx";
 import { errorLog } from "@/utils/errorLog";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { BsCoin, BsSendCheck } from "react-icons/bs";
@@ -16,6 +15,8 @@ import { axiosWithAuth } from "@/utils/axiosWithAuth";
 import { IProject } from "../(public-routes)/search-job/SearchJob";
 import ProjectCard from "@/components/ProjectCard";
 import Loader from "@/components/Loader";
+import Pagination from "@/components/Pagination";
+import { useSearchParams } from "next/navigation";
 
 export interface IFreelanceProject extends IProject {
   is_applied: boolean;
@@ -24,12 +25,18 @@ export interface IFreelanceProject extends IProject {
 }
 
 const FreelancerAfterLogin = () => {
+  const searchParams = useSearchParams();
   const { userProfile } = useAppSelector((state) => state.auth);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(Number(searchParams.get("page") ?? 1));
   const [totalPages, setTotalPages] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
   const [viewProject, setViewProject] = useState<IFreelanceProject[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  // /** ---> Setting current page from url */
+  useEffect(() => {
+    setCurrentPage(Number(searchParams.get("page") ?? 1));
+  }, [searchParams]);
 
   /** ---> Fetching projects data on load. */
   useEffect(() => {
@@ -55,16 +62,6 @@ const FreelancerAfterLogin = () => {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const prev = () => {
-    window.scrollTo(0, 0);
-    setCurrentPage((prev) => Math.max(prev - 1, 1));
-  };
-
-  const next = () => {
-    window.scrollTo(0, 0);
-    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   };
 
   function getCurrentDateAndGreeting() {
@@ -277,53 +274,8 @@ const FreelancerAfterLogin = () => {
                   </div>
                 )}
 
-                <div>
-                  {totalPages > 1 && (
-                    <div className="m-4 flex items-center justify-end gap-6">
-                      <button
-                        onClick={prev}
-                        disabled={currentPage === 1}
-                        style={{
-                          backgroundImage: "linear-gradient(45deg, #0909E9, #00D4FF)",
-                          border: "none",
-                        }}
-                      >
-                        <RxArrowLeft className="text-2xl text-white" />
-                      </button>
-
-                      {[...Array(totalPages)].map((_, index) => {
-                        const pageNumber = index + 1;
-                        return (
-                          <button
-                            key={pageNumber}
-                            className={`px-0 py-1 ${
-                              currentPage === pageNumber
-                                ? "cursor-pointer bg-gradient-to-r from-[#0909E9] to-[#00D4FF] bg-clip-text text-[14px] font-bold text-transparent"
-                                : "cursor-pointer text-[14px] font-bold text-[#0A142F]"
-                            }`}
-                            onClick={() => {
-                              window.scrollTo(0, 0);
-                              setCurrentPage(pageNumber);
-                            }}
-                          >
-                            {pageNumber}
-                          </button>
-                        );
-                      })}
-
-                      <button
-                        onClick={next}
-                        disabled={currentPage === totalPages}
-                        style={{
-                          backgroundImage: "linear-gradient(45deg, #0909E9, #00D4FF)",
-                          border: "none",
-                        }}
-                      >
-                        <RxArrowRight className="text-2xl text-white" />
-                      </button>
-                    </div>
-                  )}
-                </div>
+                {/* ---> Pagination */}
+                <Pagination totalPages={totalPages} />
               </>
             )}
           </div>
