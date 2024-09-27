@@ -431,7 +431,7 @@ const HirerAfterLogin = () => {
 
             <div className="location">
               <div>
-                <h1 className="mt-10 text-left text-xl font-normal">Citys</h1>
+                <h1 className="mt-10 text-left text-xl font-normal">Cities</h1>
               </div>
 
               {visibleCities.map((location, index) => (
@@ -711,7 +711,7 @@ const HirerAfterLogin = () => {
                             <div className="flex flex-row">
                               <div className="font-inter absolute bottom-4 basis-8/12 cursor-pointer items-center text-[14px] font-bold text-blue-600 hover:underline">
                                 <Link
-                                  href="/view-freelancer/full-detail"
+                                  href="/view-freelancer/details"
                                   // state={{ free }}
                                   onClick={() => window.scroll(0, 0)}
                                 >

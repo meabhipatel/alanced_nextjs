@@ -118,7 +118,7 @@ const HomeSection2 = () => {
             alt="job-icon"
           />
           <h4 className="mt-3 text-center text-xl font-semibold">Post a Job</h4>
-          <p className="mt-2 text-center text-xs font-semibold opacity-40">
+          <p className="mt-2 text-center text-xs font-semibold opacity-50">
             Create a free job posting for <br />
             your project and start receiving quotes
             <br /> from freelancers within hours.
@@ -130,7 +130,7 @@ const HomeSection2 = () => {
             alt="freelancer-icon"
           />
           <h4 className="mt-3 text-center text-xl font-semibold">Hire Freelancers</h4>
-          <p className="mt-2 text-center text-xs font-semibold opacity-40">
+          <p className="mt-2 text-center text-xs font-semibold opacity-50">
             Create a free job posting for your
             <br /> project and start receiving quotes
             <br /> from freelancers within hours.
@@ -142,7 +142,7 @@ const HomeSection2 = () => {
             alt="done-icon"
           />
           <h4 className="mt-3 text-center text-xl font-semibold">Get Work Done</h4>
-          <p className="mt-2 text-center text-xs font-semibold opacity-40">
+          <p className="mt-2 text-center text-xs font-semibold opacity-50">
             Set payment terms and schedules, and
             <br /> use Work Rooms for collaboration, communication, and tracking progress.
             We&apos;ve made our freelance platform easy to <br />
@@ -155,7 +155,7 @@ const HomeSection2 = () => {
             alt="secure-icon"
           />
           <h4 className="mt-3 text-center text-xl font-semibold">Make Secure Payments</h4>
-          <p className="mt-2 text-center text-xs font-semibold opacity-40">
+          <p className="mt-2 text-center text-xs font-semibold opacity-50">
             Make secure payments with SafePay protection and various payment options. Alanced
             ensures full security for your transactions.{" "}
           </p>
