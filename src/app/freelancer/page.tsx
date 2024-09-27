@@ -123,13 +123,13 @@ const FreelancerAfterLogin = () => {
         {/* --- > Page Header */}
         <div className="flex h-40 w-full bg-[#F6FAFD] md:h-52">
           <div className="flex w-full flex-col items-start justify-center p-2 md:w-[60%] md:pl-10">
-            <h1 className="text-xl font-normal text-[#031136]">
+            <div className="text-xl font-normal text-[#031136]">
               {day}, {formattedDate}
-            </h1>
-            <h1 className="py-1 text-start text-3xl font-medium text-[#031136]">
+            </div>
+            <div className="py-1 text-start text-3xl font-medium text-[#031136]">
               Good {greeting},{" "}
               <span className="font-semibold capitalize">{userProfile.first_Name}</span>
-            </h1>
+            </div>
           </div>
           <div className="hidden h-full w-[40%] md:block">
             <Image
@@ -146,7 +146,7 @@ const FreelancerAfterLogin = () => {
           <div className="w-full border-b border-l border-gray-200 border-opacity-30 bg-[#FFFFFF] py-8 pt-3 text-left md:w-[30%]">
             <Link href="/freelancer/saved-jobs">
               <div className="flex items-center justify-between rounded-2xl border-b border-gray-200 border-opacity-30 px-4 py-4 hover:bg-[#e2f1f9] md:px-8">
-                <h1 className="mr-1 text-xl font-normal text-[#031136]">Saved Jobs</h1>
+                <div className="mr-1 text-xl font-normal text-[#031136]">Saved Jobs</div>
                 <div className="mr-5 flex items-center space-x-2 text-blue-600">
                   <IoIosHeartEmpty className="text-2xl" />
                 </div>
@@ -154,14 +154,14 @@ const FreelancerAfterLogin = () => {
             </Link>
             <Link href="/freelancer/my-proposals">
               <div className="flex items-center justify-between rounded-2xl border-b border-gray-200 border-opacity-30 px-4 py-4 hover:bg-[#e2f1f9] md:px-8">
-                <h1 className="mr-1 text-xl font-normal text-[#031136]">Proposals</h1>
+                <div className="mr-1 text-xl font-normal text-[#031136]">Proposals</div>
                 <div className="mr-5 flex items-center space-x-2 text-blue-600">
                   <BsSendCheck className="text-2xl" />
                 </div>
               </div>
             </Link>
             <div className="flex items-center justify-between rounded-2xl border-b border-gray-200 border-opacity-30 px-4 py-4 hover:bg-[#e2f1f9] md:px-8">
-              <h1 className="mr-1 text-xl font-normal text-[#031136]">Get Paid</h1>
+              <div className="mr-1 text-xl font-normal text-[#031136]">Get Paid</div>
               <div className="mr-5 flex items-center space-x-2 text-blue-600">
                 <BsCoin className="text-2xl" />
               </div>
@@ -169,7 +169,7 @@ const FreelancerAfterLogin = () => {
             <Link href="/search-job">
               <div className="mx-4 my-3 grid grid-cols-[2fr,1fr] gap-2 rounded-lg bg-[#e2f1f9] p-4 shadow-sm">
                 <div>
-                  <h1 className="text-left text-lg text-[#031136]">Get Tips To Find Work</h1>
+                  <div className="text-left text-lg text-[#031136]">Get Tips To Find Work</div>
                   <p className="py-2 text-left text-sm text-[#0A142F] opacity-50">
                     Learn to optimize search, use Connects, and land your first job.
                   </p>
@@ -187,10 +187,10 @@ const FreelancerAfterLogin = () => {
             <Link href="/freelancer/all-invitations">
               <div className="relative z-10 mx-4 grid grid-cols-[2fr,1fr] gap-2 rounded-lg bg-[#e2f1f9] p-4 shadow-sm">
                 <div>
-                  <h1 className="text-left text-lg text-[#031136]">My Jobs</h1>
-                  <p className="py-2 text-left text-sm text-[#0A142F] opacity-50">
+                  <div className="text-left text-lg text-[#031136]">My Jobs</div>
+                  <h1 className="py-2 text-left text-sm text-[#0A142F] opacity-50">
                     View your active contracts, timesheets, and available earnings.
-                  </p>
+                  </h1>
                 </div>
                 <div className="text-center">
                   <i className="bi bi-arrow-right"></i>
@@ -209,9 +209,9 @@ const FreelancerAfterLogin = () => {
             <div className="border-b border-gray-200 border-opacity-30 px-4 pt-4 md:px-8">
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
-                  <h1 className="mr-1 text-[21px] font-normal text-[#031136]">
+                  <div className="mr-1 text-[21px] font-normal text-[#031136]">
                     Jobs You Might Like
-                  </h1>
+                  </div>
                 </div>
                 <div className="flex items-center">
                   <div className="mr-1 flex w-[200px] items-center space-x-1 rounded-md border p-1">

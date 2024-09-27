@@ -16,6 +16,9 @@ const Footer = () => {
           <div className="p-1 text-left md:p-4">
             <h5 className="mb-6 text-xl font-bold">Company Info</h5>
             <ul className="footer-links list-none text-gray-500">
+              <Link href="/blog">
+                <li className="mb-2 hover:text-blue-600 hover:underline">Blog</li>
+              </Link>
               <Link href="/about-us">
                 <li className="mb-2 hover:text-blue-600 hover:underline">About us</li>
               </Link>

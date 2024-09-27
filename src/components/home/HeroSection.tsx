@@ -48,21 +48,21 @@ const HeroSection = () => {
             className={`${animateClass} `}
             key={currentIndex}
           >
-            <h2
+            <div
               className={`text-[30px] font-semibold leading-[40px] text-[#031136] sm:mt-3 sm:text-[40px] sm:leading-[50px] md:mt-3 md:text-[50px] md:leading-[55px]`}
               dangerouslySetInnerHTML={{ __html: slideContents[currentIndex] }}
             />
           </div>
 
           {/* Static Subtitle */}
-          <h2 className="mb-8 mt-10 text-[16px] font-normal leading-[26px] text-[#797979] md:hidden md:pt-6">
+          <div className="mb-8 mt-10 text-[16px] font-normal leading-[26px] text-[#797979] md:hidden md:pt-6">
             With Alanced, easily connect with <br /> top freelancers ready to tackle any <br />
             project you need, exactly when you need it.
-          </h2>
-          <h2 className="mb-5 mt-10 hidden text-xl font-normal leading-[26px] text-[#797979] md:block md:pt-6">
+          </div>
+          <div className="mb-5 mt-10 hidden text-xl font-normal leading-[26px] text-[#797979] md:block md:pt-6">
             With Alanced, easily connect with top freelancers ready to <br />
             tackle any project you need, exactly when you need it.
-          </h2>
+          </div>
 
           {/* CTA Button */}
           <Link href={"/signup-options"}>

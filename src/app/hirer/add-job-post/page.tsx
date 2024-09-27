@@ -3,9 +3,7 @@ import CategoryList from "@/constant/allSelectionData/categoryList";
 import SkillsList from "@/constant/allSelectionData/skillsList";
 import React, { useEffect, useRef, useState } from "react";
 //import Link from 'next/link';
-import axios from 'axios'; 
-
-
+import axios from "axios";
 
 interface Project {
   title?: string;
@@ -18,7 +16,6 @@ interface Project {
   min_hourly_rate?: string | null;
   max_hourly_rate?: string | null;
   experience_level?: string;
-
 }
 
 const AddJobPost = () => {
@@ -34,7 +31,6 @@ const AddJobPost = () => {
   const [error, setError] = useState<string>(""); // eslint-disable-line
   const [isValid, setIsValid] = useState<boolean>(false);
 
-
   const wrapperRef = useRef<HTMLDivElement>(null);
   const wrapperRefSkill = useRef<HTMLDivElement>(null);
 
@@ -45,7 +41,7 @@ const AddJobPost = () => {
     category.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const payload: Project ={
+  const payload: Project = {
     title: addProject.title,
     description: addProject.description,
     deadline: addProject.deadline,
@@ -78,10 +74,14 @@ const AddJobPost = () => {
           Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2NTMxMzQzLCJpYXQiOjE3MjQ5OTUzNDMsImp0aSI6IjUzNTdiZjczOWE4NjRmYmNhZGQ0NDkzZWZhNjZlZmUwIiwidXNlcl9pZCI6NX0.3s7MY0Hg_BTm5th-PLt_3HIYL9KZKndftLmi7udm_qI`,
         },
       };
-  
-      const response = await axios.post('https://www.api.alanced.com/freelance/Add/Project', payload, config);
+
+      const response = await axios.post(
+        "https://www.api.alanced.com/freelance/Add/Project",
+        payload,
+        config
+      );
       //eslint-disable-next-line
-      console.log(response); 
+      console.log(response);
       // Optional: Process the response if needed
       alert("Job posted successfully!");
     } catch (error) {
@@ -89,7 +89,6 @@ const AddJobPost = () => {
       // Optionally, report the error to an external service or handle it silently
     }
   };
-  
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -99,33 +98,33 @@ const AddJobPost = () => {
   }, []);
 
   useEffect(() => {
-    switch(step) {
+    switch (step) {
       case 1:
         setIsValid(Boolean(addProject.title && selectedCategory));
-      break;
-      case 2: 
+        break;
+      case 2:
         setIsValid(Boolean(addProject.description));
-      break;    
-      case 3: 
+        break;
+      case 3:
         setIsValid(skills.length > 0);
-      break;
+        break;
       case 4: {
         // Wrap code with curly braces to create a new block scope
-        const isBudgetValid = Boolean(addProject.fixed_budget || (addProject.min_hourly_rate && addProject.max_hourly_rate));
+        const isBudgetValid = Boolean(
+          addProject.fixed_budget || (addProject.min_hourly_rate && addProject.max_hourly_rate)
+        );
         setIsValid(isBudgetValid);
         break;
       }
-    
+
       case 5: {
         // Wrap code with curly braces to create a new block scope
         const isDeadlineValid = Boolean(addProject.deadline && addProject.experience_level);
         setIsValid(isDeadlineValid);
         break;
       }
-
-      }
-}, [step, addProject, skills, selectedCategory]);
-
+    }
+  }, [step, addProject, skills, selectedCategory]);
 
   const onChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -170,44 +169,35 @@ const AddJobPost = () => {
     setStep((prevStep) => Math.max(prevStep - 1, 1));
   };
 
+  const stepsLabels = ["Job Description", "Skills", "Budget", "Deadline"];
 
-
-  const stepsLabels = [
-    'Job Description',
-    'Skills',
-    'Budget',
-    'Deadline'
-];
-
-const selectOptionHandler = (value: string) => {
-  setSelectedOption(value);
-  setAddProject((prev) => ({
-    ...prev,
-    rate: value,
-  }));
-};
-
-
+  const selectOptionHandler = (value: string) => {
+    setSelectedOption(value);
+    setAddProject((prev) => ({
+      ...prev,
+      rate: value,
+    }));
+  };
 
   return (
     <div className="mx-4 mt-4 sm:mx-6 md:mx-8 lg:mx-12">
-      <h1 className="font-cardo p-3 text-left text-xl font-normal text-[#031136] sm:text-2xl md:text-3xl">
+      <div className="font-cardo p-3 text-left text-xl font-normal text-[#031136] sm:text-2xl md:text-3xl">
         Add Job Post
-      </h1>
+      </div>
       <div className="my-2 border border-gray-100 bg-white text-left">
         <div className="p-4 sm:p-6 md:p-8">
-          <h2 className="font-cardo mb-4 text-lg sm:text-xl md:text-2xl">{`${step}/5`}</h2>
+          <div className="font-cardo mb-4 text-lg sm:text-xl md:text-2xl">{`${step}/5`}</div>
           <div className="space-y-4">
             {step === 1 && (
               <div className="flex flex-col items-start justify-between md:flex-row md:items-center">
                 <div className="mb-5 flex-1 md:mb-0 md:mr-4">
-                  <h1 className="font-cardo text-3xl font-semibold text-blue-600 md:text-4xl">
+                  <div className="font-cardo text-3xl font-semibold text-blue-600 md:text-4xl">
                     Your Job Post Title
-                  </h1>
-                  <p className="font-cardo py-2 text-base font-medium opacity-75 sm:py-4 sm:text-lg">
+                  </div>
+                  <h1 className="font-cardo py-2 text-base font-medium opacity-75 sm:py-4 sm:text-lg">
                     Make it Shine, Attract the Right Candidates, <br />
                     Land the Best Talent
-                  </p>
+                  </h1>
                 </div>
                 <div className="flex-1">
                   <label
@@ -286,9 +276,9 @@ const selectOptionHandler = (value: string) => {
 
             {step === 2 && (
               <div>
-                <h1 className="font-cardo text-2xl font-semibold text-blue-600 md:text-3xl">
+                <div className="font-cardo text-2xl font-semibold text-blue-600 md:text-3xl">
                   Job Description
-                </h1>
+                </div>
                 <p className="font-cardo py-2 text-base font-medium opacity-75 sm:py-4 sm:text-lg">
                   Describe the responsibilities and expectations.
                 </p>
@@ -305,9 +295,9 @@ const selectOptionHandler = (value: string) => {
 
             {step === 3 && (
               <div>
-                <h1 className="font-cardo text-2xl font-semibold text-blue-600 md:text-3xl">
+                <div className="font-cardo text-2xl font-semibold text-blue-600 md:text-3xl">
                   Skills Required
-                </h1>
+                </div>
                 <p className="font-cardo py-2 text-base font-medium opacity-75 sm:py-4 sm:text-lg">
                   Specify the skills needed for the job.
                 </p>
@@ -397,9 +387,9 @@ const selectOptionHandler = (value: string) => {
 
             {step === 4 && (
               <div>
-                <h1 className="font-cardo text-2xl font-semibold text-blue-600 md:text-3xl">
+                <div className="font-cardo text-2xl font-semibold text-blue-600 md:text-3xl">
                   Budget and Rate
-                </h1>
+                </div>
                 <p className="font-cardo py-2 text-base font-medium opacity-75 sm:py-4 sm:text-lg">
                   Specify the budget and rate for the job.
                 </p>
@@ -483,9 +473,9 @@ const selectOptionHandler = (value: string) => {
 
             {step === 5 && (
               <div>
-                <h1 className="font-cardo text-2xl font-semibold text-blue-600 md:text-3xl">
+                <div className="font-cardo text-2xl font-semibold text-blue-600 md:text-3xl">
                   Deadline and Experience Level
-                </h1>
+                </div>
                 <p className="font-cardo py-2 text-base font-medium opacity-75 sm:py-4 sm:text-lg">
                   Specify the deadline and experience level required.
                 </p>
@@ -528,46 +518,46 @@ const selectOptionHandler = (value: string) => {
             )}
           </div>
           <div className="mt-4 flex justify-between">
-          {step > 1 && (
-  <div className="inline-block rounded bg-gradient-to-b from-[#0909E9] to-[#00D4FF] p-0.5">
-    <button
-      onClick={goToPreviousStep}
-      className="bg-white px-11 py-1"
-    >
-      <p className="from-primary to-danger bg-gradient-to-r bg-clip-text px-[8px] py-[4px] text-sm font-semibold text-transparent">
-        Back
-      </p>
-    </button>
-  </div>
-)}
+            {step > 1 && (
+              <div className="inline-block rounded bg-gradient-to-b from-[#0909E9] to-[#00D4FF] p-0.5">
+                <button
+                  onClick={goToPreviousStep}
+                  className="bg-white px-11 py-1"
+                >
+                  <p className="from-primary to-danger bg-gradient-to-r bg-clip-text px-[8px] py-[4px] text-sm font-semibold text-transparent">
+                    Back
+                  </p>
+                </button>
+              </div>
+            )}
 
-{step < 5 ? (
-  <button
-  onClick={goToNextStep}
-  className={`font-cardo rounded-md px-4 py-2 text-white focus:outline-none ml-auto ${
-    isValid ? 'bg-gradient-to-r from-[#0909E9] to-[#00D4FF]' : 'bg-gray-400 cursor-not-allowed'
-  }`}
-  disabled={!isValid}
->
-  {`Next: ${stepsLabels[step - 1]}`}
-</button>
-
-) : (
-  <div>
-  <button
-    onClick={postJob}
-    className="rounded-md bg-green-500 px-4 py-2 text-white"
-  >
-    Post Job
-  </button>
-  {error && <p className="text-red-500">{error}</p>}
-</div>
-)}
-
-       </div>
-     </div>
-   </div>
- </div>
+            {step < 5 ? (
+              <button
+                onClick={goToNextStep}
+                className={`font-cardo ml-auto rounded-md px-4 py-2 text-white focus:outline-none ${
+                  isValid
+                    ? "bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"
+                    : "cursor-not-allowed bg-gray-400"
+                }`}
+                disabled={!isValid}
+              >
+                {`Next: ${stepsLabels[step - 1]}`}
+              </button>
+            ) : (
+              <div>
+                <button
+                  onClick={postJob}
+                  className="rounded-md bg-green-500 px-4 py-2 text-white"
+                >
+                  Post Job
+                </button>
+                {error && <p className="text-red-500">{error}</p>}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

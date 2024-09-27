@@ -368,12 +368,12 @@ const HirerAfterLogin = () => {
             className="hidden h-52 w-full md:block"
           />
           <div className="absolute p-4 text-left md:left-12 md:top-12">
-            <h1 className="text-lg font-normal text-[#031136] sm:text-xl">
+            <div className="text-lg font-normal text-[#031136] sm:text-xl">
               {day}, {formattedDate}
-            </h1>
-            <h1 className="py-1 text-2xl font-semibold text-[#031136] sm:text-3xl">
+            </div>
+            <div className="py-1 text-2xl font-semibold text-[#031136] sm:text-3xl">
               Good {greeting}, {displayName}
-            </h1>
+            </div>
           </div>
         </div>
         <div className="mx-5 mb-5 flex flex-col md:flex-row">
@@ -381,7 +381,7 @@ const HirerAfterLogin = () => {
           <div className="sticky top-28 hidden h-[90vh] w-full overflow-y-auto bg-[#FFFFFF] py-8 pt-3 text-left md:block md:w-[30%]">
             <div className="skills">
               <div>
-                <h1 className="text-left text-xl font-normal">Skills</h1>
+                <div className="text-left text-xl font-normal">Skills</div>
               </div>
               {visibleSkills.map((skill, index) => (
                 <div
@@ -431,7 +431,7 @@ const HirerAfterLogin = () => {
 
             <div className="location">
               <div>
-                <h1 className="mt-10 text-left text-xl font-normal">Cities</h1>
+                <div className="mt-10 text-left text-xl font-normal">Cities</div>
               </div>
 
               {visibleCities.map((location, index) => (
@@ -481,7 +481,7 @@ const HirerAfterLogin = () => {
             </div>
             <div className="language">
               <div>
-                <h1 className="mt-10 text-left text-xl font-normal">Languages</h1>
+                <div className="mt-10 text-left text-xl font-normal">Languages</div>
               </div>
               {visibleLanguages.map((language, index) => (
                 <div
@@ -530,7 +530,7 @@ const HirerAfterLogin = () => {
             </div>
             <div className="level">
               <div>
-                <h1 className="mt-10 text-left text-xl font-normal">Experience Level</h1>
+                <div className="mt-10 text-left text-xl font-normal">Experience Level</div>
               </div>
               {expe.map((exp, index) => (
                 <div

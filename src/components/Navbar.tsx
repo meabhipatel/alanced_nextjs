@@ -317,12 +317,6 @@ const Navbar = () => {
                 <Link href="/why-alanced">
                   <span>Why Alanced</span>
                 </Link>
-                <Link href="/contact-us">
-                  <span>Contact Us</span>
-                </Link>
-                <Link href="/blogs">
-                  <span>Blogs</span>
-                </Link>
               </div>
 
               <div className="flex gap-3">

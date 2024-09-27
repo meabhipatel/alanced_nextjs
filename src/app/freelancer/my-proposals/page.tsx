@@ -131,9 +131,9 @@ const MyProposals = () => {
         ) : (
           <>
             <div className="my-8 border border-[#E7E8F2] bg-[#FFFFFF] text-left">
-              <h1 className="font-inter p-3 text-[14px] font-bold text-[#031136] md:text-[16px]">
+              <div className="font-inter p-3 text-[14px] font-bold text-[#031136] md:text-[16px]">
                 Submitted Proposals ({viewFreeBid.length})
-              </h1>
+              </div>
               {viewFreeBid.length > 0 ? (
                 <div>
                   {viewFreeBid.map((bid, index) => {
@@ -151,9 +151,9 @@ const MyProposals = () => {
                         key={index}
                       >
                         <div className="flex w-full flex-col md:w-1/4">
-                          <h1 className="font-cardo text-[16px] text-[#031136] md:text-[18px]">
+                          <div className="font-cardo text-[16px] text-[#031136] md:text-[18px]">
                             Initiated {formattedDate}
-                          </h1>
+                          </div>
                           <p className="font-inter text-[12px] text-[#031136] opacity-50 md:text-[14px]">
                             {timeAgo(bid.bid_time)}
                           </p>
@@ -165,9 +165,9 @@ const MyProposals = () => {
                             query: { bid: JSON.stringify(bid) },
                           }}
                         > */}
-                          <h1 className="font-cardo text-[16px] text-blue-600 hover:underline md:text-[18px]">
+                          <div className="font-cardo text-[16px] text-blue-600 hover:underline md:text-[18px]">
                             {bid.project.title}
-                          </h1>
+                          </div>
                           {/* </Link> */}
                         </div>
                         <div className="flex w-full flex-col items-end pr-4 md:w-1/4">
@@ -214,9 +214,9 @@ const MyProposals = () => {
               )}
             </div>
             <div className="my-4 border border-[#E7E8F2] bg-[#FFFFFF] text-left">
-              <h1 className="font-inter p-3 text-[14px] font-bold text-[#031136] md:text-[16px]">
+              <div className="font-inter p-3 text-[14px] font-bold text-[#031136] md:text-[16px]">
                 Hiring Requests ({viewAllHiring.length})
-              </h1>
+              </div>
               {viewAllHiring.length > 0 ? (
                 <div>
                   {viewAllHiring.map((hiring, index) => {
@@ -234,9 +234,9 @@ const MyProposals = () => {
                         key={index}
                       >
                         <div className="flex w-full flex-col md:w-1/4">
-                          <h1 className="font-cardo text-[16px] text-[#031136] md:text-[18px]">
+                          <div className="font-cardo text-[16px] text-[#031136] md:text-[18px]">
                             Received {formattedDate}
-                          </h1>
+                          </div>
                           <p className="font-inter text-[12px] text-[#031136] opacity-50 md:text-[14px]">
                             {timeAgo(hiring.hire_time)}
                           </p>
@@ -248,9 +248,9 @@ const MyProposals = () => {
                             query: { hiring: JSON.stringify(hiring) },
                           }}
                         > */}
-                          <h1 className="font-cardo text-[16px] text-blue-600 hover:underline md:text-[18px]">
+                          <div className="font-cardo text-[16px] text-blue-600 hover:underline md:text-[18px]">
                             {hiring?.project?.title || "No Title"}
-                          </h1>
+                          </div>
                           {/* </Link> */}
                         </div>
                         <div className="flex w-full flex-col items-end pr-4 md:w-1/4">

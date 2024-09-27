@@ -123,7 +123,7 @@ const Page = () => {
               key={index}
               className="rounded-lg border bg-gray-50 p-4 shadow-sm"
             >
-              <h3 className="text-lg font-semibold">{project.title}</h3>
+              <div className="text-lg font-semibold">{project.title}</div>
               <p className="text-sm text-gray-500">
                 {project.Project_Rate} - {project.experience_level}
               </p>
