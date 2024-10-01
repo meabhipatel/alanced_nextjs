@@ -1,14 +1,13 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react"; // Consolidated imports
 import { IoIosSearch } from "react-icons/io";
 // import 'react-loading-skeleton/dist/skeleton.css';
 import { formatDateInput } from "@/utils/timeFunction";
-import axios from "axios";
 //import { useSelector } from 'react-redux';
-import { useState, useEffect } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import contractimg from "@/assets/images/Frame.png";
 import Image from "next/image";
+import { axiosWithAuth } from "@/utils/axiosWithAuth";
 
 interface Contract {
   project_title: string;
@@ -37,12 +36,8 @@ const AllContracts = () => {
 
     const queryString = queryParameters.join("&");
 
-    axios
-      .get(`https://www.api.alanced.com/freelance/View-all/freelancer-contracts?${queryString}`, {
-        headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU1MTY3NjY0LCJpYXQiOjE3MjM2MzE2NjQsImp0aSI6ImRiNzE2NGM3NzdmZTQ1ZTRiNjYzOTVhZTc5NDkxZDVjIiwidXNlcl9pZCI6NH0.YxoAhsxO4E9uIYVHgJk5JVkEIJjoccn6ppIFgZTukYc`,
-        },
-      })
+    axiosWithAuth
+      .get(`/freelance/View-all/freelancer-contracts?${queryString}`)
       .then((response) => {
         setViewAllfreecontracts(response.data.results);
         setTotalPages(Math.ceil(response.data.count / 8));

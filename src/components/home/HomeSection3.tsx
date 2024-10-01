@@ -40,7 +40,7 @@ const HomeSection3 = () => {
             <h5 className="py-4 text-lg font-semibold text-[#0A142F] sm:text-xl md:text-2xl">
               Credibility
             </h5>
-            <p className="text-sm opacity-80 sm:text-base md:text-lg lg:text-sm">
+            <p className="text-sm opacity-60 sm:text-base md:text-lg lg:text-sm">
               We verify Freelancers, publish their feedback scores and All-Time Transaction Data to
               help you identify time-tested professionals across the globe.
             </p>
@@ -59,7 +59,7 @@ const HomeSection3 = () => {
             <h5 className="py-4 text-lg font-semibold text-[#0A142F] sm:text-xl md:text-2xl">
               Flexibility
             </h5>
-            <p className="text-sm opacity-80 sm:text-base md:text-lg lg:text-sm">
+            <p className="text-sm opacity-60 sm:text-base md:text-lg lg:text-sm">
               We provide multiple Payment terms and flexible Agreements to enable you to work the
               way you want.
             </p>
@@ -78,7 +78,7 @@ const HomeSection3 = () => {
             <h5 className="py-4 text-lg font-semibold text-[#0A142F] sm:text-xl md:text-2xl">
               Value
             </h5>
-            <p className="text-sm opacity-80 sm:text-base md:text-lg lg:text-sm">
+            <p className="text-sm opacity-60 sm:text-base md:text-lg lg:text-sm">
               We have the lowest fees in the industry, providing you with maximum value at minimum
               cost.
             </p>

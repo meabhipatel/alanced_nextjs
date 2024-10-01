@@ -1,12 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import Image from "next/image";
 //import { useSelector } from 'react-redux';
 //import Skeleton from 'react-loading-skeleton';
 import { timeAgo } from "@/utils/timeFunction";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import file from "@/assets/icons/file.png";
+import { axiosWithAuth } from "@/utils/axiosWithAuth";
 
 interface Invite {
   Received_time: string;
@@ -33,12 +33,8 @@ const AllInvitations: React.FC = () => {
     queryParameters.push(`page=${currentPage}`);
     const queryString = queryParameters.join("&");
 
-    axios
-      .get(`https://www.api.alanced.com/freelance/View-all/hire-request?${queryString}`, {
-        headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU1MTY3NjY0LCJpYXQiOjE3MjM2MzE2NjQsImp0aSI6ImRiNzE2NGM3NzdmZTQ1ZTRiNjYzOTVhZTc5NDkxZDVjIiwidXNlcl9pZCI6NH0.YxoAhsxO4E9uIYVHgJk5JVkEIJjoccn6ppIFgZTukYc`,
-        },
-      })
+    axiosWithAuth
+      .get(`/freelance/View-all/hire-request?${queryString}`)
       .then((response) => {
         setViewAllInvites(response.data.results);
         setTotalPages(Math.ceil(response.data.count / 8));

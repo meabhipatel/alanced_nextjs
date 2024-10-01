@@ -74,7 +74,7 @@ const cardData = [
 
 const HomeSection2 = () => {
   return (
-    <>
+    <div>
       <div className="mb-10 mt-10 text-3xl">
         <div className="text-center font-serif">Find Top & Professional Freelancer </div>
         <div className="mx-auto mt-5 w-20 border-b border-gray-600"></div>
@@ -168,7 +168,7 @@ const HomeSection2 = () => {
           </span>
         </Link>
       </div>
-    </>
+    </div>
   );
 };
 
