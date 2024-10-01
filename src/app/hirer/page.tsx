@@ -710,11 +710,7 @@ const HirerAfterLogin = () => {
                             </div>
                             <div className="flex flex-row">
                               <div className="font-inter absolute bottom-4 basis-8/12 cursor-pointer items-center text-[14px] font-bold text-blue-600 hover:underline">
-                                <Link
-                                  href="/view-freelancer/details"
-                                  // state={{ free }}
-                                  onClick={() => window.scroll(0, 0)}
-                                >
+                                <Link href={`/view-freelancer/details/${free.id}`}>
                                   <p>View more detail</p>
                                 </Link>
                               </div>
