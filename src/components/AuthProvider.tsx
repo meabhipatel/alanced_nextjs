@@ -1,8 +1,8 @@
 "use client";
+import React, { FC, ReactNode, useLayoutEffect, useState } from "react";
 import { ELoginMethod, EUserType, setUserAuthProfile } from "@/store/features/auth/authSlice";
 import { useAppDispatch } from "@/store/hooks";
 import Image from "next/image";
-import { FC, ReactNode, useLayoutEffect, useState } from "react";
 import AlancdLogo from "@/assets/images/alanced.png";
 
 interface IProps {
