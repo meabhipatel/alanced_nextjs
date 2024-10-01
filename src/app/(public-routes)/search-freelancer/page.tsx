@@ -225,7 +225,7 @@ const Page: FC<IProps> = async ({ searchParams }) => {
 
                     <div className="flex flex-row">
                       <div className="absolute bottom-4 basis-8/12 cursor-pointer items-center text-[14px] font-bold text-blue-600 hover:underline">
-                        <Link href="/view-freelancer/details">
+                        <Link href={`/view-freelancer/details/${freelancer.id}`}>
                           <p>View more detail</p>
                         </Link>
                       </div>
