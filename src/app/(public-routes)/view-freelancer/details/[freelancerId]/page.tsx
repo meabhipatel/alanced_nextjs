@@ -320,7 +320,7 @@ const ViewFreelancerDetails: FC<IProps> = ({ params: { freelancerId } }) => {
                 <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
                 <div className="rounded-lg border-b-2 border-gray-600"></div>
               </div>
-              <div className="-mx-2 mt-4 flex flex-wrap">
+              <div className="-mx-2 mt-4 grid grid-cols-3">
                 {freelancerproject &&
                   freelancerproject.map(
                     (
@@ -328,7 +328,7 @@ const ViewFreelancerDetails: FC<IProps> = ({ params: { freelancerId } }) => {
                       index //eslint-disable-line
                     ) => (
                       <button
-                        className="mb-4 w-full px-2 sm:w-1/2 md:w-1/3"
+                        className="mb-4 w-full px-2"
                         key={index}
                         onClick={() => openPortfolio(project)}
                       >
@@ -347,7 +347,7 @@ const ViewFreelancerDetails: FC<IProps> = ({ params: { freelancerId } }) => {
                             width={250}
                           />
                         </div>
-                        <p className="font-inter overflow-hidden overflow-ellipsis whitespace-nowrap pt-2 text-left text-[13px] font-semibold text-blue-600 underline hover:text-blue-700">
+                        <p className="overflow-hidden overflow-ellipsis whitespace-nowrap pt-2 text-left text-[13px] font-semibold text-blue-600 underline hover:text-blue-700">
                           {project.project_title}
                         </p>
                       </button>
