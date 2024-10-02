@@ -170,7 +170,7 @@ const ViewProjectDetail: FC<IProps> = ({ params: { id } }) => {
           </div>
           <div className="font-cardo mt-10 text-lg font-normal">Skills and Expertise</div>
           <div className="mt-2 text-sm font-normal">{projectDetails?.category} Deliverables</div>
-          {JSON.parse(projectDetails?.skills_required?.replace(/'/g, '"') ?? "").map(
+          {JSON.parse(projectDetails?.skills_required?.replace(/'/g, '"') ?? "[]").map(
             (skill: string, index: number) => (
               <span
                 key={index}
