@@ -127,3 +127,50 @@ input[type="radio"]:checked:after {
 .slide-exit {
   animation: slideOutLeft 1s forwards;
 }
+
+.gradient-text {
+  background: linear-gradient(90deg, #0909e9, #00d4ff);
+  background-clip: text; /* Standard */
+  -webkit-background-clip: text; /* For Chrome, Safari, and iOS */
+  -webkit-text-fill-color: transparent; /* For Chrome, Safari, and iOS */
+  animation: gradientAnimation 3s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0%;
+  }
+  100% {
+    background-position: 100%;
+  }
+}
+
+@keyframes gradientShiftHover {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+.animated-button {
+  background: linear-gradient(90deg, #0909e9, #00d4ff);
+  background-size: 200% 200%;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  padding: 10px 20px;
+  font-weight: 600;
+  display: inline-block;
+  text-align: center;
+  transition:
+    background-size 0.5s ease,
+    transform 0.3s ease;
+}
+
+.animated-button:hover {
+  background-size: 300% 300%; /* Make the background bigger when hovering */
+  animation: gradientShiftHover 1.5s ease forwards; /* Animate on hover */
+  transform: scale(1.05); /* Slightly enlarge the button on hover */
+}

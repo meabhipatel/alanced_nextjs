@@ -44,7 +44,7 @@ const HeroSearchBox = () => {
                   pathname: searchType === "Talent" ? "/search-freelancer" : "/search-job",
                 }}
               >
-                <button className="h-12 w-28 rounded bg-gradient-to-r from-[#0909E9] to-[#00D4FF] font-semibold text-white">
+                <button className="animated-button h-12 w-28 rounded bg-gradient-to-r from-[#0909E9] to-[#00D4FF] font-semibold text-white">
                   Search
                 </button>
               </Link>

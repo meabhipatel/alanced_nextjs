@@ -12,8 +12,8 @@ const HeroSection = () => {
 
   // Array of slide titles with HTML line breaks
   const slideContents: string[] = [
-    "Unlock Access <br/> to Premier Experts <br/> and Talent with <br/> Alanced",
-    "Quality Work, <br/> Anywhere, Anytime <br/> With Top Freelance <br/> Website",
+    `Unlock Access <br/> to <span class="gradient-text">Premier Experts</span> <br/> and Talent with <br/> <span class="gradient-text">Alanced</span>`,
+    ` <span class="gradient-text">Quality Work</span>, <br/> Anywhere, Anytime <br/> With <span class="gradient-text">Top Freelance Website</span>`,
   ];
 
   useEffect(() => {
@@ -66,7 +66,7 @@ const HeroSection = () => {
 
           {/* CTA Button */}
           <Link href={"/signup-options"}>
-            <span className="mb-2 mr-2 inline-block rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-[10px] text-sm font-semibold text-white lg:mt-0">
+            <span className="animated-button mb-2 mr-2 inline-block px-4 py-[10px] text-sm font-semibold text-white lg:mt-0">
               Get Started
             </span>
           </Link>
