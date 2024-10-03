@@ -1,12 +1,52 @@
-import React from "react";
+"use client";
+import { IProject } from "@/app/(public-routes)/search-job/SearchJob";
+import { axiosWithAuth } from "@/utils/axiosWithAuth";
+import { errorLog } from "@/utils/errorLog";
+import { timeAgo } from "@/utils/timeFunction";
+import React, { FC, useEffect, useState } from "react";
 import { FaUserShield, FaDollarSign, FaCalendarAlt } from "react-icons/fa";
 import { MdLocationOn, MdVerified } from "react-icons/md";
 
-const ViewProposal = () => {
+interface IProposalData {
+  id: number;
+  bid_amount: number;
+  description: string;
+  bid_type: string;
+  bid_time: string;
+  freelancer_id: number;
+  project_id: number;
+  project: IProject;
+}
+
+interface IProps {
+  params: {
+    projectId: number;
+  };
+}
+
+const ViewProposal: FC<IProps> = ({ params: { projectId } }) => {
+  const [proposalData, setProposalData] = useState<IProposalData | null>(null);
+
+  /** ---> Fetching proposal data onload. */
+  useEffect(() => {
+    handleFetchProposalData();
+  }, []);
+
+  const handleFetchProposalData = async () => {
+    try {
+      const res = await axiosWithAuth.get(
+        `/freelance/view/freelancer-self/project-bid/${projectId}`
+      );
+      setProposalData(res.data.data[0]);
+    } catch (error) {
+      errorLog(error);
+    }
+  };
+
   return (
     <div className="flex min-h-screen flex-col p-4 lg:p-8">
       {/* Header */}
-      <div className="mb-6 text-center font-serif text-2xl font-bold text-gray-800 lg:text-left">
+      <div className="mb-6 text-center text-2xl font-bold text-gray-800 lg:text-left">
         Proposal Details
       </div>
 
@@ -15,31 +55,35 @@ const ViewProposal = () => {
         {/* Job Details Section */}
         <div className="w-full lg:w-2/3">
           <h2 className="text-xl font-bold text-gray-800">Job Details</h2>
-          <h3 className="mt-2 text-lg font-semibold text-gray-700">Fitness Tracking App</h3>
+          <h3 className="mt-2 text-lg font-semibold text-gray-700">
+            {proposalData?.project.title}
+          </h3>
           <div className="mt-2 flex items-center space-x-2">
             <span className="rounded-md bg-blue-100 px-3 py-1 text-sm font-medium text-blue-700">
-              Web Development
+              {proposalData?.project.category}
             </span>
-            <span className="text-sm text-gray-500">Posted 8 months ago</span>
+            <span className="text-sm text-gray-500">
+              Posted {timeAgo(proposalData?.bid_time ?? "")}
+            </span>
           </div>
-          <p className="mt-4 leading-relaxed text-gray-600">
-            Developed a fitness tracking application with React for the frontend and Django Rest
-            Framework for the backend. Implemented workout logs, progress charts, and goal-setting
-            features.
-          </p>
+          <p className="mt-4 leading-relaxed text-gray-600">{proposalData?.project.description}</p>
 
           {/* Skills Section */}
           <div className="mt-6">
             <h4 className="text-md font-semibold text-gray-700">Skills & Expertise</h4>
             <div className="mt-3 flex flex-wrap gap-3">
-              {["PHP", "WordPress", "Shopify", "CSS", "HTML", "Figma"].map((skill) => (
-                <span
-                  key={skill}
-                  className="rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-blue-600 shadow-sm"
-                >
-                  {skill}
-                </span>
-              ))}
+              {JSON.parse(proposalData?.project?.skills_required?.replace(/'/g, '"') ?? "[]").map(
+                (value: string) => {
+                  return (
+                    <span
+                      key={value}
+                      className="rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-blue-600 shadow-sm"
+                    >
+                      {value}
+                    </span>
+                  );
+                }
+              )}
             </div>
           </div>
 
@@ -48,7 +92,18 @@ const ViewProposal = () => {
             <div className="flex flex-col items-center justify-between lg:flex-row lg:space-x-4">
               <div className="text-base font-semibold text-gray-800">Your Proposed Terms</div>
               <div className="mt-2 text-sm text-gray-600 lg:mt-0">
-                Client&apos;s budget: <span className="font-bold text-blue-600">$4/hr - $8/hr</span>
+                Client&apos;s budget:{" "}
+                <span className="font-bold text-blue-600">
+                  ${" "}
+                  {proposalData?.project.rate === "Hourly"
+                    ? proposalData.project.min_hourly_rate +
+                      "/hr" +
+                      " - " +
+                      "$" +
+                      proposalData.project.max_hourly_rate +
+                      "/hr"
+                    : proposalData?.project.fixed_budget}
+                </span>
               </div>
             </div>
 
@@ -69,11 +124,13 @@ const ViewProposal = () => {
                 <div className="rounded-md bg-gray-50 p-4 shadow-sm transition duration-300 hover:bg-gray-100">
                   <div className="flex items-center justify-between">
                     <span className="font-medium text-gray-700">Total Project Price:</span>
-                    <span className="font-semibold text-blue-600">$11.00</span>
+                    <span className="font-semibold text-blue-600">${proposalData?.bid_amount}</span>
                   </div>
                   <div className="mt-4 flex items-center justify-between">
                     <span className="font-medium text-gray-700">You&apos;ll Receive:</span>
-                    <span className="font-semibold text-green-500">$9.90</span>
+                    <span className="font-semibold text-green-500">
+                      $ {Number(proposalData?.bid_amount) - Number(proposalData?.bid_amount) / 10}
+                    </span>
                   </div>
                   <p className="mt-2 text-sm text-gray-500">
                     The estimated payment after service fees.
@@ -95,17 +152,21 @@ const ViewProposal = () => {
             <li className="flex items-center">
               <FaUserShield className="mr-2 text-blue-500" />
               <span className="font-medium text-gray-600">Owner Name:</span>
-              <span className="ml-2 text-gray-800">Pihu</span>
+              <span className="ml-2 text-gray-800">{proposalData?.project.project_owner_name}</span>
             </li>
             <li className="flex items-center">
               <MdLocationOn className="mr-2 text-red-500" />
               <span className="font-medium text-gray-600">Location:</span>
-              <span className="ml-2 text-gray-800">Gujarat</span>
+              <span className="ml-2 text-gray-800">
+                {proposalData?.project.project_owner_location}
+              </span>
             </li>
             <li className="flex items-center">
               <FaCalendarAlt className="mr-2 text-gray-600" />
               <span className="font-medium text-gray-600">History:</span>
-              <span className="ml-2 text-gray-800">Member since 2023-12-30</span>
+              <span className="ml-2 text-gray-800">
+                Member since {proposalData?.project.project_owner_date_of_creation}
+              </span>
             </li>
           </ul>
 
@@ -116,22 +177,22 @@ const ViewProposal = () => {
               <li className="flex items-center">
                 <FaUserShield className="mr-2 text-blue-500" />
                 <div>
-                  <span className="font-bold text-gray-800">Intermediate</span>
-                  <p className="text-sm text-gray-500">Experience level</p>
+                  <span className="font-bold text-gray-800">Experience level</span>
+                  <p className="text-sm text-gray-500"> {proposalData?.project.experience_level}</p>
                 </div>
               </li>
               <li className="flex items-center">
                 <FaDollarSign className="mr-2 text-green-500" />
                 <div>
                   <span className="font-bold text-gray-800">Propose your terms</span>
-                  <p className="text-sm text-gray-500">Hourly price</p>
+                  <p className="text-sm text-gray-500"> {proposalData?.project.rate} Price</p>
                 </div>
               </li>
               <li className="flex items-center">
                 <FaCalendarAlt className="mr-2 text-gray-600" />
                 <div>
                   <span className="font-bold text-gray-800">Project Deadline</span>
-                  <p className="text-sm text-gray-500">2024-01-03</p>
+                  <p className="text-sm text-gray-500"> {proposalData?.project.deadline}</p>
                 </div>
               </li>
             </ul>
