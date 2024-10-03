@@ -19,12 +19,12 @@ interface IProjectDetils extends IProject {
 
 interface IProps {
   params: {
-    id: number;
+    projectId: number;
   };
 }
 
 // eslint-disable-next-line
-const SendProposal: FC<IProps> = ({ params: { id } }) => {
+const SendProposal: FC<IProps> = ({ params: { projectId } }) => {
   const router = useRouter();
   const [projectDetails, setProjectDetails] = useState<IProjectDetils | null>(null);
   const [bidAmount, setBidAmount] = useState(0);
@@ -42,7 +42,7 @@ const SendProposal: FC<IProps> = ({ params: { id } }) => {
 
   const handleFetchProjectDetails = async () => {
     try {
-      const res = await axiosWithAuth.get(`/freelance/View/project-detail/${42}`);
+      const res = await axiosWithAuth.get(`/freelance/View/project-detail/${projectId}`);
       setProjectDetails(res.data.data[0]);
     } catch (error) {
       errorLog(error);
@@ -52,15 +52,15 @@ const SendProposal: FC<IProps> = ({ params: { id } }) => {
   const handleSendProposal = async () => {
     setIsLoading(true);
     const proposalData = {
-      project_id: 42,
+      project_id: projectId,
       description: coverLetter,
       bid_amount: bidAmount,
       bid_type: bidType,
     };
     try {
-      await axiosWithAuth.post(`/freelance/Add/bid/${42}`, proposalData);
+      await axiosWithAuth.post(`/freelance/Add/bid/${projectId}`, proposalData);
       toast.success("Your proposal has been sent successfully.");
-      router.replace(`/freelancer/view-proposal/42`);
+      router.replace(`/freelancer/view-proposal/${projectId}`);
     } catch (error) {
       errorLog(error);
       if (error instanceof AxiosError) {

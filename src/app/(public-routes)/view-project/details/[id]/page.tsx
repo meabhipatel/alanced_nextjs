@@ -55,7 +55,7 @@ const ViewProjectDetail: FC<IProps> = ({ params: { id } }) => {
   };
 
   const handleNavigateToSendProposal = () => {
-    router.push("/freelancer/send-proposal");
+    router.push(`/freelancer/send-proposal/${id}`);
   };
 
   if (isLoading) {
