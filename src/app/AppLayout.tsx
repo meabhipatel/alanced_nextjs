@@ -22,7 +22,7 @@ const AppLayout: FC<IProps> = ({ children }) => {
   ];
 
   return (
-    <div className="mx-auto max-w-[1536px] bg-white">
+    <div className="bg-white">
       {!withoutNavbarScreens.includes(pathname) &&
         !pathname.startsWith("/reset-user-password/") && (
           <div>
