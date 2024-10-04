@@ -83,7 +83,7 @@ const TermsPage: React.FC = () => {
         </ul>
 
         <h2 className="font-inter mt-4 text-base font-semibold sm:text-lg md:text-xl">Privacy</h2>
-        <p className="text-sm leading-relaxed sm:text-base lg:text-lg">
+        <p className="text-sm leading-relaxed sm:text-base lg:text-sm">
           We value your privacy greatly. We encourage you to read our Privacy Policy to learn about
           our practices regarding the collection, use, and sharing of your information.
         </p>
@@ -91,7 +91,7 @@ const TermsPage: React.FC = () => {
         <h2 className="font-inter mt-4 text-base font-semibold sm:text-lg md:text-xl">
           Limitations on Guarantees{" "}
         </h2>
-        <p className="text-sm leading-relaxed sm:text-base lg:text-lg">
+        <p className="text-sm leading-relaxed sm:text-base lg:text-sm">
           Alanced offers its services on an &quot;as is&quot; and &quot;as available&quot; basis. We
           do not guarantee that our platform will be free from errors, secure, or consistently
           available. Your usage of Alanced is entirely at your own risk.
@@ -100,7 +100,7 @@ const TermsPage: React.FC = () => {
         <h2 className="font-inter mt-4 text-base font-semibold sm:text-lg md:text-xl">
           Limitation of Liability
         </h2>
-        <p className="text-sm leading-relaxed sm:text-base lg:text-lg">
+        <p className="text-sm leading-relaxed sm:text-base lg:text-sm">
           To the maximum extent allowed by law, Alanced shall not be responsible for any indirect,
           incidental, special, consequential, or punitive damages resulting from or related to your
           use of our platform.
@@ -109,7 +109,7 @@ const TermsPage: React.FC = () => {
         <h2 className="font-inter mt-4 text-base font-semibold sm:text-lg md:text-xl">
           Termination
         </h2>
-        <p className="text-sm leading-relaxed sm:text-base lg:text-lg">
+        <p className="text-sm leading-relaxed sm:text-base lg:text-sm">
           Alanced retains the right to suspend or terminate your access to the platform at any time,
           for any reason or none at all. Once terminated, your rights to utilize Alanced will end
           immediately.
@@ -118,7 +118,7 @@ const TermsPage: React.FC = () => {
         <h2 className="font-inter mt-4 text-base font-semibold sm:text-lg md:text-xl">
           Governing Law
         </h2>
-        <p className="text-sm leading-relaxed sm:text-base lg:text-lg">
+        <p className="text-sm leading-relaxed sm:text-base lg:text-sm">
           These Terms & Conditions will be governed by and interpreted in accordance with the laws
           of the Government Jurisdiction of India, without considering any conflicting legal
           principles.
@@ -127,18 +127,18 @@ const TermsPage: React.FC = () => {
         <h2 className="font-inter mt-4 text-base font-semibold sm:text-lg md:text-xl">
           Modifications to Terms & Conditions
         </h2>
-        <p className="text-sm leading-relaxed sm:text-base lg:text-lg">
+        <p className="text-sm leading-relaxed sm:text-base lg:text-sm">
           Alanced retains the authority to amend or revise these Terms & Conditions at any time. We
           will inform you of any modifications by updating the Terms & Conditions on our website.
         </p>
 
-        <p className="text-sm leading-relaxed sm:text-base lg:text-lg">
+        <p className="text-sm leading-relaxed sm:text-base lg:text-sm">
           By accessing Alanced, you confirm that you have read, comprehended, and consent to adhere
           to these Terms & Conditions. If you disagree with any aspect of these terms, we kindly ask
           that you refrain from using our platform.
         </p>
 
-        <p className="text-sm leading-relaxed sm:text-base lg:text-lg">
+        <p className="text-sm leading-relaxed sm:text-base lg:text-sm">
           If you have any inquiries about these Terms & Conditions, please feel free to reach out to
           us at{" "}
           <a
