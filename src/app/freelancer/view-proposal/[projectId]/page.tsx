@@ -88,7 +88,7 @@ const ViewProposal: FC<IProps> = ({ params: { projectId } }) => {
           </div>
 
           {/* Proposed Terms Section */}
-          <div className="mt-6 rounded-lg bg-white p-6 shadow-lg transition-all duration-300 hover:shadow-xl">
+          <div className="mt-6 rounded-lg bg-white p-6 shadow-sm transition-all duration-300">
             <div className="flex flex-col items-center justify-between lg:flex-row lg:space-x-4">
               <div className="text-base font-semibold text-gray-800">Your Proposed Terms</div>
               <div className="mt-2 text-sm text-gray-600 lg:mt-0">
@@ -108,33 +108,42 @@ const ViewProposal: FC<IProps> = ({ params: { projectId } }) => {
             </div>
 
             <div className="mt-6">
-              <div className="mb-4 text-base font-semibold text-gray-800">
-                How do you want to be paid?
-              </div>
-
               <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-                <div className="rounded-md bg-gray-50 p-4 shadow-sm transition duration-300 hover:bg-gray-100">
-                  <span className="block font-medium text-gray-800">By Project</span>
-                  <span className="mt-4 block text-sm text-gray-500">Total price of project</span>
-                  <span className="mt-1 block text-sm text-gray-500">
-                    This includes all milestones and is the amount your client will see.
+                <div className="ml-4">
+                  <div className="mb-1 text-base font-semibold text-gray-800">
+                    How do you want to be paid?
+                  </div>
+                  <span className="mb-4 block text-sm text-gray-500">By Project</span>
+                  <span className="mb-4 mt-4 text-base font-semibold text-gray-800">
+                    Total price of project
                   </span>
-                </div>
-
-                <div className="rounded-md bg-gray-50 p-4 shadow-sm transition duration-300 hover:bg-gray-100">
-                  <div className="flex items-center justify-between">
-                    <span className="font-medium text-gray-700">Total Project Price:</span>
-                    <span className="font-semibold text-blue-600">${proposalData?.bid_amount}</span>
+                  <span className="mt-1 block text-sm text-gray-500">
+                    This includes all milestones, and is the amount your client will see.
+                  </span>
+                  <div className="mt-4">
+                    <div className="block text-sm font-semibold text-gray-800">
+                      ${proposalData?.bid_amount}
+                    </div>
                   </div>
                   <div className="mt-4 flex items-center justify-between">
-                    <span className="font-medium text-gray-700">You&apos;ll Receive:</span>
-                    <span className="font-semibold text-green-500">
-                      $ {Number(proposalData?.bid_amount) - Number(proposalData?.bid_amount) / 10}
-                    </span>
+                    <div className="text-base font-semibold text-gray-800">
+                      You&apos;ll Receive:
+                    </div>
                   </div>
                   <p className="mt-2 text-sm text-gray-500">
-                    The estimated payment after service fees.
+                    The estimated payment, after service fees.
                   </p>
+                  <div className="mt-2 font-semibold text-green-500">
+                    ${Number(proposalData?.bid_amount) - Number(proposalData?.bid_amount) / 10}
+                  </div>
+                </div>
+              </div>
+              <div className="mt-6">
+                <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+                  <div className="col-span-1 rounded-md bg-gray-100 p-4 shadow-sm transition duration-300 lg:col-span-2">
+                    <div className="text-base font-semibold text-gray-800">Cover Letter</div>
+                    <div className="text-sm text-gray-500">Ok</div>
+                  </div>
                 </div>
               </div>
             </div>
