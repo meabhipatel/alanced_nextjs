@@ -25,10 +25,10 @@ const AppLayout: FC<IProps> = ({ children }) => {
     <div className="mx-auto max-w-[1536px] bg-white">
       {!withoutNavbarScreens.includes(pathname) &&
         !pathname.startsWith("/reset-user-password/") && (
-          <>
+          <div>
             <Navbar />
             <DynamicMarginTop />
-          </>
+          </div>
         )}
 
       {children}

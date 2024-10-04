@@ -1,12 +1,12 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Image from "next/image";
 import AddReviewPopup from "@/components/pop-up";
 import { formatDateInput } from "@/utils/timeFunction";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { IoIosSearch } from "react-icons/io";
 import contractimg from "@/assets/images/Frame.png";
+import { axiosWithAuth } from "@/utils/axiosWithAuth";
 
 interface Contract {
   hire_id: number;
@@ -37,12 +37,8 @@ const AllHirerContracts = () => {
     queryParameters.push(`page=${currentPage}`);
     const queryString = queryParameters.join("&");
 
-    axios
-      .get(`https://www.api.alanced.com/freelance/View-all/hirer-contracts?${queryString}`, {
-        headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU1Nzc5NDQ1LCJpYXQiOjE3MjQyNDM0NDUsImp0aSI6ImY1YWI4ZjgzYzdlZjQ2Y2Y5YjZjYTY0N2NhODFlZTBlIiwidXNlcl9pZCI6NX0.gHOhD42TJxQoRKt34wdwBN3cBp04_Ugj5zZoGQgDOag`,
-        },
-      })
+    axiosWithAuth
+      .get(`/freelance/View-all/hirer-contracts?${queryString}`)
       .then((response) => {
         setViewAllhirercontracts(response.data.results);
         setTotalPages(Math.ceil(response.data.count / 8));
@@ -151,7 +147,7 @@ const AllHirerContracts = () => {
                   </div>
                   <div className="mt-4 lg:mt-0 lg:basis-2/12">
                     <button
-                      className="inline-block cursor-pointer rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-2 text-sm font-semibold text-white lg:px-6 lg:py-[10px]"
+                      className="ml-3 inline-block cursor-pointer rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-2 text-sm font-semibold text-white lg:px-6 lg:py-[10px]"
                       onClick={() => openReview(contract.hire_id)}
                     >
                       Add Review
