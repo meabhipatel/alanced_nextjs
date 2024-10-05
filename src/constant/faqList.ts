@@ -1,37 +1,37 @@
 export const faqList = [
   {
-    question: "What is Alanced?",
+    question: "What does Alanced offer?",
     answer:
-      "Alanced is a curated platform that connects skilled freelancers with clients in need of professional services. From writers and designers to coders and consultants, Alanced is your one-stop-shop for all freelancing needs.",
+      "Alanced is a specialized platform that brings together talented freelancers and clients seeking expert services. Whether you're looking for writers, designers, developers, or consultants, Alanced serves as your all-in-one solution for freelance projects.",
   },
   {
-    question: "How do I sign up?",
+    question: "What is the process for signing up?",
     answer:
-      "To register, click on the 'Sign Up' button on the top-right corner of our homepage, and follow the prompts. We offer separate registration processes for freelancers and clients to cater to the unique needs of both.",
+      "To get started, simply click the 'Sign Up' button located at the top-right of our homepage and follow the steps. We provide distinct registration options for freelancers and clients to meet the specific requirements of each.",
   },
   {
-    question: "How much does it cost to use Alanced?",
+    question: "What are the fees associated with using Alanced?",
     answer:
-      "For freelancers, there's a basic free plan available with a limited set of features. We also offer premium memberships with more benefits. Clients can post jobs for free but have optional premium features to boost their listings.",
+      "Freelancers can choose our basic free plan, which includes a limited set of features, or upgrade to premium memberships for additional benefits. Clients can post jobs at no cost, with the option to enhance their listings using premium features.",
   },
   {
-    question: "How do I get paid?",
+    question: "What is the payment process?",
     answer:
-      "Payments are processed through Alanced's secure payment gateway. Once a job is completed and approved by the client, funds are released to the freelancer's Alanced account, which can then be withdrawn to their bank or through other payment methods available.",
+      "Payments are handled via Alanced's secure gateway. After a job is completed and approved by the client, the funds are transferred to the freelancer's Alanced account. Freelancers can then withdraw their earnings to their bank or choose from other available payment options.",
   },
   {
-    question: "What kind of jobs can I find or post on Alanced?",
+    question: "What types of jobs are available on Alanced?",
     answer:
-      "We cover a wide range of categories, from writing, graphic design, web development, marketing, consulting, and many more. If you have a skill or a job requirement, it's likely you'll find a match here.",
+      "We offer a broad selection of categories, including writing, graphic design, web development, marketing, consulting, and more. Whether you're seeking a specific skill or looking to fill a job requirement, you'll likely find the perfect match here.",
   },
   {
-    question: "Is my personal information safe with Alanced?",
+    question: "How secure is my personal information with Alanced?",
     answer:
-      "Absolutely. We prioritize the security and confidentiality of our users. All personal information is encrypted and kept secure. We do not share or sell user information to third parties.",
+      "Absolutely. We take the security and privacy of our users very seriously. All personal data is encrypted and securely stored. We never share or sell user information to third parties.",
   },
   {
-    question: "Can I work or hire from anywhere in the world?",
+    question: "Is it possible to work or hire globally?",
     answer:
-      "Yes! Alanced is a global platform, and we support freelancers and clients from all over the world.",
+      "Yes! Alanced is a worldwide platform, welcoming freelancers and clients from every corner of the globe.",
   },
 ];
