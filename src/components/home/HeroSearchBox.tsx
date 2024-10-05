@@ -13,8 +13,8 @@ const HeroSearchBox = () => {
 
   return (
     <>
-      <div className="flex justify-center">
-        <div className="-mt-[57px] flex w-[90%] flex-col items-center gap-3 rounded-2xl bg-white p-2 shadow-lg md:h-24 md:flex-row lg:w-[80%]">
+      <div className="container flex justify-center">
+        <div className="-mt-[57px] flex w-full flex-col items-center gap-3 rounded-2xl bg-white p-2 shadow-lg md:h-24 md:flex-row">
           <div className="flex w-full justify-center md:block md:w-[60%]">
             <Link href={searchType === "Talent" ? "/search-freelancer" : "/search-job"}>
               <div className="flex cursor-text flex-row items-center gap-3 border-r-[#1C3865] p-4 md:border-r-2">

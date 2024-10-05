@@ -8,12 +8,12 @@ import { FaInstagram } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="footer-1 bg-white py-8 sm:py-12">
-      <div className="w-full px-5 lg:px-10">
+    <footer className="container bg-white py-8 sm:py-12">
+      <div className="w-full">
         {/* ---> footer navigations  */}
-        <hr className="mx-4 my-6 sm:mx-5"></hr>
+        <hr className="my-6"></hr>
         <div className="grid w-full grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-5">
-          <div className="p-1 text-left md:p-4">
+          <div className="text-left">
             <h5 className="mb-6 text-xl font-bold">Company Info</h5>
             <ul className="footer-links list-none text-gray-500">
               <Link href="/blog">
@@ -30,7 +30,7 @@ const Footer = () => {
               </Link>
             </ul>
           </div>
-          <div className="p-1 text-left md:p-4">
+          <div className="text-left">
             <h5 className="mb-6 text-xl font-bold">About</h5>
             <ul className="footer-links list-none text-gray-500">
               <Link href="/enterprises">
@@ -44,7 +44,7 @@ const Footer = () => {
               </Link>
             </ul>
           </div>
-          <div className="p-1 text-left md:p-4">
+          <div className="text-left">
             <h5 className="mb-6 text-xl font-bold">Policies</h5>
             <ul className="footer-links list-none text-gray-500">
               <Link href="/terms">
@@ -61,9 +61,9 @@ const Footer = () => {
           <FooterSubscribeBox />
         </div>
 
-        <hr className="mx-4 my-6 sm:mx-5" />
+        <hr className="my-6" />
         {/* ---> footer copyrights text  */}
-        <div className="mt-5 flex flex-col items-center space-y-4 px-4 sm:flex-row sm:space-x-4 sm:space-y-0">
+        <div className="mt-5 flex flex-col items-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
           <div className="flex flex-1 justify-start p-4 pl-0 pt-1">
             <Link href="/">
               <div className="flex flex-shrink-0 items-center md:w-1/6">

@@ -19,9 +19,6 @@ const FooterSubscribeBox = () => {
     const formData = new URLSearchParams();
     formData.append("email", addUserSub.email);
 
-    // Simulate an API call
-    console.log("Form Data Submitted: ", formData.toString());//eslint-disable-line
-
     // Show success toast
     toast.success("Subscribed successfully!");
 
@@ -37,11 +34,9 @@ const FooterSubscribeBox = () => {
   };
 
   return (
-    <div className="col-span-2 p-1 md:p-4">
+    <div className="col-span-2 py-1 md:py-4">
       <div className="-mt-6 w-full bg-[#F4F5F9] p-2">
-        <h5 className="ml-[23px] pt-[22px] text-start text-xl font-bold">
-          Subscribe
-        </h5>
+        <h5 className="ml-[23px] pt-[22px] text-start text-xl font-bold">Subscribe</h5>
         <div className="mt-5 flex w-full items-center px-5">
           <input
             type="email"
@@ -59,11 +54,10 @@ const FooterSubscribeBox = () => {
           </button>
         </div>
 
-        <p className="pl-6 pt-3 text-[14px] opacity-60 text-justify max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg leading-tight">
-        Subscribe to an Alanced freelance job portal, designed to support and empower both businesses and freelancers alike.
+        <p className="max-w-xs pl-6 pt-3 text-justify text-[14px] leading-tight opacity-60 sm:max-w-sm md:max-w-md lg:max-w-lg">
+          Subscribe to an Alanced freelance job portal, designed to support and empower both
+          businesses and freelancers alike.
         </p>
-
-
       </div>
     </div>
   );

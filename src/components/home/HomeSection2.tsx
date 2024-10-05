@@ -74,12 +74,12 @@ const cardData = [
 
 const HomeSection2 = () => {
   return (
-    <div>
-      <div className="mb-10 mt-10 text-3xl">
+    <div className="container">
+      <div className="py-10 text-3xl">
         <div className="text-center font-serif">Find Top & Professional Freelancer </div>
         <div className="mx-auto mt-5 w-20 border-b border-gray-600"></div>
       </div>
-      <div className="mt-10 grid grid-cols-1 gap-6 px-5 sm:grid-cols-2 md:px-24 lg:grid-cols-4">
+      <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {cardData.map((item, idx) => (
           <div
             key={idx}
@@ -107,11 +107,11 @@ const HomeSection2 = () => {
         </Link>
       </div>
 
-      <div className="container mx-auto mb-10 mt-16 px-6 text-center font-serif text-3xl">
+      <div className="mb-10 mt-16 text-center font-serif text-3xl">
         <h2>It’s Easy to Get Work Done on Alanced</h2>
         <div className="mx-auto mt-5 w-20 border-b border-gray-600"></div>
       </div>
-      <div className="container mx-auto grid grid-cols-1 items-center gap-4 px-6 sm:grid-cols-2 md:grid-cols-4">
+      <div className="grid grid-cols-1 items-center gap-4 sm:grid-cols-2 md:grid-cols-4">
         <div className="flex flex-col items-center">
           <Image
             src={jobIcon}
@@ -161,7 +161,7 @@ const HomeSection2 = () => {
           </p>
         </div>
       </div>
-      <div className="container mx-auto mt-8 px-6 text-center">
+      <div className="mt-8 text-center">
         <Link href="/signup-options">
           <span className="inline-block rounded border bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-2 text-sm font-semibold text-white">
             Get Started

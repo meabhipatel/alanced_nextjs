@@ -22,16 +22,16 @@ const HomeSection3 = () => {
   };
 
   return (
-    <div>
+    <>
       {/* "Why Over 3 Million People Choose Us" section */}
-      <div className="mt-10 bg-[#F6FAFD] pb-7">
+      <div className="container mt-10 bg-[#F6FAFD] pb-7">
         <div className="pt-6 text-center text-xl font-semibold text-[#0A142F] sm:text-2xl md:text-[26px]">
           Why Over 3 Million People Choose Us for Freelance Jobs Online
         </div>
         <div className="mx-auto mt-3.5 w-2/4 border-b-2 border-gray-300 sm:w-1/4 md:w-1/6"></div>
-        <div className="mt-8 grid grid-cols-1 gap-6 px-6 text-center sm:grid-cols-2 md:grid-cols-3 lg:px-32">
+        <div className="mt-8 grid grid-cols-1 gap-6 text-center sm:grid-cols-2 md:grid-cols-3">
           {/* Credibility Card */}
-          <div className="flex h-full flex-col items-center p-4">
+          <div className="flex h-full flex-col items-center py-4">
             <Image
               src={credibilityIcon}
               alt=""
@@ -50,7 +50,7 @@ const HomeSection3 = () => {
           </div>
 
           {/* Flexibility Card */}
-          <div className="flex h-full flex-col items-center p-4">
+          <div className="flex h-full flex-col items-center py-4">
             <Image
               src={flexibilityIcon}
               alt=""
@@ -69,7 +69,7 @@ const HomeSection3 = () => {
           </div>
 
           {/* Value Card */}
-          <div className="flex h-full flex-col items-center p-4">
+          <div className="flex h-full flex-col items-center py-4">
             <Image
               src={valueIcon}
               alt=""
@@ -98,21 +98,21 @@ const HomeSection3 = () => {
       </div>
 
       {/* ---> Work Your Way section*/}
-      <div>
+      <div className="container">
         <div className="pt-16 text-center font-serif text-xl font-semibold text-[#0A142F] md:text-[26px]">
           Flexible Payment Options for Your Freelance Work.
         </div>
         <div className="mx-auto mt-3.5 w-20 border-b-2 border-gray-300"></div>
         <div className="my-12 md:my-0" />
-        <div className="mt-6 flex flex-col space-y-4 px-4 md:flex-row md:space-y-0 lg:px-32">
-          <div className="flex justify-end p-4 pb-0">
+        <div className="mt-6 flex flex-col space-y-4 md:flex-row md:space-y-0">
+          <div className="flex justify-end pb-0">
             <Image
               src={womanwithtabImage}
               alt=""
               className="-mt-20 h-[440px] w-80"
             />
           </div>
-          <div className="flex-1 p-4 text-left">
+          <div className="flex-1 text-left">
             <div
               className="mt-4 flex cursor-pointer items-center space-x-3"
               onClick={() => toggleDropdown(0)}
@@ -227,7 +227,7 @@ const HomeSection3 = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
