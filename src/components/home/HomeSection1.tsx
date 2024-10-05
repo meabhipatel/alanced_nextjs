@@ -14,9 +14,9 @@ const HomeSection1 = () => {
   };
 
   return (
-    <div>
-      <hr className="mx-28 my-9 mb-3 md:mb-9" />
-      <div className="flex flex-col gap-4 px-4 md:mt-6 md:flex-row lg:px-32">
+    <div className="container">
+      <hr className="my-9 mb-3 md:mb-9" />
+      <div className="flex flex-col gap-4 md:mt-6 md:flex-row">
         <div className="relative w-full p-10 pt-0 md:w-[50%] md:pt-10">
           <div className="hidden h-[300px] w-[250px] rounded shadow-lg md:absolute md:left-0 md:top-0 md:block md:h-[210px] md:w-[190px]">
             <Image
@@ -38,7 +38,7 @@ const HomeSection1 = () => {
             />
           </div>
         </div>
-        <div className="w-full p-4 text-justify md:w-[50%]">
+        <div className="w-full text-justify md:w-[50%]">
           <h1 className="mt-5 font-serif text-4xl font-semibold text-[#0A142F] md:text-2xl">
             Best Freelance Websites for
             <br /> Beginners & Experts!
