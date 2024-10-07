@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 const WhyAlanced = () => {
   return (
     <Fragment>
-      <div className="mt-12 px-5 lg:px-32">
+      <div className="container mt-12 px-5 sm:px-5 md:px-10 lg:px-20">
         {/* ---> Page header  */}
         <div className="flex items-center justify-between rounded border border-gray-200">
           <div className="w-full p-4 sm:basis-8/12 md:p-8">
