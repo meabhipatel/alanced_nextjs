@@ -13,7 +13,7 @@ const SearchFreelancerLayout: FC<IProps> = ({ children }) => {
       <SearchFreelancerHeader />
 
       {/* ---> page Body  */}
-      <div className="mt-1 px-2 xl:px-20">
+      <div className="container mt-1 px-2 sm:px-5 md:px-10 lg:px-20 xl:px-20">
         <div className="mx-5 mb-5 flex flex-col md:flex-row">
           {/* ---> side categoy bar */}
           <SearchFreelancerSidebar />

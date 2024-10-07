@@ -25,7 +25,7 @@ const SearchJobHeader = () => {
 
   return (
     <div
-      className="flex h-[50vh] items-end justify-center bg-cover bg-no-repeat pb-6"
+      className="container flex h-[50vh] items-end justify-center bg-cover bg-no-repeat pb-6 sm:px-5 md:px-10 lg:px-20"
       style={{ backgroundImage: `url(${halfBackground.src})` }}
     >
       <div className="flex w-[95%] rounded-md bg-white p-5 text-2xl sm:w-[80%]">
