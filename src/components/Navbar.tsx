@@ -277,7 +277,7 @@ const Navbar = () => {
   return (
     <header className="fixed top-0 z-50 w-full">
       <div
-        className={`container w-[1536px] bg-transparent bg-cover bg-top ${
+        className={`container bg-transparent bg-cover bg-top sm:px-5 md:px-10 lg:px-20 ${
           !dontNeedMTScreens.includes(pathname)
             ? "bg-white"
             : isScrolled
@@ -306,40 +306,39 @@ const Navbar = () => {
                 </div>
               </Link>
 
-              <div className="hidden w-full items-center justify-between gap-4 lg:flex">
-                {/* ---> Navigation items  */}
-                <div className="flex gap-5 text-[#031136]">
-                  <Link href="/search-freelancer">
-                    <span>Search Freelancer</span>
-                  </Link>
-                  <Link href="/search-job">
-                    <span>Search Job</span>
-                  </Link>
-                  <Link href="/why-alanced">
-                    <span>Why Alanced</span>
-                  </Link>
-                </div>
+              <div className="hidden gap-5 text-[#031136] lg:flex">
+                <Link href="/search-freelancer">
+                  <span>Search Freelancer</span>
+                </Link>
+                <Link href="/search-job">
+                  <span>Search Job</span>
+                </Link>
+                <Link href="/why-alanced">
+                  <span>Why Alanced</span>
+                </Link>
+              </div>
 
-                <div className="flex gap-3">
-                  {/* ---> Login Signup buttons  */}
-                  <div className="flex items-center gap-2">
-                    <Link href="/login">
-                      <div className="flex h-8 w-16 items-center justify-center rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] text-xs font-semibold text-white lg:mt-0">
-                        Sign In
+              {/* ---> Navigation items  */}
+
+              <div className="hidden gap-3 lg:flex">
+                {/* ---> Login Signup buttons  */}
+                <div className="flex items-center gap-2">
+                  <Link href="/login">
+                    <div className="flex h-9 w-20 items-center justify-center rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] text-sm font-semibold text-white lg:mt-0">
+                      Sign In
+                    </div>
+                  </Link>
+                  <div className="flex h-9 w-20 items-center justify-center rounded bg-gradient-to-b from-[#0909E9] to-[#00D4FF] p-[2px]">
+                    <Link
+                      href="/signup-options"
+                      className="h-full w-full"
+                    >
+                      <div className="flex h-full w-full items-center justify-center rounded-[2px] bg-[#e1f9ff]">
+                        <p className="from-primary to-danger bg-gradient-to-r bg-clip-text text-sm font-semibold text-transparent">
+                          Sign Up
+                        </p>
                       </div>
                     </Link>
-                    <div className="flex h-8 w-16 items-center justify-center rounded bg-gradient-to-b from-[#0909E9] to-[#00D4FF] p-[2px]">
-                      <Link
-                        href="/signup-options"
-                        className="h-full w-full"
-                      >
-                        <div className="flex h-full w-full items-center justify-center rounded-[2px] bg-[#e1f9ff]">
-                          <p className="from-primary to-danger bg-gradient-to-r bg-clip-text text-xs font-semibold text-transparent">
-                            Sign Up
-                          </p>
-                        </div>
-                      </Link>
-                    </div>
                   </div>
                 </div>
               </div>

@@ -36,7 +36,7 @@ const HeroSection = () => {
 
   return (
     <div
-      className="container flex h-[35rem] items-start justify-center sm:h-[40rem] lg:h-[45rem] lg:items-center"
+      className="container flex h-[35rem] items-start justify-center sm:h-[40rem] sm:px-5 md:px-10 lg:h-[45rem] lg:items-center lg:px-20"
       style={{ backgroundImage: `url(${heroBackground.src})` }}
     >
       {/* Container for Titles and Static Content */}

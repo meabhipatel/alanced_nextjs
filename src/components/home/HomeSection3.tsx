@@ -24,7 +24,7 @@ const HomeSection3 = () => {
   return (
     <>
       {/* "Why Over 3 Million People Choose Us" section */}
-      <div className="container mt-10 bg-[#F6FAFD] pb-7">
+      <div className="container mt-10 bg-[#F6FAFD] pb-7 sm:px-5 md:px-10 lg:px-20">
         <div className="pt-6 text-center text-xl font-semibold text-[#0A142F] sm:text-2xl md:text-[26px]">
           Why Over 3 Million People Choose Us for Freelance Jobs Online
         </div>
@@ -98,7 +98,7 @@ const HomeSection3 = () => {
       </div>
 
       {/* ---> Work Your Way section*/}
-      <div className="container">
+      <div className="container sm:px-5 md:px-10 lg:px-20">
         <div className="pt-16 text-center font-serif text-xl font-semibold text-[#0A142F] md:text-[26px]">
           Flexible Payment Options for Your Freelance Work.
         </div>

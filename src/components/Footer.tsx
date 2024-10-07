@@ -8,7 +8,7 @@ import { FaInstagram } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="container bg-white py-8 sm:py-12">
+    <footer className="container bg-white py-8 sm:px-5 sm:py-12 md:px-10 lg:px-20">
       <div className="w-full">
         {/* ---> footer navigations  */}
         <hr className="my-6"></hr>

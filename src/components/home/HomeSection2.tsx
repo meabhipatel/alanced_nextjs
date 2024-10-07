@@ -74,7 +74,7 @@ const cardData = [
 
 const HomeSection2 = () => {
   return (
-    <div className="container">
+    <div className="container sm:px-5 md:px-10 lg:px-20">
       <div className="py-10 text-3xl">
         <div className="text-center font-serif">Find Top & Professional Freelancer </div>
         <div className="mx-auto mt-5 w-20 border-b border-gray-600"></div>
