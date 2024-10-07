@@ -70,7 +70,7 @@ const ViewProjectDetail: FC<IProps> = ({ params: { id } }) => {
   }
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="container sm:px-5 md:px-10 lg:px-20">
       {projectDetails?.is_applied ? (
         <div className="mt-4 flex h-16 gap-3 rounded-md bg-blue-100 pl-5 pt-3 text-left">
           <div className="pt-1">
