@@ -14,7 +14,7 @@ const HomeSection1 = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container sm:px-5 md:px-10 lg:px-20">
       <hr className="my-9 mb-3 md:mb-9" />
       <div className="flex flex-col gap-4 md:mt-6 md:flex-row">
         <div className="relative w-full p-10 pt-0 md:w-[50%] md:pt-10">

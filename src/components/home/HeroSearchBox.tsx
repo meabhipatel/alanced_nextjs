@@ -13,7 +13,7 @@ const HeroSearchBox = () => {
 
   return (
     <>
-      <div className="container flex justify-center">
+      <div className="container flex justify-center sm:px-5 md:px-10 lg:px-20">
         <div className="-mt-[57px] flex w-full flex-col items-center gap-3 rounded-2xl bg-white p-2 shadow-lg md:h-24 md:flex-row">
           <div className="flex w-full justify-center md:block md:w-[60%]">
             <Link href={searchType === "Talent" ? "/search-freelancer" : "/search-job"}>
