@@ -277,7 +277,7 @@ const Navbar = () => {
   return (
     <header className="fixed top-0 z-50 w-full">
       <div
-        className={`container w-[1536px] bg-transparent bg-cover bg-top ${
+        className={`container bg-transparent bg-cover bg-top sm:px-5 md:px-10 lg:px-20 ${
           !dontNeedMTScreens.includes(pathname)
             ? "bg-white"
             : isScrolled
