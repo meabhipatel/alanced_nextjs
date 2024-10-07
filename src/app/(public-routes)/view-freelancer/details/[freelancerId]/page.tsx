@@ -179,7 +179,7 @@ const ViewFreelancerDetails: FC<IProps> = ({ params: { freelancerId } }) => {
 
   return (
     <>
-      <div className="p-9">
+      <div className="container p-9 sm:px-5 md:px-10 lg:px-20">
         {/* ---> Page Header */}
         <div className="flex flex-col lg:flex-row lg:items-center">
           <div className="flex flex-col items-center lg:flex-row">
