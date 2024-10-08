@@ -33,6 +33,7 @@ const HirerAfterLogin = () => {
   const [languageFilter, setLanguageFilter] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   const openFreeHiring = (freelancerId: number) => {
     setIsFreeHiringOpen((prev) => ({ ...prev, [freelancerId]: true }));
@@ -112,6 +113,8 @@ const HirerAfterLogin = () => {
 
     const queryString = queryParameters.join("&");
 
+    setIsLoading(true);
+
     axiosIntance
       .get(`/account/freelancer/profile/view-all/?${queryString}`)
       .then((response) => {
@@ -120,6 +123,9 @@ const HirerAfterLogin = () => {
       })
       .catch((error) => {
         errorLog(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, [skillFilter, expFilter, searchQuery, cityFilter, languageFilter, currentPage]);
 
@@ -298,7 +304,7 @@ const HirerAfterLogin = () => {
   return (
     <>
       {/* ---> page Body  */}
-      <div className="mt-1 md:mx-[9%]">
+      <div className="mt-1 bg-red-500 md:mx-[9%]">
         {/* ---> page Header  */}
         <div className="relative m-2 h-32 bg-[#F6FAFD] md:m-0 md:h-auto md:bg-transparent">
           <Image
@@ -338,7 +344,6 @@ const HirerAfterLogin = () => {
                       />
                       <div className="checkbox-border-gradient mr-3 flex h-5 w-5 items-center justify-center rounded bg-transparent">
                         <span className="checkmark hidden">
-                          {/* <i className="bi bi-check-lg pr-0.5 pt-2"></i> */}
                           <FaCheck className="text-sm" />
                         </span>
                       </div>
@@ -389,7 +394,6 @@ const HirerAfterLogin = () => {
                       />
                       <div className="checkbox-border-gradient mr-3 flex h-5 w-5 items-center justify-center rounded bg-transparent">
                         <span className="checkmark hidden">
-                          {/* <i className="bi bi-check-lg pr-0.5 pt-2"></i> */}
                           <FaCheck className="text-sm" />
                         </span>
                       </div>
@@ -438,7 +442,6 @@ const HirerAfterLogin = () => {
                       />
                       <div className="checkbox-border-gradient mr-3 flex h-5 w-5 items-center justify-center rounded bg-transparent">
                         <span className="checkmark hidden">
-                          {/* <i className="bi bi-check-lg pr-0.5 pt-2"></i> */}
                           <FaCheck className="text-sm" />
                         </span>
                       </div>
@@ -487,7 +490,6 @@ const HirerAfterLogin = () => {
                       />
                       <div className="checkbox-border-gradient mr-3 flex h-5 w-5 items-center justify-center rounded bg-transparent">
                         <span className="checkmark hidden">
-                          {/* <i className="bi bi-check-lg pr-0.5 pt-2"></i> */}
                           <FaCheck className="text-sm" />
                         </span>
                       </div>
@@ -510,11 +512,6 @@ const HirerAfterLogin = () => {
                 </div>
                 <div className="mt-2 flex items-center md:mt-0">
                   <div className="flex w-full items-center space-x-1 rounded-md border p-1 md:mr-1 md:w-[200px]">
-                    {/* <img
-                      src={search}
-                      alt="Search Icon"
-                      className="ml-1 mr-1 h-4 w-4"
-                    /> */}
                     <IoIosSearch className="ml-1 mr-1 h-4 w-4 text-gray-400" />
                     <input
                       className="h-7 w-28 text-sm outline-none lg:w-40 lg:text-sm xl:w-[160px]"
@@ -531,8 +528,22 @@ const HirerAfterLogin = () => {
                 Explore freelancers who are a perfect fit for your projects.
               </p>
             </div>
-            {viewFreelancer !== null ? (
-              viewFreelancer.length > 0 ? (
+
+            {isLoading && (
+              <div className="grid w-[70%] grid-cols-2 pl-3.5 md:w-full">
+                {[...Array(6)].map((index) => {
+                  return (
+                    <div
+                      key={index}
+                      className="relative mt-4 h-[25rem] w-[26vw] flex-shrink-0 animate-pulse cursor-pointer rounded-lg border border-gray-200 bg-gray-100 px-4 py-5 shadow-lg md:px-8"
+                    ></div>
+                  );
+                })}
+              </div>
+            )}
+
+            {!isLoading &&
+              (viewFreelancer.length > 0 ? (
                 <div className="grid grid-cols-1 md:w-full md:grid-cols-2 md:pl-3.5">
                   {viewFreelancer &&
                     viewFreelancer.map((free, index) => {
@@ -548,7 +559,6 @@ const HirerAfterLogin = () => {
                                 alt=""
                                 height={96}
                                 width={96}
-                                // variant="rounded"
                                 className="mr-4 h-24 w-24 rounded-lg"
                               />
                               <div>
@@ -614,11 +624,6 @@ const HirerAfterLogin = () => {
                               )}
 
                             <div className="mb-12">
-                              {/* <img
-                                src={verify}
-                                alt=""
-                                className="mr-1 inline-block h-3 w-3"
-                              /> */}
                               <RiVerifiedBadgeFill className="mr-1 h-3 w-3 text-green-500" />
                               <p className="font-inter inline-block text-[14px] text-[#0A142F] opacity-50">
                                 Account verified
@@ -638,11 +643,6 @@ const HirerAfterLogin = () => {
                                   searchQuery
                                 )}
                               </p>
-                              {/* <img
-                                src={location}
-                                alt=""
-                                className="mr-1 inline-block h-3 w-3"
-                              /> */}
                               <IoLocationOutline className="mr-1 h-3 w-3" />
                               <p className="font-inter inline-block text-[14px] text-[#0A142F] opacity-50">
                                 {highlightText(free.Address ? free.Address : "NA", searchQuery)}
@@ -688,51 +688,9 @@ const HirerAfterLogin = () => {
                     Please try adjusting your search keywords or filters.
                   </p>
                 </div>
-              )
-            ) : (
-              <div className="grid w-[70%] grid-cols-2 pl-3.5 md:w-full">
-                {[...Array(6)].map((index) => {
-                  return (
-                    <div
-                      key={index}
-                      className="relative mt-4 h-[467px] w-[26vw] flex-shrink-0 cursor-pointer rounded-lg border-b border-t border-gray-200 border-opacity-30 px-4 py-5 shadow-lg hover:bg-[#F6FAFD] md:px-8"
-                    >
-                      {/* <Selection
-                        height={90}
-                        width={90}
-                        inline={true}
-                        style={{ borderRadius: "10%", float: "left" }}
-                      />
-                      <Selection
-                        height={20}
-                        width={200}
-                        style={{ marginLeft: 10, marginTop: 20 }}
-                      />
-                      <Selection
-                        height={20}
-                        width={200}
-                        style={{ marginLeft: 10, marginTop: 10 }}
-                      />
-                      <Selection
-                        height={200}
-                        width={300}
-                        style={{ marginTop: 20 }}
-                      />
-                      <Selection
-                        height={50}
-                        width={200}
-                        style={{ marginTop: 10 }}
-                      />
-                      <Selection
-                        height={35}
-                        width={80}
-                        style={{ marginTop: 20, float: "right" }}
-                      /> */}
-                    </div>
-                  );
-                })}
-              </div>
-            )}
+              ))}
+
+            {/* ---> Pagination  */}
             <div>
               {totalPages > 1 && (
                 <div className="m-4 flex items-center justify-end gap-6">
@@ -791,8 +749,6 @@ const HirerAfterLogin = () => {
           </div>
         </div>
       </div>
-      {/* <HomeSection4 /> */}
-      {/* <Footer /> */}
     </>
   );
 };
