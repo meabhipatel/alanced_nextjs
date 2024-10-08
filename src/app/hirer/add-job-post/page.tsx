@@ -2,8 +2,10 @@
 import CategoryList from "@/constant/allSelectionData/categoryList";
 import SkillsList from "@/constant/allSelectionData/skillsList";
 import React, { useEffect, useRef, useState } from "react";
-//import Link from 'next/link';
-import axios from "axios";
+import { axiosWithAuth } from "@/utils/axiosWithAuth";
+import toast from "react-hot-toast";
+import { errorLog } from "@/utils/errorLog";
+import { useRouter } from "next/navigation";
 
 interface Project {
   title?: string;
@@ -19,16 +21,16 @@ interface Project {
 }
 
 const AddJobPost = () => {
-  const [addProject, setAddProject] = useState<Project>({}); // eslint-disable-line
+  const router = useRouter();
+  const [addProject, setAddProject] = useState<Project>({});
   const [skills, setSkills] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedOption, setSelectedOption] = useState("hourly"); // eslint-disable-line
+  const [selectedOption, setSelectedOption] = useState("Hourly");
   const [searchTerm, setSearchTerm] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const [searchTermSkill, setSearchTermSkill] = useState(""); // eslint-disable-line
-  const [isOpenSkill, setIsOpenSkill] = useState(false); // eslint-disable-line
+  const [searchTermSkill, setSearchTermSkill] = useState("");
+  const [isOpenSkill, setIsOpenSkill] = useState(false);
   const [step, setStep] = useState(1);
-  const [error, setError] = useState<string>(""); // eslint-disable-line
   const [isValid, setIsValid] = useState<boolean>(false);
 
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -67,26 +69,18 @@ const AddJobPost = () => {
     }
   };
 
-  const postJob = async () => {
+  const handlePostJob = async () => {
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2NTMxMzQzLCJpYXQiOjE3MjQ5OTUzNDMsImp0aSI6IjUzNTdiZjczOWE4NjRmYmNhZGQ0NDkzZWZhNjZlZmUwIiwidXNlcl9pZCI6NX0.3s7MY0Hg_BTm5th-PLt_3HIYL9KZKndftLmi7udm_qI`,
-        },
-      };
-
-      const response = await axios.post(
-        "https://www.api.alanced.com/freelance/Add/Project",
-        payload,
-        config
-      );
-      //eslint-disable-next-line
-      console.log(response);
-      // Optional: Process the response if needed
-      alert("Job posted successfully!");
+      await axiosWithAuth.post("/freelance/Add/Project", payload);
+      toast.success("Job poseted Successfully.");
+      setAddProject({});
+      setSkills([]);
+      setSelectedCategory("");
+      setSelectedOption("Hourly");
+      router.push(`/hirer/all-jobs`);
     } catch (error) {
-      setError("Failed to post job. Please try again.");
-      // Optionally, report the error to an external service or handle it silently
+      toast.error("Failed to post job. Please try again.");
+      errorLog(error);
     }
   };
 
@@ -146,7 +140,6 @@ const AddJobPost = () => {
       ...prevProject,
       skills_required: newSkills,
     }));
-    setError("");
   };
 
   const formatToDDMMYYYY = (dateStr: string) => {
@@ -402,23 +395,23 @@ const AddJobPost = () => {
                   </label>
                   <div className="mt-2 flex items-center">
                     <button
-                      onClick={() => selectOptionHandler("hourly")}
+                      onClick={() => selectOptionHandler("Hourly")}
                       className={`rounded-md px-4 py-2 ${
-                        selectedOption === "hourly" ? "bg-blue-500 text-white" : "bg-gray-200"
+                        selectedOption === "Hourly" ? "bg-blue-500 text-white" : "bg-gray-200"
                       }`}
                     >
                       Hourly
                     </button>
                     <button
-                      onClick={() => selectOptionHandler("fixed")}
+                      onClick={() => selectOptionHandler("Fixed")}
                       className={`ml-2 rounded-md px-4 py-2 ${
-                        selectedOption === "fixed" ? "bg-blue-500 text-white" : "bg-gray-200"
+                        selectedOption === "Fixed" ? "bg-blue-500 text-white" : "bg-gray-200"
                       }`}
                     >
                       Fixed
                     </button>
                   </div>
-                  {selectedOption === "fixed" ? (
+                  {selectedOption === "Fixed" ? (
                     <div className="mt-4">
                       <label
                         className="font-cardo mt-2 block text-lg sm:text-xl"
@@ -509,9 +502,9 @@ const AddJobPost = () => {
                     className="my-2 w-full rounded-md border px-3 py-2 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
                   >
                     <option value="">Select experience level</option>
-                    <option value="beginner">Beginner</option>
-                    <option value="intermediate">Intermediate</option>
-                    <option value="expert">Expert</option>
+                    <option value="Beginner">Beginner</option>
+                    <option value="Intermediate">Intermediate</option>
+                    <option value="Expert">Expert</option>
                   </select>
                 </div>
               </div>
@@ -546,12 +539,12 @@ const AddJobPost = () => {
             ) : (
               <div>
                 <button
-                  onClick={postJob}
-                  className="rounded-md bg-green-500 px-4 py-2 text-white"
+                  onClick={handlePostJob}
+                  disabled={!(addProject.deadline && addProject.experience_level)}
+                  className={`rounded-md px-4 py-2 text-white ${addProject.deadline && addProject.experience_level ? "bg-green-500" : "bg-gray-500"}`}
                 >
                   Post Job
                 </button>
-                {error && <p className="text-red-500">{error}</p>}
               </div>
             )}
           </div>
