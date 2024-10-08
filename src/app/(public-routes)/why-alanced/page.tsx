@@ -5,6 +5,7 @@ import createImage from "@/assets/images/create.png";
 import earnImage from "@/assets/images/earn.png";
 import moneyPotImage from "@/assets/images/moneyPot.png";
 import { Metadata } from "next";
+import { Fragment } from "react";
 
 export const metadata: Metadata = {
   title: "Why Alanced ",
@@ -14,20 +15,20 @@ export const metadata: Metadata = {
 
 const WhyAlanced = () => {
   return (
-    <>
-      <div className="mt-12 px-5 lg:px-32">
+    <Fragment>
+      <div className="container mt-12 px-5 sm:px-5 md:px-10 lg:px-20">
         {/* ---> Page header  */}
         <div className="flex items-center justify-between rounded border border-gray-200">
           <div className="w-full p-4 sm:basis-8/12 md:p-8">
             <h1 className="mt-6 text-left text-[26px] font-semibold text-blue-600">
-              Engage with the global job marketplace platform.
+              Connect with the worldwide job marketplace.{" "}
             </h1>
             <div className="relative mt-1 w-36">
               <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
               <div className="rounded-lg border-b-2 border-gray-600"></div>
             </div>
             <p className="mt-4 text-left text-[15px] opacity-[70%]">
-              Are you ready to elevate your business or career to the next level?
+              Are you prepared to take your business or career to new heights?
             </p>
             <div className="mt-3 flex flex-row">
               <Link href="/search-freelancer">
@@ -73,10 +74,10 @@ const WhyAlanced = () => {
                 Create your profile (it’s free)
               </div>
               <p className="mb-5 mt-3 text-left text-[15px] opacity-50">
-                Include only your professional skills and experience that are relevant to the job
-                you&apos;re targeting. This is especially helpful if your skills and work history
-                differ from your current career goals because it enables you to showcase the related
-                expertise that hiring managers are looking for.
+                Focus solely on the professional skills and experience that align with the job
+                you’re pursuing. This is particularly beneficial if your skills and work history
+                vary from your current career objectives, as it allows you to highlight the relevant
+                expertise that hiring managers seek.
               </p>
             </div>
           </div>
@@ -91,10 +92,10 @@ const WhyAlanced = () => {
             <div className="mt-5 basis-9/12">
               <div className="text-left text-[22px] font-semibold">Foster financial growth</div>
               <p className="mb-5 mt-3 text-left text-[15px] opacity-50">
-                Foster financial growth&quot; refers to the deliberate actions or strategies aimed
-                at nurturing and encouraging the expansion of one&apos;s financial resources,
-                investments, or wealth. This can involve activities such as saving, investing, or
-                pursuing opportunities to increase income.
+                “Foster financial growth” refers to intentional actions or strategies designed to
+                nurture and promote the expansion of financial resources, investments, or wealth.
+                This may include activities such as saving, investing, or seeking opportunities to
+                boost income.
               </p>
             </div>
           </div>
@@ -111,9 +112,9 @@ const WhyAlanced = () => {
                 Safe and Reliable payment method.
               </div>
               <p className="mb-5 mt-3 text-left text-[15px] opacity-50">
-                A secure and reliable payment method refers to a financial transaction process that
-                safeguards sensitive data, such as personal and financial information, while
-                ensuring that payments are processed accurately and in a timely manner.
+                A secure and dependable payment method denotes a financial transaction process that
+                protects sensitive information, including personal and financial details, while
+                guaranteeing that payments are processed accurately and promptly.
               </p>
             </div>
           </div>
@@ -135,14 +136,12 @@ const WhyAlanced = () => {
             </div>
             <p className="mt-4 text-left text-[15px] opacity-70">
               Publish your job listing on the global job market and <br /> anticipate a wave of
-              proposals from skilled
-              <br /> individuals spanning the globe
+              proposals from skilled <br /> individuals spanning the globe.
             </p>
             <p className="mt-4 text-left text-[15px] opacity-70">
-              Our cutting-edge algorithms assist in identifying <br /> top candidates tailored to
-              your needs.You have <br /> the opportunity to thoroughly review profiles,
-              <br /> portfolios, and feedback before granting
-              <br /> approval.
+              Our advanced algorithms help identify <br /> top candidates tailored to your needs.
+              You have <br /> the chance to carefully review profiles, <br /> portfolios, and
+              feedback before granting <br /> approval.
             </p>
             <div className="mb-8 text-left">
               {" "}
@@ -166,17 +165,18 @@ const WhyAlanced = () => {
               <br /> Catalog.
             </div>
             <p className="mt-4 text-left text-[15px] opacity-70">
-              Dive into a world of projects and unlock valuable work.
-              <br /> discover a realm of possibilities and embark on <br />
-              your journey to new horizons.
+              Immerse yourself in a world of projects and unlock rewarding opportunities. <br />{" "}
+              Explore a realm of possibilities and start your journey towards new horizons. <br />{" "}
+              Immerse yourself in a world of projects and unlock rewarding opportunities. <br />{" "}
+              Explore a realm of possibilities and start your journey towards new horizons.
             </p>
             <p className="mt-4 text-left text-[15px] opacity-70">
-              Our platform offers a gateway to a world of diverse <br />
-              projects, where you can explore, engage, and <br />
-              embark on new ventures. Whether you&apos;re a seasoned
-              <br /> professional looking to expand your horizons or a<br /> fresh talent eager to
-              make your mark.
+              Our platform serves as a gateway to a variety of projects, where you can explore,
+              engage, and <br /> embark on new ventures. Whether you&apos;re an experienced
+              professional aiming to broaden your horizons or a <br /> new talent eager to leave
+              your mark.
             </p>
+
             <div className="mb-8 text-left">
               <Link href="/search-job">
                 <span className="mr-2 mt-8 inline-block rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-7 py-[10px] text-[16px] text-base font-semibold text-white">
@@ -196,17 +196,16 @@ const WhyAlanced = () => {
               <div className="rounded-lg border-b-2 border-gray-600"></div>
             </div>
             <p className="mt-4 text-left text-[15px] opacity-[70%]">
-              Our availability is unwavering, ensuring your access to our services around the clock,
-              24 hours a day, 7 days a week. Whenever you need assistance, support, or have
-              inquiries, we&apos;re here to respond promptly, no matter the time or day. Our
-              commitment to round-the-clock availability means you can rely on us for assistance,
-              guidance, and peace of mind at any hour, making your experience seamless and
-              convenient.
+              We are always available, providing you with access to our services 24 hours a day, 7
+              days a week. Whenever you require assistance, support, or have questions, we’re here
+              to respond quickly, regardless of the time or day. Our dedication to continuous
+              availability ensures that you can depend on us for help, guidance, and peace of mind
+              at any hour, making your experience smooth and convenient.
             </p>
           </div>
         </div>
       </div>
-    </>
+    </Fragment>
   );
 };
 

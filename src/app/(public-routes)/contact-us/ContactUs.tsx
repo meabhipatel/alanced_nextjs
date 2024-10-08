@@ -51,7 +51,7 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="mx-[5%] mt-20 md:mx-[9%]">
+    <div className="container mt-20 sm:px-5 md:px-10 lg:px-20">
       <div className="font-cardo p-3 text-left text-[28px] font-normal text-blue-600">
         Contact Us
       </div>

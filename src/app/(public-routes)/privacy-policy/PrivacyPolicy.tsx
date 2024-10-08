@@ -180,7 +180,7 @@ const PrivacyPolicy = () => {
   };
 
   return (
-    <div className="mt-8">
+    <div className="container mt-8 sm:px-5 md:px-10 lg:px-20">
       <div className="flex flex-col md:flex-row">
         <div className="w-full md:w-1/4">
           <button

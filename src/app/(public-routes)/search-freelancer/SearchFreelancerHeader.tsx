@@ -7,7 +7,6 @@ import hero2Image from "@/assets/images/hero2.png";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 interface IProps {}
-
 const SearchFreelancerHeader: FC<IProps> = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 const SafetySecurityPage: React.FC = () => {
   return (
-    <div className="mx-[5%] mt-20 lg:mx-[9%]">
+    <div className="container sm:px-5 md:px-10 lg:px-20">
       <div className="font-cardo p-3 text-left text-2xl font-semibold text-blue-600 sm:text-3xl md:text-4xl">
         Safety and Security
       </div>

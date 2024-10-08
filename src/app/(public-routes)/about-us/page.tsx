@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 const AboutPage: React.FC = () => {
   return (
-    <div className="mx-auto my-10 max-w-6xl px-4 sm:px-6 lg:px-8">
+    <div className="container sm:px-5 md:px-10 lg:px-20">
       <div className="mb-4 text-3xl font-semibold text-blue-600 sm:text-4xl md:text-5xl">
         About Us
       </div>
