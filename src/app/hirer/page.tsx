@@ -1,70 +1,36 @@
 "use client";
 import React, { useState, useEffect } from "react";
-// import HomeSection4 from "../../components/Layout/HomeSection4";
-// import Footer from "../../components/Layout/Footer";
 import hirerHeroBg from "@/assets/images/hirer_hero_bg.png";
-// import search from "@/assets/images/SearchOutlined.png";
 import { IoIosSearch } from "react-icons/io";
-// import verify from "@/assets/icons/verify.png";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
-// import location from "@/assets/images/location.png";
 import { IoLocationOutline } from "react-icons/io5";
-// import { useSelector } from "react-redux";                    for use
-// import { Link } from "react-router-dom";
-// import { Avatar } from "@material-tailwind/react";
-// import { IconButton, Typography } from "@material-tailwind/react";
-// import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
-// import Skeleton from "react-loading-skeleton";
-// import "react-loading-skeleton/dist/skeleton.css";
-// import "rc-slider/assets/index.css";
 import SkillsList from "@/constant/allSelectionData/skillsList";
 import LanguageList from "@/constant/allSelectionData/languageList";
 import CityList from "@/constant/allSelectionData/cityList";
 import ExperienceLevel from "@/constant/allSelectionData/experienceLevel";
-import axios from "axios";
 import { RxArrowLeft, RxArrowRight } from "react-icons/rx";
 import { errorLog } from "@/utils/errorLog";
-// import AddFreeHireRequest from "./HirerAllPopup/AddFreeHireRequest";            for use
 import SendFreeLancerHireRequestPopup from "@/components/SendFreeLancerHireRequestPopup";
 import fileIcon from "@/assets/icons/file.png";
 import Link from "next/link";
 import Image from "next/image";
 import { FaCheck } from "react-icons/fa6";
-import { IFreelancerHiringOpen, IFreelancer, IHirerProfile } from "@/interfaces/index";
+import { IFreelancerHiringOpen, IFreelancer } from "@/interfaces/index";
+import { axiosIntance } from "@/utils/axiosIntance";
+import { useAppSelector } from "@/store/hooks";
 
 const HirerAfterLogin = () => {
-  // const logindata = useSelector((state) => state.login.login_data) || JSON.parse(localStorage.getItem("logindata"));
-  const logindata: IHirerProfile = {
-    id: 5,
-    Company_Name: "",
-    first_Name: "sachin",
-    last_Name: "sharma",
-    email: "sachinsharmaece@gmail.com",
-    contact: "",
-    Address: "",
-    images_logo: "/media/images_logo/admin-profle.png",
-    social_media: "",
-    about: "",
-    DOB: null,
-    Company_Establish: null,
-    gender: "",
-    map: "",
-  };
-  const googleUserName = localStorage.getItem("googleUserName");
-  const loginMethod = localStorage.getItem("loginMethod");
+  const { userProfile } = useAppSelector((state) => state.auth);
   const [isFreeHiringOpen, setIsFreeHiringOpen] = useState<IFreelancerHiringOpen>({});
-
   const [expe] = useState(ExperienceLevel);
   const [city] = useState(CityList);
   const [req_skill] = useState(SkillsList);
   const [language] = useState(LanguageList);
-
   const [skillFilter, setSkillFilter] = useState<string[]>([]);
   const [expFilter, setExpFilter] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [cityFilter, setCityFilter] = useState<string[]>([]);
   const [languageFilter, setLanguageFilter] = useState<string[]>([]);
-  // const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
 
@@ -72,7 +38,6 @@ const HirerAfterLogin = () => {
     setIsFreeHiringOpen((prev) => ({ ...prev, [freelancerId]: true }));
   };
 
-  // Function to close hiring popup for a specific freelancer                  for use
   const closeFreeHiring = (freelancerId: number) => {
     setIsFreeHiringOpen((prev) => ({ ...prev, [freelancerId]: false }));
   };
@@ -147,8 +112,8 @@ const HirerAfterLogin = () => {
 
     const queryString = queryParameters.join("&");
 
-    axios
-      .get(`https://www.api.alanced.com/account/freelancer/profile/view-all/?${queryString}`)
+    axiosIntance
+      .get(`/account/freelancer/profile/view-all/?${queryString}`)
       .then((response) => {
         setViewFreelancer(response.data.results);
         setTotalPages(Math.ceil(response.data.count / 8));
@@ -166,7 +131,6 @@ const HirerAfterLogin = () => {
 
   const [showMoreSkills, setShowMoreSkills] = useState<ShowMoreSkillsState>({});
 
-  // Define the toggleShowMoreSkills function
   const toggleShowMoreSkills = (freelancerId: number) => {
     setShowMoreSkills((prevShowMoreSkills) => ({
       ...prevShowMoreSkills,
@@ -201,30 +165,6 @@ const HirerAfterLogin = () => {
 
     return words.slice(0, 20).join(" ") + "...";
   };
-
-  // const [range, setRange] = useState([1, 1000]);
-
-  // const handleSliderChange = (newRange) => {
-  //   setRange(newRange);
-  // };
-
-  // const handleInputChange = (index, newValue) => {
-  //   const updatedRange = [...range];
-  //   updatedRange[index] = Number(newValue);
-  //   setRange(updatedRange);
-  // };
-
-  let displayName = null;
-
-  if (loginMethod === "google") {
-    // displayName = googleUserName;
-    displayName =
-      logindata.first_Name && logindata.last_Name
-        ? logindata?.first_Name + " " + logindata?.last_Name
-        : googleUserName;
-  } else if (loginMethod === "traditional") {
-    displayName = logindata?.first_Name + " " + logindata?.last_Name;
-  }
 
   function getCurrentDateAndGreeting() {
     const current = new Date();
@@ -280,47 +220,46 @@ const HirerAfterLogin = () => {
   const { day, formattedDate, greeting } = getCurrentDateAndGreeting();
 
   const [showAllSkills, setShowAllSkills] = useState(false);
-  const initialSkillCount = 5; // Initial number of skills to show
+  const initialSkillCount = 5;
 
   const [visibleSkills, setVisibleSkills] = useState(req_skill.slice(0, initialSkillCount));
 
   const handleShowMoreSkills = () => {
-    setVisibleSkills(req_skill); // Show all skills
+    setVisibleSkills(req_skill);
     setShowAllSkills(true);
   };
 
   const handleShowLessSkills = () => {
-    setVisibleSkills(req_skill.slice(0, initialSkillCount)); // Show the initial count
+    setVisibleSkills(req_skill.slice(0, initialSkillCount));
     setShowAllSkills(false);
   };
 
   const [showAllCity, setShowAllCity] = useState(false);
-  const initialCityCount = 5; // Initial number of cities to show
+  const initialCityCount = 5;
 
   const [visibleCities, setVisibleCities] = useState(city.slice(0, initialCityCount));
 
   const handleShowMoreCity = () => {
-    setVisibleCities(city); // Show all cities
+    setVisibleCities(city);
     setShowAllCity(true);
   };
 
   const handleShowLessCity = () => {
-    setVisibleCities(city.slice(0, initialCityCount)); // Show the initial count
+    setVisibleCities(city.slice(0, initialCityCount));
     setShowAllCity(false);
   };
 
   const [showAllLanguage, setShowAllLanguage] = useState(false);
-  const initialLanguageCount = 5; // Initial number of language to show
-
+  const initialLanguageCount = 5;
   const [visibleLanguages, setVisibleLanguages] = useState(language.slice(0, initialLanguageCount));
 
   const handleShowMoreLanguage = () => {
-    setVisibleLanguages(language); // Show all Languages
+    setVisibleLanguages(language);
     setShowAllLanguage(true);
   };
 
   const handleShowLessLanguage = () => {
-    setVisibleLanguages(language.slice(0, initialLanguageCount)); // Show the initial count
+    setVisibleLanguages(language.slice(0, initialLanguageCount));
     setShowAllLanguage(false);
   };
 
@@ -372,7 +311,8 @@ const HirerAfterLogin = () => {
               {day}, {formattedDate}
             </div>
             <div className="py-1 text-2xl font-semibold text-[#031136] sm:text-3xl">
-              Good {greeting}, {displayName}
+              Good {greeting},{" "}
+              <span className="font-semibold capitalize">{userProfile.first_Name}</span>
             </div>
           </div>
         </div>
@@ -797,18 +737,17 @@ const HirerAfterLogin = () => {
               {totalPages > 1 && (
                 <div className="m-4 flex items-center justify-end gap-6">
                   <button
-                    // size="sm"
-                    // variant="outlined"
                     onClick={prev}
                     disabled={currentPage === 1}
+                    className="rounded-lg p-1"
                     style={{
                       backgroundImage: "linear-gradient(45deg, #0909E9, #00D4FF)",
                       border: "none",
                     }}
                   >
                     <RxArrowLeft
-                      strokeWidth={2}
-                      className="h-4 w-4 text-white"
+                      strokeWidth={0.3}
+                      className="text-2xl text-white"
                     />
                   </button>
 
@@ -833,17 +772,16 @@ const HirerAfterLogin = () => {
                   })}
 
                   <button
-                    // size="sm"
-                    // variant="outlined"
                     onClick={next}
                     disabled={currentPage === totalPages}
+                    className="rounded-lg p-1"
                     style={{
                       backgroundImage: "linear-gradient(45deg, #0909E9, #00D4FF)",
                       border: "none",
                     }}
                   >
                     <RxArrowRight
-                      // strokeWidth={2}
+                      strokeWidth={0.3}
                       className="text-2xl text-white"
                     />
                   </button>
