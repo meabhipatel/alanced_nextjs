@@ -304,7 +304,7 @@ const HirerAfterLogin = () => {
   return (
     <>
       {/* ---> page Body  */}
-      <div className="mt-1 bg-red-500 md:mx-[9%]">
+      <div className="container sm:px-5 md:px-10 lg:px-20">
         {/* ---> page Header  */}
         <div className="relative m-2 h-32 bg-[#F6FAFD] md:m-0 md:h-auto md:bg-transparent">
           <Image
@@ -530,12 +530,12 @@ const HirerAfterLogin = () => {
             </div>
 
             {isLoading && (
-              <div className="grid w-[70%] grid-cols-2 pl-3.5 md:w-full">
+              <div className="grid w-[70%] grid-cols-2 gap-5 pl-3.5 md:w-full">
                 {[...Array(6)].map((index) => {
                   return (
                     <div
                       key={index}
-                      className="relative mt-4 h-[25rem] w-[26vw] flex-shrink-0 animate-pulse cursor-pointer rounded-lg border border-gray-200 bg-gray-100 px-4 py-5 shadow-lg md:px-8"
+                      className="relative h-[25rem] w-full flex-shrink-0 animate-pulse cursor-pointer rounded-lg border border-gray-200 bg-gray-100 px-4 py-5 shadow-lg md:px-8"
                     ></div>
                   );
                 })}
@@ -544,13 +544,13 @@ const HirerAfterLogin = () => {
 
             {!isLoading &&
               (viewFreelancer.length > 0 ? (
-                <div className="grid grid-cols-1 md:w-full md:grid-cols-2 md:pl-3.5">
+                <div className="grid grid-cols-1 gap-5 md:w-full md:grid-cols-2 md:pl-3.5">
                   {viewFreelancer &&
                     viewFreelancer.map((free, index) => {
                       return (
                         <>
                           <div
-                            className="relative mt-4 flex-shrink-0 cursor-pointer rounded-lg border-b border-t border-gray-200 border-opacity-30 px-4 py-5 shadow hover:bg-[#F6FAFD] md:w-[26vw] md:px-8"
+                            className="relative w-full flex-shrink-0 cursor-pointer rounded-lg border-b border-t border-gray-200 border-opacity-30 px-4 py-5 shadow duration-300 hover:bg-[#F6FAFD] md:px-8"
                             key={index}
                           >
                             <div className="flex items-center">
