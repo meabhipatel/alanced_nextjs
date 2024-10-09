@@ -664,11 +664,11 @@ const FreelancerSelfProfile = () => {
 
   return (
     <>
-      <div className="mx-[9%] mt-4">
+      <div className="container mt-4 sm:px-5 md:px-10 lg:px-20">
         <Image
           src={freelancercover}
           alt=""
-          className=""
+          className="w-full"
         />
         <div className="flex flex-col md:flex-row">
           <div className="border border-gray-200 border-opacity-30 bg-white md:w-[30%]">
