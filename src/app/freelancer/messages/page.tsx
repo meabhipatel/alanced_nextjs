@@ -499,7 +499,7 @@ const Messages = () => {
 
   return (
     <>
-      <div className="container-sm rounded-lg shadow-lg">
+      <div className="container rounded-lg shadow-lg sm:px-5 md:px-10 lg:px-20">
         {/* <div class="px-5 py-5 flex justify-between items-center bg-white border-b-2">
       <div class="font-semibold text-2xl">GoingChat</div>
       <div class="w-1/2">
@@ -571,7 +571,7 @@ const Messages = () => {
                         convo.from_user.id !== logindata.id ? convo.from_user : convo.to_user
                       )
                     }
-                    className="w-full flex cursor-pointer flex-row items-center justify-center border-b-2 px-2 py-4 hover:bg-blue-50 active:bg-blue-100"
+                    className="flex w-full cursor-pointer flex-row items-center justify-center border-b-2 px-2 py-4 hover:bg-blue-50 active:bg-blue-100"
                   >
                     <div className="ml-4 w-1/4">
                       <div className="relative">
