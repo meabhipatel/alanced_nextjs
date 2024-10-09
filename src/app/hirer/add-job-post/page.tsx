@@ -32,7 +32,6 @@ const AddJobPost = () => {
   const [isOpenSkill, setIsOpenSkill] = useState(false);
   const [step, setStep] = useState(1);
   const [isValid, setIsValid] = useState<boolean>(false);
-
   const wrapperRef = useRef<HTMLDivElement>(null);
   const wrapperRefSkill = useRef<HTMLDivElement>(null);
 
@@ -173,7 +172,7 @@ const AddJobPost = () => {
   };
 
   return (
-    <div className="mx-4 mt-4 sm:mx-6 md:mx-8 lg:mx-12">
+    <div className="container mt-4 sm:px-5 md:px-10 lg:px-20">
       <div className="font-cardo p-3 text-left text-xl font-normal text-[#031136] sm:text-2xl md:text-3xl">
         Add Job Post
       </div>

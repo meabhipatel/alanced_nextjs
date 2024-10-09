@@ -10,7 +10,7 @@ const MyProposalReferrals = () => {
 
   return (
     <>
-      <div className="mt-2 px-4 sm:px-6 md:px-12 lg:px-40">
+      <div className="container mt-2 sm:px-5 md:px-10 lg:px-20">
         <h1 className="font-cardo pt-4 text-left text-[21px] font-normal text-[#031136]">
           My proposals
         </h1>

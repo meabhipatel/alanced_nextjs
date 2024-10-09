@@ -38,7 +38,7 @@ const HomeSection1 = () => {
             />
           </div>
         </div>
-        <div className="w-full text-justify md:w-[50%] lg:w-[60%]">
+        <div className="w-full text-justify md:w-[50%] lg:w-[70%]">
           <h1 className="mt-5 font-serif text-4xl font-semibold text-[#0A142F] md:text-2xl">
             Best Freelance Websites for
             <br /> Beginners & Experts!

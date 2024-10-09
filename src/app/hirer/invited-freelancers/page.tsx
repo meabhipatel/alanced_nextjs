@@ -47,7 +47,7 @@ const AllInvitations: React.FC = () => {
   };
 
   return (
-    <div className="mx-4 mt-2 sm:mx-8 md:mx-16 lg:mx-24">
+    <div className="container mt-2 sm:px-5 md:px-10 lg:px-20">
       <h1 className="font-cardo pt-4 text-left text-lg font-normal text-[#031136] md:text-xl lg:text-2xl">
         All Invitations
       </h1>

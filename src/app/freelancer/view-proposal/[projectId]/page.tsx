@@ -44,15 +44,12 @@ const ViewProposal: FC<IProps> = ({ params: { projectId } }) => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col p-4 lg:p-8">
-      {/* Header */}
+    <div className="container sm:px-5 md:px-10 lg:px-20">
       <div className="mb-6 text-center text-2xl font-bold text-gray-800 lg:text-left">
         Proposal Details
       </div>
 
-      {/* Main Content */}
       <div className="rounded-lg bg-gray-50 p-6 shadow-lg transition-all duration-300 hover:shadow-xl lg:flex lg:space-x-8">
-        {/* Job Details Section */}
         <div className="w-full lg:w-2/3">
           <h2 className="text-xl font-bold text-gray-800">Job Details</h2>
           <h3 className="mt-2 text-lg font-semibold text-gray-700">
