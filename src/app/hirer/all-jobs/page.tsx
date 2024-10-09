@@ -75,7 +75,7 @@ const Page = () => {
   };
 
   return (
-    <div className="bg-white p-4 md:p-6">
+    <div className="container bg-white sm:px-5 md:px-10 lg:px-20">
       {/* Tab Section */}
       <div className="mb-4 flex flex-col items-center justify-start md:mb-6 md:flex-row md:space-x-4">
         <button

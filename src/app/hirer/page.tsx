@@ -359,7 +359,7 @@ const HirerAfterLogin = () => {
   return (
     <>
       {/* ---> page Body  */}
-      <div className="mt-1 md:mx-[9%]">
+      <div className="container mt-1 sm:px-5 md:px-10 lg:px-20">
         {/* ---> page Header  */}
         <div className="relative m-2 h-32 bg-[#F6FAFD] md:m-0 md:h-auto md:bg-transparent">
           <Image
