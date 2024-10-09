@@ -97,7 +97,7 @@ const AllHirerContracts = () => {
 
   return (
     <>
-      <div className="mt-5 px-4 md:px-10 lg:px-40">
+      <div className="container mt-5 sm:px-5 md:px-10 lg:px-20">
         <h1 className="font-cardo text-left text-xl font-normal md:text-2xl">All Contracts</h1>
         <section className="mt-4 flex items-center rounded-lg border border-[#E7E8F2] p-2">
           <div className="mr-2 flex w-full items-center space-x-2">
