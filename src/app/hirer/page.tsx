@@ -306,7 +306,7 @@ const HirerAfterLogin = () => {
       {/* ---> page Body  */}
       <div className="container sm:px-5 md:px-10 lg:px-20">
         {/* ---> page Header  */}
-        <div className="relative m-2 h-32 bg-[#F6FAFD] md:m-0 md:h-auto md:bg-transparent">
+        <div className="relative h-32 bg-[#F6FAFD] p-0 md:h-auto md:bg-transparent">
           <Image
             src={hirerHeroBg}
             alt=""
@@ -322,7 +322,7 @@ const HirerAfterLogin = () => {
             </div>
           </div>
         </div>
-        <div className="mx-5 mb-5 flex flex-col md:flex-row">
+        <div className="mb-5 flex flex-col md:flex-row">
           {/* ---> side category bar */}
           <div className="sticky top-28 hidden h-[90vh] w-full overflow-y-auto bg-[#FFFFFF] py-8 pt-3 text-left md:block md:w-[30%]">
             <div className="skills">
