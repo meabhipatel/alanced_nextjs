@@ -95,7 +95,7 @@ const MyProposals = () => {
 
   return (
     <>
-      <div className="mx-4 mt-2 md:mx-[10rem]">
+      <div className="container mt-2 sm:px-5 md:px-10 lg:px-20">
         <h1 className="font-cardo pt-4 text-left text-[18px] font-normal text-[#031136] md:text-[21px]">
           My proposals
         </h1>

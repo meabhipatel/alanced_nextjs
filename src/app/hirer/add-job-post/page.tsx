@@ -30,7 +30,6 @@ const AddJobPost = () => {
   const [step, setStep] = useState(1);
   const [error, setError] = useState<string>(""); // eslint-disable-line
   const [isValid, setIsValid] = useState<boolean>(false);
-
   const wrapperRef = useRef<HTMLDivElement>(null);
   const wrapperRefSkill = useRef<HTMLDivElement>(null);
 
