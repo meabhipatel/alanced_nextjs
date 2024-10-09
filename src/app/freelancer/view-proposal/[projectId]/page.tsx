@@ -44,7 +44,7 @@ const ViewProposal: FC<IProps> = ({ params: { projectId } }) => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col p-4 lg:p-8">
+    <div className="container sm:px-5 md:px-10 lg:px-20">
       <div className="mb-6 text-center text-2xl font-bold text-gray-800 lg:text-left">
         Proposal Details
       </div>
