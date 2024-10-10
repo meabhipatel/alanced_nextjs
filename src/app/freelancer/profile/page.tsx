@@ -42,7 +42,7 @@ import EditLanguagePopup from "./EditLanguagePopup";
 import EditEducationPopup from "./EditEducationPopup";
 // import AvailableOffPopup from "./AllPopup/AvailableOffPopup";                               for use
 import AvailableOffPopup from "./EditProfileHeaderPopup";
-// import EditHrRatePopup from "./AllPopup/EditHrRatePopup";                                   for use
+import EditHrRatePopup from "./EditRatePopup";
 // import AddCertificatesPopup from "./AllPopup/AddCertificatesPopup";        not in use
 // import AddEmploymentPopup from "./AllPopup/AddEmploymentPopup";                             for use
 // import EditEmploymentPopup from "./AllPopup/EditEmploymentPopup";                           for use
@@ -406,7 +406,7 @@ const FreelancerSelfProfile = () => {
   const [isEditLanguageOpen, setIsEditLanguageOpen] = useState(false);
   const [isEditEducationOpen, setIsEditEducationOpen] = useState(false);
   const [isAvailableOffOpen, setIsAvailableOffOpen] = useState(false);
-  // const [isHrRateOpen, setIsHrRateOpen] = useState(false);
+  const [isHrRateOpen, setIsHrRateOpen] = useState(false);
   // const [isCertificatesOpen, setIsCertificatesOpen] = useState(false);
   // const [isAddEmploymentOpen, setIsAddEmploymentOpen] = useState(false);
   // const [isEditEmploymentOpen, setIsEditEmploymentOpen] = useState(false);
@@ -481,12 +481,12 @@ const FreelancerSelfProfile = () => {
   // };
 
   const openHrRate = () => {
-    // setIsHrRateOpen(true);
+    setIsHrRateOpen(true);
   };
 
-  // const closeHrRate = () => {
-  //   setIsHrRateOpen(false);
-  // };
+  const closeHrRate = () => {
+    setIsHrRateOpen(false);
+  };
 
   const openAvailableOff = () => {
     setIsAvailableOffOpen(true);
@@ -1236,7 +1236,7 @@ const FreelancerSelfProfile = () => {
                       className="align-middle"
                     />
                   </button>
-                  {/* {isHrRateOpen && <EditHrRatePopup closeHrRate={closeHrRate} />}          for use */}
+                  {isHrRateOpen && <EditHrRatePopup closeHrRate={closeHrRate} />}
                   {/* <div 
         className="relative p-1 w-6 h-6 bg-white rounded-full border border-gray-200 cursor-pointer" 
         onClick={combinedClick} onMouseEnter={handleMouseEnter}
