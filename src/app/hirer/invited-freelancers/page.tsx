@@ -8,6 +8,7 @@ import file from "@/assets/icons/file.png";
 import { axiosWithAuth } from "@/utils/axiosWithAuth";
 import { IInvitationDetails } from "@/interfaces/invitationDetails";
 import { errorLog } from "@/utils/errorLog";
+import InvitationStatus from "@/components/attoms/InvitationStatus";
 
 const AllInvitations: React.FC = () => {
   const [allInvitations, setAllInvitations] = useState<IInvitationDetails[]>([]);
@@ -81,17 +82,21 @@ const AllInvitations: React.FC = () => {
                   </div>
                   <div className="w-full p-2 text-right md:w-1/3">
                     {invitation.freelancer_accepted ? (
-                      <div className="font-cardo text-sm text-blue-600 md:text-base lg:text-lg">
-                        Accepted
-                      </div>
+                      <InvitationStatus className="w-24">Accepted</InvitationStatus>
                     ) : invitation.freelancer_rejected ? (
-                      <div className="font-cardo text-sm text-red-600 md:text-base lg:text-lg">
+                      <InvitationStatus
+                        status="rejected"
+                        className="w-24"
+                      >
                         Rejected
-                      </div>
+                      </InvitationStatus>
                     ) : (
-                      <div className="font-cardo text-sm text-yellow-600 md:text-base lg:text-lg">
+                      <InvitationStatus
+                        status="pending"
+                        className="w-24"
+                      >
                         Pending
-                      </div>
+                      </InvitationStatus>
                     )}
                   </div>
                 </div>
