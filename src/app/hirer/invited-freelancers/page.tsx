@@ -6,18 +6,11 @@ import { timeAgo } from "@/utils/timeFunction";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import file from "@/assets/icons/file.png";
 import { axiosWithAuth } from "@/utils/axiosWithAuth";
-
-interface Invite {
-  // Received_time: string;
-  hired_at: string;
-  project_title: string;
-  hired_by: string;
-  freelancer_accepted: boolean;
-  freelancer_rejected: boolean;
-}
+import { IInvitationDetails } from "@/interfaces/invitationDetails";
+import { errorLog } from "@/utils/errorLog";
 
 const AllInvitations: React.FC = () => {
-  const [viewAllInvites, setViewAllInvites] = useState<Invite[]>([]);
+  const [allInvitations, setAllInvitations] = useState<IInvitationDetails[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
 
@@ -29,12 +22,11 @@ const AllInvitations: React.FC = () => {
     axiosWithAuth
       .get(`/freelance/View-all/invited-freelancers?${queryString}`)
       .then((response) => {
-        setViewAllInvites(response.data.results);
+        setAllInvitations(response.data.results);
         setTotalPages(Math.ceil(response.data.count / 8));
       })
       .catch((error) => {
-        // eslint-disable-next-line no-console
-        console.error("Error fetching filtered data:", error);
+        errorLog(error);
       });
   }, [currentPage]);
 
@@ -52,10 +44,10 @@ const AllInvitations: React.FC = () => {
         All Invitations
       </h1>
       <div className="my-4 rounded-lg border border-[#E7E8F2] bg-white text-left shadow-md">
-        {viewAllInvites.length > 0 ? (
+        {allInvitations.length > 0 ? (
           <div>
-            {viewAllInvites.map((inv, index) => {
-              const inviteTime = new Date(inv.hired_at);
+            {allInvitations.map((invitation, index) => {
+              const inviteTime = new Date(invitation.hired_at);
               const dateFormatOptions: Intl.DateTimeFormatOptions = {
                 day: "numeric",
                 month: "short",
@@ -72,29 +64,27 @@ const AllInvitations: React.FC = () => {
                       Received {formattedDate}
                     </div>
                     <p className="font-inter text-xs text-[#031136] opacity-50 md:text-sm">
-                      {timeAgo(inv.hired_at)}
+                      {timeAgo(invitation.hired_at)}
                     </p>
                   </div>
                   <div className="w-full p-2 md:w-1/3">
-                    <Link
-                      href={`/projects/${inv.project_title.replace(/\s+/g, "-").toLowerCase()}`}
-                    >
+                    <Link href={`/hirer/invited-freelancers/details/${invitation.hire_id}`}>
                       <div className="font-cardo cursor-pointer text-sm text-blue-600 hover:underline hover:decoration-2 md:text-base lg:text-lg">
-                        {inv.project_title}
+                        {invitation.project_title}
                       </div>
                     </Link>
                   </div>
                   <div className="w-full p-2 md:w-1/3">
                     <p className="font-inter text-sm text-[#031136] opacity-50 md:text-base lg:text-lg">
-                      {inv.hired_by}
+                      {invitation.hire_by}
                     </p>
                   </div>
                   <div className="w-full p-2 text-right md:w-1/3">
-                    {inv.freelancer_accepted ? (
+                    {invitation.freelancer_accepted ? (
                       <div className="font-cardo text-sm text-blue-600 md:text-base lg:text-lg">
                         Accepted
                       </div>
-                    ) : inv.freelancer_rejected ? (
+                    ) : invitation.freelancer_rejected ? (
                       <div className="font-cardo text-sm text-red-600 md:text-base lg:text-lg">
                         Rejected
                       </div>
