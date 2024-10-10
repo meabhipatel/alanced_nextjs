@@ -39,7 +39,7 @@ import { IoClose, IoLocationOutline } from "react-icons/io5";
 // import HrsPerWeekPopup from "./AllPopup/HrsPerWeekPopup";                  not in use
 // import AddLanguagePopup from "./AllPopup/AddLanguagePopup";                not in use
 import EditLanguagePopup from "./EditLanguagePopup";
-// import EditEducationPopup from "./AllPopup/EditEducationPopup";                             for use
+import EditEducationPopup from "./EditEducationPopup";
 // import AvailableOffPopup from "./AllPopup/AvailableOffPopup";                               for use
 import AvailableOffPopup from "./EditProfileHeaderPopup";
 // import EditHrRatePopup from "./AllPopup/EditHrRatePopup";                                   for use
@@ -404,7 +404,7 @@ const FreelancerSelfProfile = () => {
   // const [isHrsperWeekOpen, setIsHrsperWeekOpen] = useState(false);
   // const [isAddLanguageOpen, setIsAddLanguageOpen] = useState(false);
   const [isEditLanguageOpen, setIsEditLanguageOpen] = useState(false);
-  // const [isEditEducationOpen, setIsEditEducationOpen] = useState(false);
+  const [isEditEducationOpen, setIsEditEducationOpen] = useState(false);
   const [isAvailableOffOpen, setIsAvailableOffOpen] = useState(false);
   // const [isHrRateOpen, setIsHrRateOpen] = useState(false);
   // const [isCertificatesOpen, setIsCertificatesOpen] = useState(false);
@@ -497,12 +497,12 @@ const FreelancerSelfProfile = () => {
   };
 
   const openEditEducation = () => {
-    // setIsEditEducationOpen(true);
+    setIsEditEducationOpen(true);
   };
 
-  // const closeEditEducation = () => {
-  //   setIsEditEducationOpen(false);
-  // };
+  const closeEditEducation = () => {
+    setIsEditEducationOpen(false);
+  };
 
   const openEditLanguage = () => {
     setIsEditLanguageOpen(true);
@@ -872,17 +872,17 @@ const FreelancerSelfProfile = () => {
                       </button>
                     ) : null}
 
-                    {/* {isEditEducationOpen && (
+                    {isEditEducationOpen && (
                       <EditEducationPopup
                         qualification={
-                          freelancerselfprofile && freelancerselfprofile[0]
-                            ? freelancerselfprofile[0].qualification
+                          freelancerselfprofile && freelancerselfprofile
+                            ? freelancerselfprofile.qualification
                             : ""
                         }
-                        closeEditEducation={closeEditEducation}                          for use
+                        closeEditEducation={closeEditEducation}
                       />
                     )}
-                    {isAddEducationOpen && (
+                    {/* {isAddEducationOpen && (
                       <AddEducationPopup closeAddEducation={closeAddEducation} />
                     )} */}
                   </div>
