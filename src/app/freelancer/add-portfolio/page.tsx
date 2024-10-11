@@ -1,26 +1,39 @@
 "use client";
 import React, { useState } from "react";
+import categoryList from "@/constant/allSelectionData/categoryList";
+import SkillsList from "@/constant/allSelectionData/skillsList";
+import { FaTimes } from "react-icons/fa";
 
 const PortfolioPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [projectTitle, setProjectTitle] = useState("");
   const [projectDescription, setProjectDescription] = useState("");
   const [projectCategory, setProjectCategory] = useState("");
-  const [skillsUsed, setSkillsUsed] = useState("");
   const [projectUrl, setProjectUrl] = useState("");
-  //const [projectImage, setProjectImage] = useState<File | null>(null);
-  const [selectedCategory] = useState<string[]>([]);
+  const [skillsUsed, setSkillsUsed] = useState<string[]>([]);
 
-  //const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-  //const selectedOptions = Array.from(e.target.selectedOptions, (option) => option.value);
-  //setSelectedCategory(selectedOptions);
-  //};
   const handleNextStep = () => {
     if (currentStep === 1 && projectTitle && projectDescription) {
       setCurrentStep(2);
-    } else if (currentStep === 2 && projectCategory && skillsUsed) {
+    } else if (currentStep === 2 && projectCategory) {
       setCurrentStep(3);
     }
+  };
+
+  const handleSkillsChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedOptions = Array.from(e.target.selectedOptions, (option) => option.value);
+    setSkillsUsed((prevSkills) => {
+      const combinedSkills = [...prevSkills, ...selectedOptions];
+      return Array.from(new Set(combinedSkills));
+    });
+  };
+
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setProjectCategory(e.target.value);
+  };
+
+  const removeSkill = (skillToRemove: string) => {
+    setSkillsUsed(skillsUsed.filter((skill) => skill !== skillToRemove));
   };
 
   return (
@@ -54,7 +67,7 @@ const PortfolioPage = () => {
                 currentStep === 3 ? "bg-blue-600 text-white" : "text-gray-500 hover:text-gray-900"
               }`}
               onClick={() => setCurrentStep(3)}
-              disabled={!projectCategory || !skillsUsed}
+              disabled={!projectCategory || skillsUsed.length === 0}
             >
               Select Template
             </button>
@@ -66,7 +79,6 @@ const PortfolioPage = () => {
         {currentStep === 1 && (
           <>
             <h1 className="mb-8 text-2xl font-semibold">Add portfolio project</h1>
-
             <div className="mb-6">
               <label
                 htmlFor="project-title"
@@ -126,17 +138,23 @@ const PortfolioPage = () => {
               >
                 Select Category<span className="text-red-600">*</span>
               </label>
-              <p className="text-gray-500">
-                {selectedCategory.join(", ") || "No categories selected."}
-              </p>
-              <input
-                id="category"
-                type="text"
+              <p className="mb-2 text-gray-500">Choose a category for your project.</p>
+              <select
+                id="project-category"
                 className="w-full rounded-lg border p-3 outline-none focus:border-blue-500"
-                placeholder="Enter Project Category"
                 value={projectCategory}
-                onChange={(e) => setProjectCategory(e.target.value)}
-              />
+                onChange={handleCategoryChange}
+              >
+                <option value="">Select a category</option>
+                {categoryList.map((category, index) => (
+                  <option
+                    key={index}
+                    value={category}
+                  >
+                    {category}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div className="mb-6">
@@ -147,21 +165,49 @@ const PortfolioPage = () => {
                 Skills Used<span className="text-red-600">*</span>
               </label>
               <p className="mb-2 text-gray-500">What expertise was applied in this project?</p>
-              <textarea
+
+              <select
                 id="skills-used"
                 className="w-full rounded-lg border p-3 outline-none focus:border-blue-500"
-                placeholder="Enter Skills Used"
+                multiple
                 value={skillsUsed}
-                onChange={(e) => setSkillsUsed(e.target.value)}
-              />
+                onChange={handleSkillsChange}
+              >
+                {SkillsList.map((skill, index) => (
+                  <option
+                    key={index}
+                    value={skill}
+                  >
+                    {skill}
+                  </option>
+                ))}
+              </select>
+
+              <div className="mt-2 flex flex-wrap gap-2">
+                {skillsUsed.map((skill) => (
+                  <div
+                    key={skill}
+                    className="flex items-center rounded-full bg-blue-200 px-3 py-1"
+                  >
+                    {skill}
+                    <button
+                      className="ml-2 text-red-600"
+                      onClick={() => removeSkill(skill)}
+                      aria-label={`Remove ${skill}`}
+                    >
+                      <FaTimes />
+                    </button>
+                  </div>
+                ))}
+              </div>
             </div>
 
             <button
               className={`mt-4 rounded-lg bg-blue-600 px-4 py-2 text-white ${
-                !projectCategory || !skillsUsed ? "cursor-not-allowed opacity-50" : ""
+                !projectCategory ? "cursor-not-allowed opacity-50" : ""
               }`}
               onClick={handleNextStep}
-              disabled={!projectCategory || !skillsUsed}
+              disabled={!projectCategory}
             >
               Next: Select Template
             </button>
@@ -189,22 +235,26 @@ const PortfolioPage = () => {
                 onChange={(e) => setProjectUrl(e.target.value)}
               />
             </div>
-            {/*
+
             <div className="mb-6">
-              <label className="mb-2 block text-lg font-medium">
+              <label
+                htmlFor="project-image"
+                className="mb-2 block text-lg font-medium"
+              >
                 Select Project Image<span className="text-red-600">*</span>
               </label>
               <input
+                id="project-image"
                 type="file"
                 className="w-full rounded-lg border p-3 outline-none focus:border-blue-500"
-                onChange={(e) => setProjectImage(e.target.files?.[0] || null)}
               />
             </div>
-            */}
 
-            <button className="mt-4 rounded-lg bg-green-600 px-4 py-2 text-white">
-              Submit Project
-            </button>
+            <div className="flex justify-between">
+              <button className="rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 px-4 py-2 text-white">
+                Add Project
+              </button>
+            </div>
           </>
         )}
       </div>
