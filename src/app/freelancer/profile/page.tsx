@@ -44,7 +44,7 @@ import EditEducationPopup from "./EditEducationPopup";
 import AvailableOffPopup from "./EditProfileHeaderPopup";
 import EditHrRatePopup from "./EditRatePopup";
 // import AddCertificatesPopup from "./AllPopup/AddCertificatesPopup";        not in use
-// import AddEmploymentPopup from "./AllPopup/AddEmploymentPopup";                             for use
+import AddEmploymentPopup from "./AddEmploymentPopup";
 // import EditEmploymentPopup from "./AllPopup/EditEmploymentPopup";                           for use
 // import TestimonialPopup from "./AllPopup/TestimonialPopup";                not in use
 // import FreelancerProjectsPopup from "./AllPopup/FreelancerProjectsPopup";  not in use
@@ -408,7 +408,7 @@ const FreelancerSelfProfile = () => {
   const [isAvailableOffOpen, setIsAvailableOffOpen] = useState(false);
   const [isHrRateOpen, setIsHrRateOpen] = useState(false);
   // const [isCertificatesOpen, setIsCertificatesOpen] = useState(false);
-  // const [isAddEmploymentOpen, setIsAddEmploymentOpen] = useState(false);
+  const [isAddEmploymentOpen, setIsAddEmploymentOpen] = useState(false);
   // const [isEditEmploymentOpen, setIsEditEmploymentOpen] = useState(false);
   // const [isTestimonialOpen, setIsTestimonialOpen] = useState(false);
   // //   const [isFreeProjectOpen, setIsFreeProjectOpen] = useState(false);
@@ -465,12 +465,12 @@ const FreelancerSelfProfile = () => {
   // };
 
   const openAddEmployment = () => {
-    // setIsAddEmploymentOpen(true);
+    setIsAddEmploymentOpen(true);
   };
 
-  // const closeAddEmployment = () => {
-  //   setIsAddEmploymentOpen(false);
-  // };
+  const closeAddEmployment = () => {
+    setIsAddEmploymentOpen(false);
+  };
 
   // const openAddCertificates = () => {
   //   setIsCertificatesOpen(true);
@@ -1614,9 +1614,9 @@ const FreelancerSelfProfile = () => {
                   alt="more"
                 />
               </button>
-              {/* {isAddEmploymentOpen && (
-                <isAddEmploymentOpen closeAddEmployment={closeAddEmployment} />  for use
-              )} */}
+              {isAddEmploymentOpen && (
+                <AddEmploymentPopup closeAddEmployment={closeAddEmployment} />
+              )}
             </div>
           </div>
           <div className="my-3 border-b opacity-50"></div>
