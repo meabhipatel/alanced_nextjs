@@ -1,6 +1,8 @@
 "use client";
 import InvitationStatus from "@/components/attoms/InvitationStatus";
+import Loader from "@/components/Loader";
 import { useAppSelector } from "@/store/hooks";
+import { useRouter } from "next/navigation";
 import { FC, useState } from "react";
 
 interface IProps {
@@ -10,6 +12,7 @@ interface IProps {
 }
 
 const InviationDetails: FC<IProps> = ({ params: { invitationId } }) => {
+  const router = useRouter();
   const { data } = useAppSelector((state) => state.hirer.freelnacerInvitations);
   const invitation = data.results.find((item) => item.hire_id === Number(invitationId));
 
@@ -22,6 +25,18 @@ const InviationDetails: FC<IProps> = ({ params: { invitationId } }) => {
   const descriptionToShow = showFullDescription
     ? invitation?.freelancer_description
     : invitation?.freelancer_description.slice(0, 400);
+
+  if (data.results.length === 0) {
+    router.replace("/hirer/invited-freelancers");
+    return (
+      <div className="flex h-[70vh] w-full items-center justify-center">
+        <Loader
+          size="lg"
+          color="primary"
+        />
+      </div>
+    );
+  }
 
   return (
     <>
