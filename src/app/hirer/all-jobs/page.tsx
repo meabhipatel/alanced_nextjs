@@ -2,7 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
-import { useRouter } from "next/navigation";
+//import { useRouter } from "next/navigation";
+//import CategoryList from "@/constant/allSelectionData/categoryList";
 import { axiosWithAuth } from "@/utils/axiosWithAuth";
 
 interface Project {
@@ -13,9 +14,9 @@ interface Project {
 }
 
 const Page = () => {
-  const router = useRouter();
+  //const router = useRouter();
   const [projects, setProjects] = useState<Project[]>([]);
-  const [selectedTab, setSelectedTab] = useState("All Job Posts");
+  const [selectedTab] = useState("All Job Posts");
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
@@ -65,42 +66,18 @@ const Page = () => {
     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   };
 
-  const handleTabChange = (tab: string) => {
-    setSelectedTab(tab);
-    if (tab === "All Contracts") {
-      router.push("/hirer/contracts");
-    } else if (tab === "All Job Posts") {
-      router.push("/hirer/all-jobs");
-    }
-  };
+  //const handleTabChange = (tab: string) => {
+  //setSelectedTab(tab);
+  //if (tab === "All Contracts") {
+  // router.push("/hirer/contracts");
+  //} else if (tab === "All Job Posts") {
+  //router.push("/hirer/all-jobs");
+  //}
+  //};
 
   return (
     <div className="container bg-white sm:px-5 md:px-10 lg:px-20">
-      {/* Tab Section */}
-      <div className="mb-4 flex flex-col items-center justify-start md:mb-6 md:flex-row md:space-x-4">
-        <button
-          onClick={() => handleTabChange("All Job Posts")}
-          className={`w-full rounded-lg px-4 py-2 text-center font-semibold md:w-auto md:px-6 ${
-            selectedTab === "All Job Posts"
-              ? "bg-gradient-to-r from-[#0909E9] to-[#00D4FF] text-white"
-              : "border border-gray-300 bg-transparent text-gray-500"
-          }`}
-        >
-          All Job Posts
-        </button>
-        <button
-          onClick={() => handleTabChange("All Contracts")}
-          className={`mt-2 w-full rounded-lg px-4 py-2 text-center font-semibold md:mt-0 md:w-auto md:px-6 ${
-            selectedTab === "All Contracts"
-              ? "bg-gradient-to-r from-[#0909E9] to-[#00D4FF] text-white"
-              : "border border-gray-300 bg-transparent text-gray-500"
-          }`}
-        >
-          All Contracts
-        </button>
-      </div>
-
-      {/* Search Bar */}
+      <h1 className="mb-4 text-2xl font-semibold">All Jobs</h1>
       <div className="mb-6 flex flex-col items-center rounded-lg border border-gray-300 p-2 md:flex-row">
         <IoIosSearch className="h-6 w-6 text-gray-500" />
         <input
@@ -115,21 +92,41 @@ const Page = () => {
         </button>
       </div>
 
-      {/* Projects Section */}
       <div className="space-y-4">
         {Array.isArray(projects) && projects.length > 0 ? (
           projects.map((project, index) => (
             <div
               key={index}
-              className="rounded-lg border bg-gray-50 p-4 shadow-sm"
+              className="flex flex-col items-start justify-between rounded-lg border bg-gray-50 p-4 shadow-sm md:flex-row md:items-center"
             >
-              <div className="text-lg font-semibold">{project.title}</div>
-              <p className="text-sm text-gray-500">
-                {project.Project_Rate} - {project.experience_level}
-              </p>
-              <p className="text-sm text-gray-400">
-                Posted {new Date(project.Project_created_at).toLocaleDateString()}
-              </p>
+              <div className="md:w-1/2">
+                <div className="text-lg font-semibold">{project.title}</div>
+                <p className="text-sm text-gray-500">
+                  {project.Project_Rate} - {project.experience_level}
+                </p>
+                <p className="text-sm text-gray-400">
+                  Posted {new Date(project.Project_created_at).toLocaleDateString()}
+                </p>
+              </div>
+
+              <div className="mt-4 flex flex-col items-center justify-between space-y-2 md:mt-0 md:w-1/2 md:flex-row md:space-y-0">
+                <div className="flex flex-col items-center space-y-1 text-center">
+                  <p className="text-lg font-semibold">2</p>
+                  <p className="text-sm text-gray-500">Proposals</p>
+                </div>
+                <div className="flex flex-col items-center space-y-1 text-center">
+                  <p className="text-lg font-semibold">1</p>
+                  <p className="text-sm text-gray-500">Messaged</p>
+                </div>
+                <div className="flex flex-col items-center space-y-1 text-center">
+                  <p className="text-lg font-semibold">1</p>
+                  <p className="text-sm text-gray-500">Invitations</p>
+                </div>
+
+                <button className="ml-4 rounded-lg bg-gradient-to-r from-blue-700 to-cyan-400 px-4 py-2 text-white">
+                  View Proposals
+                </button>
+              </div>
             </div>
           ))
         ) : (
@@ -137,7 +134,6 @@ const Page = () => {
         )}
       </div>
 
-      {/* Pagination */}
       {totalPages > 1 && (
         <div className="mt-6 flex items-center justify-between">
           <button
