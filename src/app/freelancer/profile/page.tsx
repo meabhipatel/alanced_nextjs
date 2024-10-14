@@ -39,13 +39,13 @@ import { IoClose, IoLocationOutline } from "react-icons/io5";
 // import HrsPerWeekPopup from "./AllPopup/HrsPerWeekPopup";                  not in use
 // import AddLanguagePopup from "./AllPopup/AddLanguagePopup";                not in use
 import EditLanguagePopup from "./EditLanguagePopup";
-// import EditEducationPopup from "./AllPopup/EditEducationPopup";                             for use
+import EditEducationPopup from "./EditEducationPopup";
 // import AvailableOffPopup from "./AllPopup/AvailableOffPopup";                               for use
 import AvailableOffPopup from "./EditProfileHeaderPopup";
-// import EditHrRatePopup from "./AllPopup/EditHrRatePopup";                                   for use
+import EditHrRatePopup from "./EditRatePopup";
 // import AddCertificatesPopup from "./AllPopup/AddCertificatesPopup";        not in use
-// import AddEmploymentPopup from "./AllPopup/AddEmploymentPopup";                             for use
-// import EditEmploymentPopup from "./AllPopup/EditEmploymentPopup";                           for use
+import AddEmploymentPopup from "./AddEmploymentPopup";
+import EditEmploymentPopup from "./EditEmploymentPopup";
 // import TestimonialPopup from "./AllPopup/TestimonialPopup";                not in use
 // import FreelancerProjectsPopup from "./AllPopup/FreelancerProjectsPopup";  not in use
 import axios from "axios";
@@ -379,7 +379,7 @@ const FreelancerSelfProfile = () => {
 
   // const [selected, setSelected] = useState("completed");
   // const [selectedProject, setSelectedProject] = useState<FreelanceProject | null>(null);
-  // const [selectedEmp, setSelectedEmp] = useState<Employment | null>(null);
+  const [selectedEmp, setSelectedEmp] = useState<Employment | null>(null);
 
   function calculateJobSuccess(reviews: RatingReview[]) {
     if (!reviews || reviews.length === 0) {
@@ -404,12 +404,12 @@ const FreelancerSelfProfile = () => {
   // const [isHrsperWeekOpen, setIsHrsperWeekOpen] = useState(false);
   // const [isAddLanguageOpen, setIsAddLanguageOpen] = useState(false);
   const [isEditLanguageOpen, setIsEditLanguageOpen] = useState(false);
-  // const [isEditEducationOpen, setIsEditEducationOpen] = useState(false);
+  const [isEditEducationOpen, setIsEditEducationOpen] = useState(false);
   const [isAvailableOffOpen, setIsAvailableOffOpen] = useState(false);
-  // const [isHrRateOpen, setIsHrRateOpen] = useState(false);
+  const [isHrRateOpen, setIsHrRateOpen] = useState(false);
   // const [isCertificatesOpen, setIsCertificatesOpen] = useState(false);
-  // const [isAddEmploymentOpen, setIsAddEmploymentOpen] = useState(false);
-  // const [isEditEmploymentOpen, setIsEditEmploymentOpen] = useState(false);
+  const [isAddEmploymentOpen, setIsAddEmploymentOpen] = useState(false);
+  const [isEditEmploymentOpen, setIsEditEmploymentOpen] = useState(false);
   // const [isTestimonialOpen, setIsTestimonialOpen] = useState(false);
   // //   const [isFreeProjectOpen, setIsFreeProjectOpen] = useState(false);
   const [isExperienceLevelOpen, setIsExperienceLevelOpen] = useState(false);
@@ -454,23 +454,23 @@ const FreelancerSelfProfile = () => {
   //   setIsTestimonialOpen(false);
   // };
 
-  // const openEditEmployment = (employment: Employment) => {
-  //   // setSelectedEmp(employment);
-  //   // setIsEditEmploymentOpen(true);
-  // };
-
-  // const closeEditEmployment = () => {
-  //   setSelectedEmp(null);
-  //   setIsEditEmploymentOpen(false);
-  // };
-
-  const openAddEmployment = () => {
-    // setIsAddEmploymentOpen(true);
+  const openEditEmployment = (employment: Employment) => {
+    setSelectedEmp(employment);
+    setIsEditEmploymentOpen(true);
   };
 
-  // const closeAddEmployment = () => {
-  //   setIsAddEmploymentOpen(false);
-  // };
+  const closeEditEmployment = () => {
+    setSelectedEmp(null);
+    setIsEditEmploymentOpen(false);
+  };
+
+  const openAddEmployment = () => {
+    setIsAddEmploymentOpen(true);
+  };
+
+  const closeAddEmployment = () => {
+    setIsAddEmploymentOpen(false);
+  };
 
   // const openAddCertificates = () => {
   //   setIsCertificatesOpen(true);
@@ -481,12 +481,12 @@ const FreelancerSelfProfile = () => {
   // };
 
   const openHrRate = () => {
-    // setIsHrRateOpen(true);
+    setIsHrRateOpen(true);
   };
 
-  // const closeHrRate = () => {
-  //   setIsHrRateOpen(false);
-  // };
+  const closeHrRate = () => {
+    setIsHrRateOpen(false);
+  };
 
   const openAvailableOff = () => {
     setIsAvailableOffOpen(true);
@@ -497,12 +497,12 @@ const FreelancerSelfProfile = () => {
   };
 
   const openEditEducation = () => {
-    // setIsEditEducationOpen(true);
+    setIsEditEducationOpen(true);
   };
 
-  // const closeEditEducation = () => {
-  //   setIsEditEducationOpen(false);
-  // };
+  const closeEditEducation = () => {
+    setIsEditEducationOpen(false);
+  };
 
   const openEditLanguage = () => {
     setIsEditLanguageOpen(true);
@@ -872,17 +872,17 @@ const FreelancerSelfProfile = () => {
                       </button>
                     ) : null}
 
-                    {/* {isEditEducationOpen && (
+                    {isEditEducationOpen && (
                       <EditEducationPopup
                         qualification={
-                          freelancerselfprofile && freelancerselfprofile[0]
-                            ? freelancerselfprofile[0].qualification
+                          freelancerselfprofile && freelancerselfprofile
+                            ? freelancerselfprofile.qualification
                             : ""
                         }
-                        closeEditEducation={closeEditEducation}                          for use
+                        closeEditEducation={closeEditEducation}
                       />
                     )}
-                    {isAddEducationOpen && (
+                    {/* {isAddEducationOpen && (
                       <AddEducationPopup closeAddEducation={closeAddEducation} />
                     )} */}
                   </div>
@@ -1236,7 +1236,7 @@ const FreelancerSelfProfile = () => {
                       className="align-middle"
                     />
                   </button>
-                  {/* {isHrRateOpen && <EditHrRatePopup closeHrRate={closeHrRate} />}          for use */}
+                  {isHrRateOpen && <EditHrRatePopup closeHrRate={closeHrRate} />}
                   {/* <div 
         className="relative p-1 w-6 h-6 bg-white rounded-full border border-gray-200 cursor-pointer" 
         onClick={combinedClick} onMouseEnter={handleMouseEnter}
@@ -1614,9 +1614,9 @@ const FreelancerSelfProfile = () => {
                   alt="more"
                 />
               </button>
-              {/* {isAddEmploymentOpen && (
-                <isAddEmploymentOpen closeAddEmployment={closeAddEmployment} />  for use
-              )} */}
+              {isAddEmploymentOpen && (
+                <AddEmploymentPopup closeAddEmployment={closeAddEmployment} />
+              )}
             </div>
           </div>
           <div className="my-3 border-b opacity-50"></div>
@@ -1640,19 +1640,19 @@ const FreelancerSelfProfile = () => {
                     <div className="flex items-center space-x-2">
                       <button
                         className="h-6 w-6 cursor-pointer rounded-full border border-gray-200 bg-white p-1"
-                        // onClick={() => openEditEmployment(emp)}
+                        onClick={() => openEditEmployment(emp)}
                       >
                         <Image
                           src={edit}
                           alt="edit"
                         />
                       </button>
-                      {/* {isEditEmploymentOpen && (
+                      {isEditEmploymentOpen && (
                         <EditEmploymentPopup
                           employment={selectedEmp}
-                          closeEditEmployment={closeEditEmployment}             for use
+                          closeEditEmployment={closeEditEmployment}
                         />
-                      )} */}
+                      )}
                     </div>
                   </div>
                   <p className="font-inter pt-2 text-left text-[14px] text-[#0A142F] opacity-50">

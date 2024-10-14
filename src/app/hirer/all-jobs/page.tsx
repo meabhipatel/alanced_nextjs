@@ -2,14 +2,17 @@
 
 import React, { useEffect, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
-//import { useRouter } from "next/navigation";
-//import CategoryList from "@/constant/allSelectionData/categoryList";
 import { axiosWithAuth } from "@/utils/axiosWithAuth";
+import { errorLog } from "@/utils/errorLog";
+import { timeAgo } from "@/utils/timeFunction";
+import Link from "next/link";
+import { RxArrowLeft, RxArrowRight } from "react-icons/rx";
 
 interface Project {
+  id: string;
   title: string;
   Project_Rate: number;
-  experience_level: string;
+  experience_level: "Entry_Level" | "Intermediate" | "Expert";
   Project_created_at: string;
 }
 
@@ -21,38 +24,29 @@ const Page = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
 
+  /** ---> Fetching project data on load. */
   useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const queryParameters = [];
-
-        if (searchQuery) {
-          queryParameters.push(`search_query=${searchQuery}`);
-        }
-
-        queryParameters.push(`page=${currentPage}`);
-
-        const queryString = queryParameters.join("&");
-
-        const response = await axiosWithAuth.get(
-          `/freelance/view/hirer-self/Project?${queryString}`
-        );
-
-        if (response.data && Array.isArray(response.data.results)) {
-          setProjects(response.data.results);
-          setTotalPages(Math.ceil(response.data.count / 8));
-        } else {
-          setProjects([]);
-        }
-      } catch (error) {
-        //eslint-disable-next-line
-        console.error("Error fetching projects:", error);
-        setProjects([]);
-      }
-    };
-
     fetchProjects();
   }, [searchQuery, currentPage, selectedTab]);
+
+  const fetchProjects = async () => {
+    try {
+      const queryParameters = [];
+
+      if (searchQuery) {
+        queryParameters.push(`search_query=${searchQuery}`);
+      }
+      queryParameters.push(`page=${currentPage}`);
+      const queryString = queryParameters.join("&");
+
+      const res = await axiosWithAuth.get(`/freelance/view/hirer-self/Project?${queryString}`);
+
+      setProjects(res.data.results);
+      setTotalPages(Math.ceil(res.data.count / 8));
+    } catch (error) {
+      errorLog(error);
+    }
+  };
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
@@ -65,15 +59,6 @@ const Page = () => {
   const nextPage = () => {
     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   };
-
-  //const handleTabChange = (tab: string) => {
-  //setSelectedTab(tab);
-  //if (tab === "All Contracts") {
-  // router.push("/hirer/contracts");
-  //} else if (tab === "All Job Posts") {
-  //router.push("/hirer/all-jobs");
-  //}
-  //};
 
   return (
     <div className="container bg-white sm:px-5 md:px-10 lg:px-20">
@@ -93,19 +78,26 @@ const Page = () => {
       </div>
 
       <div className="space-y-4">
-        {Array.isArray(projects) && projects.length > 0 ? (
+        {projects.length > 0 ? (
           projects.map((project, index) => (
             <div
               key={index}
               className="flex flex-col items-start justify-between rounded-lg border bg-gray-50 p-4 shadow-sm md:flex-row md:items-center"
             >
               <div className="md:w-1/2">
-                <div className="text-lg font-semibold">{project.title}</div>
+                <Link href={`/hirer/all-jobs/details`}>
+                  <h2 className="inline-block text-base font-semibold capitalize hover:text-blue-500 hover:underline">
+                    {project.title}
+                  </h2>
+                </Link>
                 <p className="text-sm text-gray-500">
-                  {project.Project_Rate} - {project.experience_level}
+                  {project.Project_Rate} -{" "}
+                  {project.experience_level === "Entry_Level"
+                    ? "Entry Level"
+                    : project.experience_level}
                 </p>
                 <p className="text-sm text-gray-400">
-                  Posted {new Date(project.Project_created_at).toLocaleDateString()}
+                  Posted {timeAgo(project.Project_created_at)}
                 </p>
               </div>
 
@@ -123,9 +115,11 @@ const Page = () => {
                   <p className="text-sm text-gray-500">Invitations</p>
                 </div>
 
-                <button className="ml-4 rounded-lg bg-gradient-to-r from-blue-700 to-cyan-400 px-4 py-2 text-white">
-                  View Proposals
-                </button>
+                <Link href={`/hirer/proposals/${project.id}`}>
+                  <button className="ml-4 rounded-lg bg-gradient-to-r from-blue-700 to-cyan-400 px-4 py-2 text-white">
+                    View Proposals
+                  </button>
+                </Link>
               </div>
             </div>
           ))
@@ -135,23 +129,41 @@ const Page = () => {
       </div>
 
       {totalPages > 1 && (
-        <div className="mt-6 flex items-center justify-between">
+        <div className="flex items-center justify-center gap-2 py-4 md:gap-4">
           <button
             onClick={prevPage}
             disabled={currentPage === 1}
-            className="rounded-lg bg-gray-200 px-4 py-2 transition hover:bg-gray-300"
+            className="rounded-lg border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] p-1 text-white"
           >
-            Previous
+            <RxArrowLeft
+              strokeWidth={0.3}
+              className="text-2xl text-white"
+            />
           </button>
-          <p className="text-gray-600">
-            Page {currentPage} of {totalPages}
-          </p>
+          {[...Array(totalPages)].map((_, index) => {
+            const pageNumber = index + 1;
+            return (
+              <button
+                key={pageNumber}
+                className={`px-3 py-1 ${currentPage === pageNumber ? "bg-gradient-to-r from-[#0909E9] to-[#00D4FF] bg-clip-text text-sm font-bold text-transparent" : "text-sm font-bold text-[#0A142F]"}`}
+                onClick={() => {
+                  window.scrollTo(0, 0);
+                  setCurrentPage(pageNumber);
+                }}
+              >
+                {pageNumber}
+              </button>
+            );
+          })}
           <button
             onClick={nextPage}
             disabled={currentPage === totalPages}
-            className="rounded-lg bg-gray-200 px-4 py-2 transition hover:bg-gray-300"
+            className="rounded-lg border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] p-1 text-white"
           >
-            Next
+            <RxArrowRight
+              strokeWidth={0.3}
+              className="text-2xl text-white"
+            />
           </button>
         </div>
       )}

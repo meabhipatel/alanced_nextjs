@@ -1,33 +1,20 @@
 "use client";
-
 import InvitationStatus from "@/components/attoms/InvitationStatus";
-import { IInvitationDetails } from "@/interfaces/invitationDetails";
-import { useState } from "react";
+import Loader from "@/components/Loader";
+import { useAppSelector } from "@/store/hooks";
+import { useRouter } from "next/navigation";
+import { FC, useState } from "react";
 
-const InviationDetails = () => {
-  const invitation: IInvitationDetails | null = {
-    hire_id: 2,
-    project_id: 3,
-    freelancer_id: 4,
-    project_title: "crm application",
-    project_description: "crm application for real estate deals.",
-    project_category: "Web Development",
-    hiring_budget: 1000,
-    hiring_budget_type: "Fixed",
-    message: "I wan to hire you for this project.",
-    freelancer_name: "sachin sharma",
-    freelancer_category: "Web Development",
-    freelancer_description: "",
-    freelancer_skills: "['Python']",
-    freelancer_hourly_rate: 0,
-    freelancer_experience_level: "Entry_Level",
-    freelancer_language: "['Hindi', 'English', 'Tamil']",
-    hire_by: "sachin Ji sharma",
-    freelancer_accepted: true,
-    freelancer_rejected: false,
-    hired_at: "2024-02-16T18:16:12.432148",
-    is_hired: true,
+interface IProps {
+  params: {
+    invitationId: string;
   };
+}
+
+const InviationDetails: FC<IProps> = ({ params: { invitationId } }) => {
+  const router = useRouter();
+  const { data } = useAppSelector((state) => state.hirer.freelnacerInvitations);
+  const invitation = data.results.find((item) => item.hire_id === Number(invitationId));
 
   const [showFullDescription, setShowFullDescription] = useState(false);
 
@@ -36,13 +23,24 @@ const InviationDetails = () => {
   };
 
   const descriptionToShow = showFullDescription
-    ? invitation.freelancer_description
-    : invitation.freelancer_description.slice(0, 400);
+    ? invitation?.freelancer_description
+    : invitation?.freelancer_description.slice(0, 400);
+
+  if (data.results.length === 0) {
+    router.replace("/hirer/invited-freelancers");
+    return (
+      <div className="flex h-[70vh] w-full items-center justify-center">
+        <Loader
+          size="lg"
+          color="primary"
+        />
+      </div>
+    );
+  }
 
   return (
     <>
       <div className="container sm:px-5 md:px-10 lg:px-20">
-        {/* <h1 className="mt-5 text-left text-2xl font-semibold">View Invitation Details</h1> */}
         <div className="my-8 rounded-lg border border-[#E7E8F2] px-8 py-8">
           <h1 className="text-left text-3xl font-semibold">Invite Details</h1>
           <div className="grid grid-cols-3 gap-4">
@@ -144,8 +142,8 @@ const InviationDetails = () => {
                 </div>
                 <div className="basis-6/12">
                   <p className="text-left text-[14px] font-normal">
-                    {invitation.freelancer_experience_level
-                      ? invitation.freelancer_experience_level.replace(/_/g, " ")
+                    {invitation?.freelancer_experience_level
+                      ? invitation?.freelancer_experience_level.replace(/_/g, " ")
                       : ""}
                   </p>
                   <p className="text-left text-[12px] font-normal opacity-50">Experience level</p>
@@ -157,7 +155,7 @@ const InviationDetails = () => {
                 </div>
                 <div className="basis-9/12">
                   <p className="text-left text-[14px] font-normal">
-                    ${invitation.freelancer_hourly_rate ? invitation.freelancer_hourly_rate : 0}
+                    ${invitation?.freelancer_hourly_rate ? invitation?.freelancer_hourly_rate : 0}
                   </p>
                   <p className="text-left text-[12px] font-normal opacity-50">Hourly Rate</p>
                 </div>
@@ -193,16 +191,16 @@ const InviationDetails = () => {
           </div>
           <hr className="my-6" />
           <h1 className="text-left text-2xl font-semibold">Project Details</h1>
-          <h1 className="mt-5 text-left text-xl font-medium">{invitation.project_title}</h1>
+          <h1 className="mt-5 text-left text-xl font-medium">{invitation?.project_title}</h1>
           <div className="flex flex-row text-left">
             <div className="mt-2 basis-4/12">
               <div className="text-sm font-semibold text-blue-800">
-                {invitation.project_category}
+                {invitation?.project_category}
               </div>
             </div>
           </div>
           <p className="font-inter mt-3 text-left text-[15px] font-medium opacity-[70%]">
-            {invitation.project_description}
+            {invitation?.project_description}
           </p>
         </div>
       </div>
