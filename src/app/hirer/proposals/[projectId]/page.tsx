@@ -1,5 +1,5 @@
 "use client";
-import { FC, MouseEvent, useEffect , useState } from "react";
+import { FC, MouseEvent, useEffect, useState } from "react";
 
 import fileIcon from "@/assets/icons/file.png";
 import Link from "next/link";
@@ -11,6 +11,7 @@ import { axiosIntance } from "@/utils/axiosIntance";
 import { IInvitationDetails } from "@/interfaces/invitationDetails";
 import { RxArrowLeft, RxArrowRight } from "react-icons/rx";
 import { errorLog } from "@/utils/errorLog";
+import SendFreeLancerHireRequestPopup from "@/components/SendFreeLancerHireRequestPopup";
 
 interface IProps {
   params: {
@@ -25,9 +26,8 @@ const Proposals: FC<IProps> = ({ params: { projectId } }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
-  const [isHiringOpen, setIsHiringOpen] = useState([]); // eslint-disable-line
+  const [isHiringOpen, setIsHiringOpen] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const isOpen = true;
 
   const sortBids = (bids: IBidDetails[]) => {
     if (!bids) return [];
@@ -56,7 +56,6 @@ const Proposals: FC<IProps> = ({ params: { projectId } }) => {
     setIsHiringOpen((prev) => ({ ...prev, [freelancerId]: true }));
   };
 
-  // eslint-disable-next-line
   const closeHiringPopup = (freelancerId: string) => {
     setIsHiringOpen((prev) => ({ ...prev, [freelancerId]: false }));
   };
@@ -162,7 +161,7 @@ const Proposals: FC<IProps> = ({ params: { projectId } }) => {
           <div className="p-4 px-6">
             <p className={`py-2 pr-10 font-semibold text-gray-900/70`}>All Proposals</p>
           </div>
-          {isOpen ? (
+          {!allBids[0]?.project?.is_hired ? (
             <>
               {allBids.length > 0 && (
                 <div className="flex items-center justify-between">
@@ -206,6 +205,8 @@ const Proposals: FC<IProps> = ({ params: { projectId } }) => {
                   <Image
                     src={fileIcon}
                     alt="experience"
+                    height={100}
+                    width={100}
                     className="mx-auto mt-2"
                   />
                   <div className="px-4 py-5 text-center text-2xl opacity-50 md:px-8">
@@ -246,7 +247,9 @@ const Proposals: FC<IProps> = ({ params: { projectId } }) => {
                                             "https://www.api.alanced.com" +
                                             bid.freelancer_profilepic
                                           }
-                                          alt="Profile"
+                                          alt={bid.freelancer_name}
+                                          height={100}
+                                          width={100}
                                           className="h-full w-full rounded-full border border-gray-200"
                                         />
                                         <div className="absolute bottom-2 right-1 h-4 w-4 rounded-full border-2 border-white bg-blue-500"></div>
@@ -260,7 +263,7 @@ const Proposals: FC<IProps> = ({ params: { projectId } }) => {
 
                                         <div className="flex items-center space-x-4">
                                           <Link
-                                            href="/messages"
+                                            href="/freelancer/messages"
                                             // state={{
                                             //   conversationName: {
                                             //     hirer: project.project_owner_id,
@@ -304,14 +307,16 @@ const Proposals: FC<IProps> = ({ params: { projectId } }) => {
                                             </button>
                                           </button>
 
-                                          {/* {isHiringOpen[bid.freelancer_id] && (
+                                          {isHiringOpen[bid.freelancer_id] && (
                                             <SendFreeLancerHireRequestPopup
                                               closePopup={() =>
                                                 closeHiringPopup(String(bid.freelancer_id))
                                               }
-                                            //   freelancer={bid.freelancer_id}
+                                              freelancerId={bid.freelancer_id}
+                                              projectTitle={allBids[0]?.project?.title}
+                                              projectId={allBids[0]?.project_id}
                                             />
-                                          )} */}
+                                          )}
                                         </div>
                                       </div>
                                       <h1 className="font-cardo text-lg text-[#031136] opacity-50">
@@ -379,62 +384,6 @@ const Proposals: FC<IProps> = ({ params: { projectId } }) => {
                             </>
                           );
                         })}
-
-                      {/* {totalPages > 1 && (
-                        <div className="m-4 flex items-center justify-end gap-6">
-                          <button
-                            size="sm"
-                            variant="outlined"
-                            onClick={prev}
-                            disabled={currentPage === 1}
-                            style={{
-                              backgroundImage: "linear-gradient(45deg, #0909E9, #00D4FF)",
-                              border: "none",
-                            }}
-                          >
-                            <ArrowLeftIcon
-                              strokeWidth={2}
-                              className="h-4 w-4 text-white"
-                            />
-                          </button>
-
-                          {[...Array(totalPages)].map((_, index) => {
-                            const pageNumber = index + 1;
-                            return (
-                              <span
-                                key={pageNumber}
-                                className={`px-0 py-1 ${
-                                  currentPage === pageNumber
-                                    ? " cursor-pointer bg-gradient-to-r from-[#0909E9] to-[#00D4FF] bg-clip-text text-[14px] font-bold text-transparent"
-                                    : " cursor-pointer text-[14px] font-bold text-[#0A142F]"
-                                }`}
-                                onClick={() => {
-                                  window.scrollTo(0, 0);
-                                  setCurrentPage(pageNumber);
-                                }}
-                              >
-                                {pageNumber}
-                              </span>
-                            );
-                          })}
-
-                          <IconButton
-                            size="sm"
-                            variant="outlined"
-                            onClick={next}
-                            disabled={currentPage === totalPages}
-                            style={{
-                              backgroundImage: "linear-gradient(45deg, #0909E9, #00D4FF)",
-                              border: "none",
-                            }}
-                          >
-                            <ArrowRightIcon
-                              strokeWidth={2}
-                              className="h-4 w-4 text-white"
-                            />
-                          </IconButton>
-                        </div>
-                      )} */}
 
                       {totalPages > 1 && (
                         <div className="flex items-center justify-center gap-2 py-4 md:gap-4">
@@ -559,6 +508,8 @@ const Proposals: FC<IProps> = ({ params: { projectId } }) => {
               <Image
                 src={fileIcon}
                 alt="experience"
+                height={100}
+                width={100}
                 className="mx-auto mt-2"
               />
               <div className="px-4 py-5 text-center text-2xl opacity-50 md:px-8">
