@@ -3,12 +3,12 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { timeAgo } from "@/utils/timeFunction";
-import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import file from "@/assets/icons/file.png";
 import InvitationStatus from "@/components/attoms/InvitationStatus";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { handleFetchFreelancerInvitationAsync } from "@/store/features/hirer/hirerApi";
 import Loader from "@/components/Loader";
+import { RxArrowLeft, RxArrowRight } from "react-icons/rx";
 
 const AllInvitations: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -126,9 +126,12 @@ const AllInvitations: React.FC = () => {
               <button
                 onClick={prev}
                 disabled={currentPage === 1}
-                className="rounded-full border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] p-1 text-white"
+                className="rounded-lg border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] p-1 text-white"
               >
-                <FaArrowLeft />
+                <RxArrowLeft
+                  strokeWidth={0.3}
+                  className="text-2xl text-white"
+                />
               </button>
               {[...Array(totalPages)].map((_, index) => {
                 const pageNumber = index + 1;
@@ -148,9 +151,12 @@ const AllInvitations: React.FC = () => {
               <button
                 onClick={next}
                 disabled={currentPage === totalPages}
-                className="rounded-full border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] p-2 text-white"
+                className="rounded-lg border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] p-1 text-white"
               >
-                <FaArrowRight />
+                <RxArrowRight
+                  strokeWidth={0.3}
+                  className="text-2xl text-white"
+                />
               </button>
             </div>
           )}
