@@ -10,11 +10,18 @@ import { axiosWithAuth } from "@/utils/axiosWithAuth";
 interface IProps {
   closePopup: (id: number) => void;
   freelancerId: number;
+  projectTitle?: string;
+  projectId?: number;
 }
 
-const SendFreeLancerHireRequestPopup: FC<IProps> = ({ closePopup, freelancerId }) => {
-  const [ProjectId, setProjectId] = useState(0);
-  const [Title, setTitle] = useState("");
+const SendFreeLancerHireRequestPopup: FC<IProps> = ({
+  closePopup,
+  freelancerId,
+  projectTitle,
+  projectId,
+}) => {
+  const [ProjectId, setProjectId] = useState(projectId ?? 0);
+  const [Title, setTitle] = useState(projectTitle ?? "");
   const [HiringBudget, setHiringBudget] = useState("");
   const [HiringBudgetType, setHiringBudgetType] = useState("");
   const [msg, setMsg] = useState("");
@@ -28,7 +35,9 @@ const SendFreeLancerHireRequestPopup: FC<IProps> = ({ closePopup, freelancerId }
 
   /** ---> Fetching hirer projects on load. */
   useEffect(() => {
-    handleFetchHirerProjects();
+    if (!projectTitle) {
+      handleFetchHirerProjects();
+    }
   }, []);
 
   const handleFetchHirerProjects = async () => {
@@ -87,36 +96,46 @@ const SendFreeLancerHireRequestPopup: FC<IProps> = ({ closePopup, freelancerId }
               <h1 className="text-left text-[20px] font-normal text-[#031136]">
                 Project Title <span className="text-red-500">*</span>
               </h1>
-              <select
-                className="my-2 w-full rounded-md border bg-white px-2 py-1.5 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
-                name=""
-                value={Title}
-                onChange={(e) => {
-                  setTitle(e.target.value);
-                  const selectedProject = hirerProjects.find(
-                    (project) => project.title === e.target.value
-                  );
-                  if (selectedProject) {
-                    setProjectId(selectedProject.id);
-                  }
-                }}
-              >
-                <option
+              {projectTitle ? (
+                <input
+                  type="text"
+                  value={Title}
+                  className="my-2 w-full rounded-md border px-2 py-1.5 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                  placeholder="Project title"
                   disabled
-                  selected
-                  value=""
+                />
+              ) : (
+                <select
+                  className="my-2 w-full rounded-md border bg-white px-2 py-1.5 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                  name=""
+                  value={Title}
+                  onChange={(e) => {
+                    setTitle(e.target.value);
+                    const selectedProject = hirerProjects.find(
+                      (project) => project.title === e.target.value
+                    );
+                    if (selectedProject) {
+                      setProjectId(selectedProject.id);
+                    }
+                  }}
                 >
-                  Choose Project Title
-                </option>
-                {hirerProjects.map((project) => (
                   <option
-                    key={project.id}
-                    value={project.title}
+                    disabled
+                    selected
+                    value=""
                   >
-                    {project.title}
+                    Choose Project Title
                   </option>
-                ))}
-              </select>
+                  {hirerProjects.map((project) => (
+                    <option
+                      key={project.id}
+                      value={project.title}
+                    >
+                      {project.title}
+                    </option>
+                  ))}
+                </select>
+              )}
 
               <h1 className="text-left text-[20px] font-normal text-[#031136]">
                 Hiring Budget <span className="text-red-500">*</span>
