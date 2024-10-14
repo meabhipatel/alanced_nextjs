@@ -45,7 +45,7 @@ import AvailableOffPopup from "./EditProfileHeaderPopup";
 import EditHrRatePopup from "./EditRatePopup";
 // import AddCertificatesPopup from "./AllPopup/AddCertificatesPopup";        not in use
 import AddEmploymentPopup from "./AddEmploymentPopup";
-// import EditEmploymentPopup from "./AllPopup/EditEmploymentPopup";                           for use
+import EditEmploymentPopup from "./EditEmploymentPopup";
 // import TestimonialPopup from "./AllPopup/TestimonialPopup";                not in use
 // import FreelancerProjectsPopup from "./AllPopup/FreelancerProjectsPopup";  not in use
 import axios from "axios";
@@ -379,7 +379,7 @@ const FreelancerSelfProfile = () => {
 
   // const [selected, setSelected] = useState("completed");
   // const [selectedProject, setSelectedProject] = useState<FreelanceProject | null>(null);
-  // const [selectedEmp, setSelectedEmp] = useState<Employment | null>(null);
+  const [selectedEmp, setSelectedEmp] = useState<Employment | null>(null);
 
   function calculateJobSuccess(reviews: RatingReview[]) {
     if (!reviews || reviews.length === 0) {
@@ -409,7 +409,7 @@ const FreelancerSelfProfile = () => {
   const [isHrRateOpen, setIsHrRateOpen] = useState(false);
   // const [isCertificatesOpen, setIsCertificatesOpen] = useState(false);
   const [isAddEmploymentOpen, setIsAddEmploymentOpen] = useState(false);
-  // const [isEditEmploymentOpen, setIsEditEmploymentOpen] = useState(false);
+  const [isEditEmploymentOpen, setIsEditEmploymentOpen] = useState(false);
   // const [isTestimonialOpen, setIsTestimonialOpen] = useState(false);
   // //   const [isFreeProjectOpen, setIsFreeProjectOpen] = useState(false);
   const [isExperienceLevelOpen, setIsExperienceLevelOpen] = useState(false);
@@ -454,15 +454,15 @@ const FreelancerSelfProfile = () => {
   //   setIsTestimonialOpen(false);
   // };
 
-  // const openEditEmployment = (employment: Employment) => {
-  //   // setSelectedEmp(employment);
-  //   // setIsEditEmploymentOpen(true);
-  // };
+  const openEditEmployment = (employment: Employment) => {
+    setSelectedEmp(employment);
+    setIsEditEmploymentOpen(true);
+  };
 
-  // const closeEditEmployment = () => {
-  //   setSelectedEmp(null);
-  //   setIsEditEmploymentOpen(false);
-  // };
+  const closeEditEmployment = () => {
+    setSelectedEmp(null);
+    setIsEditEmploymentOpen(false);
+  };
 
   const openAddEmployment = () => {
     setIsAddEmploymentOpen(true);
@@ -1640,19 +1640,19 @@ const FreelancerSelfProfile = () => {
                     <div className="flex items-center space-x-2">
                       <button
                         className="h-6 w-6 cursor-pointer rounded-full border border-gray-200 bg-white p-1"
-                        // onClick={() => openEditEmployment(emp)}
+                        onClick={() => openEditEmployment(emp)}
                       >
                         <Image
                           src={edit}
                           alt="edit"
                         />
                       </button>
-                      {/* {isEditEmploymentOpen && (
+                      {isEditEmploymentOpen && (
                         <EditEmploymentPopup
                           employment={selectedEmp}
-                          closeEditEmployment={closeEditEmployment}             for use
+                          closeEditEmployment={closeEditEmployment}
                         />
-                      )} */}
+                      )}
                     </div>
                   </div>
                   <p className="font-inter pt-2 text-left text-[14px] text-[#0A142F] opacity-50">
