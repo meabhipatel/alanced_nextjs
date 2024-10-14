@@ -36,7 +36,7 @@ const HireNowButtonAndPopup: FC<IProps> = ({ freelancer }) => {
       {isPopupOpen && (
         <SendFreeLancerHireRequestPopup
           closePopup={handleClosePopup}
-          freelancer={freelancer}
+          freelancerId={freelancer.id}
         />
       )}
     </div>
