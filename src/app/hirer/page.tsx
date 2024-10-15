@@ -665,7 +665,7 @@ const HirerAfterLogin = () => {
                               {isFreeHiringOpen[free.id] && (
                                 <SendFreeLancerHireRequestPopup
                                   closePopup={() => closeFreeHiring(free.id)}
-                                  freelancer={free}
+                                  freelancerId={free.id}
                                 />
                               )}
                             </div>
