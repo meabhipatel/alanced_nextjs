@@ -53,13 +53,14 @@ import EditExperienceLevelPopup from "./EditExperienceLevelPopup";
 // import EditFreelancerProjectsPopup from "./AllPopup/EditFreelancerProjectsPopup";           for use
 import { formateDate, formatDateToDayMonthYear } from "@/utils/timeFunction";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { axiosWithAuth } from "@/utils/axiosWithAuth";
 import Image from "next/image";
 import { errorLog } from "@/utils/errorLog";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
 
 import { useAppSelector } from "@/store/hooks";
+import toast from "react-hot-toast";
 
 // interface FreelancerProfile {
 //   id: number;
@@ -162,7 +163,7 @@ const FreelancerSelfProfile = () => {
   const [freelancerproject, setfreelancerproject] = useState<FreelanceProject[]>([]);
   const [freelanceremployment, setfreelanceremployment] = useState<Employment[]>([]);
   const id = freelancerselfprofile && freelancerselfprofile.id ? freelancerselfprofile.id : "";
-  const router = useRouter();
+  // const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [ProjectCount, setProjectCount] = useState(0);
@@ -605,14 +606,20 @@ const FreelancerSelfProfile = () => {
       formData.append("images_logo", selectedFile);
 
       if (freelancerselfprofile && freelancerselfprofile) {
-        freelancerselfprofile.images_logo = URL.createObjectURL(selectedFile);
+        // freelancerselfprofile.images_logo = URL.createObjectURL(selectedFile);
+        // const updatedProfile = {
+        //   ...freelancerselfprofile,
+        //   images_logo: URL.createObjectURL(selectedFile),
+        // };
       }
 
+      const res = await axiosWithAuth.put("/account/freelancer/profile/update", formData);
+      toast.success(res.data.message);
       // dispatch(UpdateFreelancerProfileAction(formData, accessToken));           for use
     }
 
     setIsModalOpen(false);
-    router.push("/freelancer/edit-profile");
+    // router.push("/freelancer/edit-profile");
   };
 
   // const underlineStyle = {
