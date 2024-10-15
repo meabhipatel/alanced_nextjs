@@ -235,7 +235,7 @@ const Page: FC<IProps> = async ({ searchParams }) => {
                             Hire Now
                           </span>
                         </Link> */}
-                        <HireNowButtonAndPopup freelancer={freelancer} />
+                        <HireNowButtonAndPopup freelancerId={freelancer.id} />
                       </div>
                       {/* {isFreeHiringOpen[free.id] && (
                           <AddFreeHireRequest
