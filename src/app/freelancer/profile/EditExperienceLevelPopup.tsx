@@ -9,6 +9,8 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useAppSelector } from "@/store/hooks";
 import { IoClose } from "react-icons/io5";
+import toast from "react-hot-toast";
+import { axiosWithAuth } from "@/utils/axiosWithAuth";
 
 interface IEditExperienceLevelPopupProps {
   closeExperienceLevel: () => void;
@@ -29,8 +31,12 @@ const EditExperienceLevelPopup: React.FC<IEditExperienceLevelPopupProps> = ({
     }
   }, [freelancerselfprofile]);
 
-  const handleSave = () => {
+  const handleSave = async () => {
+    const formData = new FormData();
+    formData.append("experience_level", experiencelevel);
     // dispatch(UpdateFreelancerProfileAction({ experience_level: experiencelevel }, accessToken));
+    const res = await axiosWithAuth.put("/account/freelancer/profile/update", formData);
+    toast.success(res.data.message);
     closeExperienceLevel();
     // dispatch(GetFreelancerSelfProfileAction(accessToken));
   };
