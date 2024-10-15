@@ -8,6 +8,8 @@ import { IoLocationOutline } from "react-icons/io5";
 import FreelancerPortfolioPopup from "@/components/FreelancerPortfolioPopup";
 import { errorLog } from "@/utils/errorLog";
 import { axiosIntance } from "@/utils/axiosIntance";
+import { useAppSelector } from "@/store/hooks";
+import HireNowButtonAndPopup from "@/components/HireNowButtonAndPopup";
 
 interface IProps {
   params: {
@@ -27,7 +29,7 @@ interface IFreelancerProfile {
   contact: string;
   date_of_creation: string;
   experience: number;
-  experience_level: "Entry_Level" | "Mid_Level" | "Senior_Level";
+  experience_level: "Entry_Level" | "Intermediate" | "Expert";
   first_Name: string;
   gender: string;
   hourly_rate: string;
@@ -48,6 +50,7 @@ interface IFreelancerProfile {
 }
 
 const ViewFreelancerDetails: FC<IProps> = ({ params: { freelancerId } }) => {
+  const { isLoggedIn } = useAppSelector((state) => state.auth);
   const [freelancerProfile, setFreelancerProfile] = useState<IFreelancerProfile | null>(null);
   const [isPortfolioOpen, setIsPortfolioOpen] = useState(false);
   const [freelancerproject, setfreelancerproject] = useState([]);
@@ -212,22 +215,18 @@ const ViewFreelancerDetails: FC<IProps> = ({ params: { freelancerId } }) => {
           </div>
           <div className="flex flex-col space-y-2 lg:ml-auto lg:mt-4 lg:flex-row lg:items-start lg:space-x-2 lg:space-y-0">
             <div className="mb-4 text-center lg:mb-2 lg:text-left">
-              <Link href="/login">
-                <span className="inline-block rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-10 py-[10px] text-sm font-semibold text-white">
-                  Message
-                </span>
-              </Link>
-            </div>
-            <div className="text-center lg:text-left">
-              <Link href="/login">
+              <Link href={isLoggedIn ? "/freelancer/messages" : "/login"}>
                 <div className="inline-block rounded bg-gradient-to-b from-[#0909E9] to-[#00D4FF] p-0.5">
-                  <button className="bg-white px-11 py-1">
+                  <button className="bg-white px-4 py-1">
                     <p className="from-primary to-danger bg-gradient-to-r bg-clip-text px-[8px] py-[4px] text-sm font-semibold text-transparent">
-                      Hire
+                      Message
                     </p>
                   </button>
                 </div>
               </Link>
+            </div>
+            <div className="text-center lg:text-left">
+              <HireNowButtonAndPopup freelancerId={freelancerProfile?.id} />
             </div>
           </div>
         </div>

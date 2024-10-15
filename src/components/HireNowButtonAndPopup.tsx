@@ -3,13 +3,12 @@ import { useAppSelector } from "@/store/hooks";
 import Link from "next/link";
 import React, { FC, useState } from "react";
 import SendFreeLancerHireRequestPopup from "./SendFreeLancerHireRequestPopup";
-import { IFreelancer } from "@/interfaces";
 
 interface IProps {
-  freelancer: IFreelancer;
+  freelancerId?: number;
 }
 
-const HireNowButtonAndPopup: FC<IProps> = ({ freelancer }) => {
+const HireNowButtonAndPopup: FC<IProps> = ({ freelancerId }) => {
   const { isLoggedIn } = useAppSelector((state) => state.auth);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
@@ -33,10 +32,10 @@ const HireNowButtonAndPopup: FC<IProps> = ({ freelancer }) => {
           </span>
         </Link>
       )}
-      {isPopupOpen && (
+      {isPopupOpen && freelancerId && (
         <SendFreeLancerHireRequestPopup
           closePopup={handleClosePopup}
-          freelancerId={freelancer.id}
+          freelancerId={freelancerId}
         />
       )}
     </div>
