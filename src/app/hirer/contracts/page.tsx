@@ -3,10 +3,10 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import AddReviewPopup from "@/components/pop-up";
 import { formatDateInput } from "@/utils/timeFunction";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { IoIosSearch } from "react-icons/io";
 import contractimg from "@/assets/images/Frame.png";
 import { axiosWithAuth } from "@/utils/axiosWithAuth";
+import { RxArrowLeft, RxArrowRight } from "react-icons/rx";
 
 interface Contract {
   hire_id: number;
@@ -200,25 +200,41 @@ const AllHirerContracts = () => {
           )}
         </div>
         {totalPages > 1 && (
-          <div className="m-4 flex items-center justify-center gap-4 md:gap-6">
+          <div className="flex items-center justify-center gap-2 py-4 md:gap-4">
             <button
-              className="rounded-full p-2"
               onClick={prev}
               disabled={currentPage === 1}
-              aria-label="Previous Page"
+              className="rounded-lg border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] p-1 text-white"
             >
-              <FaChevronLeft />
+              <RxArrowLeft
+                strokeWidth={0.3}
+                className="text-2xl text-white"
+              />
             </button>
-            <span className="text-center">
-              {currentPage}/{totalPages}
-            </span>
+            {[...Array(totalPages)].map((_, index) => {
+              const pageNumber = index + 1;
+              return (
+                <button
+                  key={pageNumber}
+                  className={`px-3 py-1 ${currentPage === pageNumber ? "bg-gradient-to-r from-[#0909E9] to-[#00D4FF] bg-clip-text text-sm font-bold text-transparent" : "text-sm font-bold text-[#0A142F]"}`}
+                  onClick={() => {
+                    window.scrollTo(0, 0);
+                    setCurrentPage(pageNumber);
+                  }}
+                >
+                  {pageNumber}
+                </button>
+              );
+            })}
             <button
-              className="rounded-full p-2"
               onClick={next}
               disabled={currentPage === totalPages}
-              aria-label="Next Page"
+              className="rounded-lg border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] p-1 text-white"
             >
-              <FaChevronRight />
+              <RxArrowRight
+                strokeWidth={0.3}
+                className="text-2xl text-white"
+              />
             </button>
           </div>
         )}
