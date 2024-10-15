@@ -9,6 +9,8 @@ import LanguageList from "@/constant/allSelectionData/languageList";
 import Link from "next/link";
 import { useAppSelector } from "@/store/hooks";
 import { IoClose } from "react-icons/io5";
+import { axiosWithAuth } from "@/utils/axiosWithAuth";
+import toast from "react-hot-toast";
 
 interface IEditLanguagePopupProps {
   closeEditLanguage: () => void;
@@ -29,6 +31,7 @@ const EditLanguagePopup: React.FC<IEditLanguagePopupProps> = ({ closeEditLanguag
   useEffect(() => {
     if (freelancerselfprofile && freelancerselfprofile && freelancerselfprofile.Language) {
       setLanguage(JSON.parse(freelancerselfprofile.Language.replace(/'/g, '"')));
+      // console.log("language :", JSON.parse(freelancerselfprofile.Language.replace(/'/g, '"')));
     }
   }, [freelancerselfprofile]);
 
@@ -37,16 +40,23 @@ const EditLanguagePopup: React.FC<IEditLanguagePopupProps> = ({ closeEditLanguag
     setError("");
   };
 
-  // const formatLanguagesForDispatch = (LanguageArray: string[]): { [key: string]: string } => {
-  //   const formatted: { [key: string]: string } = {};
-  //   LanguageArray.forEach((language, index) => {
-  //     formatted[`Language[${index}]`] = language;
-  //   });
-  //   return formatted;
-  // };
+  const formatLanguagesForDispatch = (LanguageArray: string[]): { [key: string]: string } => {
+    const formatted: { [key: string]: string } = {};
+    LanguageArray.forEach((language, index) => {
+      formatted[`Language[${index}]`] = language;
+    });
+    return formatted;
+  };
 
-  const handleSave = () => {
-    // const formattedLanguage = formatLanguagesForDispatch(Language);
+  const handleSave = async () => {
+    const formData = new FormData();
+
+    const formattedLanguage = formatLanguagesForDispatch(Language);
+    Object.keys(formattedLanguage).forEach((key) => {
+      formData.append(key, formattedLanguage[key]);
+    });
+    const res = await axiosWithAuth.put("/account/freelancer/profile/update", formData);
+    toast.success(res.data.message);
     // dispatch(UpdateFreelancerProfileAction(formattedLanguage, accessToken));
     closeEditLanguage();
     // dispatch(GetFreelancerSelfProfileAction(accessToken));
