@@ -8,6 +8,8 @@ import React, { useEffect, useState } from "react";
 // } from "../../../redux/Freelancer/FreelancerAction";
 import { useAppSelector } from "@/store/hooks";
 import { IoClose } from "react-icons/io5";
+import { axiosWithAuth } from "@/utils/axiosWithAuth";
+import toast from "react-hot-toast";
 interface IEditEducationPopupProps {
   closeEditEducation: () => void;
   qualification: string;
@@ -26,7 +28,11 @@ const EditEducationPopup: React.FC<IEditEducationPopupProps> = ({ closeEditEduca
     }
   }, [freelancerselfprofile]);
 
-  const handleSave = () => {
+  const handleSave = async () => {
+    const formData = new FormData();
+    formData.append("qualification", qualification);
+    const res = await axiosWithAuth.put("/account/freelancer/profile/update", formData);
+    toast.success(res.data.message);
     // dispatch(UpdateFreelancerProfileAction({ qualification }, accessToken));
     closeEditEducation();
     // dispatch(GetFreelancerSelfProfileAction(accessToken));
