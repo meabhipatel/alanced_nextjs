@@ -1,4 +1,4 @@
-import axios from "axios";
+// import axios from "axios";
 import React, { useState, useEffect } from "react";
 
 // import { useDispatch, useSelector } from "react-redux";
@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 // import { GetFreelancerSelfProfileAction } from "../../../redux/Freelancer/FreelancerAction";
 import DesignationList from "@/constant/allSelectionData/DesignationList";
 import { errorLog } from "@/utils/errorLog";
+import { axiosWithAuth } from "@/utils/axiosWithAuth";
 
 interface IAddEmploymentPopup {
   closeEditEmployment: () => void;
@@ -44,7 +45,7 @@ const EditEmploymentPopup: React.FC<IAddEmploymentPopup> = ({
 
   const id = employment?.emp_id;
   // const accessToken = useSelector(state => state.login.accessToken);
-  const accessToken = "access token";
+  // const accessToken = "access token";
   const [companyname, setCompanyname] = useState(employment?.Freelancer_Company_Name || "");
   const [designation, setDesignation] = useState(employment?.Company_Designation || "");
   const [joindate, setJoindate] = useState(
@@ -67,22 +68,23 @@ const EditEmploymentPopup: React.FC<IAddEmploymentPopup> = ({
         Company_Leaving_date: isCurrentlyWorking ? null : leavedate,
       };
 
-      const response = await axios.put(
-        `https://www.api.alanced.com/freelance/update/Freelancer/Employment/${id}`,
-        updatedData,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
+      const res = await axiosWithAuth.put(
+        `/freelance/update/Freelancer/Employment/${id}`,
+        updatedData
+        // {
+        //   headers: {
+        //     Authorization: `Bearer ${accessToken}`,
+        //   },
+        // }
       );
-
-      if (response.data.status === 200) {
+      // const res = await axiosWithAuth.put("/account/freelancer/profile/update", formData);
+      toast.success(res.data.message);
+      if (res.data.status === 200) {
         toast.success("Employment Data Updated");
         closeEditEmployment();
         // dispatch(GetFreelancerSelfProfileAction(accessToken));
       } else {
-        errorLog(response.data.message || "Error updating the employment");
+        errorLog(res.data.message || "Error updating the employment");
       }
     } catch (err) {
       if (err instanceof Error) {
