@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 // import { useDispatch, useSelector } from "react-redux";
 import { useAppSelector } from "@/store/hooks";
+import { axiosWithAuth } from "@/utils/axiosWithAuth";
+import toast from "react-hot-toast";
 // import { Link } from "react-router-dom";
 // import {
 //   GetFreelancerSelfProfileAction,
@@ -45,7 +47,11 @@ const EditHrRatePopup: React.FC<IEditRatePopupProps> = ({ closeHrRate }) => {
     setTotalAfterFee(hourlyRate - fee);
   }, [hourlyRate]);
 
-  const handleSave = () => {
+  const handleSave = async () => {
+    const formData = new FormData();
+    formData.append("hourly_rate", hourlyRate.toString());
+    const res = await axiosWithAuth.put("/account/freelancer/profile/update", formData);
+    toast.success(res.data.message);
     // dispatch(UpdateFreelancerProfileAction({ hourly_rate: hourlyRate }, accessToken));
     closeHrRate();
     // dispatch(GetFreelancerSelfProfileAction(accessToken));

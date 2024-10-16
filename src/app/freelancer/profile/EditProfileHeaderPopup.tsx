@@ -9,6 +9,8 @@ import CityList from "@/constant/allSelectionData/cityList";
 import Link from "next/link";
 import { useAppSelector } from "@/store/hooks";
 import { IoClose } from "react-icons/io5";
+import { axiosWithAuth } from "@/utils/axiosWithAuth";
+import toast from "react-hot-toast";
 
 interface IAvailableOffPopupProps {
   isAvailable: string;
@@ -41,8 +43,13 @@ const AvailableOffPopup: React.FC<IAvailableOffPopupProps> = ({
     }
   }, [freelancerselfprofile]);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     setIsAvailable(localAvailability);
+    const formData = new FormData();
+    formData.append("first_Name", firstName);
+    formData.append("last_Name", lastName);
+    formData.append("Address", address);
+    formData.append("availableStatus", localAvailability);
     // dispatch(
     //   UpdateFreelancerProfileAction(
     //     {
@@ -54,6 +61,9 @@ const AvailableOffPopup: React.FC<IAvailableOffPopupProps> = ({
     //     accessToken
     //   )
     // );
+
+    const res = await axiosWithAuth.put("/account/freelancer/profile/update", formData);
+    toast.success(res.data.message);
     closeAvailableOff();
     // dispatch(GetFreelancerSelfProfileAction(accessToken));
   };
