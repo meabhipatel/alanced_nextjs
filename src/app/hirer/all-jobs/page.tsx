@@ -81,7 +81,7 @@ const Page = () => {
               className="flex flex-col items-start justify-between rounded-lg border bg-gray-50 p-4 shadow-sm md:flex-row md:items-center"
             >
               <div className="md:w-1/2">
-                <Link href={`/hirer/all-jobs/details`}>
+                <Link href={`/hirer/all-jobs/details/${project.id}`}>
                   <h2 className="inline-block text-base font-semibold capitalize hover:text-blue-500 hover:underline">
                     {project.title}
                   </h2>

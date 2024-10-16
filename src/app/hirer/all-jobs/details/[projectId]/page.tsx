@@ -1,9 +1,8 @@
 import React from "react";
-import { FaLocationDot , FaGraduationCap , FaPencil } from "react-icons/fa6";
+import { FaLocationDot, FaGraduationCap, FaPencil } from "react-icons/fa6";
 import { CiDollar } from "react-icons/ci";
 
 import { FaCalendarMinus } from "react-icons/fa";
-
 
 const Page = () => {
   return (
