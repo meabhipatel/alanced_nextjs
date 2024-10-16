@@ -6,6 +6,8 @@ import React, { ChangeEvent, useState } from "react";
 // import CategoryList from "@/constant/allSelectionData/CategoryList";
 import DesignationList from "@/constant/allSelectionData/DesignationList";
 import { IoClose } from "react-icons/io5";
+import { axiosWithAuth } from "@/utils/axiosWithAuth";
+import toast from "react-hot-toast";
 
 interface IAddEmploymentPopup {
   closeAddEmployment: () => void;
@@ -33,7 +35,7 @@ const AddEmploymentPopup: React.FC<IAddEmploymentPopup> = ({ closeAddEmployment 
   //   const addemp = useAppSelector((state) => state.auth.addemp);
   //   const dispatch = useDispatch();
 
-  const AddEmploymentData = () => {
+  const AddEmploymentData = async () => {
     const formData = new URLSearchParams();
     formData.append("Freelancer_Company_Name", AddEmployment.Freelancer_Company_Name);
     formData.append("Company_Designation", AddEmployment.Company_Designation);
@@ -46,7 +48,8 @@ const AddEmploymentPopup: React.FC<IAddEmploymentPopup> = ({ closeAddEmployment 
     //   Company_Joining_date: AddEmployment.Company_Joining_date,
     //   Company_Leaving_date: AddEmployment.Company_Leaving_date,
     // };
-
+    const res = await axiosWithAuth.post("freelance/Add/Freelancer/Employment", formData);
+    toast.success(res.data.message);
     // dispatch(AddFreelancerEmploymentAction(empdata, accessToken));
     closeAddEmployment();
   };
