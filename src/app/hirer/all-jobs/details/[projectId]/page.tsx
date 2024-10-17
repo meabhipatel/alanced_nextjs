@@ -2,6 +2,7 @@
 import React, { FC } from "react";
 import { FaLocationDot, FaGraduationCap, FaPencil } from "react-icons/fa6";
 import { CiDollar } from "react-icons/ci";
+import Link from "next/link";
 
 import { FaCalendarMinus } from "react-icons/fa";
 import { useAppSelector } from "@/store/hooks";
@@ -122,13 +123,15 @@ const JobPostDetails: FC<IProps> = ({ params: { projectId } }) => {
           </div>
         </div>
 
-        <div className="lg:col-span-1">
+        <div className="mt-4 lg:col-span-1">
           <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-6">
             <div className="flex flex-col space-y-3">
-              <div className="flex cursor-pointer items-center space-x-2 text-blue-500">
-                <FaPencil />
-                <span>Edit Job Post</span>
-              </div>
+              <Link href="/hirer/all-jobs/details/edit-job-post">
+                <span className="flex cursor-pointer items-center space-x-2 text-blue-500">
+                  <FaPencil />
+                  <span>Edit Job Post</span>
+                </span>
+              </Link>
             </div>
 
             <div className="mt-6">
