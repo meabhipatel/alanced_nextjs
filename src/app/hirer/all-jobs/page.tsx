@@ -8,10 +8,12 @@ import Link from "next/link";
 import { RxArrowLeft, RxArrowRight } from "react-icons/rx";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { handleFetchHirerSelfProjetsAsync } from "@/store/features/hirer/hirerApi";
+import Loader from "@/components/Loader";
 
 const Page = () => {
   const dispatch = useAppDispatch();
   const {
+    isloading,
     data: { count, results: projects },
   } = useAppSelector((state) => state.hirer.hirerSelfProjects);
   const [searchQuery, setSearchQuery] = useState("");
@@ -56,115 +58,128 @@ const Page = () => {
     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   };
 
-  return (
-    <div className="container bg-white sm:px-5 md:px-10 lg:px-20">
-      <h1 className="mb-4 text-2xl font-semibold">All Jobs</h1>
-      <div className="mb-6 flex flex-col items-center rounded-lg border border-gray-300 p-2 md:flex-row">
-        <IoIosSearch className="h-6 w-6 text-gray-500" />
-        <input
-          type="text"
-          placeholder="Search Projects"
-          value={searchQuery}
-          onChange={handleSearch}
-          className="ml-2 w-full p-1 text-sm outline-none"
+  if (isloading) {
+    return (
+      <div className="flex h-[80vh] w-full items-center justify-center">
+        <Loader
+          size="lg"
+          color="primary"
         />
-        <button className="mt-2 rounded-lg bg-gradient-to-r from-blue-700 to-cyan-400 p-2 text-white md:mt-0">
-          <IoIosSearch className="h-5 w-5" />
-        </button>
       </div>
+    );
+  }
 
-      <div className="space-y-4">
-        {projects.length > 0 ? (
-          projects.map((project, index) => (
-            <div
-              key={index}
-              className="flex flex-col items-start justify-between rounded-lg border bg-gray-50 p-4 shadow-sm md:flex-row md:items-center"
-            >
-              <div className="md:w-1/2">
-                <Link href={`/hirer/all-jobs/details/${project.id}`}>
-                  <h2 className="inline-block text-base font-semibold capitalize hover:text-blue-500 hover:underline">
-                    {project.title}
-                  </h2>
-                </Link>
-                <p className="text-sm text-gray-500">
-                  {project.Project_Rate} -{" "}
-                  {project.experience_level === "Entry_Level"
-                    ? "Entry Level"
-                    : project.experience_level}
-                </p>
-                <p className="text-sm text-gray-400">
-                  Posted {timeAgo(project.Project_created_at)}
-                </p>
-              </div>
-
-              <div className="mt-4 flex flex-col items-center justify-between space-y-2 md:mt-0 md:w-1/2 md:flex-row md:space-y-0">
-                <div className="flex flex-col items-center space-y-1 text-center">
-                  <p className="text-lg font-semibold">2</p>
-                  <p className="text-sm text-gray-500">Proposals</p>
-                </div>
-                <div className="flex flex-col items-center space-y-1 text-center">
-                  <p className="text-lg font-semibold">1</p>
-                  <p className="text-sm text-gray-500">Messaged</p>
-                </div>
-                <div className="flex flex-col items-center space-y-1 text-center">
-                  <p className="text-lg font-semibold">1</p>
-                  <p className="text-sm text-gray-500">Invitations</p>
-                </div>
-
-                <Link href={`/hirer/proposals/${project.id}`}>
-                  <button className="ml-4 rounded-lg bg-gradient-to-r from-blue-700 to-cyan-400 px-4 py-2 text-white">
-                    View Proposals
-                  </button>
-                </Link>
-              </div>
-            </div>
-          ))
-        ) : (
-          <p className="text-center text-gray-500">No projects found</p>
-        )}
-      </div>
-
-      {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-2 py-4 md:gap-4">
-          <button
-            onClick={prevPage}
-            disabled={currentPage === 1}
-            className="rounded-lg border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] p-1 text-white"
-          >
-            <RxArrowLeft
-              strokeWidth={0.3}
-              className="text-2xl text-white"
-            />
-          </button>
-          {[...Array(totalPages)].map((_, index) => {
-            const pageNumber = index + 1;
-            return (
-              <button
-                key={pageNumber}
-                className={`px-3 py-1 ${currentPage === pageNumber ? "bg-gradient-to-r from-[#0909E9] to-[#00D4FF] bg-clip-text text-sm font-bold text-transparent" : "text-sm font-bold text-[#0A142F]"}`}
-                onClick={() => {
-                  window.scrollTo(0, 0);
-                  setCurrentPage(pageNumber);
-                }}
-              >
-                {pageNumber}
-              </button>
-            );
-          })}
-          <button
-            onClick={nextPage}
-            disabled={currentPage === totalPages}
-            className="rounded-lg border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] p-1 text-white"
-          >
-            <RxArrowRight
-              strokeWidth={0.3}
-              className="text-2xl text-white"
-            />
+  if (!isloading) {
+    return (
+      <div className="container bg-white sm:px-5 md:px-10 lg:px-20">
+        <h1 className="mb-4 text-2xl font-semibold">All Jobs</h1>
+        <div className="mb-6 flex flex-col items-center rounded-lg border border-gray-300 p-2 md:flex-row">
+          <IoIosSearch className="h-6 w-6 text-gray-500" />
+          <input
+            type="text"
+            placeholder="Search Projects"
+            value={searchQuery}
+            onChange={handleSearch}
+            className="ml-2 w-full p-1 text-sm outline-none"
+          />
+          <button className="mt-2 rounded-lg bg-gradient-to-r from-blue-700 to-cyan-400 p-2 text-white md:mt-0">
+            <IoIosSearch className="h-5 w-5" />
           </button>
         </div>
-      )}
-    </div>
-  );
+
+        <div className="space-y-4">
+          {projects.length > 0 ? (
+            projects.map((project, index) => (
+              <div
+                key={index}
+                className="flex flex-col items-start justify-between rounded-lg border bg-gray-50 p-4 shadow-sm md:flex-row md:items-center"
+              >
+                <div className="md:w-1/2">
+                  <Link href={`/hirer/all-jobs/details/${project.id}`}>
+                    <h2 className="inline-block text-base font-semibold capitalize hover:text-blue-500 hover:underline">
+                      {project.title}
+                    </h2>
+                  </Link>
+                  <p className="text-sm text-gray-500">
+                    {project.Project_Rate} -{" "}
+                    {project.experience_level === "Entry_Level"
+                      ? "Entry Level"
+                      : project.experience_level}
+                  </p>
+                  <p className="text-sm text-gray-400">
+                    Posted {timeAgo(project.Project_created_at)}
+                  </p>
+                </div>
+
+                <div className="mt-4 flex flex-col items-center justify-between space-y-2 md:mt-0 md:w-1/2 md:flex-row md:space-y-0">
+                  <div className="flex flex-col items-center space-y-1 text-center">
+                    <p className="text-lg font-semibold">2</p>
+                    <p className="text-sm text-gray-500">Proposals</p>
+                  </div>
+                  <div className="flex flex-col items-center space-y-1 text-center">
+                    <p className="text-lg font-semibold">1</p>
+                    <p className="text-sm text-gray-500">Messaged</p>
+                  </div>
+                  <div className="flex flex-col items-center space-y-1 text-center">
+                    <p className="text-lg font-semibold">1</p>
+                    <p className="text-sm text-gray-500">Invitations</p>
+                  </div>
+
+                  <Link href={`/hirer/proposals/${project.id}`}>
+                    <button className="ml-4 rounded-lg bg-gradient-to-r from-blue-700 to-cyan-400 px-4 py-2 text-white">
+                      View Proposals
+                    </button>
+                  </Link>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p className="text-center text-gray-500">No projects found</p>
+          )}
+        </div>
+
+        {totalPages > 1 && (
+          <div className="flex items-center justify-center gap-2 py-4 md:gap-4">
+            <button
+              onClick={prevPage}
+              disabled={currentPage === 1}
+              className="rounded-lg border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] p-1 text-white"
+            >
+              <RxArrowLeft
+                strokeWidth={0.3}
+                className="text-2xl text-white"
+              />
+            </button>
+            {[...Array(totalPages)].map((_, index) => {
+              const pageNumber = index + 1;
+              return (
+                <button
+                  key={pageNumber}
+                  className={`px-3 py-1 ${currentPage === pageNumber ? "bg-gradient-to-r from-[#0909E9] to-[#00D4FF] bg-clip-text text-sm font-bold text-transparent" : "text-sm font-bold text-[#0A142F]"}`}
+                  onClick={() => {
+                    window.scrollTo(0, 0);
+                    setCurrentPage(pageNumber);
+                  }}
+                >
+                  {pageNumber}
+                </button>
+              );
+            })}
+            <button
+              onClick={nextPage}
+              disabled={currentPage === totalPages}
+              className="rounded-lg border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] p-1 text-white"
+            >
+              <RxArrowRight
+                strokeWidth={0.3}
+                className="text-2xl text-white"
+              />
+            </button>
+          </div>
+        )}
+      </div>
+    );
+  }
 };
 
 export default Page;
