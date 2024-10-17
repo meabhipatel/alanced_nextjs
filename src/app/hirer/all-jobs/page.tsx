@@ -22,6 +22,7 @@ const Page = () => {
 
   useEffect(() => {
     fetchProjects();
+    //eslint-disable-next-line
   }, [searchQuery, currentPage]);
 
   useEffect(() => {

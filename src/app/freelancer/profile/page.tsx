@@ -31,7 +31,7 @@ import { IoClose, IoLocationOutline } from "react-icons/io5";
 // } from "../../redux/Freelancer/FreelancerAction";                                           for use
 // import StarRating from "./StarRating";                                                      for use
 // import "bootstrap-icons/font/bootstrap-icons.css";                         for remove
-// import EditTitlePopup from "./AllPopup/EditTitlePopup";                                     for use
+import EditTitlePopup from "./EditTitlePopup";
 // import AddEducationPopup from "./AllPopup/AddEducationPopup";                               for use
 import EditSkillPopup from "./EditSkillPopup";
 // import OtherExperiencePopup from "./AllPopup/OtherExperiencePopup";        not in use
@@ -397,7 +397,7 @@ const FreelancerSelfProfile = () => {
   }
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // const [isEditTitleOpen, setIsEditTitleOpen] = useState(false);
+  const [isEditTitleOpen, setIsEditTitleOpen] = useState(false);
   // const [isAddEducationOpen, setIsAddEducationOpen] = useState(false);
   const [isEditSkillOpen, setIsEditSkillOpen] = useState(false);
   // const [isOtherExpOpen, setIsOtherExpOpen] = useState(false);
@@ -562,12 +562,12 @@ const FreelancerSelfProfile = () => {
   // };
 
   const openEditTitle = () => {
-    // setIsEditTitleOpen(true);
+    setIsEditTitleOpen(true);
   };
 
-  // const closeEditTitle = () => {
-  //   setIsEditTitleOpen(false);
-  // };
+  const closeEditTitle = () => {
+    setIsEditTitleOpen(false);
+  };
 
   const handleEditClick = () => {
     setIsModalOpen(true);
@@ -1215,7 +1215,7 @@ const FreelancerSelfProfile = () => {
                       className="align-middle"
                     />
                   </button>
-                  {/* {isEditTitleOpen && <EditTitlePopup closeEditTitle={closeEditTitle} />}        for use */}
+                  {isEditTitleOpen && <EditTitlePopup closeEditTitle={closeEditTitle} />}
                 </div>
 
                 {/* <div className="flex items-center">
