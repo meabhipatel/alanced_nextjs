@@ -9,20 +9,54 @@ import { axiosWithAuth } from "@/utils/axiosWithAuth";
 import { errorLog } from "@/utils/errorLog";
 import Loader from "@/components/Loader";
 
-interface Bid {
-  bid_time: string;
+interface IBidDetails {
+  id: number;
+  bid_amount: number;
+  description: string;
+  bid_type: string;
+  bid_time: string; // ISO timestamp string
+  freelancer_id: number;
+  project_id: number;
   project: {
     title: string;
     category: string;
+    description: string;
+    skills_required: string; // Stringified array, may be parsed to string[]
+    Project_rate: string;
+    Project_budget: number | null;
+    Project_min_hourly_rate: number;
+    Project_max_hourly_rate: number;
+    Project_experience_level: string;
+    deadline: string; // ISO date string
+    created_at: string; // ISO timestamp string
+    project_owner_Name: string;
+    project_owner_location: string;
+    project_owner_date_of_creation: string; // ISO date string
   };
 }
 
-interface Hiring {
-  hire_time: string;
-  project: {
-    title: string;
-    category: string;
-  };
+export interface IHiringRequest {
+  hire_id: number;
+  project_id: number;
+  freelancer_id: number;
+  hired_by: string;
+  hired_by_id: number;
+  hired_freelancer_name: string;
+  project_title: string;
+  project_category: string;
+  project_description: string;
+  project_exp_level: string;
+  project_skills: string;
+  project_deadline: string;
+  hiring_budget: number;
+  hiring_budget_type: string;
+  message: string;
+  freelancer_accepted: boolean;
+  freelancer_rejected: boolean;
+  hirer_location: string;
+  hirer_creation_date: string;
+  Received_time: string;
+  is_hired: boolean;
 }
 
 const MyProposals = () => {
@@ -30,8 +64,8 @@ const MyProposals = () => {
   const [totalBidPages, setTotalBidPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalHiringReqPages, setTotalHiringReqPages] = useState(0);
-  const [viewFreeBid, setViewFreeBid] = useState<Bid[]>([]);
-  const [viewAllHiring, setViewAllHiring] = useState<Hiring[]>([]);
+  const [viewFreeBid, setViewFreeBid] = useState<IBidDetails[]>([]);
+  const [viewAllHiring, setViewAllHiring] = useState<IHiringRequest[]>([]);
   const [selectedButton, setSelectedButton] = useState("Active");
   const [isLoading, setIsLoading] = useState(true);
 
@@ -159,16 +193,11 @@ const MyProposals = () => {
                           </p>
                         </div>
                         <div className="flex-grow md:ml-[100px]">
-                          {/* <Link
-                          href={{
-                            pathname: "/View/freelancer/proposal",
-                            query: { bid: JSON.stringify(bid) },
-                          }}
-                        > */}
-                          <div className="font-cardo text-[16px] text-blue-600 hover:underline md:text-[18px]">
-                            {bid.project.title}
-                          </div>
-                          {/* </Link> */}
+                          <Link href={`/freelancer/view-proposal/${bid.project_id}`}>
+                            <p className="font-cardo text-[16px] text-blue-600 hover:underline md:text-[18px]">
+                              {bid.project.title}
+                            </p>
+                          </Link>
                         </div>
                         <div className="flex w-full flex-col items-end pr-4 md:w-1/4">
                           <p className="font-inter text-[14px] text-[#031136] opacity-50 md:text-[16px]">
@@ -220,7 +249,7 @@ const MyProposals = () => {
               {viewAllHiring.length > 0 ? (
                 <div>
                   {viewAllHiring.map((hiring, index) => {
-                    const hireTime = new Date(hiring.hire_time);
+                    const hireTime = new Date(hiring.Received_time);
                     const dateFormatOptions: Intl.DateTimeFormatOptions = {
                       day: "numeric",
                       month: "short",
@@ -238,24 +267,19 @@ const MyProposals = () => {
                             Received {formattedDate}
                           </div>
                           <p className="font-inter text-[12px] text-[#031136] opacity-50 md:text-[14px]">
-                            {timeAgo(hiring.hire_time)}
+                            {timeAgo(hiring.Received_time)}
                           </p>
                         </div>
                         <div className="flex-grow md:ml-[100px]">
-                          {/* <Link
-                          href={{
-                            pathname: "/View/freelancer/hiring",
-                            query: { hiring: JSON.stringify(hiring) },
-                          }}
-                        > */}
-                          <div className="font-cardo text-[16px] text-blue-600 hover:underline md:text-[18px]">
-                            {hiring?.project?.title || "No Title"}
-                          </div>
-                          {/* </Link> */}
+                          <Link href={`/freelancer/hirer-request/${hiring.hire_id}`}>
+                            <div className="font-cardo text-[16px] text-blue-600 hover:underline md:text-[18px]">
+                              {hiring?.project_title}
+                            </div>
+                          </Link>
                         </div>
                         <div className="flex w-full flex-col items-end pr-4 md:w-1/4">
                           <p className="font-inter text-[14px] text-[#031136] opacity-50 md:text-[16px]">
-                            {hiring?.project?.category || "No Category"}
+                            {hiring?.project_category}
                           </p>
                         </div>
                       </div>
