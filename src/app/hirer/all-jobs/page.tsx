@@ -20,7 +20,6 @@ const Page = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
 
-  /** ---> Fetching project data on load. */
   useEffect(() => {
     fetchProjects();
   }, [searchQuery, currentPage]);
@@ -73,17 +72,20 @@ const Page = () => {
     return (
       <div className="container bg-white sm:px-5 md:px-10 lg:px-20">
         <h1 className="mb-4 text-2xl font-semibold">All Jobs</h1>
-        <div className="mb-6 flex flex-col items-center rounded-lg border border-gray-300 p-2 md:flex-row">
-          <IoIosSearch className="h-6 w-6 text-gray-500" />
-          <input
-            type="text"
-            placeholder="Search Projects"
-            value={searchQuery}
-            onChange={handleSearch}
-            className="ml-2 w-full p-1 text-sm outline-none"
-          />
-          <button className="mt-2 rounded-lg bg-gradient-to-r from-blue-700 to-cyan-400 p-2 text-white md:mt-0">
-            <IoIosSearch className="h-5 w-5" />
+        <div className="mb-6 flex flex-row items-center justify-between rounded-lg border border-gray-300 p-2">
+          <div className="flex w-full items-center md:w-3/4">
+            {" "}
+            <IoIosSearch className="h-6 w-6 text-gray-500" />
+            <input
+              type="text"
+              placeholder="Search Projects"
+              value={searchQuery}
+              onChange={handleSearch}
+              className="ml-2 w-full p-1 text-sm outline-none md:ml-3"
+            />
+          </div>
+          <button className="ml-3 mt-0 w-auto rounded-lg bg-gradient-to-r from-blue-700 to-cyan-400 p-3 text-white md:text-lg">
+            <IoIosSearch className="h-5 w-5 md:h-6 md:w-6" />
           </button>
         </div>
 
