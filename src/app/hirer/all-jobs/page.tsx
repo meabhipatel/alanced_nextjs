@@ -2,24 +2,18 @@
 
 import React, { useEffect, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
-import { axiosWithAuth } from "@/utils/axiosWithAuth";
 import { errorLog } from "@/utils/errorLog";
 import { timeAgo } from "@/utils/timeFunction";
 import Link from "next/link";
 import { RxArrowLeft, RxArrowRight } from "react-icons/rx";
-
-interface Project {
-  id: string;
-  title: string;
-  Project_Rate: number;
-  experience_level: "Entry_Level" | "Intermediate" | "Expert";
-  Project_created_at: string;
-}
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { handleFetchHirerSelfProjetsAsync } from "@/store/features/hirer/hirerApi";
 
 const Page = () => {
-  //const router = useRouter();
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [selectedTab] = useState("All Job Posts");
+  const dispatch = useAppDispatch();
+  const {
+    data: { count, results: projects },
+  } = useAppSelector((state) => state.hirer.hirerSelfProjects);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
@@ -27,7 +21,13 @@ const Page = () => {
   /** ---> Fetching project data on load. */
   useEffect(() => {
     fetchProjects();
-  }, [searchQuery, currentPage, selectedTab]);
+  }, [searchQuery, currentPage]);
+
+  useEffect(() => {
+    if (count > 0) {
+      setTotalPages(Math.ceil(count / 8));
+    }
+  }, [count]);
 
   const fetchProjects = async () => {
     try {
@@ -38,11 +38,7 @@ const Page = () => {
       }
       queryParameters.push(`page=${currentPage}`);
       const queryString = queryParameters.join("&");
-
-      const res = await axiosWithAuth.get(`/freelance/view/hirer-self/Project?${queryString}`);
-
-      setProjects(res.data.results);
-      setTotalPages(Math.ceil(res.data.count / 8));
+      dispatch(handleFetchHirerSelfProjetsAsync({ query: queryString }));
     } catch (error) {
       errorLog(error);
     }
@@ -85,7 +81,7 @@ const Page = () => {
               className="flex flex-col items-start justify-between rounded-lg border bg-gray-50 p-4 shadow-sm md:flex-row md:items-center"
             >
               <div className="md:w-1/2">
-                <Link href={`/hirer/all-jobs/details`}>
+                <Link href={`/hirer/all-jobs/details/${project.id}`}>
                   <h2 className="inline-block text-base font-semibold capitalize hover:text-blue-500 hover:underline">
                     {project.title}
                   </h2>

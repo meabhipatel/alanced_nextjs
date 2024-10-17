@@ -20,3 +20,22 @@ export const handleFetchFreelancerInvitationAsync = createAsyncThunk(
     }
   }
 );
+
+interface IFetchHirerSelfProjetsParams {
+  query: string;
+}
+
+export const handleFetchHirerSelfProjetsAsync = createAsyncThunk(
+  "fetch/hirer-self-projects",
+  async (data: IFetchHirerSelfProjetsParams, { rejectWithValue }) => {
+    try {
+      const res = await axiosWithAuth.get(`/freelance/view/hirer-self/Project?${data.query}`);
+      return res.data;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        return rejectWithValue(error.response?.data);
+      }
+      throw error;
+    }
+  }
+);
