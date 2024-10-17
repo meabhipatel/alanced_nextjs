@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import DesignationList from "@/constant/allSelectionData/DesignationList";
 import { errorLog } from "@/utils/errorLog";
 import { axiosWithAuth } from "@/utils/axiosWithAuth";
+import { IoClose } from "react-icons/io5";
 
 interface IAddEmploymentPopup {
   closeEditEmployment: () => void;
@@ -108,7 +109,8 @@ const EditEmploymentPopup: React.FC<IAddEmploymentPopup> = ({
               onClick={closeEditEmployment}
               className="text-gray-500 hover:text-gray-700"
             >
-              <i className="bi bi-x-lg"></i>
+              {/* <i className="bi bi-x-lg"></i> */}
+              <IoClose className="text-3xl" />
             </button>
           </div>
           <div className="mt-10">
