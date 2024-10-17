@@ -33,7 +33,7 @@ import { IoClose, IoLocationOutline } from "react-icons/io5";
 // import "bootstrap-icons/font/bootstrap-icons.css";                         for remove
 // import EditTitlePopup from "./AllPopup/EditTitlePopup";                                     for use
 // import AddEducationPopup from "./AllPopup/AddEducationPopup";                               for use
-// import EditSkillPopup from "./AllPopup/EditSkillPopup";                                     for use
+import EditSkillPopup from "./EditSkillPopup";
 // import OtherExperiencePopup from "./AllPopup/OtherExperiencePopup";        not in use
 // import VideoIntroPopup from "./AllPopup/VideoIntroPopup";                  not in use
 // import HrsPerWeekPopup from "./AllPopup/HrsPerWeekPopup";                  not in use
@@ -399,7 +399,7 @@ const FreelancerSelfProfile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   // const [isEditTitleOpen, setIsEditTitleOpen] = useState(false);
   // const [isAddEducationOpen, setIsAddEducationOpen] = useState(false);
-  // const [isEditSkillOpen, setIsEditSkillOpen] = useState(false);
+  const [isEditSkillOpen, setIsEditSkillOpen] = useState(false);
   // const [isOtherExpOpen, setIsOtherExpOpen] = useState(false);
   // const [isVideoIntroOpen, setIsVideoIntroOpen] = useState(false);
   // const [isHrsperWeekOpen, setIsHrsperWeekOpen] = useState(false);
@@ -546,12 +546,12 @@ const FreelancerSelfProfile = () => {
   // };
 
   const openEditSkill = () => {
-    // setIsEditSkillOpen(true);
+    setIsEditSkillOpen(true);
   };
 
-  // const closeEditSkill = () => {
-  //   setIsEditSkillOpen(false);
-  // };
+  const closeEditSkill = () => {
+    setIsEditSkillOpen(false);
+  };
 
   const openAddEducation = () => {
     // setIsAddEducationOpen(true);
@@ -1575,8 +1575,7 @@ const FreelancerSelfProfile = () => {
                       />
                     </button>
                   )}
-                  {/* {isEditSkillOpen && <EditSkillPopup closeEditSkill={closeEditSkill} />} */}{" "}
-                  for use
+                  {isEditSkillOpen && <EditSkillPopup closeEditSkill={closeEditSkill} />}
                 </div>
               </div>
 
