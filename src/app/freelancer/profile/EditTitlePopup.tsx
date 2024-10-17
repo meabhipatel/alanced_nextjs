@@ -7,6 +7,8 @@ import React, { useEffect, useRef, useState } from "react";
 // } from "../../../redux/Freelancer/FreelancerAction";
 import CategoryList from "@/constant/allSelectionData/categoryList";
 import { useAppSelector } from "@/store/hooks";
+import { axiosWithAuth } from "@/utils/axiosWithAuth";
+import toast from "react-hot-toast";
 
 interface IEditTitlePoup {
   closeEditTitle: () => void;
@@ -29,7 +31,13 @@ const EditTitlePopup: React.FC<IEditTitlePoup> = ({ closeEditTitle }) => {
     }
   }, [freelancerselfprofile]);
 
-  const handleSave = () => {
+  const handleSave = async () => {
+    const formData = new FormData();
+    formData.append("category", category);
+    formData.append("about", description);
+    // dispatch(UpdateFreelancerProfileAction({ experience_level: experiencelevel }, accessToken));
+    const res = await axiosWithAuth.put("/account/freelancer/profile/update", formData);
+    toast.success(res.data.message);
     // dispatch(
     //   UpdateFreelancerProfileAction({ category: category, about: description }, accessToken)
     // );
@@ -138,16 +146,17 @@ const EditTitlePopup: React.FC<IEditTitlePoup> = ({ closeEditTitle }) => {
                   <ul className="dropdown-list">
                     {filteredCategories.length > 0 ? (
                       filteredCategories.map((cat, index) => (
-                        <button
-                          key={index}
-                          onClick={() => {
-                            setSearchTerm(cat);
-                            setCategory(cat);
-                            setIsOpen(false);
-                          }}
-                        >
-                          {cat}
-                        </button>
+                        <li key={index}>
+                          <button
+                            onClick={() => {
+                              setSearchTerm(cat);
+                              setCategory(cat);
+                              setIsOpen(false);
+                            }}
+                          >
+                            {cat}
+                          </button>
+                        </li>
                       ))
                     ) : (
                       <li>No results found</li>
