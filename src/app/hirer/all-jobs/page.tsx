@@ -102,7 +102,7 @@ const Page = () => {
                 <div className="md:w-2/3">
                   <div className="flex flex-wrap items-center space-x-4">
                     <Link href={`/hirer/all-jobs/details/${project.id}`}>
-                      <h2 className="inline-block text-xl font-semibold text-blue-600 transition hover:text-blue-400 hover:underline md:text-2xl">
+                      <h2 className="inline-block text-lg font-semibold text-blue-600 transition hover:text-blue-400 hover:underline">
                         {project.title}
                       </h2>
                     </Link>
