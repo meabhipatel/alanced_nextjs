@@ -98,11 +98,21 @@ const Page = () => {
                 className="flex flex-col items-start justify-between rounded-lg border bg-gray-50 p-4 shadow-sm md:flex-row md:items-center"
               >
                 <div className="md:w-1/2">
-                  <Link href={`/hirer/all-jobs/details/${project.id}`}>
-                    <h2 className="inline-block text-base font-semibold capitalize hover:text-blue-500 hover:underline">
-                      {project.title}
-                    </h2>
-                  </Link>
+                  <div className="flex gap-5">
+                    <Link href={`/hirer/all-jobs/details/${project.id}`}>
+                      <h2 className="inline-block text-base font-semibold capitalize hover:text-blue-500 hover:underline">
+                        {project.title}
+                      </h2>
+                    </Link>
+                    <p className="text-xs">
+                      {project.is_hired ? (
+                        <span className="rounded-full bg-red-100 px-3 text-red-500">Closed</span>
+                      ) : (
+                        <span className="rounded-full bg-green-100 px-3 text-green-500">Open</span>
+                      )}
+                    </p>
+                  </div>
+
                   <p className="text-sm text-gray-500">
                     {project.Project_Rate} -{" "}
                     {project.experience_level === "Entry_Level"
@@ -116,15 +126,11 @@ const Page = () => {
 
                 <div className="mt-4 flex flex-col items-center justify-between space-y-2 md:mt-0 md:w-1/2 md:flex-row md:space-y-0">
                   <div className="flex flex-col items-center space-y-1 text-center">
-                    <p className="text-lg font-semibold">2</p>
+                    <p className="text-lg font-semibold">{project?.proposals}</p>
                     <p className="text-sm text-gray-500">Proposals</p>
                   </div>
                   <div className="flex flex-col items-center space-y-1 text-center">
-                    <p className="text-lg font-semibold">1</p>
-                    <p className="text-sm text-gray-500">Messaged</p>
-                  </div>
-                  <div className="flex flex-col items-center space-y-1 text-center">
-                    <p className="text-lg font-semibold">1</p>
+                    <p className="text-lg font-semibold">{project?.invitations}</p>
                     <p className="text-sm text-gray-500">Invitations</p>
                   </div>
 

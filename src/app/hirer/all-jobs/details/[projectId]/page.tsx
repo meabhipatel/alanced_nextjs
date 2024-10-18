@@ -116,8 +116,8 @@ const JobPostDetails: FC<IProps> = ({ params: { projectId } }) => {
             <div className="mt-6">
               <div className="text-lg font-semibold">Activity on this job</div>
               <div className="mt-2 space-y-1 text-sm">
-                <div>Proposals : 0</div>
-                <div>Invitations : 1</div>
+                <div>Proposals : {project?.proposals}</div>
+                <div>Invitations :{project?.invitations}</div>
               </div>
             </div>
           </div>
