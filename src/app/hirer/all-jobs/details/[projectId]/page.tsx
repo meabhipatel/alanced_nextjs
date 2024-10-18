@@ -21,7 +21,7 @@ const JobPostDetails: FC<IProps> = ({ params: { projectId } }) => {
   const { data } = useAppSelector((state) => state.hirer.hirerSelfProjects);
   const project = data.results.find((item) => item.id === +projectId);
 
-  if (data.results.length === 0) {
+  if (!project) {
     router.replace("/hirer/all-jobs");
     return (
       <div className="flex h-[70vh] w-full items-center justify-center">
