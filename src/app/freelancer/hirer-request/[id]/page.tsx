@@ -4,6 +4,9 @@ import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import { axiosWithAuth } from "@/utils/axiosWithAuth";
 import { formatDate, formatDateInput, getCurrentTime, timeAgo } from "@/utils/timeFunction";
+import { useAppSelector } from "@/store/hooks";
+import { useRouter } from "next/navigation";
+import Loader from "@/components/Loader";
 
 interface IProps {
   params: {
@@ -11,31 +14,12 @@ interface IProps {
   };
 }
 
-const hirerRequest = {
-  hire_id: 35,
-  project_id: 38,
-  freelancer_id: 4,
-  hired_by: "sachin sharma ji",
-  hired_by_id: 5,
-  hired_freelancer_name: "sachin sharma",
-  project_title: "App",
-  project_category: "Data Entry",
-  project_description: "App",
-  project_exp_level: "Entry_Level",
-  project_skills: "['React Native', 'React', 'JavaScript']",
-  project_deadline: "2024-03-12",
-  hiring_budget: 28,
-  hiring_budget_type: "Fixed",
-  message: "Ok",
-  freelancer_accepted: false,
-  freelancer_rejected: false,
-  hirer_location: "Chennai",
-  hirer_creation_date: "2023-12-30",
-  Received_time: "2024-10-03T16:53:51.164705",
-  is_hired: false,
-};
-
 const HirerRequestDetails: FC<IProps> = ({ params: { id: hire_id } }) => {
+  const router = useRouter();
+  const {
+    data: { results },
+  } = useAppSelector((state) => state.freelancer.pendingHireRequest);
+  const hireRequest = results.find((item) => item.hire_id === Number(hire_id));
   const [showFullDescription, setShowFullDescription] = useState(false);
 
   const toggleDescription = () => {
@@ -43,17 +27,15 @@ const HirerRequestDetails: FC<IProps> = ({ params: { id: hire_id } }) => {
   };
 
   const descriptionToShow = showFullDescription
-    ? hirerRequest && hirerRequest.project_description
-      ? hirerRequest.project_description
-      : ""
-    : hirerRequest.project_description.slice(0, 200);
+    ? hireRequest?.project_description
+    : hireRequest?.project_description.slice(0, 200);
 
   const handleAcceptProject = async () => {
     try {
       const response = await axiosWithAuth.put(`/freelance/projects/accept/${hire_id}`);
       if (response.data.status === 200) {
         toast.success("Hiring Request Accepted Successfully");
-        // navigate("/all-invitations");
+        router.replace("/freelancer/all-invitations");
       }
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -67,7 +49,7 @@ const HirerRequestDetails: FC<IProps> = ({ params: { id: hire_id } }) => {
       const response = await axiosWithAuth.put(`/freelance/projects/reject/${hire_id}`);
       if (response.data.status === 200) {
         toast.success("You have Rejected the Hiring Request");
-        // navigate("/all-invitations");
+        router.replace("/freelancer/all-invitations");
       }
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -75,6 +57,18 @@ const HirerRequestDetails: FC<IProps> = ({ params: { id: hire_id } }) => {
       }
     }
   };
+
+  if (results.length === 0) {
+    router.replace("/freelancer/my-proposals");
+    return (
+      <div className="flex h-[70vh] w-full items-center justify-center">
+        <Loader
+          size="lg"
+          color="primary"
+        />
+      </div>
+    );
+  }
 
   return (
     <>
@@ -106,38 +100,31 @@ const HirerRequestDetails: FC<IProps> = ({ params: { id: hire_id } }) => {
           <div className="mt-6 flex flex-row">
             <div className="basis-8/12">
               <h1 className="font-inter text-left text-xl font-medium">
-                {hirerRequest && hirerRequest.project_title ? hirerRequest.project_title : ""}
+                {hireRequest?.project_title}
               </h1>
               <div className="flex flex-row">
                 <div className="mt-5 basis-4/12">
                   <div className="w-[90%] rounded-xl bg-[#b4d3c3] bg-opacity-[60%] py-[3px] text-sm font-semibold text-blue-800 hover:bg-[#c1e2d1] focus:outline-none dark:bg-[#dffdee] dark:hover:bg-[#dffdee]">
-                    {hirerRequest && hirerRequest.project_category
-                      ? hirerRequest.project_category
-                      : ""}
+                    {hireRequest?.project_category}
                   </div>
                 </div>
                 <div className="ml-2 mt-5 basis-4/12">
                   <p className="font-inter text-left text-sm font-medium opacity-[50%]">
-                    Received{" "}
-                    {timeAgo(
-                      hirerRequest && hirerRequest.Received_time ? hirerRequest.Received_time : ""
-                    )}
+                    Received {timeAgo(hireRequest?.Received_time ?? "")}
                   </p>
                 </div>
               </div>
               <p className="font-inter mt-3 text-left text-[15px] font-medium opacity-[70%]">
                 {descriptionToShow}
               </p>
-              {hirerRequest && hirerRequest.project_description
-                ? hirerRequest.project_description.length > 200 && (
-                    <button
-                      className="mt-3 cursor-pointer text-left text-base font-semibold text-blue-600"
-                      onClick={toggleDescription}
-                    >
-                      {showFullDescription ? "less" : "more"}
-                    </button>
-                  )
-                : ""}
+              {(hireRequest?.project_description.length ?? 0) > 200 && (
+                <button
+                  className="mt-3 cursor-pointer text-left text-base font-semibold text-blue-600"
+                  onClick={toggleDescription}
+                >
+                  {showFullDescription ? "less" : "more"}
+                </button>
+              )}
             </div>
             <div className="basis-1/12"></div>
             <div className="mt-4 basis-3/12 border-l border-[#E7E8F2]">
@@ -150,9 +137,7 @@ const HirerRequestDetails: FC<IProps> = ({ params: { id: hire_id } }) => {
                 </div>
                 <div className="basis-6/12">
                   <p className="text-left text-[14px] font-normal">
-                    {hirerRequest && hirerRequest.project_exp_level
-                      ? hirerRequest.project_exp_level.replace(/_/g, " ")
-                      : ""}
+                    {hireRequest?.project_exp_level.replace(/_/g, " ")}
                   </p>
                   <p className="text-left text-[12px] font-normal opacity-50">Experience level</p>
                 </div>
@@ -163,9 +148,7 @@ const HirerRequestDetails: FC<IProps> = ({ params: { id: hire_id } }) => {
                 </div>
                 <div className="basis-9/12">
                   <p className="text-left text-[14px] font-normal">
-                    {hirerRequest && hirerRequest.hiring_budget_type
-                      ? hirerRequest.hiring_budget_type
-                      : " "}
+                    {hireRequest?.hiring_budget_type}
                   </p>
                   <p className="text-left text-[12px] font-normal opacity-50">Budget</p>
                 </div>
@@ -176,11 +159,7 @@ const HirerRequestDetails: FC<IProps> = ({ params: { id: hire_id } }) => {
                 </div>
                 <div className="basis-8/12">
                   <p className="text-left text-[14px] font-normal">
-                    {formatDate(
-                      hirerRequest && hirerRequest.project_deadline
-                        ? hirerRequest.project_deadline
-                        : " "
-                    )}
+                    {formatDate(hireRequest?.project_deadline ?? "")}
                   </p>
                   <p className="text-left text-[12px] font-normal opacity-50">Project Deadline</p>
                 </div>
@@ -189,14 +168,16 @@ const HirerRequestDetails: FC<IProps> = ({ params: { id: hire_id } }) => {
           </div>
           <h1 className="font-inter mt-5 text-left text-base font-medium">Skills & Experties</h1>
           <div className="mt-3 text-left">
-            {JSON.parse(hirerRequest.project_skills.replace(/'/g, '"')).map((skill: string) => (
-              <div
-                key={skill}
-                className="mr-3 mt-4 inline-block rounded-full bg-[#b4d3c3] bg-opacity-[60%] px-5 py-[3px] text-sm font-semibold text-blue-800 hover:bg-[#c1e2d1] focus:outline-none dark:bg-[#b4d3c3] dark:hover:bg-[#dffdee]"
-              >
-                <p className="text-center">{skill}</p>
-              </div>
-            ))}
+            {JSON.parse(hireRequest?.project_skills?.replace(/'/g, '"') ?? "[]").map(
+              (skill: string) => (
+                <div
+                  key={skill}
+                  className="mr-3 mt-4 inline-block rounded-full bg-[#b4d3c3] bg-opacity-[60%] px-5 py-[3px] text-sm font-semibold text-blue-800 hover:bg-[#c1e2d1] focus:outline-none dark:bg-[#b4d3c3] dark:hover:bg-[#dffdee]"
+                >
+                  <p className="text-center">{skill}</p>
+                </div>
+              )
+            )}
           </div>
           <hr className="mt-8" />
           <div className="flex flex-row">
@@ -210,21 +191,19 @@ const HirerRequestDetails: FC<IProps> = ({ params: { id: hire_id } }) => {
                 Client&apos;s Hiring Budget
               </p>
               <p className="font-inter text-left text-[15px] font-medium opacity-70">
-                ${hirerRequest && hirerRequest.hiring_budget ? hirerRequest.hiring_budget : ""}
+                ${hireRequest?.hiring_budget}
               </p>
               <p className="font-inter mt-5 text-left text-[15px] font-medium">
                 Client&apos;s Budget Type
               </p>
               <p className="font-inter text-left text-[15px] font-medium opacity-70">
-                {hirerRequest && hirerRequest.hiring_budget_type
-                  ? hirerRequest.hiring_budget_type
-                  : ""}
+                {hireRequest?.hiring_budget_type}
               </p>
               <p className="font-inter mt-5 text-left text-[15px] font-medium">
                 Client&apos;s Message
               </p>
               <p className="font-inter text-left text-[15px] font-medium opacity-70">
-                {hirerRequest && hirerRequest.message ? hirerRequest.message : ""}
+                {hireRequest?.message}
               </p>
             </div>
             <div className="basis-1/12"></div>
@@ -234,13 +213,13 @@ const HirerRequestDetails: FC<IProps> = ({ params: { id: hire_id } }) => {
               </div>
               <div className="ml-7 mt-5">
                 <p className="font-inter text-left text-[17px] font-normal opacity-50">
-                  {hirerRequest && hirerRequest.hired_by ? hirerRequest.hired_by : ""}
+                  {hireRequest?.hired_by}
                 </p>
               </div>
               <div className="ml-7 mt-5">
                 <p className="font-inter text-left text-[17px] font-normal">Location</p>
                 <p className="font-inter mt-2 text-left text-[15px] font-normal opacity-75">
-                  {hirerRequest && hirerRequest.hirer_location ? hirerRequest.hirer_location : ""}
+                  {hireRequest?.hirer_location}
                 </p>
                 <p className="font-inter text-left text-[15px] font-normal opacity-75">
                   {getCurrentTime()}
@@ -249,12 +228,7 @@ const HirerRequestDetails: FC<IProps> = ({ params: { id: hire_id } }) => {
               <div className="ml-7 mt-5">
                 <p className="font-inter text-left text-[17px] font-normal">History</p>
                 <p className="font-inter mt-2 text-left text-[12px] font-normal opacity-75">
-                  Member since{" "}
-                  {formatDateInput(
-                    hirerRequest && hirerRequest.hirer_creation_date
-                      ? hirerRequest.hirer_creation_date
-                      : ""
-                  )}
+                  Member since {formatDateInput(hireRequest?.hirer_creation_date ?? "")}
                 </p>
               </div>
             </div>

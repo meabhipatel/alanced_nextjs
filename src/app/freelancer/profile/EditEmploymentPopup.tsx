@@ -8,6 +8,8 @@ import toast from "react-hot-toast";
 import DesignationList from "@/constant/allSelectionData/DesignationList";
 import { errorLog } from "@/utils/errorLog";
 import { axiosWithAuth } from "@/utils/axiosWithAuth";
+import { IoClose } from "react-icons/io5";
+import { FaCheck } from "react-icons/fa6";
 
 interface IAddEmploymentPopup {
   closeEditEmployment: () => void;
@@ -108,7 +110,8 @@ const EditEmploymentPopup: React.FC<IAddEmploymentPopup> = ({
               onClick={closeEditEmployment}
               className="text-gray-500 hover:text-gray-700"
             >
-              <i className="bi bi-x-lg"></i>
+              {/* <i className="bi bi-x-lg"></i> */}
+              <IoClose className="text-3xl" />
             </button>
           </div>
           <div className="mt-10">
@@ -188,7 +191,8 @@ const EditEmploymentPopup: React.FC<IAddEmploymentPopup> = ({
               />
               <div className="checkbox-border-gradient mr-3 flex h-5 w-5 items-center justify-center rounded bg-transparent">
                 <span className="checkmark hidden">
-                  <i className="bi bi-check-lg pr-2 pt-2"></i>
+                  {/* <i className="bi bi-check-lg pr-2 pt-2"></i> */}
+                  <FaCheck className="text-sm" />
                 </span>
               </div>
               <span className="normal-checkbox mr-3 inline-block h-5 w-5 rounded border border-gray-300"></span>
