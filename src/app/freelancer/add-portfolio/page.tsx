@@ -2,7 +2,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import categoryList from "@/constant/allSelectionData/categoryList";
 import SkillsList from "@/constant/allSelectionData/skillsList";
-// import { FaTimes } from "react-icons/fa";
 import { axiosWithAuth } from "@/utils/axiosWithAuth";
 import toast from "react-hot-toast";
 
@@ -17,11 +16,6 @@ interface IProjectDetails {
 
 const PortfolioPage: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(1);
-  // const [projectTitle, setProjectTitle] = useState("");
-  // const [projectDescription, setProjectDescription] = useState("");
-  // const [projectCategory, setProjectCategory] = useState("");
-  // const [projectUrl, setProjectUrl] = useState("");
-  // const [skillsUsed, setSkillsUsed] = useState<string[]>([]);
   const [skills, setSkills] = useState<string[]>([]);
 
   const [projectDetails, setProjectDetails] = useState<IProjectDetails | null>(null);
@@ -33,22 +27,6 @@ const PortfolioPage: React.FC = () => {
       setCurrentStep(3);
     }
   };
-
-  // const handleSkillsChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-  //   const selectedOptions = Array.from(e.target.selectedOptions, (option) => option.value);
-  //   setSkillsUsed((prevSkills) => {
-  //     const combinedSkills = [...prevSkills, ...selectedOptions];
-  //     return Array.from(new Set(combinedSkills));
-  //   });
-  // };
-
-  // const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-  //   setProjectCategory(e.target.value);
-  // };
-
-  // const removeSkill = (skillToRemove: string | number) => {
-  //   setSkillsUsed(skillsUsed.filter((skill) => skill !== skillToRemove));
-  // };
 
   const removeSkill = (index: string | number) => {
     const newSkills = skills.filter((_, idx) => idx !== index);
@@ -81,8 +59,6 @@ const PortfolioPage: React.FC = () => {
 
     const res = await axiosWithAuth.post("/freelance/Add/Freelancer/Self-Project", formData);
     toast.success(res.data.message);
-
-    // console.log(formData, "check formdata");
   };
 
   const onChange = (
@@ -123,22 +99,10 @@ const PortfolioPage: React.FC = () => {
     };
   }, []);
 
-  // const handleFileChange = (event) => {
-  //   setSelectedFile(event.target.files[0]);
-  //   const file = event.target.files[0];
-  //   if (file) {
-  //     const imageURL = URL.createObjectURL(file);
-  //     setPreview(imageURL);
-  //   }
-  // };
-
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
       setSelectedFile(file);
-
-      // const imageURL = URL.createObjectURL(file);
-      // setPreview(imageURL);
     }
   };
 
@@ -173,7 +137,7 @@ const PortfolioPage: React.FC = () => {
                 currentStep === 3 ? "bg-blue-600 text-white" : "text-gray-500 hover:text-gray-900"
               }`}
               onClick={() => setCurrentStep(3)}
-              // disabled={!projectDetails?.category || projectDetails?.skills_used.length === 0}
+              disabled={!projectDetails?.category || skills.length === 0}
             >
               Select Template
             </button>
@@ -306,11 +270,7 @@ const PortfolioPage: React.FC = () => {
                     placeholder="Search & Select Skills"
                   />
                   {isOpenSkill && (
-                    <ul
-                      // onBlur={() => setIsOpenSkill(false)}
-                      // onFocus={() => setIsOpenSkill(true)}
-                      className="skilldropdown-list w-full"
-                    >
+                    <ul className="skilldropdown-list w-full">
                       {filteredSkills.length > 0 ? (
                         filteredSkills.map((skill, index) => (
                           <li key={index}>
@@ -339,31 +299,16 @@ const PortfolioPage: React.FC = () => {
                 </div>
               </div>
               {error && <p className="mt-2 text-red-500">{error}</p>}
-              {/* <div className="mt-2 flex flex-wrap gap-2">
-                {skillsUsed.map((skill) => (
-                  <div
-                    key={skill}
-                    className="flex items-center rounded-full bg-blue-200 px-3 py-1"
-                  >
-                    {skill}
-                    <button
-                      className="ml-2 text-red-600"
-                      onClick={() => removeSkill(skill)}
-                      aria-label={`Remove ${skill}`}
-                    >
-                      <FaTimes />
-                    </button>
-                  </div>
-                ))}
-              </div> */}
             </div>
 
             <button
               className={`mt-4 rounded-lg bg-blue-600 px-4 py-2 text-white ${
-                !projectDetails?.category ? "cursor-not-allowed opacity-50" : ""
+                !projectDetails?.category || skills.length === 0
+                  ? "cursor-not-allowed opacity-50"
+                  : ""
               }`}
               onClick={handleNextStep}
-              disabled={!projectDetails?.category}
+              disabled={!projectDetails?.category || skills.length === 0}
             >
               Next: Select Template
             </button>
@@ -425,6 +370,3 @@ const PortfolioPage: React.FC = () => {
 };
 
 export default PortfolioPage;
-// function useRef(arg0: null) {
-//   throw new Error("Function not implemented.");
-// }
