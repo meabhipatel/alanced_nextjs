@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 const Enterprises = () => {
   return (
-    <div className="mt-10 px-5 lg:px-32">
+    <div className="lg:px-20s container mt-10 sm:px-5 md:px-10">
       <div className="flex flex-col-reverse rounded-lg border border-gray-200 border-opacity-50 bg-[#dcf7ea] md:flex-row">
         <div className="basis-6/12 p-3 text-left md:mt-8 md:pl-8">
           <div className="text-[22px] font-bold text-blue-700">Alanced</div>
