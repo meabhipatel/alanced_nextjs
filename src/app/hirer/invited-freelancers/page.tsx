@@ -38,9 +38,7 @@ const AllInvitations: React.FC = () => {
 
   return (
     <div className="container mt-2 sm:px-5 md:px-10 lg:px-20">
-      <h1 className="font-cardo pt-4 text-left text-lg font-normal text-[#031136] md:text-xl lg:text-2xl">
-        All Invitations
-      </h1>
+      <h1 className="pt-4 text-left text-2xl font-semibold">All Invitations</h1>
       {isloading && (
         <div className="flex h-[70vh] w-full items-center justify-center">
           <Loader
