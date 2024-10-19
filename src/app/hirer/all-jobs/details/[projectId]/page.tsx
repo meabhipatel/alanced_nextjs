@@ -21,7 +21,7 @@ const JobPostDetails: FC<IProps> = ({ params: { projectId } }) => {
   const { data } = useAppSelector((state) => state.hirer.hirerSelfProjects);
   const project = data.results.find((item) => item.id === +projectId);
 
-  if (data.results.length === 0) {
+  if (!project) {
     router.replace("/hirer/all-jobs");
     return (
       <div className="flex h-[70vh] w-full items-center justify-center">
@@ -116,8 +116,8 @@ const JobPostDetails: FC<IProps> = ({ params: { projectId } }) => {
             <div className="mt-6">
               <div className="text-lg font-semibold">Activity on this job</div>
               <div className="mt-2 space-y-1 text-sm">
-                <div>Proposals : 0</div>
-                <div>Invitations : 1</div>
+                <div>Proposals : {project?.proposals}</div>
+                <div>Invitations :{project?.invitations}</div>
               </div>
             </div>
           </div>
@@ -126,7 +126,7 @@ const JobPostDetails: FC<IProps> = ({ params: { projectId } }) => {
         <div className="sm:mt-4 md:mt-4 lg:col-span-1 lg:mt-16">
           <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-6">
             <div className="flex flex-col space-y-3">
-              <Link href="/hirer/all-jobs/details/edit-job-post">
+              <Link href={`/hirer/all-jobs/edit/${project.id}`}>
                 <span className="flex cursor-pointer items-center space-x-2 text-blue-500">
                   <FaPencil />
                   <span>Edit Job Post</span>

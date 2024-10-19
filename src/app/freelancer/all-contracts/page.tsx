@@ -89,7 +89,7 @@ const AllContracts = () => {
   return (
     <>
       <div className="container mt-5 px-4 sm:px-6 md:px-8 lg:px-16 xl:px-40">
-        <h1 className="font-cardo text-left text-2xl font-normal">All Contracts</h1>
+        <h1 className="text-left text-2xl font-semibold">All Contracts</h1>
         <section className="mt-4 flex items-center rounded-lg border border-[#E7E8F2] p-1">
           <div className="mr-1 flex w-full items-center space-x-1">
             <IoIosSearch className="h-5 w-5 text-gray-500" />
@@ -113,7 +113,7 @@ const AllContracts = () => {
               >
                 <div className="flex flex-col sm:flex-row">
                   <div className="flex-1">
-                    <div className="font-cardo text-left text-lg font-normal">
+                    <div className="text-left text-lg font-semibold">
                       {highlightText(contract.project_title, searchQuery)}
                     </div>
                     <p className="font-inter mt-3 text-left text-[14px] font-normal text-[#031136]">

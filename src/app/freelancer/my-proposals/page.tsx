@@ -8,64 +8,45 @@ import { timeAgo } from "@/utils/timeFunction";
 import { axiosWithAuth } from "@/utils/axiosWithAuth";
 import { errorLog } from "@/utils/errorLog";
 import Loader from "@/components/Loader";
+import { handleFetchPendingHireRequestAsync } from "@/store/features/freelancer/freelancerApi";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
 interface IBidDetails {
   id: number;
   bid_amount: number;
   description: string;
   bid_type: string;
-  bid_time: string; // ISO timestamp string
+  bid_time: string;
   freelancer_id: number;
   project_id: number;
   project: {
     title: string;
     category: string;
     description: string;
-    skills_required: string; // Stringified array, may be parsed to string[]
+    skills_required: string;
     Project_rate: string;
     Project_budget: number | null;
     Project_min_hourly_rate: number;
     Project_max_hourly_rate: number;
     Project_experience_level: string;
-    deadline: string; // ISO date string
-    created_at: string; // ISO timestamp string
+    deadline: string;
+    created_at: string;
     project_owner_Name: string;
     project_owner_location: string;
-    project_owner_date_of_creation: string; // ISO date string
+    project_owner_date_of_creation: string;
   };
 }
 
-export interface IHiringRequest {
-  hire_id: number;
-  project_id: number;
-  freelancer_id: number;
-  hired_by: string;
-  hired_by_id: number;
-  hired_freelancer_name: string;
-  project_title: string;
-  project_category: string;
-  project_description: string;
-  project_exp_level: string;
-  project_skills: string;
-  project_deadline: string;
-  hiring_budget: number;
-  hiring_budget_type: string;
-  message: string;
-  freelancer_accepted: boolean;
-  freelancer_rejected: boolean;
-  hirer_location: string;
-  hirer_creation_date: string;
-  Received_time: string;
-  is_hired: boolean;
-}
-
 const MyProposals = () => {
+  const dispatch = useAppDispatch();
+  const {
+    data: { count, results: pendingHireRequest },
+  } = useAppSelector((state) => state.freelancer.pendingHireRequest);
   const [currentBidPage, setCurrentBidPage] = useState(1);
   const [totalBidPages, setTotalBidPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalHiringReqPages, setTotalHiringReqPages] = useState(0);
   const [viewFreeBid, setViewFreeBid] = useState<IBidDetails[]>([]);
-  const [viewAllHiring, setViewAllHiring] = useState<IHiringRequest[]>([]);
   const [selectedButton, setSelectedButton] = useState("Active");
   const [isLoading, setIsLoading] = useState(true);
 
@@ -93,23 +74,15 @@ const MyProposals = () => {
 
   /** ---> Fetching pending hire request  */
   useEffect(() => {
-    handleFetchPendingHireRequest();
+    dispatch(handleFetchPendingHireRequestAsync({ page: currentPage }));
   }, [currentPage]);
 
-  const handleFetchPendingHireRequest = async () => {
-    setIsLoading(true);
-    try {
-      const res = await axiosWithAuth.get(
-        `/freelance/View-all/pending-hire-request?page=${currentPage}`
-      );
-      setViewAllHiring(res.data.results);
-      setTotalHiringReqPages(Math.ceil(res.data.count / 6));
-    } catch (error) {
-      errorLog(error);
-    } finally {
-      setIsLoading(false);
+  /** ---> Setting the page no. after getting total hire request cound */
+  useEffect(() => {
+    if (count > 0) {
+      setTotalHiringReqPages(Math.ceil(count / 6));
     }
-  };
+  }, [count]);
 
   const Bidprev = () => {
     setCurrentBidPage((prev) => Math.max(prev - 1, 1));
@@ -244,12 +217,12 @@ const MyProposals = () => {
             </div>
             <div className="my-4 border border-[#E7E8F2] bg-[#FFFFFF] text-left">
               <div className="font-inter p-3 text-[14px] font-bold text-[#031136] md:text-[16px]">
-                Hiring Requests ({viewAllHiring.length})
+                Hiring Requests ({count})
               </div>
-              {viewAllHiring.length > 0 ? (
+              {pendingHireRequest.length > 0 ? (
                 <div>
-                  {viewAllHiring.map((hiring, index) => {
-                    const hireTime = new Date(hiring.Received_time);
+                  {pendingHireRequest.map((hireRequest, index) => {
+                    const hireTime = new Date(hireRequest.Received_time);
                     const dateFormatOptions: Intl.DateTimeFormatOptions = {
                       day: "numeric",
                       month: "short",
@@ -267,19 +240,19 @@ const MyProposals = () => {
                             Received {formattedDate}
                           </div>
                           <p className="font-inter text-[12px] text-[#031136] opacity-50 md:text-[14px]">
-                            {timeAgo(hiring.Received_time)}
+                            {timeAgo(hireRequest.Received_time)}
                           </p>
                         </div>
                         <div className="flex-grow md:ml-[100px]">
-                          <Link href={`/freelancer/hirer-request/${hiring.hire_id}`}>
+                          <Link href={`/freelancer/hirer-request/${hireRequest.hire_id}`}>
                             <div className="font-cardo text-[16px] text-blue-600 hover:underline md:text-[18px]">
-                              {hiring?.project_title}
+                              {hireRequest?.project_title}
                             </div>
                           </Link>
                         </div>
                         <div className="flex w-full flex-col items-end pr-4 md:w-1/4">
                           <p className="font-inter text-[14px] text-[#031136] opacity-50 md:text-[16px]">
-                            {hiring?.project_category}
+                            {hireRequest?.project_category}
                           </p>
                         </div>
                       </div>

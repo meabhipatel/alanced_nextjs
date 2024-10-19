@@ -173,9 +173,7 @@ const AddJobPost = () => {
 
   return (
     <div className="container mt-4 sm:px-5 md:px-10 lg:px-20">
-      <div className="font-cardo p-3 text-left text-xl font-normal text-[#031136] sm:text-2xl md:text-3xl">
-        Add Job Post
-      </div>
+      <div className="p-3 text-left text-2xl font-semibold">Add Job Post</div>
       <div className="my-2 border border-gray-100 bg-white text-left">
         <div className="p-4 sm:p-6 md:p-8">
           <div className="font-cardo mb-4 text-lg sm:text-xl md:text-2xl">{`${step}/5`}</div>

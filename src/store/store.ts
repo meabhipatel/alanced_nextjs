@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authSlice from "./features/auth/authSlice";
 import hirerSlice from "./features/hirer/hirerSlice";
+import freelancerSlice from "./features/freelancer/freelancerSlice";
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       auth: authSlice,
       hirer: hirerSlice,
+      freelancer: freelancerSlice,
     },
   });
 };

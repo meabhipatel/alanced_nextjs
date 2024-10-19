@@ -16,4 +16,6 @@ export interface IHirerSelfProject {
   project_owner_created: string;
   is_hired: boolean;
   project_owner_name: string;
+  proposals: number;
+  invitations: number;
 }

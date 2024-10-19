@@ -119,7 +119,7 @@ const FreelancerAfterLogin = () => {
 
   return (
     <>
-      <div className="px-5 lg:px-24 lg:pt-5">
+      <div className="container sm:px-5 md:px-10 lg:px-20">
         {/* --- > Page Header */}
         <div className="flex h-40 w-full bg-[#F6FAFD] md:h-52">
           <div className="flex w-full flex-col items-start justify-center p-2 md:w-[60%] md:pl-10">

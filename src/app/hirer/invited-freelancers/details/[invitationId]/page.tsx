@@ -42,10 +42,10 @@ const InviationDetails: FC<IProps> = ({ params: { invitationId } }) => {
     <>
       <div className="container sm:px-5 md:px-10 lg:px-20">
         <div className="my-8 rounded-lg border border-[#E7E8F2] px-8 py-8">
-          <h1 className="text-left text-3xl font-semibold">Invite Details</h1>
-          <div className="grid grid-cols-3 gap-4">
+          <h1 className="text-left text-2xl font-semibold">Invite Details</h1>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <div>
-              <p className="mt-5 text-left text-xl font-medium">
+              <p className="mt-5 text-left text-lg font-medium">
                 Hiring Budget :{" "}
                 <span className="opacity-70">
                   ${invitation?.hiring_budget ? invitation.hiring_budget : 0}
@@ -53,24 +53,25 @@ const InviationDetails: FC<IProps> = ({ params: { invitationId } }) => {
               </p>
             </div>
             <div>
-              <p className="mt-5 text-left text-xl font-medium">
+              <p className="mt-5 text-left text-lg font-medium">
                 Budget Type : <span className="opacity-70">{invitation?.hiring_budget_type}</span>
               </p>
             </div>
             <div>
-              <p className="mt-5 text-left text-xl font-medium">
+              <p className="mt-5 text-left text-lg font-medium">
                 Invited Freelancer :{" "}
                 <span className="opacity-70">{invitation?.freelancer_name}</span>
               </p>
             </div>
           </div>
-          <div>
+
+          <div className="mt-4 sm:mt-6 lg:mt-8">
             <div>
-              <p className="mt-4 text-left text-xl font-medium">
+              <p className="text-left text-lg font-medium">
                 Message : <span className="opacity-70">{invitation?.message}</span>
               </p>
             </div>
-            <p className="mt-4 text-left text-xl font-medium">
+            <p className="mt-4 text-left text-lg font-medium">
               Invite Status :{" "}
               <span className="inline-block opacity-70">
                 {invitation?.freelancer_accepted ? (
@@ -83,19 +84,20 @@ const InviationDetails: FC<IProps> = ({ params: { invitationId } }) => {
               </span>
             </p>
           </div>
+
           <hr className="my-5" />
           <h1 className="text-left text-2xl font-semibold">Freelancer Details</h1>
-          <div className="mt-6 flex flex-row">
-            <div className="basis-8/12">
+          <div className="mt-6 flex flex-col md:flex-row">
+            <div className="md:basis-8/12">
               <h1 className="text-left text-xl font-medium">{invitation?.freelancer_name}</h1>
-              <div className="flex flex-row text-left">
-                <div className="mt-2 basis-4/12">
-                  <div className="text-sm font-semibold text-blue-800">
+              <div className="mt-2 flex flex-col text-left md:flex-row">
+                <div className="md:basis-4/12">
+                  <div className="text-lg font-semibold text-blue-800">
                     {invitation?.freelancer_category}
                   </div>
                 </div>
               </div>
-              <p className="font-inter mt-3 text-left text-[15px] font-medium opacity-[70%]">
+              <p className="font-inter mt-3 text-left text-lg font-medium opacity-[70%]">
                 {descriptionToShow}
               </p>
               {invitation?.freelancer_description
@@ -146,26 +148,34 @@ const InviationDetails: FC<IProps> = ({ params: { invitationId } }) => {
                       ? invitation?.freelancer_experience_level.replace(/_/g, " ")
                       : ""}
                   </p>
-                  <p className="text-left text-[12px] font-normal opacity-50">Experience level</p>
+                  <p className="text-left text-[12px] font-normal opacity-50 md:text-[14px] lg:text-[16px]">
+                    Experience level
+                  </p>
                 </div>
               </div>
-              <div className="ml-4 mt-4 flex flex-row">
-                <div className="basis-3/12">
+              <div className="ml-4 mt-4 flex flex-col md:flex-row">
+                <div className="mb-2 basis-3/12 md:mb-0">
                   <i className="bi bi-tag-fill"></i>
                 </div>
+
                 <div className="basis-9/12">
-                  <p className="text-left text-[14px] font-normal">
-                    ${invitation?.freelancer_hourly_rate ? invitation?.freelancer_hourly_rate : 0}
+                  <p className="text-left text-[14px] font-normal md:text-[16px] lg:text-[18px]">
+                    ${invitation?.freelancer_hourly_rate ? invitation.freelancer_hourly_rate : 0}
                   </p>
-                  <p className="text-left text-[12px] font-normal opacity-50">Hourly Rate</p>
+                  <p className="text-left text-[12px] font-normal opacity-50 md:text-[14px] lg:text-[16px]">
+                    Hourly Rate
+                  </p>
                 </div>
               </div>
-              <div className="ml-4 mt-4 flex flex-row">
-                <div className="basis-3/12">
-                  <i className="bi bi-translate"></i>
+              <div className="ml-4 mt-4 flex flex-col md:flex-row">
+                <div className="mb-2 basis-3/12 md:mb-0">
+                  <i className="bi bi-translate text-lg md:text-xl"></i>
                 </div>
-                <div className="basis-8/12">
-                  <p className="text-left text-[12px] font-normal opacity-50">Languages Known</p>
+                <div className="basis-9/12">
+                  <p className="text-left text-[12px] font-normal opacity-50 md:text-[14px] lg:text-[16px]">
+                    Languages Known
+                  </p>
+
                   {invitation?.freelancer_language &&
                     (() => {
                       try {
@@ -175,7 +185,7 @@ const InviationDetails: FC<IProps> = ({ params: { invitationId } }) => {
                         return languageArray.map((language, index) => (
                           <div
                             key={index}
-                            className="mt-2 text-left text-sm font-semibold text-blue-800"
+                            className="mt-2 text-left text-base font-semibold text-blue-800"
                           >
                             <p>{language}</p>
                           </div>
@@ -191,15 +201,15 @@ const InviationDetails: FC<IProps> = ({ params: { invitationId } }) => {
           </div>
           <hr className="my-6" />
           <h1 className="text-left text-2xl font-semibold">Project Details</h1>
-          <h1 className="mt-5 text-left text-xl font-medium">{invitation?.project_title}</h1>
-          <div className="flex flex-row text-left">
-            <div className="mt-2 basis-4/12">
-              <div className="text-sm font-semibold text-blue-800">
+          <h1 className="mt-5 text-left text-lg font-medium">{invitation?.project_title}</h1>
+          <div className="flex flex-col text-left md:flex-row">
+            <div className="mt-2 basis-4/12 md:basis-1/3">
+              <div className="text-sm font-semibold text-blue-800 md:text-base">
                 {invitation?.project_category}
               </div>
             </div>
           </div>
-          <p className="font-inter mt-3 text-left text-[15px] font-medium opacity-[70%]">
+          <p className="font-inter mt-3 text-left text-[15px] font-medium opacity-[70%] md:text-[16px] lg:text-[17px]">
             {invitation?.project_description}
           </p>
         </div>
