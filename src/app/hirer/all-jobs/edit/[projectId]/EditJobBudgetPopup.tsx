@@ -7,10 +7,10 @@ interface IProps {
   fixed_budget: number | null;
   min_hourly_rate: number | null;
   max_hourly_rate: number | null;
-  setRate: Dispatch<SetStateAction<"Hourly" | "Fixed">>;
-  setFixedBudget: Dispatch<SetStateAction<number | null>>;
-  setMinHourlyRate: Dispatch<SetStateAction<number | null>>;
-  setMaxHourlyRate: Dispatch<SetStateAction<number | null>>;
+  setRate: Dispatch<SetStateAction<string>>;
+  setFixedBudget: Dispatch<SetStateAction<number>>;
+  setMinHourlyRate: Dispatch<SetStateAction<number>>;
+  setMaxHourlyRate: Dispatch<SetStateAction<number>>;
   onClose: () => void;
   onSave: () => void;
 }
