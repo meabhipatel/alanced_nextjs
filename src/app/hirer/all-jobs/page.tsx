@@ -72,7 +72,7 @@ const Page = () => {
   if (!isloading) {
     return (
       <div className="container sm:px-5 md:px-10 lg:px-20">
-        <h1 className="mb-6 text-3xl font-bold text-gray-900 md:text-4xl">All Jobs</h1>
+        <h1 className="mb-6 text-2xl font-bold text-gray-900">All Jobs</h1>
 
         <div className="mb-8 flex flex-row items-center justify-between space-y-2 rounded-lg border border-gray-300 p-2 md:space-y-0">
           <div className="flex w-full items-center">
