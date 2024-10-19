@@ -102,7 +102,7 @@ const Page = () => {
                 <div className="md:w-2/3">
                   <div className="flex flex-wrap items-center space-x-4">
                     <Link href={`/hirer/all-jobs/details/${project.id}`}>
-                      <h2 className="inline-block text-lg font-semibold text-blue-600 transition hover:text-blue-400 hover:underline">
+                      <h2 className="inline-block text-lg font-semibold transition hover:text-blue-400 hover:underline">
                         {project.title}
                       </h2>
                     </Link>
@@ -135,13 +135,9 @@ const Page = () => {
                     <p className="text-sm text-gray-500">Invitations</p>
                   </div>
                   <Link href={`/hirer/proposals/${project.id}`}>
-                    <div className="inline-block rounded bg-gradient-to-b from-[#0909E9] to-[#00D4FF] p-0.5">
-                      <button className="rounded bg-white px-8 py-3">
-                        <p className="bg-gradient-to-r from-[#0909E9] to-[#00D4FF] bg-clip-text text-sm font-semibold text-transparent">
-                          View Proposal
-                        </p>
-                      </button>
-                    </div>
+                    <button className="ml-4 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-6 py-2 text-white transition-all duration-200 hover:from-[#0707D1] hover:to-[#00B8E0] active:scale-95">
+                      View Proposals
+                    </button>
                   </Link>
                 </div>
               </div>
