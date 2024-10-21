@@ -700,14 +700,16 @@ const FreelancerSelfProfile = () => {
                 <div className="absolute bottom-3 right-2 h-4 w-4 rounded-full border-2 border-white bg-green-500"></div>
               </div>
             </div>
-            <div className="mb-4 border-b border-gray-200 border-opacity-30 bg-[#FFFFFF] py-4 pl-8 text-left md:mb-0">
+            {/* <div className="mb-4 border-b border-gray-200 border-opacity-30 bg-[#FFFFFF] py-4 pl-8 text-left md:mb-0"> */}
+            <div className="mb-4 flex flex-col items-center border-b border-gray-200 border-opacity-30 bg-[#ffffff] py-4 text-left md:mb-0">
               <h1 className="font-cardo mb-3 mr-1 text-[21px] font-normal text-[#031136]">
                 {freelancerselfprofile && freelancerselfprofile.category
                   ? freelancerselfprofile.category
                   : "Your Designation"}
               </h1>
-              <div className="grid grid-cols-3 gap-3 md:grid-cols-3">
-                <div className="">
+              {/* <div className="grid grid-cols-3 gap-3 md:grid-cols-3 bg-red-500"> */}
+              <div className="col-span-3 flex gap-3">
+                <div className="flex flex-col items-center">
                   <h4 className="font-cardo text-[23px] font-bold text-[#031136]">
                     $
                     {freelancerselfprofile && freelancerselfprofile
@@ -716,11 +718,11 @@ const FreelancerSelfProfile = () => {
                   </h4>
                   <p className="font-inter text-[14px] text-[#0A142F] opacity-50">Hourly rate</p>
                 </div>
-                <div className="">
+                <div className="flex flex-col items-center">
                   <h4 className="font-cardo text-[23px] font-bold text-[#031136]">{bid}</h4>
                   <p className="font-inter text-[14px] text-[#0A142F] opacity-50">Proposals</p>
                 </div>
-                <div className="">
+                <div className="flex flex-col items-center">
                   <h4 className="font-cardo text-[23px] font-bold text-[#031136]">
                     {reviews && reviews ? reviews.length : 0}
                   </h4>
@@ -728,7 +730,7 @@ const FreelancerSelfProfile = () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col border-b border-gray-200 border-opacity-30 px-4 py-4 text-left md:px-8">
+            <div className="flex flex-col border-b border-gray-200 border-opacity-30 px-2 py-4 text-left md:px-8">
               <div className="flex items-center justify-between">
                 <h1 className="font-cardo mr-1 text-[21px] font-normal text-[#031136]">
                   Experience Level
@@ -768,7 +770,7 @@ const FreelancerSelfProfile = () => {
                   : ""}
               </p>
             </div>
-            <div className="flex flex-col border-b border-gray-200 border-opacity-30 px-4 py-4 text-left md:px-8">
+            <div className="flex flex-col border-b border-gray-200 border-opacity-30 px-2 py-4 text-left md:px-8">
               <div className="flex items-center justify-between">
                 <h1 className="font-cardo mr-1 text-[21px] font-normal text-[#031136]">
                   Languages
@@ -815,7 +817,7 @@ const FreelancerSelfProfile = () => {
                   )
                 : null}
             </div>
-            <div className="flex flex-col border-b border-gray-200 border-opacity-30 px-4 py-4 text-left md:px-8">
+            <div className="flex flex-col border-b border-gray-200 border-opacity-30 px-2 py-4 text-left md:px-8">
               <h1 className="font-cardo mr-1 text-[21px] font-normal text-[#031136]">
                 Verifications
               </h1>
@@ -829,7 +831,7 @@ const FreelancerSelfProfile = () => {
                   : ""}
               </p>
             </div>
-            <div className="flex flex-col border-b border-gray-200 border-opacity-30 px-4 py-4 text-left md:px-8">
+            <div className="flex flex-col border-b border-gray-200 border-opacity-30 px-2 py-4 text-left md:px-8">
               <div className="">
                 <div className="flex items-center justify-between">
                   <h1 className="font-cardo mr-1 text-[21px] font-normal text-[#031136]">
@@ -1076,7 +1078,7 @@ const FreelancerSelfProfile = () => {
           )}
           <div className="border border-gray-200 border-opacity-30 md:w-[70%]">
             <div className="flex flex-col border-b border-gray-200 border-opacity-30 py-3.5 md:flex-row">
-              <div className="w-full pl-8 pt-3 text-left md:w-3/4">
+              <div className="w-full pl-2 pt-3 text-left sm:pl-8 md:w-3/4">
                 <div className="flex items-center">
                   <h1 className="font-cardo mr-1 text-[24px] font-normal text-[#031136]">
                     {freelancerselfprofile && freelancerselfprofile
@@ -1143,7 +1145,7 @@ const FreelancerSelfProfile = () => {
               </div>
               <div className="px-auto w-full pt-8 md:w-1/4">
                 {/* <Link href=''><span class="inline-block text-sm px-4 py-[10px] mt-4 lg:mt-0 bg-gradient-to-r from-[#0909E9] to-[#00D4FF] border rounded border-none text-white mr-2 font-semibold">See Public View</span></Link> */}
-                <div className="mr-2 mt-3 inline-block rounded bg-gradient-to-b from-[#0909E9] to-[#00D4FF] p-0.5">
+                <div className="ml-2 mr-2 mt-3 inline-block rounded bg-gradient-to-b from-[#0909E9] to-[#00D4FF] p-0.5 md:ml-0">
                   <button
                     className="bg-white px-2 py-1"
                     onClick={scrollToWorkHistory}
@@ -1155,7 +1157,7 @@ const FreelancerSelfProfile = () => {
                 </div>
               </div>
             </div>
-            <div className="border-b border-gray-200 border-opacity-30 px-8 py-4 text-left">
+            <div className="border-b border-gray-200 border-opacity-30 px-2 py-4 text-left md:px-8">
               <h1 className="font-cardo text-[21px] font-normal text-[#031136]">View Profile</h1>
               <div className="my-3 flex flex-wrap">
                 {freelancerselfprofile && freelancerselfprofile && freelancerselfprofile.skills
@@ -1197,7 +1199,7 @@ const FreelancerSelfProfile = () => {
                 </Link>
               </div>
             </div>
-            <div className="border-b border-gray-200 border-opacity-30 px-4 py-4 text-left md:px-8">
+            <div className="border-b border-gray-200 border-opacity-30 px-2 py-4 text-left md:px-8">
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
                   <h1 className="font-cardo mr-2 text-[21px] font-normal text-[#031136]">
@@ -1324,7 +1326,7 @@ const FreelancerSelfProfile = () => {
    <h1 className="font-cardo text-[18px] text-[#031136] font-normal py-2 cursor-pointer">See More</h1> */}
             </div>
             <div
-              className="border-b border-gray-200 border-opacity-30 px-4 py-6 text-left md:px-8"
+              className="border-b border-gray-200 border-opacity-30 px-2 py-6 text-left md:px-8"
               id="workHistory"
             >
               <div className="flex items-center justify-between">
@@ -1394,7 +1396,7 @@ const FreelancerSelfProfile = () => {
                 ))}
             </div>
             <div
-              className="border-b border-gray-200 border-opacity-30 px-4 py-8 pt-3 text-left md:px-8"
+              className="border-b border-gray-200 border-opacity-30 px-2 py-8 pt-3 text-left md:px-8"
               id="freeselfpro"
             >
               <div className="flex items-center justify-between">
@@ -1495,6 +1497,7 @@ const FreelancerSelfProfile = () => {
                       // variant="outlined"
                       onClick={prev}
                       disabled={currentPage === 1}
+                      className="rounded-lg p-1"
                       style={{
                         backgroundImage: "linear-gradient(45deg, #0909E9, #00D4FF)",
                         border: "none",
@@ -1531,6 +1534,7 @@ const FreelancerSelfProfile = () => {
                       // variant="outlined"
                       onClick={next}
                       disabled={currentPage === totalPages}
+                      className="rounded-lg p-1"
                       style={{
                         backgroundImage: "linear-gradient(45deg, #0909E9, #00D4FF)",
                         border: "none",
@@ -1545,7 +1549,7 @@ const FreelancerSelfProfile = () => {
                 )}
               </div>
             </div>
-            <div className="border-b border-gray-200 border-opacity-30 px-4 py-8 pt-3 text-left md:px-8">
+            <div className="border-b border-gray-200 border-opacity-30 px-2 py-8 pt-3 text-left md:px-8">
               <div className="flex items-center justify-between pb-3">
                 <h1 className="font-cardo mr-1 text-[21px] font-normal text-[#031136]">
                   Skills & Expertise
@@ -1605,7 +1609,7 @@ const FreelancerSelfProfile = () => {
             </div>
           </div>
         </div>
-        <div className="my-6 border border-gray-200 border-opacity-40 bg-[#FFFFFF] p-4 py-8">
+        <div className="my-6 border border-gray-200 border-opacity-40 bg-[#FFFFFF] px-2 py-8 md:px-8">
           <div className="flex items-center justify-between">
             <h1 className="font-cardo mr-1 text-[21px] font-normal text-[#031136]">
               Employment history
