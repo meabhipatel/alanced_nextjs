@@ -166,8 +166,6 @@ const FreelancerSelfProfile = () => {
     localStorage.setItem("userAvailability", isAvailable);
   }, [isAvailable]);
 
-  // const [active, setActive] = React.useState(1);
-
   const prev = () => {
     setCurrentPage((prev) => Math.max(prev - 1, 1));
   };
@@ -204,7 +202,7 @@ const FreelancerSelfProfile = () => {
   const visibleEmp = sortedEmployments.slice(startIdx, startIdx + 3);
 
   const [selectedButton, setSelectedButton] = useState("All Work");
-  const [selectedButtons, setSelectedButtons] = useState("Github");
+  // const [selectedButtons, setSelectedButtons] = useState("Github");
   const commonStyle = "inline-block text-sm py-[10px] mt-4 lg:mt-0 border rounded font-semibold";
 
   const [selectedProject, setSelectedProject] = useState<FreelanceProject | null>(null);
@@ -611,8 +609,8 @@ const FreelancerSelfProfile = () => {
                 </div>
 
                 <div className="my-5 border-b opacity-50"></div>
-
-                <div className="my-3 flex flex-wrap">
+                {/* code commented for future use for navigating to github and stackoverflow profile */}
+                {/* <div className="my-3 flex flex-wrap">
                   <Link
                     href=""
                     className="flex-grow p-1 md:flex-none"
@@ -643,7 +641,7 @@ const FreelancerSelfProfile = () => {
                       StackOverflow
                     </button>
                   </Link>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
