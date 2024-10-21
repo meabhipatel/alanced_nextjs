@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-
-import Link from "next/link";
 import { useAppSelector } from "@/store/hooks";
 import { IoClose } from "react-icons/io5";
 import toast from "react-hot-toast";
@@ -32,10 +30,10 @@ const EditExperienceLevelPopup: React.FC<IEditExperienceLevelPopupProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-10 mt-8 overflow-y-auto">
+    <div className="fixed inset-0 z-10 mt-8">
       <div className="fixed inset-0 bg-black opacity-50"></div>
       <div className="flex min-h-screen items-center justify-center">
-        <div className="relative z-20 w-[90%] rounded-lg bg-white p-6 px-8 md:w-[53%]">
+        <div className="relative z-20 w-[90%] rounded-lg bg-white p-6 px-8 md:w-[550px]">
           <div className="flex items-center justify-between">
             <h1 className="font-cardo text-[26px] font-normal text-[#031136]">
               {experiencelevel && experiencelevel.length > 0
@@ -60,25 +58,20 @@ const EditExperienceLevelPopup: React.FC<IEditExperienceLevelPopupProps> = ({
               <option value="Expert">Expert</option>
             </select>
             <div className="mt-8 flex justify-end">
-              <Link
-                href=""
-                onClick={handleSave}
-              >
+              <button onClick={handleSave}>
                 <span className="mr-3 inline-block rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-[10px] text-sm font-semibold text-white">
                   Save
                 </span>
-              </Link>
+              </button>
               <button
                 className="inline-block rounded bg-gradient-to-b from-[#0909E9] to-[#00D4FF] p-0.5"
                 onClick={closeExperienceLevel}
               >
-                <Link href="">
-                  <button className="bg-white px-2 py-1">
-                    <p className="from-primary to-danger bg-gradient-to-r bg-clip-text px-[8px] py-[4px] text-sm font-semibold text-transparent">
-                      Cancel
-                    </p>
-                  </button>
-                </Link>
+                <button className="rounded-[3px] bg-white px-2 py-1">
+                  <p className="from-primary to-danger bg-gradient-to-r bg-clip-text px-[8px] py-[4px] text-sm font-semibold text-transparent">
+                    Cancel
+                  </p>
+                </button>
               </button>
             </div>
           </div>
