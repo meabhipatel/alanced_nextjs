@@ -217,7 +217,7 @@ const SearchJob: FC<IProps> = async ({ searchParams }) => {
   return (
     <div className="w-full">
       {data.length > 0 ? (
-        <div className="mb-5 mt-10 flex w-full flex-col gap-y-3 md:ml-2">
+        <div className="mb-5 mt-10 flex w-full flex-col gap-y-3">
           {data && (
             <>
               {data.map((project: IProject, index: number) => {
