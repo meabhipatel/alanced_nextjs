@@ -1,10 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { Link } from "react-router-dom";
-// import {
-//   GetFreelancerSelfProfileAction,
-//   UpdateFreelancerProfileAction,
-// } from "../../../redux/Freelancer/FreelancerAction";
+
 import LanguageList from "@/constant/allSelectionData/languageList";
 import Link from "next/link";
 import { useAppSelector } from "@/store/hooks";
@@ -17,12 +12,7 @@ interface IEditLanguagePopupProps {
 }
 
 const EditLanguagePopup: React.FC<IEditLanguagePopupProps> = ({ closeEditLanguage }) => {
-  // const freelancerselfprofile = useSelector((state) => state.freelancer.freelancerselfprofile);
   const freelancerselfprofile = useAppSelector((state) => state.auth.userProfile);
-  //   const accessToken = useSelector(state => state.login.accessToken);
-  // const accessToken =
-  //   useSelector((state) => state.login.accessToken) || localStorage.getItem("jwtToken");
-  // const dispatch = useDispatch();
 
   const [Language, setLanguage] = useState<string[]>([]);
   // const [currentLanguage, setCurrentLanguage] = useState("");
@@ -31,7 +21,6 @@ const EditLanguagePopup: React.FC<IEditLanguagePopupProps> = ({ closeEditLanguag
   useEffect(() => {
     if (freelancerselfprofile && freelancerselfprofile && freelancerselfprofile.Language) {
       setLanguage(JSON.parse(freelancerselfprofile.Language.replace(/'/g, '"')));
-      // console.log("language :", JSON.parse(freelancerselfprofile.Language.replace(/'/g, '"')));
     }
   }, [freelancerselfprofile]);
 
@@ -57,14 +46,9 @@ const EditLanguagePopup: React.FC<IEditLanguagePopupProps> = ({ closeEditLanguag
     });
     const res = await axiosWithAuth.put("/account/freelancer/profile/update", formData);
     toast.success(res.data.message);
-    // dispatch(UpdateFreelancerProfileAction(formattedLanguage, accessToken));
-    closeEditLanguage();
-    // dispatch(GetFreelancerSelfProfileAction(accessToken));
-  };
 
-  //   const allLanguages = [
-  //     'Hindi', 'English', 'Gujarati', 'Marathi', 'French', 'German', 'Spanish', 'Tamil','Punjabi','Arabic','Urdu','Russian','Japanese','Bengali','Turkish','Korean','Italian'
-  // ];
+    closeEditLanguage();
+  };
 
   const allLanguages = LanguageList.sort();
 
@@ -132,7 +116,6 @@ const EditLanguagePopup: React.FC<IEditLanguagePopupProps> = ({ closeEditLanguag
                 onClick={closeEditLanguage}
                 className="text-gray-500 hover:text-gray-700"
               >
-                {/* <i className="bi bi-x-lg"></i> */}
                 <IoClose className="text-3xl" />
               </button>
             </div>
