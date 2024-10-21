@@ -57,6 +57,7 @@ import Link from "next/link";
 import { axiosWithAuth } from "@/utils/axiosWithAuth";
 import Image from "next/image";
 import { errorLog } from "@/utils/errorLog";
+import StarRating from "@/components/StartRating";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
 
 import { useAppSelector } from "@/store/hooks";
@@ -1147,7 +1148,7 @@ const FreelancerSelfProfile = () => {
                 {/* <Link href=''><span class="inline-block text-sm px-4 py-[10px] mt-4 lg:mt-0 bg-gradient-to-r from-[#0909E9] to-[#00D4FF] border rounded border-none text-white mr-2 font-semibold">See Public View</span></Link> */}
                 <div className="ml-2 mr-2 mt-3 inline-block rounded bg-gradient-to-b from-[#0909E9] to-[#00D4FF] p-0.5 md:ml-0">
                   <button
-                    className="bg-white px-2 py-1"
+                    className="rounded-[2px] bg-white px-2 py-1"
                     onClick={scrollToWorkHistory}
                   >
                     <p className="from-primary to-danger bg-gradient-to-r bg-clip-text px-[8px] py-[4px] text-sm font-semibold text-transparent">
@@ -1342,7 +1343,7 @@ const FreelancerSelfProfile = () => {
                         {review.Project_Name}
                       </p>
                       <div className="flex items-center space-x-2">
-                        {/* <StarRating rating={review.rating} /> */}
+                        <StarRating rating={review.rating} />
                         {/* <div className="p-1 w-6 h-6 bg-white rounded-full border border-gray-200 inline-block">
                 <Image src={share} alt="share" />
             </div> */}
