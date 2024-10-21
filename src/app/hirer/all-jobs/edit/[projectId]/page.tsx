@@ -57,7 +57,7 @@ const EditJobDetails: FC<IProps> = ({ params: { projectId } }) => {
   const [fixedBudget, setFixedBudget] = useState(project?.Project_Fixed_Budget ?? 0);
   const [minHourlyRate, setMinHourlyRate] = useState(project?.Project_Min_Hourly_Rate ?? 0);
   const [maxHourlyRate, setMaxHourlyRate] = useState(project?.Project_Max_Hourly_Rate ?? 0);
-  const [skills] = useState<string[]>(() => {
+  const [skills, setSkills] = useState<string[]>(() => {
     try {
       return JSON.parse(project?.skills_required.replace(/'/g, '"') ?? "[]");
     } catch (error) {
@@ -65,7 +65,7 @@ const EditJobDetails: FC<IProps> = ({ params: { projectId } }) => {
     }
   });
 
-  /** ----> Saving...... */
+  /** ----> on Save functions...... */
   const handleSaveTitle = () => {
     if (title) {
       handleUpdateData({ title });
@@ -89,7 +89,7 @@ const EditJobDetails: FC<IProps> = ({ params: { projectId } }) => {
 
   const handleSaveSkills = (param: string[]) => {
     if (param.length > 0) {
-      handleUpdateData({ skills_required: param });
+      handleUpdateData({ skills_required: skills });
       setIsSkillsModalOpen(false);
     }
   };
@@ -99,6 +99,19 @@ const EditJobDetails: FC<IProps> = ({ params: { projectId } }) => {
       handleUpdateData({ experience_level: experienceLevel, deadline: formatToDDMMYYYY(deadline) });
       setIsScopeModalOpen(false);
     }
+  };
+
+  /** ----> on Cancel functions...... */
+
+  const handleCancelSkills = () => {
+    setSkills(() => {
+      try {
+        return JSON.parse(project?.skills_required.replace(/'/g, '"') ?? "[]");
+      } catch (error) {
+        return [];
+      }
+    });
+    setIsSkillsModalOpen(false);
   };
 
   const handleSaveBudget = () => {
@@ -209,24 +222,14 @@ const EditJobDetails: FC<IProps> = ({ params: { projectId } }) => {
           </div>
 
           <div className="mt-4 flex flex-wrap gap-2">
-            {project.skills_required &&
-              (() => {
-                try {
-                  const skillsArray = JSON.parse(
-                    project.skills_required.replace(/'/g, '"') ?? "[]"
-                  ) as string[];
-                  return skillsArray.map((skill, index) => (
-                    <div
-                      key={index}
-                      className="my-2 mr-3 inline-block rounded-full bg-[#b4d3c3] bg-opacity-[60%] px-4 py-1 text-sm font-semibold text-blue-800 duration-500 hover:bg-[#c1e2d1] focus:outline-none dark:bg-[#b4d3c3] dark:hover:bg-[#dffdee]"
-                    >
-                      <p className="text-center">{skill}</p>
-                    </div>
-                  ));
-                } catch (error) {
-                  return null;
-                }
-              })()}
+            {skills.map((skill, index) => (
+              <div
+                key={index}
+                className="my-2 mr-3 inline-block rounded-full bg-[#b4d3c3] bg-opacity-[60%] px-4 py-1 text-sm font-semibold text-blue-800 duration-500 hover:bg-[#c1e2d1] focus:outline-none dark:bg-[#b4d3c3] dark:hover:bg-[#dffdee]"
+              >
+                <p className="text-center">{skill}</p>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -432,7 +435,8 @@ const EditJobDetails: FC<IProps> = ({ params: { projectId } }) => {
         {isSkillsModalOpen && (
           <EditJobSkillsPopup
             skills={skills}
-            onClose={() => setIsSkillsModalOpen(false)}
+            setSkills={setSkills}
+            onClose={handleCancelSkills}
             onSave={handleSaveSkills}
           />
         )}

@@ -1,22 +1,23 @@
-import React, { FC, useEffect, useState , useRef } from "react";
+import React, { FC, useEffect, useState, useRef, Dispatch, SetStateAction } from "react";
 
 import SkillsList from "@/constant/allSelectionData/skillsList";
 
 interface IProps {
   skills: string[];
+  setSkills: Dispatch<SetStateAction<string[]>>;
   onClose: () => void;
   onSave: (param: string[]) => void;
 }
 
-const EditJobSkillsPopup: FC<IProps> = ({ skills, onClose, onSave }) => {
-  const [jobskills, setJobSkills] = useState(skills);
+const EditJobSkillsPopup: FC<IProps> = ({ skills, setSkills, onClose, onSave }) => {
+  // const [jobskills, setJobSkills] = useState(skills);
   const [error, setError] = useState("");
   const [searchTermSkill, setSearchTermSkill] = useState("");
   const [isOpenSkill, setIsOpenSkill] = useState(false);
   const wrapperRefSkill = useRef<HTMLDivElement>(null);
 
   const removeSkill = (index: number) => {
-    setJobSkills((prevSkills) => prevSkills.filter((_, idx) => idx !== index));
+    setSkills((prevSkills) => prevSkills.filter((_, idx) => idx !== index));
     setError("");
   };
 
@@ -24,7 +25,7 @@ const EditJobSkillsPopup: FC<IProps> = ({ skills, onClose, onSave }) => {
 
   const filteredSkills = allSkills.filter(
     (skill) =>
-      skill.toLowerCase().includes(searchTermSkill.toLowerCase()) && !jobskills.includes(skill)
+      skill.toLowerCase().includes(searchTermSkill.toLowerCase()) && !skills.includes(skill)
   );
 
   const handleClickOutsideSkill = (event: MouseEvent) => {
@@ -42,32 +43,6 @@ const EditJobSkillsPopup: FC<IProps> = ({ skills, onClose, onSave }) => {
 
   return (
     <>
-      <style>
-        {`
-    .dropdown-list {
-        border: 1px solid #ccc;
-        max-height: 200px;
-        overflow-y: auto;
-        position: absolute;
-        width: 100%;
-        z-index: 1000;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        background-color: #fff;
-        margin-top:11px;
-    }
-    
-    .dropdown-list li {
-        padding: 10px;
-        cursor: pointer;
-    }
-
-    .dropdown-list li:hover {
-        background-color: #f7f7f7;
-    }
-    `}
-      </style>
       <div className="fixed inset-0 z-10 mt-10 overflow-y-auto">
         <div className="fixed inset-0 bg-black opacity-50"></div>
         <div className="flex min-h-screen items-center justify-center">
@@ -80,21 +55,20 @@ const EditJobSkillsPopup: FC<IProps> = ({ skills, onClose, onSave }) => {
                 Edit Your Required Job Skills
               </p>
               <div className="my-3 flex flex-wrap items-center rounded-md border p-2">
-                {Array.isArray(jobskills) &&
-                  jobskills.map((skill, index) => (
-                    <div
-                      key={index}
-                      className="my-2 mr-3 flex items-center rounded border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-2 py-1.5 font-semibold text-white"
+                {skills.map((skill, index) => (
+                  <div
+                    key={index}
+                    className="my-2 mr-3 flex items-center rounded border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-2 py-1.5 font-semibold text-white"
+                  >
+                    <span>{skill}</span>
+                    <button
+                      onClick={() => removeSkill(index)}
+                      className="ml-2 mt-1 flex h-4 w-4 items-center justify-center rounded-full bg-white text-sm text-blue-500"
                     >
-                      <span>{skill}</span>
-                      <button
-                        onClick={() => removeSkill(index)}
-                        className="ml-2 mt-1 flex h-4 w-4 items-center justify-center rounded-full bg-white pb-0.5 text-sm text-blue-500"
-                      >
-                        &times;
-                      </button>
-                    </div>
-                  ))}
+                      &times;
+                    </button>
+                  </div>
+                ))}
 
                 <div
                   ref={wrapperRefSkill}
@@ -109,14 +83,15 @@ const EditJobSkillsPopup: FC<IProps> = ({ skills, onClose, onSave }) => {
                     placeholder="Search & Select Skills"
                   />
                   {isOpenSkill && (
-                    <ul className="dropdown-list w-full">
+                    <ul className="absolute z-50 mt-[11px] max-h-[200px] w-full list-none overflow-y-auto border border-[#ccc] bg-white p-0">
                       {filteredSkills.length > 0 ? (
                         filteredSkills.map((skill, index) => (
                           <li key={index}>
                             <button
+                              className="h-full w-full px-4 py-1 text-start hover:bg-[#f7f7f7]"
                               onClick={() => {
-                                if (jobskills.length < 15) {
-                                  setJobSkills((prev) => [...prev, skill]);
+                                if (skills.length < 15) {
+                                  setSkills((prev) => [...prev, skill]);
                                   setSearchTermSkill("");
                                   setIsOpenSkill(false);
                                 } else {
@@ -146,7 +121,7 @@ const EditJobSkillsPopup: FC<IProps> = ({ skills, onClose, onSave }) => {
                 Cancel
               </button>
               <button
-                onClick={() => onSave(jobskills)}
+                onClick={() => onSave([""])}
                 className="rounded-md bg-blue-500 px-4 py-2 text-sm text-white hover:bg-blue-600"
               >
                 Save
