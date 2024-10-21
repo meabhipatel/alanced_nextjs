@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { Link } from "react-router-dom";
-// Link;
-// import {
-//   GetFreelancerSelfProfileAction,
-//   UpdateFreelancerProfileAction,
-// } from "../../../redux/Freelancer/FreelancerAction";
+
 import Link from "next/link";
 import { useAppSelector } from "@/store/hooks";
 import { IoClose } from "react-icons/io5";
@@ -19,11 +13,8 @@ interface IEditExperienceLevelPopupProps {
 const EditExperienceLevelPopup: React.FC<IEditExperienceLevelPopupProps> = ({
   closeExperienceLevel,
 }) => {
-  //   const accessToken = useSelector(state => state.login.accessToken);
-  //   const accessToken = useSelector((state) => state.login.accessToken) || localStorage.getItem("jwtToken");
-
   const [experiencelevel, setexperiencelevel] = useState("");
-  //   const dispatch = useDispatch();
+
   const freelancerselfprofile = useAppSelector((state) => state.auth.userProfile);
   useEffect(() => {
     if (freelancerselfprofile && freelancerselfprofile) {
@@ -34,11 +25,10 @@ const EditExperienceLevelPopup: React.FC<IEditExperienceLevelPopupProps> = ({
   const handleSave = async () => {
     const formData = new FormData();
     formData.append("experience_level", experiencelevel);
-    // dispatch(UpdateFreelancerProfileAction({ experience_level: experiencelevel }, accessToken));
+
     const res = await axiosWithAuth.put("/account/freelancer/profile/update", formData);
     toast.success(res.data.message);
     closeExperienceLevel();
-    // dispatch(GetFreelancerSelfProfileAction(accessToken));
   };
 
   return (
@@ -56,12 +46,10 @@ const EditExperienceLevelPopup: React.FC<IEditExperienceLevelPopupProps> = ({
               onClick={closeExperienceLevel}
               className="text-gray-500 hover:text-gray-700"
             >
-              {/* <i className="bi bi-x-lg"></i> */}
               <IoClose className="text-3xl" />
             </button>
           </div>
           <div className="mt-10">
-            {/* <input type="text" className='border mt-2 mb-6 py-1.5 px-2 rounded-md w-full focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600' value={experiencelevel} onChange={e => setexperiencelevel(e.target.value)}/> */}
             <select
               className="mb-6 mt-2 w-full rounded-md border bg-white px-2 py-2 opacity-50 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
               value={experiencelevel}
