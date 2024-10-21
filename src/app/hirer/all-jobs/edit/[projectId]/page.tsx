@@ -2,7 +2,6 @@
 import React, { FC, useState } from "react";
 import { FaPencil } from "react-icons/fa6";
 import CategoryList from "@/constant/allSelectionData/categoryList";
-import SkillsList from "@/constant/allSelectionData/skillsList";
 import { useRouter } from "next/navigation";
 import { useAppSelector } from "@/store/hooks";
 import Loader from "@/components/Loader";
@@ -11,6 +10,7 @@ import toast from "react-hot-toast";
 import { AxiosError } from "axios";
 import EditJobBudgetPopup from "./EditJobBudgetPopup";
 import { errorLog } from "@/utils/errorLog";
+import EditJobSkillsPopup from "./EditJobSkillsPopup";
 
 type IExperienceLever = "Entry_Level" | "Intermediate" | "Expert";
 
@@ -18,7 +18,7 @@ interface IHandleUpdateDataParams {
   title?: string;
   description?: string;
   category?: string;
-  skills_required?: string;
+  skills_required?: string[];
   deadline?: string;
   experience_level?: string;
   rate?: string;
@@ -49,7 +49,6 @@ const EditJobDetails: FC<IProps> = ({ params: { projectId } }) => {
   const [title, setTitle] = useState(project?.title);
   const [description, setDescription] = useState(project?.description);
   const [category, setCategory] = useState(project?.category);
-  // const [skills, setSkills] = useState(project?.skills_required);
   const [deadline, setDeadline] = useState(project?.deadline);
   const [experienceLevel, setExperienceLevel] = useState<IExperienceLever>(
     project?.experience_level ?? "Entry_Level"
@@ -58,10 +57,15 @@ const EditJobDetails: FC<IProps> = ({ params: { projectId } }) => {
   const [fixedBudget, setFixedBudget] = useState(project?.Project_Fixed_Budget ?? 0);
   const [minHourlyRate, setMinHourlyRate] = useState(project?.Project_Min_Hourly_Rate ?? 0);
   const [maxHourlyRate, setMaxHourlyRate] = useState(project?.Project_Max_Hourly_Rate ?? 0);
-  const [skills, setSkills] = useState<string[]>([]);
+  const [skills] = useState<string[]>(() => {
+    try {
+      return JSON.parse(project?.skills_required.replace(/'/g, '"') ?? "[]");
+    } catch (error) {
+      return [];
+    }
+  });
 
   /** ----> Saving...... */
-
   const handleSaveTitle = () => {
     if (title) {
       handleUpdateData({ title });
@@ -83,8 +87,11 @@ const EditJobDetails: FC<IProps> = ({ params: { projectId } }) => {
     }
   };
 
-  const handleSaveSkills = () => {
-    setIsSkillsModalOpen(false);
+  const handleSaveSkills = (param: string[]) => {
+    if (param.length > 0) {
+      handleUpdateData({ skills_required: param });
+      setIsSkillsModalOpen(false);
+    }
   };
 
   const handleSaveScope = () => {
@@ -102,12 +109,6 @@ const EditJobDetails: FC<IProps> = ({ params: { projectId } }) => {
       max_hourly_rate: rate === "Fixed" ? 0 : (maxHourlyRate ?? 0),
     });
     setIsBudgetModalOpen(false);
-  };
-
-  const toggleSkillSelection = (skill: string) => {
-    setSkills((prev) =>
-      prev.includes(skill) ? prev.filter((s) => s !== skill) : [...prev, skill]
-    );
   };
 
   /** ---> Updating data on database */
@@ -376,7 +377,7 @@ const EditJobDetails: FC<IProps> = ({ params: { projectId } }) => {
         )}
 
         {/* Skills Modal */}
-        {isSkillsModalOpen && (
+        {/* {isSkillsModalOpen && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
             <div className="w-full max-w-md rounded-lg bg-white p-8">
               <h2 className="mb-4 text-xl font-semibold">Edit Skills</h2>
@@ -426,6 +427,14 @@ const EditJobDetails: FC<IProps> = ({ params: { projectId } }) => {
               </form>
             </div>
           </div>
+        )} */}
+
+        {isSkillsModalOpen && (
+          <EditJobSkillsPopup
+            skills={skills}
+            onClose={() => setIsSkillsModalOpen(false)}
+            onSave={handleSaveSkills}
+          />
         )}
 
         {/* Scope Modal */}
