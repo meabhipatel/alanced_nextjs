@@ -50,7 +50,7 @@ import EditEmploymentPopup from "./EditEmploymentPopup";
 // import FreelancerProjectsPopup from "./AllPopup/FreelancerProjectsPopup";  not in use
 import axios from "axios";
 import EditExperienceLevelPopup from "./EditExperienceLevelPopup";
-// import EditFreelancerProjectsPopup from "./AllPopup/EditFreelancerProjectsPopup";           for use
+import EditFreelancerProjectsPopup from "./EditPortfolioPopup";
 import { formateDate, formatDateToDayMonthYear } from "@/utils/timeFunction";
 import Link from "next/link";
 // import { useRouter } from "next/navigation";
@@ -113,14 +113,14 @@ interface IReview {
   reviews_created_date: string;
 }
 
-interface FreelanceProject {
+export interface FreelanceProject {
   project_id: number | null;
   project_title: string | null;
   project_description: string | null;
   project_link: string | null;
   images_logo: string | null;
   project_pdf: string | null;
-  skills_used: string[] | null; // or array if you intend to parse it
+  skills_used: string | string[] | null; // or array if you intend to parse it
   category: string | null;
   design_by: string | null;
 }
@@ -379,7 +379,7 @@ const FreelancerSelfProfile = () => {
   const commonStyle = "inline-block text-sm py-[10px] mt-4 lg:mt-0 border rounded font-semibold";
 
   // const [selected, setSelected] = useState("completed");
-  // const [selectedProject, setSelectedProject] = useState<FreelanceProject | null>(null);
+  const [selectedProject, setSelectedProject] = useState<FreelanceProject | null>(null);
   const [selectedEmp, setSelectedEmp] = useState<Employment | null>(null);
 
   function calculateJobSuccess(reviews: RatingReview[]) {
@@ -435,17 +435,17 @@ const FreelancerSelfProfile = () => {
   //     setIsFreeProjectOpen(false);
   // };
 
-  // const [isEditFreeProjectOpen, setIsEditFreeProjectOpen] = useState(false);
+  const [isEditFreeProjectOpen, setIsEditFreeProjectOpen] = useState(false);
 
-  // const openEditFreeProject = (project: FreelanceProject) => {
-  //   // setSelectedProject(project);
-  //   // setIsEditFreeProjectOpen(true);
-  // };
+  const openEditFreeProject = (project: FreelanceProject) => {
+    setSelectedProject(project);
+    setIsEditFreeProjectOpen(true);
+  };
 
-  // const closeEditFreeProject = () => {
-  //   setSelectedProject(null);
-  //   setIsEditFreeProjectOpen(false);
-  // };
+  const closeEditFreeProject = () => {
+    setSelectedProject(null);
+    setIsEditFreeProjectOpen(false);
+  };
 
   // const openTestimonial = () => {
   //   setIsTestimonialOpen(true);
@@ -1422,7 +1422,7 @@ const FreelancerSelfProfile = () => {
                     <button
                       className="w-1/3 cursor-pointer px-2"
                       key={index}
-                      // onClick={() => openEditFreeProject(pro)}
+                      onClick={() => openEditFreeProject(pro)}
                     >
                       <div className="mt-4 h-[165px] w-full overflow-hidden border border-gray-100">
                         <Image
@@ -1444,12 +1444,12 @@ const FreelancerSelfProfile = () => {
                       </p>
                     </button>
                   ))}
-                {/* {isEditFreeProjectOpen && (
+                {isEditFreeProjectOpen && (
                   <EditFreelancerProjectsPopup
                     project={selectedProject}
-                    closeEditFreeProject={closeEditFreeProject}   for use
+                    closeEditFreeProject={closeEditFreeProject}
                   />
-                )} */}
+                )}
               </div>
               <div className="mt-5 flex items-center justify-end gap-6">
                 {/* {freelancerproject.length > 6 && (
