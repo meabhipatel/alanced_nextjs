@@ -1,59 +1,31 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
-// import Navbar from "../../components/Layout/Navbar";                       not in use
 import freelancercover from "@/assets/images/freelancercover.png";
 import edit from "@/assets/icons/edit.png";
-// import profilepic from "../../components/images/profilepic.png";           not in use
-// import HomeSection4 from "../../components/Layout/HomeSection4";           for remove
-// import Footer from "../../components/Layout/Footer";                       for remove
-// import { Link, useNavigate } from "react-router-dom";
 import availablenow from "@/assets/icons/availablenow.png";
-// import jobsuccess from "../../components/images/jobsuccess.png";           not in use
-// import pin from "../../components/images/pin.png";                         not in use
-// import threedot from "../../components/images/threedot.png";               not in use
-// import share from "../../components/images/share.png";                     not in use
-// import updownarrow from "../../components/images/updownarrow.png";         not in use
 import plus from "@/assets/icons/plus.png";
-// import cupbook from "../../components/images/cupbook.png";                 not in use
-// import { IconButton, Typography } from "@material-tailwind/react";
-// import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
-// import testimonial from "../../components/images/testimonial.png";         not in use
-// import certificate from "../../components/images/certificate.png";         not in use
-// import del from "../../components/images/delete.png";                      not in use
 import fileIcon from "@/assets/icons/file.png";
-// import { useDispatch, useSelector } from "react-redux";
-// import { useDispatch } from "react-redux";
+
 import { RxArrowRight, RxArrowLeft } from "react-icons/rx";
 import { IoClose, IoLocationOutline } from "react-icons/io5";
-// import {
-//   GetFreelancerSelfProfileAction,
-//   UpdateFreelancerProfileAction,
-// } from "../../redux/Freelancer/FreelancerAction";                                           for use
-// import StarRating from "./StarRating";                                                      for use
-// import "bootstrap-icons/font/bootstrap-icons.css";                         for remove
+
 import EditTitlePopup from "./EditTitlePopup";
-// import AddEducationPopup from "./AllPopup/AddEducationPopup";                               for use
 import EditSkillPopup from "./EditSkillPopup";
-// import OtherExperiencePopup from "./AllPopup/OtherExperiencePopup";        not in use
-// import VideoIntroPopup from "./AllPopup/VideoIntroPopup";                  not in use
-// import HrsPerWeekPopup from "./AllPopup/HrsPerWeekPopup";                  not in use
-// import AddLanguagePopup from "./AllPopup/AddLanguagePopup";                not in use
+
 import EditLanguagePopup from "./EditLanguagePopup";
 import EditEducationPopup from "./EditEducationPopup";
-// import AvailableOffPopup from "./AllPopup/AvailableOffPopup";                               for use
+
 import AvailableOffPopup from "./EditProfileHeaderPopup";
 import EditHrRatePopup from "./EditRatePopup";
-// import AddCertificatesPopup from "./AllPopup/AddCertificatesPopup";        not in use
+
 import AddEmploymentPopup from "./AddEmploymentPopup";
 import EditEmploymentPopup from "./EditEmploymentPopup";
-// import TestimonialPopup from "./AllPopup/TestimonialPopup";                not in use
-// import FreelancerProjectsPopup from "./AllPopup/FreelancerProjectsPopup";  not in use
-import axios from "axios";
+
 import EditExperienceLevelPopup from "./EditExperienceLevelPopup";
 import EditFreelancerProjectsPopup from "./EditPortfolioPopup";
 import { formateDate, formatDateToDayMonthYear } from "@/utils/timeFunction";
 import Link from "next/link";
-// import { useRouter } from "next/navigation";
+
 import { axiosWithAuth } from "@/utils/axiosWithAuth";
 import Image from "next/image";
 import { errorLog } from "@/utils/errorLog";
@@ -62,29 +34,7 @@ import { RiVerifiedBadgeFill } from "react-icons/ri";
 
 import { useAppSelector } from "@/store/hooks";
 import toast from "react-hot-toast";
-
-// interface FreelancerProfile {
-//   id: number;
-//   email: string;
-//   first_Name: string;
-//   last_Name: string;
-//   contact: string;
-//   Address: string;
-//   DOB: Date | null;
-//   gender: string;
-//   experience: number;
-//   type: string;
-//   images_logo: string;
-//   qualification: string;
-//   social_media: string;
-//   map: string;
-//   skills: string; // Alternatively: string[] if you want to parse JSON string to array
-//   category: string;
-//   about: string;
-//   Language: string; // Alternatively: string[] if you want to parse JSON string to array
-//   hourly_rate: number;
-//   experience_level: string;
-// }
+import { axiosIntance } from "@/utils/axiosIntance";
 
 interface Employment {
   emp_id: number;
@@ -121,94 +71,33 @@ export interface FreelanceProject {
   project_link: string | null;
   images_logo: string | null;
   project_pdf: string | null;
-  skills_used: string | string[] | null; // or array if you intend to parse it
+  skills_used: string | string[] | null;
   category: string | null;
   design_by: string | null;
 }
 
 const FreelancerSelfProfile = () => {
-  // const accessToken = useSelector((state) => state.login.accessToken) || localStorage.getItem("jwtToken");    for remove
-  // const jwtToken = localStorage.getItem("jwtToken");
-  // console.log(accessToken, "chkaccesstojken");                                                                for remove
-  // console.log(jwtToken, "chkjwttoken");
-  // const freelancerselfprofile = useSelector((state) => state.freelancer.freelancerselfprofile);               for use
   const freelancerselfprofile = useAppSelector((state) => state.auth.userProfile);
-  // const freelancerselfprofile: FreelancerProfile[] = [
-  //   {
-  //     id: 4,
-  //     email: "sachinsharmapeace@gmail.com",
-  //     first_Name: "sachin",
-  //     last_Name: "sharma",
-  //     contact: "",
-  //     Address: "",
-  //     DOB: null,
-  //     gender: "",
-  //     experience: 0,
-  //     type: "FREELANCER",
-  //     images_logo: "/media/images_logo/profile8.jfif",
-  //     qualification: "B.E",
-  //     social_media: "",
-  //     map: "",
-  //     skills: "['Python']",
-  //     category: "",
-  //     about: "",
-  //     Language: "['Hindi']",
-  //     hourly_rate: 0,
-  //     experience_level: "",
-  //   },
-  // ];
-  // const dispatch = useDispatch();
-  // const [isHovered, setIsHovered] = useState(false);            for use
+
   const [reviews, setReviews] = useState([]);
   const [bid, setBid] = useState([]);
   const [freelancerproject, setfreelancerproject] = useState<FreelanceProject[]>([]);
   const [freelanceremployment, setfreelanceremployment] = useState<Employment[]>([]);
   const id = freelancerselfprofile && freelancerselfprofile.id ? freelancerselfprofile.id : "";
-  // const router = useRouter();
+
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [ProjectCount, setProjectCount] = useState(0);
-
-  //   function formatDate(dateStr) {
-  //     if (!dateStr) return "present";
-
-  //     const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  //     const dateObj = new Date(dateStr);
-
-  //     return dateObj.toLocaleDateString(undefined, options);
-  // }
-
-  // function formatDateToDayMonthYear(dateStr) {
-  //     if (!dateStr) return "";
-
-  //     const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  //     const dateObj = new Date(dateStr);
-
-  //     return dateObj.toLocaleDateString(undefined, options);
-  // }
 
   const scrollToWorkHistory = () => {
     const element = document.getElementById("workHistory");
     if (element) element.scrollIntoView({ behavior: "smooth" });
   };
 
-  // function handleMouseEnter() {
-  //   setIsHovered(true);
-  // }
-
-  // function handleMouseLeave() {
-  //   setIsHovered(false);                  for use
-  // }
-
-  // function combinedClick() {
-  //   handlePinClick();
-  //   handleMouseLeave();
-  // }
-
   useEffect(() => {
     if (id) {
-      axios
-        .get(`https://www.api.alanced.com/freelance/View-all/Review/${id}`)
+      axiosIntance
+        .get(`/freelance/View-all/Review/${id}`)
         .then((response) => {
           if (response.data.status === 200) {
             setReviews(response.data.data);
@@ -229,10 +118,8 @@ const FreelancerSelfProfile = () => {
 
     const queryString = queryParameters.join("&");
 
-    axios
-      .get(
-        `https://www.api.alanced.com/freelance/View-all/Freelancer/Self-Project/${id}?${queryString}`
-      )
+    axiosIntance
+      .get(`/freelance/View-all/Freelancer/Self-Project/${id}?${queryString}`)
       .then((response) => {
         setfreelancerproject(response.data.results);
         setProjectCount(response.data.count);
@@ -243,26 +130,10 @@ const FreelancerSelfProfile = () => {
       });
   }, [currentPage, id]);
 
-  // useEffect(() => {
-  //     if(id) {
-  //         axios.get(`https://aparnawiz91.pythonanywhere.com/freelance/View-all/Freelancer/Self-Project/${id}`)
-  //             .then(response => {
-  //                 if (response.data.status === 200) {
-  //                     setfreelancerproject(response.data.data);
-  //                 } else {
-  //                     console.log(response.data.message || 'Error fetching project');
-  //                 }
-  //             })
-  //             .catch(err => {
-  //                 console.log(err.message);
-  //             });
-  //     }
-  // }, [id]);
-
   useEffect(() => {
     if (id) {
-      axios
-        .get(`https://www.api.alanced.com/freelance/View-all/Freelancer/Employment/${id}`)
+      axiosIntance
+        .get(`/freelance/View-all/Freelancer/Employment/${id}`)
         .then((response) => {
           if (response.data.status === 200) {
             setfreelanceremployment(response.data.data);
@@ -275,27 +146,6 @@ const FreelancerSelfProfile = () => {
         });
     }
   }, [id]);
-
-  // useEffect(() => {
-  //     const queryParameters = [];
-
-  //     queryParameters.push(`page=${currentPage}`);
-
-  //     const queryString = queryParameters.join('&');
-
-  //     axios
-  //       .get(`https://alanced.pythonanywhere.com/freelance/view/freelancer-self/bid?${queryString}`,{
-  //         headers: {
-  //             'Authorization': `Bearer ${accessToken}`
-  //         }
-  //     })
-  //       .then((response) => {
-  //         setBid(response.data.count);
-  //       })
-  //       .catch((error) => {
-  //         console.error('Error fetching filtered data:', error);
-  //       });
-  //   }, [currentPage]);
 
   useEffect(() => {
     axiosWithAuth
@@ -319,34 +169,12 @@ const FreelancerSelfProfile = () => {
   // const [active, setActive] = React.useState(1);
 
   const prev = () => {
-    // window.scrollTo(0, 0);
     setCurrentPage((prev) => Math.max(prev - 1, 1));
   };
 
   const next = () => {
-    // window.scrollTo(0, 0);
     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   };
-
-  //   const next = () => {
-  //       if (active === Math.ceil(freelancerproject.length / 6)) return;
-  //       setActive(active + 1);
-  //   };
-
-  //   const prev = () => {
-  //       if (active === 1) return;
-  //       setActive(active - 1);
-  //   };
-
-  // const chunkArray = (array, size) => {
-  //   let chunked = [];
-  //   for (let i = 0; i < array.length; i += size) {
-  //     chunked.push(array.slice(i, i + size));
-  //   }
-  //   return chunked;
-  // };
-
-  // const chunkedProjects = chunkArray(freelancerproject, 6);             for check
 
   const [startIdx, setStartIdx] = useState(0);
 
@@ -379,7 +207,6 @@ const FreelancerSelfProfile = () => {
   const [selectedButtons, setSelectedButtons] = useState("Github");
   const commonStyle = "inline-block text-sm py-[10px] mt-4 lg:mt-0 border rounded font-semibold";
 
-  // const [selected, setSelected] = useState("completed");
   const [selectedProject, setSelectedProject] = useState<FreelanceProject | null>(null);
   const [selectedEmp, setSelectedEmp] = useState<Employment | null>(null);
 
@@ -399,21 +226,17 @@ const FreelancerSelfProfile = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditTitleOpen, setIsEditTitleOpen] = useState(false);
-  // const [isAddEducationOpen, setIsAddEducationOpen] = useState(false);
+
   const [isEditSkillOpen, setIsEditSkillOpen] = useState(false);
-  // const [isOtherExpOpen, setIsOtherExpOpen] = useState(false);
-  // const [isVideoIntroOpen, setIsVideoIntroOpen] = useState(false);
-  // const [isHrsperWeekOpen, setIsHrsperWeekOpen] = useState(false);
-  // const [isAddLanguageOpen, setIsAddLanguageOpen] = useState(false);
+
   const [isEditLanguageOpen, setIsEditLanguageOpen] = useState(false);
   const [isEditEducationOpen, setIsEditEducationOpen] = useState(false);
   const [isAvailableOffOpen, setIsAvailableOffOpen] = useState(false);
   const [isHrRateOpen, setIsHrRateOpen] = useState(false);
-  // const [isCertificatesOpen, setIsCertificatesOpen] = useState(false);
+
   const [isAddEmploymentOpen, setIsAddEmploymentOpen] = useState(false);
   const [isEditEmploymentOpen, setIsEditEmploymentOpen] = useState(false);
-  // const [isTestimonialOpen, setIsTestimonialOpen] = useState(false);
-  // //   const [isFreeProjectOpen, setIsFreeProjectOpen] = useState(false);
+
   const [isExperienceLevelOpen, setIsExperienceLevelOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -426,16 +249,6 @@ const FreelancerSelfProfile = () => {
     setIsExperienceLevelOpen(false);
   };
 
-  //   const openFreeProject = (project) => {
-  //     setSelectedProject(project);
-  //     setIsFreeProjectOpen(true);
-  // };
-
-  // const closeFreeProject = () => {
-  //     setSelectedProject(null);
-  //     setIsFreeProjectOpen(false);
-  // };
-
   const [isEditFreeProjectOpen, setIsEditFreeProjectOpen] = useState(false);
 
   const openEditFreeProject = (project: FreelanceProject) => {
@@ -447,14 +260,6 @@ const FreelancerSelfProfile = () => {
     setSelectedProject(null);
     setIsEditFreeProjectOpen(false);
   };
-
-  // const openTestimonial = () => {
-  //   setIsTestimonialOpen(true);
-  // };
-
-  // const closeTestimonial = () => {
-  //   setIsTestimonialOpen(false);
-  // };
 
   const openEditEmployment = (employment: Employment) => {
     setSelectedEmp(employment);
@@ -473,14 +278,6 @@ const FreelancerSelfProfile = () => {
   const closeAddEmployment = () => {
     setIsAddEmploymentOpen(false);
   };
-
-  // const openAddCertificates = () => {
-  //   setIsCertificatesOpen(true);
-  // };
-
-  // const closeAddCertificates = () => {
-  //   setIsCertificatesOpen(false);
-  // };
 
   const openHrRate = () => {
     setIsHrRateOpen(true);
@@ -513,38 +310,6 @@ const FreelancerSelfProfile = () => {
   const closeEditLanguage = () => {
     setIsEditLanguageOpen(false);
   };
-
-  // const openAddLanguage = () => {
-  //   setIsAddLanguageOpen(true);
-  // };
-
-  // const closeAddLanguage = () => {
-  //   setIsAddLanguageOpen(false);
-  // };
-
-  // const openHrsperWeek = () => {
-  //   setIsHrsperWeekOpen(true);
-  // };
-
-  // const closeHrsperWeek = () => {
-  //   setIsHrsperWeekOpen(false);
-  // };
-
-  // const openVideoIntro = () => {
-  //   setIsVideoIntroOpen(true);
-  // };
-
-  // const closeVideoIntro = () => {
-  //   setIsVideoIntroOpen(false);
-  // };
-
-  // const openOtherExp = () => {
-  //   setIsOtherExpOpen(true);
-  // };
-
-  // const closeOtherExp = () => {
-  //   setIsOtherExpOpen(false);
-  // };
 
   const openEditSkill = () => {
     setIsEditSkillOpen(true);
@@ -588,70 +353,17 @@ const FreelancerSelfProfile = () => {
     inputRef.current!.click();
   };
 
-  //       const handleImageSave = async () => {
-  //     const formData = new FormData();
-  //     formData.append("images_logo", selectedFile);
-
-  //     if(freelancerselfprofile && freelancerselfprofile[0]){
-  //         freelancerselfprofile[0].images_logo = URL.createObjectURL(selectedFile);
-  //     }
-
-  //     dispatch(UpdateFreelancerProfileAction(formData, accessToken));
-  //     setIsModalOpen(false);
-  //     navigate('/freelancer/edit-profile');
-  // }
-
   const handleImageSave = async () => {
     if (selectedFile) {
       const formData = new FormData();
       formData.append("images_logo", selectedFile);
 
-      if (freelancerselfprofile && freelancerselfprofile) {
-        // freelancerselfprofile.images_logo = URL.createObjectURL(selectedFile);
-        // const updatedProfile = {
-        //   ...freelancerselfprofile,
-        //   images_logo: URL.createObjectURL(selectedFile),
-        // };
-      }
-
       const res = await axiosWithAuth.put("/account/freelancer/profile/update", formData);
       toast.success(res.data.message);
-      // dispatch(UpdateFreelancerProfileAction(formData, accessToken));           for use
     }
 
     setIsModalOpen(false);
-    // router.push("/freelancer/edit-profile");
   };
-
-  // const underlineStyle = {
-  //   content: '""',
-  //   display: "block",
-  //   position: "absolute",                for use
-  //   bottom: "0",
-  //   left: "0",
-  //   width: "100%",
-  //   height: "2px",
-  //   background: "linear-gradient(90deg, #0909E9, #00D4FF)",
-  // };
-
-  // React.useEffect(() => {
-  //   dispatch(GetFreelancerSelfProfileAction(accessToken));                for use
-  // }, []);
-
-  // const [showCopyMessage, setShowCopyMessage] = useState(false);            for  use
-  // const profileLink = "http://localhost:3000/freelancer/edit-profile";      for  use
-
-  // const handlePinClick = useCallback(() => {
-  //   navigator.clipboard
-  //     .writeText(profileLink)
-  //     .then(() => {
-  //       errorLog("Setting showCopyMessage to true");
-  //       setShowCopyMessage(true);
-  //       setTimeout(() => setShowCopyMessage(false), 2000);               for use
-  //     .catch((err) => {
-  //       errorLog(err);
-  //     });
-  // }, [profileLink]);
 
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -701,14 +413,14 @@ const FreelancerSelfProfile = () => {
                 <div className="absolute bottom-3 right-2 h-4 w-4 rounded-full border-2 border-white bg-green-500"></div>
               </div>
             </div>
-            {/* <div className="mb-4 border-b border-gray-200 border-opacity-30 bg-[#FFFFFF] py-4 pl-8 text-left md:mb-0"> */}
+
             <div className="mb-4 flex flex-col items-center border-b border-gray-200 border-opacity-30 bg-[#ffffff] py-4 text-left md:mb-0">
               <h1 className="font-cardo mb-3 mr-1 text-[21px] font-normal text-[#031136]">
                 {freelancerselfprofile && freelancerselfprofile.category
                   ? freelancerselfprofile.category
                   : "Your Designation"}
               </h1>
-              {/* <div className="grid grid-cols-3 gap-3 md:grid-cols-3 bg-red-500"> */}
+
               <div className="col-span-3 flex gap-3">
                 <div className="flex flex-col items-center">
                   <h4 className="font-cardo text-[23px] font-bold text-[#031136]">
@@ -1137,15 +849,14 @@ const FreelancerSelfProfile = () => {
                   )}
                 </div>
                 <div className="mt-3 flex items-center">
-                  {/* <Image src={jobsuccess} alt="" className="h-[22px] mr-2" /> */}
-                  <i className="bi bi-patch-check mr-2 text-blue-600"></i>
+                  <RiVerifiedBadgeFill className="text-md mr-1 inline-block text-blue-600" />
+
                   <p className="font-inter text-[13px] text-[#797979]">
                     {calculateJobSuccess(reviews)}% Job Success
                   </p>
                 </div>
               </div>
               <div className="px-auto w-full pt-8 md:w-1/4">
-                {/* <Link href=''><span class="inline-block text-sm px-4 py-[10px] mt-4 lg:mt-0 bg-gradient-to-r from-[#0909E9] to-[#00D4FF] border rounded border-none text-white mr-2 font-semibold">See Public View</span></Link> */}
                 <div className="ml-2 mr-2 mt-3 inline-block rounded bg-gradient-to-b from-[#0909E9] to-[#00D4FF] p-0.5 md:ml-0">
                   <button
                     className="rounded-[2px] bg-white px-2 py-1"
@@ -1221,13 +932,6 @@ const FreelancerSelfProfile = () => {
                   {isEditTitleOpen && <EditTitlePopup closeEditTitle={closeEditTitle} />}
                 </div>
 
-                {/* <div className="flex items-center">
-        <h1 className="font-cardo text-[21px] text-[#031136] font-normal mr-2">{freelancerselfprofile && freelancerselfprofile.category ? freelancerselfprofile.category.replace(/_/g, ' ') : 'Your Designation'}</h1>
-        <div className="p-1 w-6 h-6 bg-white rounded-full border border-gray-200 cursor-pointer" onClick={openEditTitle}>
-            <Image src={edit} alt="Edit" className="align-middle" />
-        </div>
-        {isEditTitleOpen && <EditTitlePopup closeEditTitle={closeEditTitle} />}
-    </div> */}
                 <div className="flex items-center">
                   <h1 className="font-cardo mr-2 text-[20px] font-bold text-[#031136]">
                     $
@@ -1247,63 +951,6 @@ const FreelancerSelfProfile = () => {
                     />
                   </button>
                   {isHrRateOpen && <EditHrRatePopup closeHrRate={closeHrRate} />}
-                  {/* <div 
-        className="relative p-1 w-6 h-6 bg-white rounded-full border border-gray-200 cursor-pointer" 
-        onClick={combinedClick} onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-    >
-        <Image src={pin} alt="pin" className="align-middle" />
-        {isHovered && 
-    <div style={{
-        position: 'absolute',
-        top: '-70px',
-        left: '50%', 
-        transform: 'translateX(-50%)',
-        zIndex: 1000
-    }}>
-        <div style={{
-            padding: '8px 6px',
-            paddingLeft: 16,
-            backgroundColor: 'black',
-            color: 'white',
-            width: 200,
-            position: 'relative',
-        }}>
-            <div style={{
-                position: 'absolute',
-                top: '40px', 
-                left: '50%',
-                transform: 'translateX(-50%)',
-                width: 0,
-                height: 0,
-                borderTop: '10px solid black',
-                borderLeft: '10px solid transparent',
-                borderRight: '10px solid transparent',
-                borderBottom: 'none', 
-            }}></div>
-            Copy link to clipboard
-        </div>
-    </div>
-}
-
-        {showCopyMessage && 
-            <div style={{
-                position: 'absolute',
-                top: '-60px', 
-                left: '50%', 
-                transform: 'translateX(-50%)',
-                padding: '8px 6px',
-                backgroundColor: 'black',
-                color: 'white',
-                zIndex: 1000,
-                width:250,
-                borderRadius:10,
-                paddingLeft:16
-            }}>
-                Profile link copied to clipboard
-            </div>
-        }
-    </div> */}
                 </div>
               </div>
               <p className="font-inter py-2 text-[13px] text-[#0A142F] opacity-50">
@@ -1323,8 +970,6 @@ const FreelancerSelfProfile = () => {
                   {isExpanded ? "See Less" : "See More"}
                 </button>
               )}
-              {/* <p className='font-inter opacity-50 text-[#0A142F] text-[14px]'>{freelancerselfprofile && freelancerselfprofile ? freelancerselfprofile.about : ''}</p> 
-   <h1 className="font-cardo text-[18px] text-[#031136] font-normal py-2 cursor-pointer">See More</h1> */}
             </div>
             <div
               className="border-b border-gray-200 border-opacity-30 px-2 py-6 text-left md:px-8"
@@ -1344,9 +989,6 @@ const FreelancerSelfProfile = () => {
                       </p>
                       <div className="flex items-center space-x-2">
                         <StarRating rating={review.rating} />
-                        {/* <div className="p-1 w-6 h-6 bg-white rounded-full border border-gray-200 inline-block">
-                <Image src={share} alt="share" />
-            </div> */}
                       </div>
                     </div>
                     <p className="font-inter text-[12px] text-[#0A142F] opacity-50">
@@ -1419,7 +1061,6 @@ const FreelancerSelfProfile = () => {
                 </div>
               </div>
               <div className="-mx-2 flex flex-wrap">
-                {/* {chunkedProjects[active - 1] && chunkedProjects[active - 1].map((pro, index) => ( */}
                 {freelancerproject &&
                   freelancerproject.map((pro, index) => (
                     <button
@@ -1455,47 +1096,9 @@ const FreelancerSelfProfile = () => {
                 )}
               </div>
               <div className="mt-5 flex items-center justify-end gap-6">
-                {/* {freelancerproject.length > 6 && (
-  <>
-    <IconButton
-      size="sm"
-      variant="outlined"
-      onClick={prev}
-      disabled={active === 1}
-      style={{ backgroundImage: 'linear-gradient(45deg, #0909E9, #00D4FF)', border: 'none' }}
-    >
-      <ArrowLeftIcon strokeWidth={2} className="h-4 w-4 text-white" />
-    </IconButton>
-
-    {[...Array(Math.ceil(freelancerproject.length / 6))].map((_, index) => {
-      const pageNumber = index + 1;
-      return (
-        <span
-          key={pageNumber}
-          className={`px-0 py-1 ${active === pageNumber ? 'bg-clip-text text-transparent bg-gradient-to-r from-[#0909E9] to-[#00D4FF] font-bold font-inter text-[14px] cursor-pointer' : 'text-[#0A142F] font-bold font-inter text-[14px] cursor-pointer'}`}
-          onClick={() => setActive(pageNumber)}
-        >
-          {pageNumber}
-        </span>
-      );
-    })}
-
-    <IconButton
-      size="sm"
-      variant="outlined"
-      onClick={next}
-      disabled={active === Math.ceil(freelancerproject.length / 6)}
-      style={{ backgroundImage: 'linear-gradient(45deg, #0909E9, #00D4FF)', border: 'none' }}
-    >
-      <ArrowRightIcon strokeWidth={2} className="h-4 w-4 text-white" />
-    </IconButton>
-  </>
-)} */}
                 {totalPages > 1 && (
                   <div className="m-4 flex items-center justify-end gap-6">
                     <button
-                      // size="sm"
-                      // variant="outlined"
                       onClick={prev}
                       disabled={currentPage === 1}
                       className="rounded-lg p-1"
@@ -1531,8 +1134,6 @@ const FreelancerSelfProfile = () => {
                     })}
 
                     <button
-                      // size="sm"
-                      // variant="outlined"
                       onClick={next}
                       disabled={currentPage === totalPages}
                       className="rounded-lg p-1"
@@ -1584,15 +1185,6 @@ const FreelancerSelfProfile = () => {
                 </div>
               </div>
 
-              {/* <div className="flex items-center justify-between pb-3">
-    <h1 className="font-cardo text-[21px] text-[#031136] font-normal mr-1">Skills & Expertise</h1>
-    <div className="flex items-center space-x-2">
-        <div className="p-1 w-6 h-6 bg-white rounded-full border border-gray-200 cursor-pointer" onClick={openEditSkill}>
-            <Image src={edit} alt="edit"/>
-        </div>
-        {isEditSkillOpen && <EditSkillPopup closeEditSkill={closeEditSkill}/>}
-    </div>
-    </div> */}
               {freelancerselfprofile && freelancerselfprofile && freelancerselfprofile.skills
                 ? JSON.parse(freelancerselfprofile.skills.replace(/'/g, '"')).map(
                     (skill: string, index: number) => (
@@ -1692,11 +1284,8 @@ const FreelancerSelfProfile = () => {
                 Show Less
               </button>
             ))}
-          {/* <h1 className="font-cardo text-[20px] text-[#031136] font-normal mx-auto cursor-pointer">Show More</h1> */}
         </div>
       </div>
-      {/* <HomeSection4 /> */}
-      {/* <Footer /> */}
     </>
   );
 };
