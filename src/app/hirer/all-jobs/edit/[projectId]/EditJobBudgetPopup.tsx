@@ -81,7 +81,7 @@ const EditJobBudgetPopup: FC<IProps> = ({
                               type="number"
                               placeholder=""
                               className="my-1 mr-1 w-full flex-1 rounded-md border p-2 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
-                              value={min_hourly_rate ?? ""}
+                              value={String(min_hourly_rate) ?? ""}
                               onChange={(e) => setMinHourlyRate(Number(e.target.value))}
                             />
                             <span>/hr</span>
@@ -100,7 +100,7 @@ const EditJobBudgetPopup: FC<IProps> = ({
                               type="number"
                               placeholder=""
                               className="my-2 mr-1 w-full flex-1 rounded-md border p-2 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
-                              value={max_hourly_rate ?? ""}
+                              value={String(max_hourly_rate) ?? ""}
                               onChange={(e) => setMaxHourlyRate(Number(e.target.value))}
                             />
                             <span>/hr</span>
