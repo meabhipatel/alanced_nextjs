@@ -12,7 +12,7 @@ import EditJobBudgetPopup from "./EditJobBudgetPopup";
 import { errorLog } from "@/utils/errorLog";
 import EditJobSkillsPopup from "./EditJobSkillsPopup";
 
-type IExperienceLever = "Entry_Level" | "Intermediate" | "Expert";
+type TExperienceLevel = "Entry_Level" | "Intermediate" | "Expert";
 
 interface IHandleUpdateDataParams {
   title?: string;
@@ -50,7 +50,7 @@ const EditJobDetails: FC<IProps> = ({ params: { projectId } }) => {
   const [description, setDescription] = useState(project?.description);
   const [category, setCategory] = useState(project?.category);
   const [deadline, setDeadline] = useState(project?.deadline);
-  const [experienceLevel, setExperienceLevel] = useState<IExperienceLever>(
+  const [experienceLevel, setExperienceLevel] = useState<TExperienceLevel>(
     project?.experience_level ?? "Entry_Level"
   );
   const [rate, setRate] = useState(project?.Project_Rate ?? "");
@@ -66,6 +66,7 @@ const EditJobDetails: FC<IProps> = ({ params: { projectId } }) => {
   });
 
   /** ----> on Save functions...... */
+
   const handleSaveTitle = () => {
     if (title) {
       handleUpdateData({ title });
@@ -101,7 +102,32 @@ const EditJobDetails: FC<IProps> = ({ params: { projectId } }) => {
     }
   };
 
+  const handleSaveBudget = () => {
+    handleUpdateData({
+      rate: rate,
+      fixed_budget: rate === "Hourly" ? 0 : (fixedBudget ?? 0),
+      min_hourly_rate: rate === "Fixed" ? 0 : (minHourlyRate ?? 0),
+      max_hourly_rate: rate === "Fixed" ? 0 : (maxHourlyRate ?? 0),
+    });
+    setIsBudgetModalOpen(false);
+  };
+
   /** ----> on Cancel functions...... */
+
+  const handleCancelTitle = () => {
+    setTitle(project?.title);
+    setIsTitleModalOpen(false);
+  };
+
+  const handleCancelDescription = () => {
+    setDescription(project?.description);
+    setIsDescriptionModalOpen(false);
+  };
+
+  const handleCancelCategory = () => {
+    setCategory(project?.category);
+    setIsCategoryModalOpen(false);
+  };
 
   const handleCancelSkills = () => {
     setSkills(() => {
@@ -114,13 +140,17 @@ const EditJobDetails: FC<IProps> = ({ params: { projectId } }) => {
     setIsSkillsModalOpen(false);
   };
 
-  const handleSaveBudget = () => {
-    handleUpdateData({
-      rate: rate,
-      fixed_budget: rate === "Hourly" ? 0 : (fixedBudget ?? 0),
-      min_hourly_rate: rate === "Fixed" ? 0 : (minHourlyRate ?? 0),
-      max_hourly_rate: rate === "Fixed" ? 0 : (maxHourlyRate ?? 0),
-    });
+  const handleCancelScope = () => {
+    setDeadline(project?.deadline);
+    setExperienceLevel(project?.experience_level as TExperienceLevel);
+    setIsScopeModalOpen(false);
+  };
+
+  const handleCancelBudget = () => {
+    setRate(project?.Project_Rate ?? "");
+    setFixedBudget(project?.Project_Fixed_Budget ?? 0);
+    setMinHourlyRate(project?.Project_Min_Hourly_Rate ?? 0);
+    setMaxHourlyRate(project?.Project_Max_Hourly_Rate ?? 0);
     setIsBudgetModalOpen(false);
   };
 
@@ -292,7 +322,7 @@ const EditJobDetails: FC<IProps> = ({ params: { projectId } }) => {
                   <button
                     type="button"
                     className="mr-4 rounded-md bg-gray-300 px-4 py-2 text-sm text-gray-700 hover:bg-gray-400"
-                    onClick={() => setIsTitleModalOpen(false)}
+                    onClick={handleCancelTitle}
                   >
                     Cancel
                   </button>
@@ -323,7 +353,7 @@ const EditJobDetails: FC<IProps> = ({ params: { projectId } }) => {
                   <button
                     type="button"
                     className="mr-4 rounded-md bg-gray-300 px-4 py-2 text-sm text-gray-700 hover:bg-gray-400"
-                    onClick={() => setIsDescriptionModalOpen(false)}
+                    onClick={handleCancelDescription}
                   >
                     Cancel
                   </button>
@@ -363,7 +393,7 @@ const EditJobDetails: FC<IProps> = ({ params: { projectId } }) => {
                 <div className="mt-6 flex justify-end">
                   <button
                     className="mr-4 rounded-md bg-gray-300 px-4 py-2 text-sm text-gray-700 hover:bg-gray-400"
-                    onClick={() => setIsCategoryModalOpen(false)}
+                    onClick={handleCancelCategory}
                   >
                     Cancel
                   </button>
@@ -378,59 +408,6 @@ const EditJobDetails: FC<IProps> = ({ params: { projectId } }) => {
             </div>
           </div>
         )}
-
-        {/* Skills Modal */}
-        {/* {isSkillsModalOpen && (
-          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="w-full max-w-md rounded-lg bg-white p-8">
-              <h2 className="mb-4 text-xl font-semibold">Edit Skills</h2>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  handleSaveSkills();
-                }}
-              >
-                <div className="max-h-64 overflow-y-auto">
-                  {SkillsList.map((skill) => (
-                    <div
-                      key={skill}
-                      className="mb-2 flex items-center"
-                    >
-                      <input
-                        type="checkbox"
-                        id={skill}
-                        checked={skills.includes(skill)}
-                        onChange={() => toggleSkillSelection(skill)}
-                        className="mr-2"
-                      />
-                      <label
-                        htmlFor={skill}
-                        className="text-sm"
-                      >
-                        {skill}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-6 flex justify-end">
-                  <button
-                    type="button"
-                    className="mr-4 rounded-md bg-gray-300 px-4 py-2 text-sm text-gray-700 hover:bg-gray-400"
-                    onClick={() => setIsSkillsModalOpen(false)}
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    className="rounded-md bg-blue-500 px-4 py-2 text-sm text-white hover:bg-blue-600"
-                  >
-                    Save
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        )} */}
 
         {isSkillsModalOpen && (
           <EditJobSkillsPopup
@@ -468,7 +445,7 @@ const EditJobDetails: FC<IProps> = ({ params: { projectId } }) => {
                 </label>
                 <select
                   value={experienceLevel}
-                  onChange={(e) => setExperienceLevel(e.target.value as IExperienceLever)}
+                  onChange={(e) => setExperienceLevel(e.target.value as TExperienceLevel)}
                   className="block w-full rounded-md border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                 >
                   <option value="Entry_Level">Entry Level</option>
@@ -480,7 +457,7 @@ const EditJobDetails: FC<IProps> = ({ params: { projectId } }) => {
                   <button
                     type="button"
                     className="mr-4 rounded-md bg-gray-300 px-4 py-2 text-sm text-gray-700 hover:bg-gray-400"
-                    onClick={() => setIsScopeModalOpen(false)}
+                    onClick={handleCancelScope}
                   >
                     Cancel
                   </button>
@@ -507,7 +484,7 @@ const EditJobDetails: FC<IProps> = ({ params: { projectId } }) => {
             setFixedBudget={setFixedBudget}
             setMinHourlyRate={setMinHourlyRate}
             setMaxHourlyRate={setMaxHourlyRate}
-            onClose={() => setIsBudgetModalOpen(false)}
+            onClose={handleCancelBudget}
             onSave={handleSaveBudget}
           />
         )}
