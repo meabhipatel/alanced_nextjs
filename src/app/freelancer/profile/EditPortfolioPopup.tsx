@@ -290,8 +290,10 @@ const EditFreelancerProjectsPopup: React.FC<IProps> = ({ closeEditFreeProject, p
             <div className="mt-8">
               <div className="relative">
                 <Image
+                  height={250}
+                  width={500}
                   src={uploadedImage || "https://www.api.alanced.com" + project?.images_logo}
-                  alt=""
+                  alt="project image"
                   className="mx-auto mb-4 h-[250px] w-[500px]"
                 />
                 <button
