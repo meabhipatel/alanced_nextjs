@@ -51,6 +51,7 @@ const AddJobPost = () => {
     rate: selectedOption,
     min_hourly_rate: addProject.min_hourly_rate || null,
     max_hourly_rate: addProject.max_hourly_rate || null,
+    fixed_budget: addProject.fixed_budget || null,
     experience_level: addProject.experience_level,
   };
 
