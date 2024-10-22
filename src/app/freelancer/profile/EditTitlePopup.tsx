@@ -1,10 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { Link } from "react-router-dom";
-// import {
-//   GetFreelancerSelfProfileAction,
-//   UpdateFreelancerProfileAction,
-// } from "../../../redux/Freelancer/FreelancerAction";
+
 import CategoryList from "@/constant/allSelectionData/categoryList";
 import { useAppSelector } from "@/store/hooks";
 import { axiosWithAuth } from "@/utils/axiosWithAuth";
@@ -16,13 +11,9 @@ interface IEditTitlePoup {
 }
 
 const EditTitlePopup: React.FC<IEditTitlePoup> = ({ closeEditTitle }) => {
-  //   const accessToken =
-  //     useSelector((state) => state.login.accessToken) || localStorage.getItem("jwtToken");
-
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
-  //   const dispatch = useDispatch();
-  //   const freelancerselfprofile = useSelector((state) => state.freelancer.freelancerselfprofile);
+
   const freelancerselfprofile = useAppSelector((state) => state.auth.userProfile);
 
   useEffect(() => {
@@ -36,27 +27,12 @@ const EditTitlePopup: React.FC<IEditTitlePoup> = ({ closeEditTitle }) => {
     const formData = new FormData();
     formData.append("category", category);
     formData.append("about", description);
-    // dispatch(UpdateFreelancerProfileAction({ experience_level: experiencelevel }, accessToken));
+
     const res = await axiosWithAuth.put("/account/freelancer/profile/update", formData);
     toast.success(res.data.message);
-    // dispatch(
-    //   UpdateFreelancerProfileAction({ category: category, about: description }, accessToken)
-    // );
-    closeEditTitle();
-    // dispatch(GetFreelancerSelfProfileAction(accessToken));
-  };
 
-  //   const [categories] = useState([
-  //     'Web Development',
-  //     'Web Designing',
-  //     'Software Development',
-  //     'Data Science',
-  //     'Logo Designing',
-  //     'Graphics Designing',
-  //     'Artificial Intelligence',
-  //     'Machine Learning',
-  //     'UI/UX Designing'
-  // ]);
+    closeEditTitle();
+  };
 
   const [categories] = useState(CategoryList.sort());
 
@@ -130,7 +106,7 @@ const EditTitlePopup: React.FC<IEditTitlePoup> = ({ closeEditTitle }) => {
               <h1 className="font-cardo text-left text-[20px] font-normal text-[#031136]">
                 Your Designation
               </h1>
-              {/* <input type="text" value={category} onChange={e => setCategory(e.target.value)} className='border my-2 py-1.5 px-2 rounded-md w-full focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600' placeholder='Python Developer'/> */}
+
               <div ref={wrapperRef}>
                 <input
                   type="text"
@@ -189,12 +165,10 @@ const EditTitlePopup: React.FC<IEditTitlePoup> = ({ closeEditTitle }) => {
                   className="inline-block rounded bg-gradient-to-b from-[#0909E9] to-[#00D4FF] p-0.5"
                   onClick={closeEditTitle}
                 >
-                  <button>
-                    <button className="bg-white px-2 py-1">
-                      <p className="from-primary to-danger bg-gradient-to-r bg-clip-text px-[8px] py-[4px] text-sm font-semibold text-transparent">
-                        Cancel
-                      </p>
-                    </button>
+                  <button className="rounded-[3px] bg-white px-2 py-1">
+                    <p className="from-primary to-danger bg-gradient-to-r bg-clip-text px-[8px] py-[4px] text-sm font-semibold text-transparent">
+                      Cancel
+                    </p>
                   </button>
                 </button>
               </div>
