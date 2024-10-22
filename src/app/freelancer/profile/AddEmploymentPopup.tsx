@@ -168,12 +168,10 @@ const AddEmploymentPopup: React.FC<IAddEmploymentPopup> = ({ closeAddEmployment 
                 className="inline-block rounded bg-gradient-to-b from-[#0909E9] to-[#00D4FF] p-0.5"
                 onClick={closeAddEmployment}
               >
-                <button>
-                  <button className="rounded-[3px] bg-white px-2 py-1">
-                    <p className="from-primary to-danger bg-gradient-to-r bg-clip-text px-[8px] py-[4px] text-sm font-semibold text-transparent">
-                      Cancel
-                    </p>
-                  </button>
+                <button className="rounded-[3px] bg-white px-2 py-1">
+                  <p className="from-primary to-danger bg-gradient-to-r bg-clip-text px-[8px] py-[4px] text-sm font-semibold text-transparent">
+                    Cancel
+                  </p>
                 </button>
               </button>
             </div>

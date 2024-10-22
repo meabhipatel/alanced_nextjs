@@ -201,9 +201,9 @@ const FreelancerSelfProfile = () => {
 
   const visibleEmp = sortedEmployments.slice(startIdx, startIdx + 3);
 
-  const [selectedButton, setSelectedButton] = useState("All Work");
+  // const [selectedButton, setSelectedButton] = useState("All Work");
   // const [selectedButtons, setSelectedButtons] = useState("Github");
-  const commonStyle = "inline-block text-sm py-[10px] mt-4 lg:mt-0 border rounded font-semibold";
+  // const commonStyle = "inline-block text-sm py-[10px] mt-4 lg:mt-0 border rounded font-semibold";
 
   const [selectedProject, setSelectedProject] = useState<FreelanceProject | null>(null);
   const [selectedEmp, setSelectedEmp] = useState<Employment | null>(null);
@@ -857,7 +857,7 @@ const FreelancerSelfProfile = () => {
               <div className="px-auto w-full pt-8 md:w-1/4">
                 <div className="ml-2 mr-2 mt-3 inline-block rounded bg-gradient-to-b from-[#0909E9] to-[#00D4FF] p-0.5 md:ml-0">
                   <button
-                    className="rounded-[2px] bg-white px-2 py-1"
+                    className="rounded-[3px] bg-white px-2 py-1"
                     onClick={scrollToWorkHistory}
                   >
                     <p className="from-primary to-danger bg-gradient-to-r bg-clip-text px-[8px] py-[4px] text-sm font-semibold text-transparent">
@@ -867,7 +867,7 @@ const FreelancerSelfProfile = () => {
                 </div>
               </div>
             </div>
-            <div className="border-b border-gray-200 border-opacity-30 px-2 py-4 text-left md:px-8">
+            {/* <div className="border-b border-gray-200 border-opacity-30 px-2 py-4 text-left md:px-8">
               <h1 className="font-cardo text-[21px] font-normal text-[#031136]">View Profile</h1>
               <div className="my-3 flex flex-wrap">
                 {freelancerselfprofile && freelancerselfprofile && freelancerselfprofile.skills
@@ -908,7 +908,7 @@ const FreelancerSelfProfile = () => {
                   </button>
                 </Link>
               </div>
-            </div>
+            </div> */}
             <div className="border-b border-gray-200 border-opacity-30 px-2 py-4 text-left md:px-8">
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
