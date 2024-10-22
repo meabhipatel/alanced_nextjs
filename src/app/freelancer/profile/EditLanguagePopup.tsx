@@ -15,7 +15,7 @@ const EditLanguagePopup: React.FC<IEditLanguagePopupProps> = ({ closeEditLanguag
   const freelancerselfprofile = useAppSelector((state) => state.auth.userProfile);
 
   const [Language, setLanguage] = useState<string[]>([]);
-  // const [currentLanguage, setCurrentLanguage] = useState("");
+
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -103,10 +103,10 @@ const EditLanguagePopup: React.FC<IEditLanguagePopupProps> = ({ closeEditLanguag
     }
     `}
       </style>
-      <div className="fixed inset-0 z-10 mt-10 overflow-y-auto">
+      <div className="fixed inset-0 z-10 mt-10 overflow-y-auto sm:overflow-visible">
         <div className="fixed inset-0 bg-black opacity-50"></div>
         <div className="flex min-h-screen items-center justify-center">
-          <div className="relative z-20 w-[90%] rounded-lg bg-white p-6 px-8 md:w-[50%]">
+          <div className="relative z-20 w-[90%] rounded-lg bg-white p-6 px-8 md:w-[700px]">
             <div className="flex items-center justify-between">
               <h1 className="font-cardo text-[26px] font-normal text-[#031136]">
                 {Language && Language.length > 0 ? "Edit Language" : "Add Language"}
