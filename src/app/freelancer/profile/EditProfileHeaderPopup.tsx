@@ -1,12 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { Link } from "react-router-dom";
-// import {
-//   GetFreelancerSelfProfileAction,
-//   UpdateFreelancerProfileAction,
-// } from "../../../redux/Freelancer/FreelancerAction";
 import CityList from "@/constant/allSelectionData/cityList";
-import Link from "next/link";
 import { useAppSelector } from "@/store/hooks";
 import { IoClose } from "react-icons/io5";
 import { axiosWithAuth } from "@/utils/axiosWithAuth";
@@ -19,15 +12,10 @@ interface IAvailableOffPopupProps {
 }
 
 const AvailableOffPopup: React.FC<IAvailableOffPopupProps> = ({
-  // const AvailableOffPopup = ({
   isAvailable,
   setIsAvailable,
   closeAvailableOff,
 }) => {
-  //   const accessToken = useSelector((state) => state.login.accessToken) || localStorage.getItem("jwtToken");
-  //   const accessToken = localStorage.getItem('@accessToken')
-  //   const dispatch = useDispatch();
-  //   const freelancerselfprofile = useSelector((state) => state.freelancer.freelancerselfprofile);
   const freelancerselfprofile = useAppSelector((state) => state.auth.userProfile);
 
   const [localAvailability, setLocalAvailability] = useState(isAvailable);
@@ -50,27 +38,11 @@ const AvailableOffPopup: React.FC<IAvailableOffPopupProps> = ({
     formData.append("last_Name", lastName);
     formData.append("Address", address);
     formData.append("availableStatus", localAvailability);
-    // dispatch(
-    //   UpdateFreelancerProfileAction(
-    //     {
-    //       first_Name: firstName,
-    //       last_Name: lastName,
-    //       Address: address,
-    //       availableStatus: localAvailability,
-    //     },
-    //     accessToken
-    //   )
-    // );
 
     const res = await axiosWithAuth.put("/account/freelancer/profile/update", formData);
     toast.success(res.data.message);
     closeAvailableOff();
-    // dispatch(GetFreelancerSelfProfileAction(accessToken));
   };
-
-  // const [cities] = useState([
-  //     'Indore','Ujjain','Bhopal','Delhi','Gujarat','Pune','Surat','Punjab','Mumbai','Bombay','Bengaluru','Kolkata','Chennai','Hyderabad','Ahmedabad','Jaipur'
-  //   ]);
 
   const [cities] = useState(CityList.sort());
 
@@ -94,12 +66,6 @@ const AvailableOffPopup: React.FC<IAvailableOffPopupProps> = ({
       document.removeEventListener("mousedown", handleClickOutsideAddress);
     };
   }, []);
-
-  // const [localAvailability, setLocalAvailability] = useState(isAvailable);
-  // const handleSave = () => {
-  //   setIsAvailable(localAvailability);
-  //   closeAvailableOff();
-  // }
 
   return (
     <>
@@ -138,7 +104,6 @@ const AvailableOffPopup: React.FC<IAvailableOffPopupProps> = ({
                 onClick={closeAvailableOff}
                 className="text-gray-500 hover:text-gray-700"
               >
-                {/* <i className="bi bi-x-lg"></i> */}
                 <IoClose className="text-3xl" />
               </button>
             </div>
@@ -168,7 +133,7 @@ const AvailableOffPopup: React.FC<IAvailableOffPopupProps> = ({
               <h1 className="font-cardo text-left text-[20px] font-normal text-[#031136]">
                 Location
               </h1>
-              {/* <input type="text" value={address} onChange={e => setAddress(e.target.value)} className='border my-2 py-1.5 px-2 rounded-md w-full focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600' placeholder='123 Elm St, Springfield'/> */}
+
               <div ref={wrapperRefAddress}>
                 <input
                   type="text"
@@ -231,25 +196,22 @@ const AvailableOffPopup: React.FC<IAvailableOffPopupProps> = ({
               </div>
 
               <div className="mt-8 flex justify-end">
-                <Link href="">
-                  <button
-                    className="mr-3 inline-block rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-[10px] text-sm font-semibold text-white"
-                    onClick={handleSave}
-                  >
-                    Save
-                  </button>
-                </Link>
+                <button
+                  className="mr-3 inline-block rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-[10px] text-sm font-semibold text-white"
+                  onClick={handleSave}
+                >
+                  Save
+                </button>
+
                 <button
                   className="inline-block rounded bg-gradient-to-b from-[#0909E9] to-[#00D4FF] p-0.5"
                   onClick={closeAvailableOff}
                 >
-                  <Link href="">
-                    <button className="bg-white px-2 py-1">
-                      <p className="from-primary to-danger bg-gradient-to-r bg-clip-text px-[8px] py-[4px] text-sm font-semibold text-transparent">
-                        Cancel
-                      </p>
-                    </button>
-                  </Link>
+                  <button className="rounded-[3px] bg-white px-2 py-1">
+                    <p className="from-primary to-danger bg-gradient-to-r bg-clip-text px-[8px] py-[4px] text-sm font-semibold text-transparent">
+                      Cancel
+                    </p>
+                  </button>
                 </button>
               </div>
             </div>
