@@ -139,7 +139,7 @@ const ViewProposal: FC<IProps> = ({ params: { projectId } }) => {
                 <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
                   <div className="col-span-1 rounded-md bg-gray-100 p-4 shadow-sm transition duration-300 lg:col-span-2">
                     <div className="text-base font-semibold text-gray-800">Cover Letter</div>
-                    <div className="text-sm text-gray-500">Ok</div>
+                    <div className="text-sm text-gray-500">{proposalData?.description}</div>
                   </div>
                 </div>
               </div>

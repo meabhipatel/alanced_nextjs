@@ -105,14 +105,12 @@ const ViewProjectDetail: FC<IProps> = ({ params: { id } }) => {
             </div>
           </div>
           <div className="mt-8 text-base font-normal text-[#797979]">
-            Job Description: {projectDetails?.description}
+            <p>
+              <span className="font-semibold text-black">Job Description:</span>{" "}
+              {projectDetails?.description}
+            </p>
           </div>
-          <div className="text-base font-normal text-[#797979]">
-            Please Share Your Details On this Whatsapp No.+{projectDetails?.project_owner_contact}
-          </div>
-          <div className="mt-5 text-base font-normal text-[#797979]">
-            Are you a talented and imaginative Graphic Designer...
-          </div>
+
           <div className="mt-10 flex flex-col lg:flex-row">
             <div className="mb-4 w-full lg:mb-0 lg:w-6/12">
               <div className="flex">
