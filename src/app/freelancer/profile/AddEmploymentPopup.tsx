@@ -169,7 +169,7 @@ const AddEmploymentPopup: React.FC<IAddEmploymentPopup> = ({ closeAddEmployment 
                 onClick={closeAddEmployment}
               >
                 <button>
-                  <button className="bg-white px-2 py-1">
+                  <button className="rounded-[3px] bg-white px-2 py-1">
                     <p className="from-primary to-danger bg-gradient-to-r bg-clip-text px-[8px] py-[4px] text-sm font-semibold text-transparent">
                       Cancel
                     </p>
