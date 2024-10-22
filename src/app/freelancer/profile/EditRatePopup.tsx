@@ -1,25 +1,15 @@
 import React, { useEffect, useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
+
 import { useAppSelector } from "@/store/hooks";
 import { axiosWithAuth } from "@/utils/axiosWithAuth";
 import toast from "react-hot-toast";
 import { IoClose } from "react-icons/io5";
-
-// import { Link } from "react-router-dom";
-// import {
-//   GetFreelancerSelfProfileAction,
-//   UpdateFreelancerProfileAction,
-// } from "../../../redux/Freelancer/FreelancerAction";
 
 interface IEditRatePopupProps {
   closeHrRate: () => void;
 }
 
 const EditHrRatePopup: React.FC<IEditRatePopupProps> = ({ closeHrRate }) => {
-  // const accessToken = useSelector(state => state.login.accessToken);
-  //   const accessToken =
-  //     useSelector((state) => state.login.accessToken) || localStorage.getItem("jwtToken");
-  //   const dispatch = useDispatch();
   const freelancerselfprofile = useAppSelector((state) => state.auth.userProfile);
   const [userInput, setUserInput] = useState<string>("$0.00");
   const [hourlyRate, setHourlyRate] = useState(
@@ -32,7 +22,7 @@ const EditHrRatePopup: React.FC<IEditRatePopupProps> = ({ closeHrRate }) => {
     if (freelancerselfprofile && freelancerselfprofile) {
       const initialRate = freelancerselfprofile?.hourly_rate || 0;
       setHourlyRate(initialRate);
-      setUserInput(`$${initialRate.toFixed(2)}`); // updating the userInput with the initial rate
+      setUserInput(`$${initialRate.toFixed(2)}`);
     }
   }, [freelancerselfprofile]);
 
@@ -54,44 +44,9 @@ const EditHrRatePopup: React.FC<IEditRatePopupProps> = ({ closeHrRate }) => {
     formData.append("hourly_rate", hourlyRate.toString());
     const res = await axiosWithAuth.put("/account/freelancer/profile/update", formData);
     toast.success(res.data.message);
-    // dispatch(UpdateFreelancerProfileAction({ hourly_rate: hourlyRate }, accessToken));
+
     closeHrRate();
-    // dispatch(GetFreelancerSelfProfileAction(accessToken));
   };
-
-  // const accessToken = useSelector(state => state.login.accessToken);
-
-  // const [hourlyrate, setHourlyrate] = useState("");
-  // const dispatch = useDispatch();
-  // const freelancerselfprofile = useSelector(state => state.freelancer.freelancerselfprofile)
-  // useEffect(() => {
-  //     if (freelancerselfprofile && freelancerselfprofile[0]) {
-  //         setHourlyRate(freelancerselfprofile[0].hourly_rate);
-  //     }
-  // }, [freelancerselfprofile]);
-
-  // const handleSave = () => {
-  //     dispatch(UpdateFreelancerProfileAction({ hourlyRate },accessToken));
-  //     closeHrRate();
-  // }
-
-  // const [userInput, setUserInput] = useState('');
-  // const [hourlyRate, setHourlyRate] = useState(freelancerselfprofile[0].hourly_rate);
-  // const [serviceFee, setServiceFee] = useState(0);
-  // const [totalAfterFee, setTotalAfterFee] = useState(0);
-
-  // useEffect(() => {
-  //   const parsedRate = parseFloat(userInput.replace("$", ""));
-  //   if (!isNaN(parsedRate)) {
-  //     setHourlyRate(parsedRate);
-  //   }
-  // }, [userInput]);
-
-  // useEffect(() => {
-  //   const fee = (10 / 100) * hourlyRate;
-  //   setServiceFee(fee);
-  //   setTotalAfterFee(hourlyRate - fee);
-  // }, [hourlyRate]);
 
   return (
     <div className="fixed inset-0 z-10 mt-12 overflow-y-auto">
@@ -106,7 +61,6 @@ const EditHrRatePopup: React.FC<IEditRatePopupProps> = ({ closeHrRate }) => {
               onClick={closeHrRate}
               className="text-gray-500 hover:text-gray-700"
             >
-              {/* <i className="bi bi-x-lg"></i> */}
               <IoClose className="text-3xl" />
             </button>
           </div>
@@ -192,10 +146,7 @@ const EditHrRatePopup: React.FC<IEditRatePopupProps> = ({ closeHrRate }) => {
               </div>
             </div>
             <div className="mt-8 flex justify-end">
-              <button
-                // to=""
-                onClick={handleSave}
-              >
+              <button onClick={handleSave}>
                 <span className="mr-3 inline-block rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-[10px] text-sm font-semibold text-white">
                   Save
                 </span>
@@ -204,13 +155,11 @@ const EditHrRatePopup: React.FC<IEditRatePopupProps> = ({ closeHrRate }) => {
                 className="inline-block rounded bg-gradient-to-b from-[#0909E9] to-[#00D4FF] p-0.5"
                 onClick={closeHrRate}
               >
-                {/* <Link to=""> */}
-                <button className="bg-white px-2 py-1">
+                <button className="rounded-[3px] bg-white px-2 py-1">
                   <p className="from-primary to-danger bg-gradient-to-r bg-clip-text px-[8px] py-[4px] text-sm font-semibold text-transparent">
                     Cancel
                   </p>
                 </button>
-                {/* </Link> */}
               </button>
             </div>
           </div>

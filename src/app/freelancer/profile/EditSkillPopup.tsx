@@ -1,25 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { Link } from "react-router-dom";
-// import {
-//   GetFreelancerSelfProfileAction,
-//   UpdateFreelancerProfileAction,
-// } from "../../../redux/Freelancer/FreelancerAction";
+
 import SkillsList from "@/constant/allSelectionData/skillsList";
 import { useAppSelector } from "@/store/hooks";
 import { axiosWithAuth } from "@/utils/axiosWithAuth";
 import toast from "react-hot-toast";
 import { IoClose } from "react-icons/io5";
 
-// interface ISkills {
-//   skills: string;
-//   [key: string]: string;
-// }
-
 type ISkills = string;
 
 interface IFormattedSkills {
-  [key: string]: string; // Dynamic keys like 'skills[0]', 'skills[1]', etc.
+  [key: string]: string;
 }
 
 interface IEditSkillPopup {
@@ -27,16 +17,9 @@ interface IEditSkillPopup {
 }
 
 const EditSkillPopup: React.FC<IEditSkillPopup> = ({ closeEditSkill }) => {
-  // const freelancerselfprofile = useSelector((state) => state.freelancer.freelancerselfprofile);
   const freelancerselfprofile = useAppSelector((state) => state.auth.userProfile);
 
-  //   const accessToken = useSelector(state => state.login.accessToken);
-  // const accessToken =
-  // useSelector((state) => state.login.accessToken) || localStorage.getItem("jwtToken");
-  // const dispatch = useDispatch();
-
   const [skills, setSkills] = useState<ISkills[]>([]);
-  // const [currentSkill, setCurrentSkill] = useState("");
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -44,16 +27,6 @@ const EditSkillPopup: React.FC<IEditSkillPopup> = ({ closeEditSkill }) => {
       setSkills(JSON.parse(freelancerselfprofile.skills.replace(/'/g, '"')));
     }
   }, [freelancerselfprofile]);
-
-  // const addSkill = () => {
-  //   if (currentSkill.trim() && skills.length < 15) {
-  //     setSkills(prevSkills => [...prevSkills, currentSkill.trim()]);
-  //     setCurrentSkill('');
-  //     setError('');
-  //   } else if (skills.length >= 15) {
-  //     setError('You can add a maximum of 15 skills.');
-  //   }
-  // };
 
   const removeSkill = (index: number) => {
     setSkills((prevSkills) => prevSkills.filter((_, idx) => idx !== index));
@@ -78,15 +51,8 @@ const EditSkillPopup: React.FC<IEditSkillPopup> = ({ closeEditSkill }) => {
     const res = await axiosWithAuth.put("/account/freelancer/profile/update", formData);
     toast.success(res.data.message);
 
-    // const formattedSkills = formatSkillsForDispatch(skills);
-    // dispatch(UpdateFreelancerProfileAction(formattedSkills, accessToken));
     closeEditSkill();
-    // dispatch(GetFreelancerSelfProfileAction(accessToken));
   };
-
-  //   const allSkills = [
-  //     'React','Angular','Vue','JavaScript','Python','Java','Ruby','C','C++','MongoDB','SQL','Postgresql','DBMS','Oracle','Django','HTML','CSS','Jquery','Bootstrap','Tailwind CSS','Wordpress','Shopify','Magento','Flutter','DRF','RestAPI'
-  // ];
 
   const allSkills = SkillsList.sort();
 
@@ -140,10 +106,10 @@ const EditSkillPopup: React.FC<IEditSkillPopup> = ({ closeEditSkill }) => {
     }
     `}
       </style>
-      <div className="fixed inset-0 z-10 mt-10 overflow-y-auto">
+      <div className="fixed inset-0 z-10 mt-10 overflow-y-auto sm:overflow-visible">
         <div className="fixed inset-0 bg-black opacity-50"></div>
         <div className="flex min-h-screen items-center justify-center">
-          <div className="relative z-20 w-[90%] rounded-lg bg-white p-6 px-8 md:w-[50%]">
+          <div className="relative z-20 w-[90%] rounded-lg bg-white p-6 px-8 md:w-[700px]">
             <div className="flex items-center justify-between">
               <h1 className="font-cardo text-[26px] font-normal text-[#031136]">
                 {skills && skills.length > 0 ? "Edit Skills" : "Add Skills"}
@@ -171,7 +137,7 @@ const EditSkillPopup: React.FC<IEditSkillPopup> = ({ closeEditSkill }) => {
                       <span>{skill}</span>
                       <button
                         onClick={() => removeSkill(index)}
-                        className="ml-2 mt-1 flex h-4 w-4 items-center justify-center rounded-full bg-white pb-0.5 text-sm text-blue-500"
+                        className="ml-2 mt-1 flex h-4 w-4 items-center justify-center rounded-full bg-white text-sm text-blue-500"
                       >
                         &times;
                       </button>
@@ -215,56 +181,7 @@ const EditSkillPopup: React.FC<IEditSkillPopup> = ({ closeEditSkill }) => {
                   )}
                 </div>
               </div>
-              {/* <div className="border rounded-md p-2 flex items-center flex-wrap my-3">
-    {Array.isArray(skills) && skills.map((skill, index) => (
-        <div key={index} className="bg-gradient-to-r from-[#0909E9] to-[#00D4FF] border-none text-white font-semibold rounded px-2 py-1.5 mr-3 my-2 flex items-center">
-            <span>{skill}</span>
-            <button onClick={() => removeSkill(index)} className="ml-2 mt-1 pb-0.5 text-sm bg-white text-blue-500 rounded-full w-4 h-4 flex justify-center items-center">
-                &times;
-            </button>
-        </div>
-    ))}
-    <div className="flex items-center relative w-full">
-        <input 
-            type="text" 
-            value={currentSkill} 
-            onChange={(e) => setCurrentSkill(e.target.value)}
-            placeholder="Enter Skills here"
-            className="outline-none w-full"
-        />
-        <span id="hiddenText" style={{visibility: 'hidden', whiteSpace: 'pre', position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)'}}>{currentSkill}</span>
-        <button 
-            onClick={addSkill} 
-            style={{position: 'absolute', left: `${document.getElementById("hiddenText")?.offsetWidth || 0}px`, top: '47%', transform: 'translateY(-50%)'}}
-            className={`ml-4 mt-1 pb-0.5 text-sm bg-blue-500 text-white rounded-full w-4 h-4 flex justify-center items-center ${currentSkill.trim() ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}
-        >
-            +
-        </button>
-    </div>
-</div> */}
 
-              {/* <div className="border rounded-md p-2 flex items-center flex-wrap my-3">
-                    {Array.isArray(skills) && skills.map((skill, index) => (
-                        <div key={index} className="bg-gradient-to-r from-[#0909E9] to-[#00D4FF] border-none text-white  font-semibold rounded px-2 py-1.5 mr-3 my-2 flex items-center">
-                            <span>{skill}</span>
-                            <button onClick={() => removeSkill(index)} className="ml-2 mt-1 pb-0.5 text-sm bg-white text-blue-500 rounded-full w-4 h-4 flex justify-center items-center">
-                                &times;
-                            </button>
-                        </div>
-                    ))}
-                    <input 
-                        type="text" 
-                        value={currentSkill} 
-                        onChange={(e) => setCurrentSkill(e.target.value)}
-                        onKeyDown={(e) => {
-                            if (e.key === 'Enter' && currentSkill.trim()) {
-                                addSkill();
-                            }
-                        }}
-                        placeholder="Enter Skills here"
-                        className="outline-none w-full"
-                    />
-                </div> */}
               {error && <p className="mt-2 text-red-500">{error}</p>}
             </div>
             <button className="mt-8 flex justify-end">
@@ -277,12 +194,10 @@ const EditSkillPopup: React.FC<IEditSkillPopup> = ({ closeEditSkill }) => {
                 className="inline-block rounded bg-gradient-to-b from-[#0909E9] to-[#00D4FF] p-0.5"
                 onClick={closeEditSkill}
               >
-                <button>
-                  <button className="bg-white px-2 py-1">
-                    <p className="from-primary to-danger bg-gradient-to-r bg-clip-text px-[8px] py-[4px] text-sm font-semibold text-transparent">
-                      Cancel
-                    </p>
-                  </button>
+                <button className="rounded-[3px] bg-white px-2 py-1">
+                  <p className="from-primary to-danger bg-gradient-to-r bg-clip-text px-[8px] py-[4px] text-sm font-semibold text-transparent">
+                    Cancel
+                  </p>
                 </button>
               </button>
             </button>
