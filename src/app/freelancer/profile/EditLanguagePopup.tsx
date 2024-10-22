@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import LanguageList from "@/constant/allSelectionData/languageList";
-import Link from "next/link";
+
 import { useAppSelector } from "@/store/hooks";
 import { IoClose } from "react-icons/io5";
 import { axiosWithAuth } from "@/utils/axiosWithAuth";
@@ -133,7 +133,7 @@ const EditLanguagePopup: React.FC<IEditLanguagePopupProps> = ({ closeEditLanguag
                       <span>{language}</span>
                       <button
                         onClick={() => removeLanguage(index)}
-                        className="ml-2 mt-1 flex h-4 w-4 items-center justify-center rounded-full bg-white pb-0.5 text-sm text-blue-500"
+                        className="ml-2 mt-1 flex h-4 w-4 items-center justify-center rounded-full bg-white text-sm text-blue-500"
                       >
                         &times;
                       </button>
@@ -181,25 +181,20 @@ const EditLanguagePopup: React.FC<IEditLanguagePopupProps> = ({ closeEditLanguag
               {error && <p className="mt-2 text-red-500">{error}</p>}
             </div>
             <div className="mt-8 flex justify-end">
-              <Link
-                href=""
-                onClick={handleSave}
-              >
+              <button onClick={handleSave}>
                 <span className="mr-3 inline-block rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-[10px] text-sm font-semibold text-white">
                   Save
                 </span>
-              </Link>
+              </button>
               <button
                 className="inline-block rounded bg-gradient-to-b from-[#0909E9] to-[#00D4FF] p-0.5"
                 onClick={closeEditLanguage}
               >
-                <Link href="">
-                  <button className="bg-white px-2 py-1">
-                    <p className="from-primary to-danger bg-gradient-to-r bg-clip-text px-[8px] py-[4px] text-sm font-semibold text-transparent">
-                      Cancel
-                    </p>
-                  </button>
-                </Link>
+                <button className="rounded-[3px] bg-white px-2 py-1">
+                  <p className="from-primary to-danger bg-gradient-to-r bg-clip-text px-[8px] py-[4px] text-sm font-semibold text-transparent">
+                    Cancel
+                  </p>
+                </button>
               </button>
             </div>
           </div>
