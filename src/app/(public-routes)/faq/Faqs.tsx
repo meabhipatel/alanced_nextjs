@@ -20,7 +20,7 @@ const Faqs: FC<IProps> = ({ faqs }) => {
       {faqs.map((faq, index) => (
         <div
           key={index}
-          className="mx-2 mt-1 border border-gray-200 border-opacity-30 p-3"
+          className="mt-1 border border-gray-400 border-opacity-30 p-3"
         >
           <div className="flex items-center justify-between">
             <div className="font-inter text-md text-left font-semibold text-[#031136]">
@@ -43,7 +43,7 @@ const Faqs: FC<IProps> = ({ faqs }) => {
           {isOpen === index && (
             <div
               id={`faq-content-${index}`}
-              className="font-inter py-3 text-left text-sm font-normal text-[#031136] opacity-40"
+              className="font-inter py-3 text-left text-sm font-normal text-[#031136] opacity-75"
             >
               {faq.answer}
             </div>
