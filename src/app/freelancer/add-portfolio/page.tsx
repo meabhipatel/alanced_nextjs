@@ -216,11 +216,16 @@ const PortfolioPage: React.FC = () => {
               <select
                 id="project-category"
                 name="category"
-                className="w-full rounded-lg border p-3 outline-none focus:border-blue-500"
+                className="w-full rounded-lg border p-1.5 outline-none focus:border-blue-500"
                 value={projectDetails?.category}
                 onChange={onChange}
               >
-                <option value="">Select a category</option>
+                <option
+                  value=""
+                  className="rounded-md"
+                >
+                  Select a category
+                </option>
                 {categoryList.map((category, index) => (
                   <option
                     key={index}
@@ -251,7 +256,7 @@ const PortfolioPage: React.FC = () => {
                       <span>{skill}</span>
                       <button
                         onClick={() => removeSkill(index)}
-                        className="ml-2 mt-1 flex h-4 w-4 items-center justify-center rounded-full bg-white pb-0.5 text-sm text-blue-500"
+                        className="ml-2 mt-1 flex h-4 w-4 items-center justify-center rounded-full bg-white text-sm text-blue-500"
                       >
                         &times;
                       </button>
@@ -270,12 +275,15 @@ const PortfolioPage: React.FC = () => {
                     placeholder="Search & Select Skills"
                   />
                   {isOpenSkill && (
-                    <ul className="skilldropdown-list w-full">
+                    <ul className="absolute z-30 m-0 mt-2.5 max-h-52 w-full list-none overflow-y-auto overflow-x-hidden rounded-[8px] border border-gray-300 bg-white p-0">
                       {filteredSkills.length > 0 ? (
                         filteredSkills.map((skill, index) => (
-                          <li key={index}>
+                          <li
+                            key={index}
+                            className="cursor-pointer p-2 hover:bg-gray-100"
+                          >
                             <button
-                              className="ml-3 text-left"
+                              className="ml-3 w-full text-left"
                               key={index}
                               onClick={() => {
                                 if (skills.length < 15) {
