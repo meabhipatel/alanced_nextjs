@@ -13,6 +13,7 @@ import HireNowButtonAndPopup from "@/components/HireNowButtonAndPopup";
 import { FreelanceProject, IEmployment, IReview } from "@/app/freelancer/profile/page";
 import { formatDateToDayMonthYear, formateDate } from "@/utils/timeFunction";
 import fileIcon from "@/assets/icons/file.png";
+import { RxArrowLeft, RxArrowRight } from "react-icons/rx";
 
 interface IProps {
   params: {
@@ -165,10 +166,6 @@ const ViewFreelancerDetails: FC<IProps> = ({ params: { freelancerId } }) => {
 
   const showLessEmployment = () => {
     setVisibleEmployment(freelanceremployment.slice(0, 3));
-  };
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
   };
 
   return (
@@ -345,37 +342,57 @@ const ViewFreelancerDetails: FC<IProps> = ({ params: { freelancerId } }) => {
                   />
                 )}
               </div>
-              <div className="mt-5 flex items-center justify-end gap-6">
+              <div className="mt-5 flex items-center justify-center gap-6 sm:justify-end">
                 {totalPages > 1 && (
-                  <div className="flex items-center gap-6">
+                  <div className="m-4 flex items-center justify-end gap-6">
                     <button
                       onClick={prev}
                       disabled={currentPage === 1}
-                      className="rounded bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-2 text-white"
+                      className="rounded-lg p-1"
+                      style={{
+                        backgroundImage: "linear-gradient(45deg, #0909E9, #00D4FF)",
+                        border: "none",
+                      }}
                     >
-                      Previous
+                      <RxArrowLeft
+                        strokeWidth={0.3}
+                        className="text-2xl text-white"
+                      />
                     </button>
 
-                    {[...Array(totalPages)].map((_, index) => (
-                      <button
-                        key={index}
-                        onClick={() => handlePageChange(index + 1)}
-                        className={`rounded px-4 py-2 ${
-                          currentPage === index + 1
-                            ? "bg-blue-500 text-white"
-                            : "bg-gray-200 text-gray-800"
-                        }`}
-                      >
-                        {index + 1}
-                      </button>
-                    ))}
+                    {[...Array(totalPages)].map((_, index) => {
+                      const pageNumber = index + 1;
+                      return (
+                        <button
+                          key={pageNumber}
+                          className={`px-0 py-1 ${
+                            currentPage === pageNumber
+                              ? "font-inter cursor-pointer bg-gradient-to-r from-[#0909E9] to-[#00D4FF] bg-clip-text text-[14px] font-bold text-transparent"
+                              : "font-inter cursor-pointer text-[14px] font-bold text-[#0A142F]"
+                          }`}
+                          onClick={() => {
+                            window.scrollTo(0, 0);
+                            setCurrentPage(pageNumber);
+                          }}
+                        >
+                          {pageNumber}
+                        </button>
+                      );
+                    })}
 
                     <button
                       onClick={next}
                       disabled={currentPage === totalPages}
-                      className="rounded bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-2 text-white"
+                      className="rounded-lg p-1"
+                      style={{
+                        backgroundImage: "linear-gradient(45deg, #0909E9, #00D4FF)",
+                        border: "none",
+                      }}
                     >
-                      Next
+                      <RxArrowRight
+                        strokeWidth={0.3}
+                        className="text-2xl text-white"
+                      />
                     </button>
                   </div>
                 )}
