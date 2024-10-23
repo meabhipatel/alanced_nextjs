@@ -1272,14 +1272,14 @@ const FreelancerSelfProfile = () => {
                 className="font-cardo mx-auto cursor-pointer text-[20px] font-normal text-[#031136]"
                 onClick={showMoreHandlers}
               >
-                Show More
+                Show Less
               </button>
             ) : (
               <button
                 className="font-cardo mx-auto cursor-pointer text-[20px] font-normal text-[#031136]"
                 onClick={showLessHandlers}
               >
-                Show Less
+                Show More
               </button>
             ))}
         </div>
