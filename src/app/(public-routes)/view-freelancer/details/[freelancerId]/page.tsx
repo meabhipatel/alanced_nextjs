@@ -10,6 +10,9 @@ import { errorLog } from "@/utils/errorLog";
 import { axiosIntance } from "@/utils/axiosIntance";
 import { useAppSelector } from "@/store/hooks";
 import HireNowButtonAndPopup from "@/components/HireNowButtonAndPopup";
+import { IEmployment, IReview } from "@/app/freelancer/profile/page";
+import { formatDateToDayMonthYear, formateDate } from "@/utils/timeFunction";
+import fileIcon from "@/assets/icons/file.png";
 
 interface IProps {
   params: {
@@ -55,11 +58,13 @@ const ViewFreelancerDetails: FC<IProps> = ({ params: { freelancerId } }) => {
   const [isPortfolioOpen, setIsPortfolioOpen] = useState(false);
   const [freelancerproject, setfreelancerproject] = useState([]);
   const [selectedProjects, setSelectedProjects] = useState(null);
-  const [ProjectCount, setProjectCount] = useState(0); // eslint-dsable-line
+  const [ProjectCount, setProjectCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [reviews, setReviews] = useState([]);
-  const [freelanceremployment, setfreelanceremployment] = useState([]);
+  const [reviews, setReviews] = useState<IReview[]>([]);
+  const [visibleReviews, setVisibleReviews] = useState<IReview[]>([]);
+  const [freelanceremployment, setfreelanceremployment] = useState<IEmployment[]>([]);
+  const [visibleEmployment, setVisibleEmployment] = useState<IEmployment[]>([]);
 
   /** ---> Fetching freelancer profile on laod. */
   useEffect(() => {
@@ -76,60 +81,62 @@ const ViewFreelancerDetails: FC<IProps> = ({ params: { freelancerId } }) => {
   };
 
   useEffect(() => {
+    handleFetchSelfProjects();
+  }, [currentPage]);
+
+  const handleFetchSelfProjects = async () => {
     const queryParameters = [];
     queryParameters.push(`page=${currentPage}`);
     const queryString = queryParameters.join("&");
+    try {
+      const res = await axiosIntance.get(
+        `/freelance/View-all/Freelancer/Self-Project/${freelancerId}?${queryString}`
+      );
+      setfreelancerproject(res.data.results);
+      setProjectCount(res.data.count);
+      setTotalPages(Math.ceil(res.data.count / 6));
+    } catch (error) {
+      errorLog(error);
+    }
+  };
 
-    axiosIntance
-      .get(`/freelance/View-all/Freelancer/Self-Project/${freelancerId}?${queryString}`)
-      .then((response) => {
-        setfreelancerproject(response.data.results);
-        setProjectCount(response.data.count);
-        setTotalPages(Math.ceil(response.data.count / 6));
-      })
-      .catch((error) => {
-        errorLog(error);
-      });
-  }, [currentPage]);
+  useEffect(() => {
+    handleFetchReviews();
+  }, [freelancerId]);
+
+  const handleFetchReviews = async () => {
+    try {
+      const res = await axiosIntance.get(`/freelance/View-all/Review/${freelancerId}`);
+      setReviews(res.data.data);
+      setVisibleReviews(res.data.data?.slice(0, 3));
+    } catch (error) {
+      errorLog(error);
+    }
+  };
+
+  useEffect(() => {
+    handleFetchEmployment();
+  }, [freelancerId]);
+
+  const handleFetchEmployment = async () => {
+    try {
+      const res = await axiosIntance.get(
+        `/freelance/View-all/Freelancer/Employment/${freelancerId}`
+      );
+      setfreelanceremployment(res.data.data);
+      setVisibleEmployment(res.data.data?.slice(0, 3));
+    } catch (error) {
+      errorLog(error);
+    }
+  };
 
   const prev = () => {
-    // window.scrollTo(0, 0);
     setCurrentPage((prev) => Math.max(prev - 1, 1));
   };
 
   const next = () => {
-    // window.scrollTo(0, 0);
     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   };
-
-  useEffect(() => {
-    if (freelancerId) {
-      axiosIntance
-        .get(`/freelance/View-all/Review/${freelancerId}`)
-        .then((response) => {
-          if (response.data.status === 200) {
-            setReviews(response.data.data);
-          } else {
-            errorLog(response.data.message || "Error fetching reviews");
-          }
-        })
-        .catch((err) => {
-          errorLog(err.message);
-        });
-    }
-  }, [freelancerId]);
-
-  const [startIdx, setStartIdx] = useState(0);
-
-  const showMoreHandler = () => {
-    setStartIdx((prevIdx) => prevIdx + 3);
-  };
-
-  const showLessHandler = () => {
-    setStartIdx(0);
-  };
-
-  const visibleReviews = reviews.slice(startIdx, startIdx + 3);
 
   /* eslint-disable-next-line */
   const openPortfolio = (project: any) => {
@@ -142,39 +149,23 @@ const ViewFreelancerDetails: FC<IProps> = ({ params: { freelancerId } }) => {
     setIsPortfolioOpen(false);
   };
 
-  useEffect(() => {
-    if (freelancerId) {
-      axiosIntance
-        .get(`/freelance/View-all/Freelancer/Employment/${freelancerId}`)
-        .then((response) => {
-          if (response.data.status === 200) {
-            setfreelanceremployment(response.data.data);
-          } else {
-            errorLog(response.data.message || "Error fetching Employment data");
-          }
-        })
-        .catch((err) => {
-          errorLog(err.message);
-        });
-    }
-  }, [freelancerId]);
+  /** ---> Show Either More or Less */
 
-  /* eslint-disable */
-  const sortedEmployments = [...freelanceremployment].sort(
-    (a: any, b: any) =>
-      new Date(b.Company_Joining_date).getTime() - new Date(a.Company_Joining_date).getTime()
-  );
-  /* eslint-enable */
+  const showMoreReviews = () => {
+    setVisibleReviews(reviews);
+  };
 
-  //const showMoreHandlers = () => {
-  //setStartIdx((prevIdx) => prevIdx + 2);
-  //};
+  const showLessReviews = () => {
+    setVisibleReviews(reviews.slice(0, 3));
+  };
 
-  //const showLessHandlers = () => {
-  //setStartIdx(0);
-  //};
+  const showMoreEmployment = () => {
+    setVisibleEmployment(freelanceremployment);
+  };
 
-  //const visibleEmp = sortedEmployments.slice(startIdx, startIdx + 2);
+  const showLessEmployment = () => {
+    setVisibleEmployment(freelanceremployment.slice(0, 3));
+  };
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -198,7 +189,7 @@ const ViewFreelancerDetails: FC<IProps> = ({ params: { freelancerId } }) => {
             </div>
             <div className="ml-4 mt-4 text-center lg:mt-0 lg:text-left">
               <div className="flex items-center justify-center lg:justify-start">
-                <h1 className="font-cardo mr-1 text-[24px] font-normal text-[#031136]">
+                <h1 className="mr-1 text-[24px] font-normal text-[#031136]">
                   {freelancerProfile?.first_Name
                     ? freelancerProfile?.first_Name + " " + freelancerProfile?.last_Name
                     : "NA"}
@@ -207,7 +198,7 @@ const ViewFreelancerDetails: FC<IProps> = ({ params: { freelancerId } }) => {
               </div>
               <div className="my-1 flex items-center justify-center lg:justify-start">
                 <IoLocationOutline className="mr-1" />
-                <p className="font-inter text-[14px] text-[#797979]">
+                <p className="text-[14px] text-[#797979]">
                   {freelancerProfile?.Address ? freelancerProfile?.Address : "NA"}
                 </p>
               </div>
@@ -237,39 +228,39 @@ const ViewFreelancerDetails: FC<IProps> = ({ params: { freelancerId } }) => {
           <div className="flex flex-col space-y-6 lg:ml-6 lg:min-w-[25%] lg:space-y-8">
             {/* Experience Level */}
             <div className="rounded-lg bg-white p-4 shadow-md">
-              <h1 className="font-cardo text-xl font-medium text-gray-800">Experience Level</h1>
-              <p className="font-cardo mt-1 text-lg font-semibold text-gray-600">
+              <h1 className="text-xl font-medium text-gray-800">Experience Level</h1>
+              <p className="mt-1 text-lg font-semibold text-gray-600">
                 {freelancerProfile?.experience_level
                   ? freelancerProfile?.experience_level.replace(/_/g, " ")
                   : "NA"}
               </p>
             </div>
             <div className="rounded-lg bg-white p-4 shadow-md">
-              <h1 className="font-cardo text-xl font-medium text-gray-800">Category</h1>
-              <p className="font-cardo mt-1 text-lg font-semibold text-gray-600">
+              <h1 className="text-xl font-medium text-gray-800">Category</h1>
+              <p className="mt-1 text-lg font-semibold text-gray-600">
                 {freelancerProfile?.category ? freelancerProfile?.category : "NA"}
               </p>
             </div>
             <div className="rounded-lg bg-white p-4 shadow-md">
-              <h1 className="font-cardo text-xl font-medium">Hourly Rate</h1>
-              <p className="font-cardo mt-1 text-lg font-semibold text-gray-600">
+              <h1 className="text-xl font-medium">Hourly Rate</h1>
+              <p className="mt-1 text-lg font-semibold text-gray-600">
                 ${freelancerProfile?.hourly_rate ? freelancerProfile?.hourly_rate : 0}
               </p>
             </div>
             <div className="rounded-lg bg-white p-4 shadow-md">
-              <h1 className="font-cardo text-xl font-medium">Educations</h1>
-              <p className="font-cardo mt-1 text-lg font-semibold text-gray-600">
+              <h1 className="text-xl font-medium">Educations</h1>
+              <p className="mt-1 text-lg font-semibold text-gray-600">
                 {freelancerProfile?.qualification ? freelancerProfile?.qualification : "NA"}
               </p>
             </div>
             <div className="rounded-lg bg-white p-4 shadow-md">
-              <h1 className="font-cardo text-xl font-medium">Languages</h1>
+              <h1 className="text-xl font-medium">Languages</h1>
               {freelancerProfile && freelancerProfile.Language
                 ? JSON.parse(freelancerProfile.Language.replace(/'/g, '"') ?? "[]").map(
                     (language: string, index: number) => (
                       <p
                         key={index}
-                        className="font-cardo mt-1 text-lg font-semibold text-gray-600"
+                        className="mt-1 text-lg font-semibold text-gray-600"
                       >
                         {language}
                       </p>
@@ -281,17 +272,17 @@ const ViewFreelancerDetails: FC<IProps> = ({ params: { freelancerId } }) => {
           {/* ---> Right Sections */}
           <div className="mt-8 flex flex-col space-y-6 lg:left-4">
             <div>
-              <p className="font-cardo text-left text-[22px] font-semibold">About Freelancer</p>
+              <p className="text-left text-[22px] font-semibold">About Freelancer</p>
               <div className="relative ml-1 mt-2 w-28">
                 <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
                 <div className="rounded-lg border-b-2 border-gray-600"></div>
               </div>
-              <p className="font-inter py-5 pr-8 text-justify text-[14px] text-[#031136] opacity-50">
+              <p className="py-5 pr-8 text-justify text-[14px] text-[#031136] opacity-50">
                 {freelancerProfile?.about ? freelancerProfile.about : "NA"}
               </p>
             </div>
             <div>
-              <p className="font-cardo text-left text-[22px] font-semibold">Skills</p>
+              <p className="text-left text-[22px] font-semibold">Skills</p>
               <div className="relative ml-1 mt-2 w-8">
                 <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
                 <div className="rounded-lg border-b-2 border-gray-600"></div>
@@ -312,9 +303,7 @@ const ViewFreelancerDetails: FC<IProps> = ({ params: { freelancerId } }) => {
               </div>
             </div>
             <div>
-              <p className="font-cardo mt-4 text-left text-[22px] font-semibold">
-                Portfolio ({ProjectCount})
-              </p>
+              <p className="mt-4 text-left text-[22px] font-semibold">Portfolio ({ProjectCount})</p>
               <div className="relative ml-1 mt-2 w-20">
                 <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
                 <div className="rounded-lg border-b-2 border-gray-600"></div>
@@ -394,55 +383,120 @@ const ViewFreelancerDetails: FC<IProps> = ({ params: { freelancerId } }) => {
                   </div>
                 )}
               </div>
-              <div className="mt-4">
-                <p className="font-cardo text-left text-[22px] font-semibold">
-                  Reviews ({reviews ? reviews.length : 0})
-                </p>
-                <div className="relative ml-1 mt-2 w-20">
-                  <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
-                  <div className="rounded-lg border-b-2 border-gray-600"></div>
+
+              <div
+                className="border-b border-gray-200 border-opacity-30 px-2 py-6 text-left md:px-8"
+                id="workHistory"
+              >
+                <div className="flex items-center justify-between">
+                  <h1 className="mr-1 pb-3 text-[21px] font-normal text-[#031136]">
+                    Reviews ({reviews && reviews ? reviews.length : 0})
+                  </h1>
                 </div>
-                {reviews.length === 0 ? (
-                  <p className="py-6 text-left text-[14px] text-[#797979]">No reviews found.</p>
-                ) : (
-                  <div className="mt-4">
-                    {visibleReviews.map(
-                      (
-                        review: any, //eslint-disable-line
-                        index: number //eslint-disable-line
-                      ) => (
-                        <div
-                          key={index}
-                          className="mb-4 rounded-lg border border-gray-200 p-4"
-                        >
-                          <div className="mb-2 flex items-center">
-                            <div className="flex items-center">
-                              <StarRating rating={review.rating} />
-                              <p className="ml-2 text-gray-600">{review.reviewer_name}</p>
-                            </div>
-                          </div>
-                          <p className="text-gray-700">{review.comment}</p>
+                {visibleReviews.map((review, index) => (
+                  <>
+                    <div key={index}>
+                      <div className="flex items-center justify-between">
+                        <p className="py-1 text-[14px] text-[#0A142F]">{review.Project_Name}</p>
+                        <div className="flex items-center space-x-2">
+                          <StarRating rating={review.rating} />
                         </div>
-                      )
-                    )}
-                    {startIdx + 3 < reviews.length && (
-                      <button
-                        onClick={showMoreHandler}
-                        className="mt-4 text-blue-600 underline hover:text-blue-700"
-                      >
-                        Show more
-                      </button>
-                    )}
-                    {startIdx > 0 && (
-                      <button
-                        onClick={showLessHandler}
-                        className="mt-4 text-blue-600 underline hover:text-blue-700"
-                      >
-                        Show less
-                      </button>
-                    )}
-                  </div>
+                      </div>
+                      <p className="text-[12px] text-[#0A142F] opacity-50">
+                        {formatDateToDayMonthYear(review.reviews_created_date)}
+                      </p>
+                      <p className="pt-3 text-[14px] text-[#0A142F] opacity-50">{review.review}</p>
+                      <div className="my-6 grid grid-cols-3 gap-4">
+                        <div className="">
+                          <p className="text-[16px] font-bold text-[#031136]">
+                            $
+                            {review.project_Rate === "Hourly"
+                              ? review.project_Min_Hourly_Rate + "/hr"
+                              : review.project_Budget}
+                          </p>
+                        </div>
+                        <div className="">
+                          <p className="text-[16px] font-bold text-[#031136]">
+                            {review.project_Rate}
+                          </p>
+                        </div>
+                        <div className="">
+                          <p className="text-[16px] font-bold text-[#031136]">{review.Reviewer}</p>
+                        </div>
+                      </div>
+                      <div className="my-4 border-b opacity-50"></div>
+                    </div>
+                  </>
+                ))}
+                {reviews.length > 4 &&
+                  (visibleReviews.length < reviews.length ? (
+                    <button
+                      className="cursor-pointer text-right text-sm font-semibold text-blue-500"
+                      onClick={showMoreReviews}
+                    >
+                      Show More
+                    </button>
+                  ) : (
+                    <button
+                      className="cursor-pointer text-right text-sm font-semibold text-blue-500"
+                      onClick={showLessReviews}
+                    >
+                      Show Less
+                    </button>
+                  ))}
+              </div>
+              {/* ---> Employment history  */}
+              <div className="my-6 border border-gray-200 border-opacity-40 bg-[#FFFFFF] px-2 py-8 md:px-8">
+                <div className="flex items-center justify-between">
+                  <h1 className="font-cardo mr-1 text-[21px] font-normal text-[#031136]">
+                    Employment history
+                  </h1>
+                </div>
+                <div className="my-3 border-b opacity-50"></div>
+                {visibleEmployment.length === 0 ? (
+                  <>
+                    <Image
+                      src={fileIcon}
+                      alt=""
+                      className="mx-auto mt-5"
+                    />
+                    <h1 className="font-cardo py-3 text-center text-2xl">No Data Found</h1>
+                  </>
+                ) : (
+                  visibleEmployment.map((emp, index) => (
+                    <>
+                      <div key={index}>
+                        <div className="flex items-center justify-between">
+                          <h1 className="font-cardo mr-1 text-[18px] font-normal text-[#031136]">
+                            {emp.Company_Designation} | {emp.Freelancer_Company_Name}
+                          </h1>
+                        </div>
+                        <p className="font-inter pt-2 text-left text-[14px] text-[#0A142F] opacity-50">
+                          {formateDate(emp.Company_Joining_date)} -{" "}
+                          {emp.Company_Leaving_date ? formateDate(emp.Company_Leaving_date) : ""}
+                        </p>
+                        <div className="my-3 border-b opacity-50"></div>
+                      </div>
+                    </>
+                  ))
                 )}
+
+                {freelanceremployment.length > 3 &&
+                  (visibleEmployment.length < freelanceremployment.length ? (
+                    <button
+                      className="mx-auto cursor-pointer text-sm font-semibold text-blue-500"
+                      onClick={showMoreEmployment}
+                    >
+                      Show More
+                    </button>
+                  ) : (
+                    <button
+                      className="cursor-pointe mx-auto text-sm font-semibold text-blue-500"
+                      onClick={showLessEmployment}
+                    >
+                      Show Less
+                    </button>
+                  ))}
               </div>
             </div>
           </div>
