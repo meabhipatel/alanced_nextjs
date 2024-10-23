@@ -5,33 +5,25 @@ import edit from "@/assets/icons/edit.png";
 import availablenow from "@/assets/icons/availablenow.png";
 import plus from "@/assets/icons/plus.png";
 import fileIcon from "@/assets/icons/file.png";
-
 import { RxArrowRight, RxArrowLeft } from "react-icons/rx";
 import { IoClose, IoLocationOutline } from "react-icons/io5";
-
 import EditTitlePopup from "./EditTitlePopup";
 import EditSkillPopup from "./EditSkillPopup";
-
 import EditLanguagePopup from "./EditLanguagePopup";
 import EditEducationPopup from "./EditEducationPopup";
-
 import AvailableOffPopup from "./EditProfileHeaderPopup";
 import EditHrRatePopup from "./EditRatePopup";
-
 import AddEmploymentPopup from "./AddEmploymentPopup";
 import EditEmploymentPopup from "./EditEmploymentPopup";
-
 import EditExperienceLevelPopup from "./EditExperienceLevelPopup";
 import EditFreelancerProjectsPopup from "./EditPortfolioPopup";
 import { formateDate, formatDateToDayMonthYear } from "@/utils/timeFunction";
 import Link from "next/link";
-
 import { axiosWithAuth } from "@/utils/axiosWithAuth";
 import Image from "next/image";
 import { errorLog } from "@/utils/errorLog";
 import StarRating from "@/components/StartRating";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
-
 import { useAppSelector } from "@/store/hooks";
 import toast from "react-hot-toast";
 import { axiosIntance } from "@/utils/axiosIntance";
@@ -563,10 +555,6 @@ const FreelancerSelfProfile = () => {
                         />
                       </button>
                     ) : null}
-
-                    {/* {isAddEducationOpen && (
-                      <AddEducationPopup closeAddEducation={closeAddEducation} />          for use
-                    )} */}
                   </div>
                 </div>
 
@@ -602,9 +590,6 @@ const FreelancerSelfProfile = () => {
                         closeEditEducation={closeEditEducation}
                       />
                     )}
-                    {/* {isAddEducationOpen && (
-                      <AddEducationPopup closeAddEducation={closeAddEducation} />
-                    )} */}
                   </div>
                 </div>
 
@@ -655,7 +640,6 @@ const FreelancerSelfProfile = () => {
                       onClick={handleModalClose}
                       className="text-gray-500 hover:text-gray-700"
                     >
-                      {/* <i className="bi bi-x-lg"></i> */}
                       <IoClose className="text-3xl" />
                     </button>
                   </div>
@@ -764,7 +748,6 @@ const FreelancerSelfProfile = () => {
                         <button
                           className="mr-3 inline-block rounded border border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] px-4 py-[10px] text-sm font-semibold text-white"
                           onClick={handleImageClick}
-                          // onChange={handleFileChange}
                         >
                           Change Image
                         </button>
@@ -867,48 +850,7 @@ const FreelancerSelfProfile = () => {
                 </div>
               </div>
             </div>
-            {/* <div className="border-b border-gray-200 border-opacity-30 px-2 py-4 text-left md:px-8">
-              <h1 className="font-cardo text-[21px] font-normal text-[#031136]">View Profile</h1>
-              <div className="my-3 flex flex-wrap">
-                {freelancerselfprofile && freelancerselfprofile && freelancerselfprofile.skills
-                  ? JSON.parse(freelancerselfprofile.skills.replace(/'/g, '"')).map(
-                      (skill: string, index: number) => (
-                        <Link
-                          key={index}
-                          href=""
-                          className="flex-grow p-1 md:flex-none"
-                        >
-                          <button
-                            className={`${commonStyle} my-3 px-3 md:px-8 ${
-                              selectedButton === skill
-                                ? "border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] text-white"
-                                : "border border-gray-300 text-[#0A142F] opacity-50"
-                            } mr-3`}
-                            onClick={() => setSelectedButton(skill)}
-                          >
-                            {skill}
-                          </button>
-                        </Link>
-                      )
-                    )
-                  : null}
-                <Link
-                  href=""
-                  className="flex-grow p-1 md:flex-none"
-                >
-                  <button
-                    className={`${commonStyle} px-3 md:px-8 ${
-                      selectedButton === "All Work"
-                        ? "border-none bg-gradient-to-r from-[#0909E9] to-[#00D4FF] text-white"
-                        : "border border-gray-300 text-[#0A142F] opacity-50"
-                    } mr-3`}
-                    onClick={() => setSelectedButton("All Work")}
-                  >
-                    All Work
-                  </button>
-                </Link>
-              </div>
-            </div> */}
+
             <div className="border-b border-gray-200 border-opacity-30 px-2 py-4 text-left md:px-8">
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
@@ -1158,7 +1100,6 @@ const FreelancerSelfProfile = () => {
                   {freelancerselfprofile &&
                   freelancerselfprofile &&
                   freelancerselfprofile.skills ? (
-                    // If skills are available, show the edit icon
                     <button
                       className="h-6 w-6 cursor-pointer rounded-full border border-gray-200 bg-white p-1"
                       onClick={openEditSkill}
@@ -1269,14 +1210,14 @@ const FreelancerSelfProfile = () => {
           {freelanceremployment.length > 3 &&
             (startIdx + 3 < freelanceremployment.length ? (
               <button
-                className="font-cardo mx-auto cursor-pointer text-[20px] font-normal text-[#031136]"
+                className="mx-auto cursor-pointer text-sm font-semibold text-blue-500"
                 onClick={showMoreHandlers}
               >
                 Show Less
               </button>
             ) : (
               <button
-                className="font-cardo mx-auto cursor-pointer text-[20px] font-normal text-[#031136]"
+                className="cursor-pointe mx-auto text-sm font-semibold text-blue-500"
                 onClick={showLessHandlers}
               >
                 Show More
