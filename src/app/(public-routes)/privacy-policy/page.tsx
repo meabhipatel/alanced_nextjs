@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 const Page = () => {
   return (
-    <div className="px-8 py-4">
+    <div className="container sm:px-5 md:px-10 lg:px-20">
       <div className="font-inter text-center text-lg font-bold text-[#031136]">
         <h1>Privacy Policy</h1>
       </div>
