@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-
 import SkillsList from "@/constant/allSelectionData/skillsList";
 import { useAppSelector } from "@/store/hooks";
 import { axiosWithAuth } from "@/utils/axiosWithAuth";
@@ -23,9 +22,7 @@ const EditSkillPopup: React.FC<IEditSkillPopup> = ({ closeEditSkill }) => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (freelancerselfprofile && freelancerselfprofile && freelancerselfprofile.skills) {
-      setSkills(JSON.parse(freelancerselfprofile.skills.replace(/'/g, '"')));
-    }
+    setSkills(JSON.parse(freelancerselfprofile.skills.replace(/'/g, '"') ?? "[]"));
   }, [freelancerselfprofile]);
 
   const removeSkill = (index: number) => {
@@ -80,32 +77,6 @@ const EditSkillPopup: React.FC<IEditSkillPopup> = ({ closeEditSkill }) => {
 
   return (
     <>
-      <style>
-        {`
-    .dropdown-list {
-        border: 1px solid #ccc;
-        max-height: 200px;
-        overflow-y: auto;
-        position: absolute;
-        width: 100%;
-        z-index: 1000;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        background-color: #fff;
-        margin-top:11px;
-    }
-    
-    .dropdown-list li {
-        padding: 10px;
-        cursor: pointer;
-    }
-
-    .dropdown-list li:hover {
-        background-color: #f7f7f7;
-    }
-    `}
-      </style>
       <div className="fixed inset-0 z-10 mt-10 overflow-y-auto sm:overflow-visible">
         <div className="fixed inset-0 bg-black opacity-50"></div>
         <div className="flex min-h-screen items-center justify-center">
@@ -119,7 +90,6 @@ const EditSkillPopup: React.FC<IEditSkillPopup> = ({ closeEditSkill }) => {
                 onClick={closeEditSkill}
                 className="text-gray-500 hover:text-gray-700"
               >
-                {/* <i className="bi bi-x-lg"></i> */}
                 <IoClose className="text-3xl" />
               </button>
             </div>
@@ -156,23 +126,25 @@ const EditSkillPopup: React.FC<IEditSkillPopup> = ({ closeEditSkill }) => {
                     placeholder="Search & Select Skills"
                   />
                   {isOpenSkill && (
-                    <ul className="dropdown-list w-full">
+                    <ul className="absolute z-50 mt-[11px] max-h-[200px] w-full list-none overflow-y-auto border border-[#ccc] bg-white p-0">
                       {filteredSkills.length > 0 ? (
                         filteredSkills.map((skill, index) => (
-                          <button
-                            key={index}
-                            onClick={() => {
-                              if (skills.length < 15) {
-                                setSkills((prev) => [...prev, skill]);
-                                setSearchTermSkill("");
-                                setIsOpenSkill(false);
-                              } else {
-                                setError("You can add a maximum of 15 skills.");
-                              }
-                            }}
-                          >
-                            {skill}
-                          </button>
+                          <li key={index}>
+                            <button
+                              className="h-full w-full px-4 py-1 text-start hover:bg-[#f7f7f7]"
+                              onClick={() => {
+                                if (skills.length < 15) {
+                                  setSkills((prev) => [...prev, skill]);
+                                  setSearchTermSkill("");
+                                  setIsOpenSkill(false);
+                                } else {
+                                  setError("You can add a maximum of 15 skills.");
+                                }
+                              }}
+                            >
+                              {skill}
+                            </button>
+                          </li>
                         ))
                       ) : (
                         <li>No results found</li>
