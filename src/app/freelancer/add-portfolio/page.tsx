@@ -107,8 +107,8 @@ const PortfolioPage: React.FC = () => {
   };
 
   return (
-    <div className="flex">
-      <div className="w-1/4 border-r border-gray-200 bg-white p-6">
+    <div className="container flex">
+      <div className="hidden w-1/4 border-r border-gray-200 bg-white p-6 sm:block">
         <ul className="space-y-4">
           <li>
             <button
@@ -145,7 +145,7 @@ const PortfolioPage: React.FC = () => {
         </ul>
       </div>
 
-      <div className="w-3/4 p-8">
+      <div className="w-full p-2 sm:w-3/4 sm:p-8">
         {currentStep === 1 && (
           <>
             <h1 className="mb-8 text-2xl font-semibold">Add portfolio project</h1>
