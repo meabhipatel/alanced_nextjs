@@ -10,7 +10,7 @@ import { errorLog } from "@/utils/errorLog";
 import { axiosIntance } from "@/utils/axiosIntance";
 import { useAppSelector } from "@/store/hooks";
 import HireNowButtonAndPopup from "@/components/HireNowButtonAndPopup";
-import { IEmployment, IReview } from "@/app/freelancer/profile/page";
+import { FreelanceProject, IEmployment, IReview } from "@/app/freelancer/profile/page";
 import { formatDateToDayMonthYear, formateDate } from "@/utils/timeFunction";
 import fileIcon from "@/assets/icons/file.png";
 
@@ -56,7 +56,7 @@ const ViewFreelancerDetails: FC<IProps> = ({ params: { freelancerId } }) => {
   const { isLoggedIn } = useAppSelector((state) => state.auth);
   const [freelancerProfile, setFreelancerProfile] = useState<IFreelancerProfile | null>(null);
   const [isPortfolioOpen, setIsPortfolioOpen] = useState(false);
-  const [freelancerproject, setfreelancerproject] = useState([]);
+  const [freelancerproject, setfreelancerproject] = useState<FreelanceProject[]>([]);
   const [selectedProjects, setSelectedProjects] = useState(null);
   const [ProjectCount, setProjectCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -173,11 +173,11 @@ const ViewFreelancerDetails: FC<IProps> = ({ params: { freelancerId } }) => {
 
   return (
     <>
-      <div className="container p-9 sm:px-5 md:px-10 lg:px-20">
+      <div className="container sm:px-5 md:px-10 lg:px-20">
         {/* ---> Page Header */}
         <div className="flex flex-col lg:flex-row lg:items-center">
           <div className="flex flex-col items-center lg:flex-row">
-            <div className="relative ml-6 mt-4 h-24 w-24 lg:ml-8 lg:mt-0">
+            <div className="relative mt-4 h-24 w-24 lg:mt-0">
               <Image
                 src={"https://www.api.alanced.com/" + freelancerProfile?.images_logo}
                 alt="Profile"
@@ -223,61 +223,63 @@ const ViewFreelancerDetails: FC<IProps> = ({ params: { freelancerId } }) => {
         </div>
 
         {/* ---> Page Sections */}
-        <div className="mt-6 flex flex-col lg:mt-8 lg:flex-row lg:space-x-8">
+        <div className="mt-6 flex w-full flex-col lg:mt-8 lg:flex-row lg:gap-8">
           {/* ---> Left Section */}
-          <div className="flex flex-col space-y-6 lg:ml-6 lg:min-w-[25%] lg:space-y-8">
-            {/* Experience Level */}
-            <div className="rounded-lg bg-white p-4 shadow-md">
-              <h1 className="text-xl font-medium text-gray-800">Experience Level</h1>
-              <p className="mt-1 text-lg font-semibold text-gray-600">
-                {freelancerProfile?.experience_level
-                  ? freelancerProfile?.experience_level.replace(/_/g, " ")
-                  : "NA"}
-              </p>
-            </div>
-            <div className="rounded-lg bg-white p-4 shadow-md">
-              <h1 className="text-xl font-medium text-gray-800">Category</h1>
-              <p className="mt-1 text-lg font-semibold text-gray-600">
-                {freelancerProfile?.category ? freelancerProfile?.category : "NA"}
-              </p>
-            </div>
-            <div className="rounded-lg bg-white p-4 shadow-md">
-              <h1 className="text-xl font-medium">Hourly Rate</h1>
-              <p className="mt-1 text-lg font-semibold text-gray-600">
-                ${freelancerProfile?.hourly_rate ? freelancerProfile?.hourly_rate : 0}
-              </p>
-            </div>
-            <div className="rounded-lg bg-white p-4 shadow-md">
-              <h1 className="text-xl font-medium">Educations</h1>
-              <p className="mt-1 text-lg font-semibold text-gray-600">
-                {freelancerProfile?.qualification ? freelancerProfile?.qualification : "NA"}
-              </p>
-            </div>
-            <div className="rounded-lg bg-white p-4 shadow-md">
-              <h1 className="text-xl font-medium">Languages</h1>
-              {freelancerProfile && freelancerProfile.Language
-                ? JSON.parse(freelancerProfile.Language.replace(/'/g, '"') ?? "[]").map(
-                    (language: string, index: number) => (
-                      <p
-                        key={index}
-                        className="mt-1 text-lg font-semibold text-gray-600"
-                      >
-                        {language}
-                      </p>
+          <div className="lg:min-w-[25%]">
+            <div className="sticky top-24 flex flex-col gap-6">
+              <div className="rounded-lg bg-gray-50 p-4 shadow-sm">
+                <h1 className="text-xl font-medium text-gray-800">Experience Level</h1>
+                <p className="mt-1 text-lg font-semibold text-gray-600">
+                  {freelancerProfile?.experience_level
+                    ? freelancerProfile?.experience_level.replace(/_/g, " ")
+                    : "NA"}
+                </p>
+              </div>
+              <div className="rounded-lg bg-gray-50 p-4 shadow-sm">
+                <h1 className="text-xl font-medium text-gray-800">Category</h1>
+                <p className="mt-1 text-lg font-semibold text-gray-600">
+                  {freelancerProfile?.category ? freelancerProfile?.category : "NA"}
+                </p>
+              </div>
+              <div className="rounded-lg bg-gray-50 p-4 shadow-sm">
+                <h1 className="text-xl font-medium">Hourly Rate</h1>
+                <p className="mt-1 text-lg font-semibold text-gray-600">
+                  ${freelancerProfile?.hourly_rate ? freelancerProfile?.hourly_rate : 0}
+                </p>
+              </div>
+              <div className="rounded-lg bg-gray-50 p-4 shadow-sm">
+                <h1 className="text-xl font-medium">Educations</h1>
+                <p className="mt-1 text-lg font-semibold text-gray-600">
+                  {freelancerProfile?.qualification ? freelancerProfile?.qualification : "NA"}
+                </p>
+              </div>
+              <div className="rounded-lg bg-gray-50 p-4 shadow-sm">
+                <h1 className="text-xl font-medium">Languages</h1>
+                {freelancerProfile && freelancerProfile.Language
+                  ? JSON.parse(freelancerProfile.Language.replace(/'/g, '"') ?? "[]").map(
+                      (language: string, index: number) => (
+                        <p
+                          key={index}
+                          className="mt-1 text-lg font-semibold text-gray-600"
+                        >
+                          {language}
+                        </p>
+                      )
                     )
-                  )
-                : null}
+                  : null}
+              </div>
             </div>
           </div>
+
           {/* ---> Right Sections */}
-          <div className="mt-8 flex flex-col space-y-6 lg:left-4">
+          <div className="flex w-full flex-col gap-6">
             <div>
               <p className="text-left text-[22px] font-semibold">About Freelancer</p>
               <div className="relative ml-1 mt-2 w-28">
                 <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
                 <div className="rounded-lg border-b-2 border-gray-600"></div>
               </div>
-              <p className="py-5 pr-8 text-justify text-[14px] text-[#031136] opacity-50">
+              <p className="py-5 pr-8 text-justify text-[14px] text-[#031136]/60">
                 {freelancerProfile?.about ? freelancerProfile.about : "NA"}
               </p>
             </div>
@@ -308,39 +310,34 @@ const ViewFreelancerDetails: FC<IProps> = ({ params: { freelancerId } }) => {
                 <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#0909E9] to-[#00D4FF]"></div>
                 <div className="rounded-lg border-b-2 border-gray-600"></div>
               </div>
-              <div className="-mx-2 mt-4 grid grid-cols-3">
+              <div className="-mx-2 mt-4 grid grid-cols-2 md:grid-cols-3">
                 {freelancerproject &&
-                  freelancerproject.map(
-                    (
-                      project: any, //eslint-disable-line
-                      index //eslint-disable-line
-                    ) => (
-                      <button
-                        className="mb-4 w-full px-2"
-                        key={index}
-                        onClick={() => openPortfolio(project)}
-                      >
-                        <div className="h-[165px] w-full overflow-hidden border border-gray-100">
-                          <Image
-                            src={"https://www.api.alanced.com/" + project.images_logo}
-                            alt=""
-                            style={{
-                              maxWidth: "100%",
-                              maxHeight: "100%",
-                              objectFit: "cover",
-                              width: "100%",
-                              height: "100%",
-                            }}
-                            height={250}
-                            width={250}
-                          />
-                        </div>
-                        <p className="overflow-hidden overflow-ellipsis whitespace-nowrap pt-2 text-left text-[13px] font-semibold text-blue-600 underline hover:text-blue-700">
-                          {project.project_title}
-                        </p>
-                      </button>
-                    )
-                  )}
+                  freelancerproject.map((project, index) => (
+                    <button
+                      className="mb-4 w-full px-2"
+                      key={index}
+                      onClick={() => openPortfolio(project)}
+                    >
+                      <div className="h-[165px] w-full overflow-hidden border border-gray-100">
+                        <Image
+                          src={"https://www.api.alanced.com/" + project.images_logo}
+                          alt=""
+                          style={{
+                            maxWidth: "100%",
+                            maxHeight: "100%",
+                            objectFit: "cover",
+                            width: "100%",
+                            height: "100%",
+                          }}
+                          height={250}
+                          width={250}
+                        />
+                      </div>
+                      <p className="overflow-hidden overflow-ellipsis whitespace-nowrap pt-2 text-left text-[13px] font-semibold text-blue-600 underline hover:text-blue-700">
+                        {project.project_title}
+                      </p>
+                    </button>
+                  ))}
                 {isPortfolioOpen && (
                   <FreelancerPortfolioPopup
                     project={selectedProjects}
