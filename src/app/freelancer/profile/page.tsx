@@ -405,7 +405,7 @@ const FreelancerSelfProfile = () => {
             </div>
 
             <div className="mb-4 flex flex-col items-center border-b border-gray-200 border-opacity-30 bg-[#ffffff] py-4 text-left md:mb-0">
-              <h1 className="font-cardo mb-3 mr-1 text-[21px] font-normal text-[#031136]">
+              <h1 className="mb-3 mr-1 text-[21px] font-normal text-[#031136]">
                 {freelancerselfprofile && freelancerselfprofile.category
                   ? freelancerselfprofile.category
                   : "Your Designation"}
@@ -413,7 +413,7 @@ const FreelancerSelfProfile = () => {
 
               <div className="col-span-3 flex gap-3">
                 <div className="flex flex-col items-center">
-                  <h4 className="font-cardo text-[23px] font-bold text-[#031136]">
+                  <h4 className="text-[23px] font-bold text-[#031136]">
                     $
                     {freelancerselfprofile && freelancerselfprofile
                       ? freelancerselfprofile.hourly_rate
@@ -422,11 +422,11 @@ const FreelancerSelfProfile = () => {
                   <p className="font-inter text-[14px] text-[#0A142F] opacity-50">Hourly rate</p>
                 </div>
                 <div className="flex flex-col items-center">
-                  <h4 className="font-cardo text-[23px] font-bold text-[#031136]">{bid}</h4>
+                  <h4 className="text-[23px] font-bold text-[#031136]">{bid}</h4>
                   <p className="font-inter text-[14px] text-[#0A142F] opacity-50">Proposals</p>
                 </div>
                 <div className="flex flex-col items-center">
-                  <h4 className="font-cardo text-[23px] font-bold text-[#031136]">
+                  <h4 className="text-[23px] font-bold text-[#031136]">
                     {reviews && reviews ? reviews.length : 0}
                   </h4>
                   <p className="font-inter text-[14px] text-[#0A142F] opacity-50">Reviews</p>
@@ -435,9 +435,7 @@ const FreelancerSelfProfile = () => {
             </div>
             <div className="flex flex-col border-b border-gray-200 border-opacity-30 px-2 py-4 text-left md:px-8">
               <div className="flex items-center justify-between">
-                <h1 className="font-cardo mr-1 text-[21px] font-normal text-[#031136]">
-                  Experience Level
-                </h1>
+                <h1 className="mr-1 text-[21px] font-normal text-[#031136]">Experience Level</h1>
                 <div className="flex items-center space-x-2">
                   {freelancerselfprofile &&
                   freelancerselfprofile &&
@@ -475,9 +473,7 @@ const FreelancerSelfProfile = () => {
             </div>
             <div className="flex flex-col border-b border-gray-200 border-opacity-30 px-2 py-4 text-left md:px-8">
               <div className="flex items-center justify-between">
-                <h1 className="font-cardo mr-1 text-[21px] font-normal text-[#031136]">
-                  Languages
-                </h1>
+                <h1 className="mr-1 text-[21px] font-normal text-[#031136]">Languages</h1>
                 <div className="flex items-center space-x-2">
                   {freelancerselfprofile &&
                   freelancerselfprofile &&
@@ -521,9 +517,7 @@ const FreelancerSelfProfile = () => {
                 : null}
             </div>
             <div className="flex flex-col border-b border-gray-200 border-opacity-30 px-2 py-4 text-left md:px-8">
-              <h1 className="font-cardo mr-1 text-[21px] font-normal text-[#031136]">
-                Verifications
-              </h1>
+              <h1 className="mr-1 text-[21px] font-normal text-[#031136]">Verifications</h1>
               <p className="font-inter mr-1 inline-block py-1 text-[14px] text-[#0A142F]">
                 ID : <span className="mr-1 opacity-50">Verified</span>
                 <RiVerifiedBadgeFill className="text-md mr-1 inline-block text-green-600" />
@@ -537,9 +531,7 @@ const FreelancerSelfProfile = () => {
             <div className="flex flex-col border-b border-gray-200 border-opacity-30 px-2 py-4 text-left md:px-8">
               <div className="">
                 <div className="flex items-center justify-between">
-                  <h1 className="font-cardo mr-1 text-[21px] font-normal text-[#031136]">
-                    Education
-                  </h1>
+                  <h1 className="mr-1 text-[21px] font-normal text-[#031136]">Education</h1>
                   <div className="flex items-center space-x-2">
                     {/* Display + icon only if qualification is not available */}
                     {!freelancerselfprofile ||
@@ -644,10 +636,8 @@ const FreelancerSelfProfile = () => {
                     </button>
                   </div>
                   <div className="mx-8">
-                    <h1 className="font-cardo text-left text-[21px] font-normal text-[#031136]">
-                      Edit Photo
-                    </h1>
-                    <p className="font-cardo pt-2 text-left text-[17px] font-normal text-[#031136]">
+                    <h1 className="text-left text-[21px] font-normal text-[#031136]">Edit Photo</h1>
+                    <p className="pt-2 text-left text-[17px] font-normal text-[#031136]">
                       Show Clients The Best Version Of Yourself!
                     </p>
                     <div className="mb-2 mt-4 flex items-center justify-between">
@@ -734,7 +724,7 @@ const FreelancerSelfProfile = () => {
                         onChange={handleFileChange}
                       />
                     </div>
-                    <p className="font-cardo pt-2 text-left text-[17px] font-normal text-[#031136]">
+                    <p className="pt-2 text-left text-[17px] font-normal text-[#031136]">
                       Must Be An Actual Photo Of You.
                     </p>
                     <p className="font-inter text-left text-[14px] text-[#0A142F] opacity-50">
@@ -774,7 +764,7 @@ const FreelancerSelfProfile = () => {
             <div className="flex flex-col border-b border-gray-200 border-opacity-30 py-3.5 md:flex-row">
               <div className="w-full pl-2 pt-3 text-left sm:pl-8 md:w-3/4">
                 <div className="flex items-center">
-                  <h1 className="font-cardo mr-1 text-[24px] font-normal text-[#031136]">
+                  <h1 className="mr-1 text-[24px] font-normal text-[#031136]">
                     {freelancerselfprofile && freelancerselfprofile
                       ? `${freelancerselfprofile.first_Name} ${freelancerselfprofile.last_Name}`
                       : ""}
@@ -854,7 +844,7 @@ const FreelancerSelfProfile = () => {
             <div className="border-b border-gray-200 border-opacity-30 px-2 py-4 text-left md:px-8">
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
-                  <h1 className="font-cardo mr-2 text-[21px] font-normal text-[#031136]">
+                  <h1 className="mr-2 text-[21px] font-normal text-[#031136]">
                     {freelancerselfprofile && freelancerselfprofile.category
                       ? freelancerselfprofile.category.replace(/_/g, " ")
                       : "Your Designation"}
@@ -873,7 +863,7 @@ const FreelancerSelfProfile = () => {
                 </div>
 
                 <div className="flex items-center">
-                  <h1 className="font-cardo mr-2 text-[20px] font-bold text-[#031136]">
+                  <h1 className="mr-2 text-[20px] font-bold text-[#031136]">
                     $
                     {freelancerselfprofile && freelancerselfprofile
                       ? freelancerselfprofile.hourly_rate
@@ -899,13 +889,13 @@ const FreelancerSelfProfile = () => {
                   ? freelancerselfprofile.category.replace(/_/g, " ")
                   : "Your Designation"}
               </p>
-              <p className="font-inter text-[14px] text-[#0A142F] opacity-50">
+              <p className="font-inter text-[14px] text-[#0A142F]/60">
                 {isExpanded ? aboutText : truncatedText}
               </p>
               {words.length >= maxWords && (
                 <button
                   onClick={toggleExpansion}
-                  className="font-cardo cursor-pointer py-2 text-[18px] font-normal text-[#031136]"
+                  className="cursor-pointer py-2 text-sm font-semibold text-blue-500"
                 >
                   {isExpanded ? "See Less" : "See More"}
                 </button>
@@ -916,7 +906,7 @@ const FreelancerSelfProfile = () => {
               id="workHistory"
             >
               <div className="flex items-center justify-between">
-                <h1 className="font-cardo mr-1 pb-3 text-[21px] font-normal text-[#031136]">
+                <h1 className="mr-1 pb-3 text-[21px] font-normal text-[#031136]">
                   Reviews ({reviews && reviews ? reviews.length : 0})
                 </h1>
               </div>
@@ -939,7 +929,7 @@ const FreelancerSelfProfile = () => {
                     </p>
                     <div className="my-6 grid grid-cols-3 gap-4">
                       <div className="">
-                        <p className="font-cardo text-[16px] font-bold text-[#031136]">
+                        <p className="text-[16px] font-bold text-[#031136]">
                           $
                           {review.project_Rate === "Hourly"
                             ? review.project_Min_Hourly_Rate + "/hr"
@@ -947,14 +937,12 @@ const FreelancerSelfProfile = () => {
                         </p>
                       </div>
                       <div className="">
-                        <p className="font-cardo text-[16px] font-bold text-[#031136]">
+                        <p className="text-[16px] font-bold text-[#031136]">
                           {review.project_Rate}
                         </p>
                       </div>
                       <div className="">
-                        <p className="font-cardo text-[16px] font-bold text-[#031136]">
-                          {review.Reviewer}
-                        </p>
+                        <p className="text-[16px] font-bold text-[#031136]">{review.Reviewer}</p>
                       </div>
                     </div>
                     <div className="my-4 border-b opacity-50"></div>
@@ -964,14 +952,14 @@ const FreelancerSelfProfile = () => {
               {reviews.length > 4 &&
                 (startIdx + 4 < reviews.length ? (
                   <button
-                    className="font-cardo cursor-pointer text-right text-[20px] font-normal text-[#031136]"
+                    className="cursor-pointer text-right text-[20px] font-normal text-[#031136]"
                     onClick={showMoreHandler}
                   >
                     Show More
                   </button>
                 ) : (
                   <button
-                    className="font-cardo cursor-pointer text-right text-[20px] font-normal text-[#031136]"
+                    className="cursor-pointer text-right text-[20px] font-normal text-[#031136]"
                     onClick={showLessHandler}
                   >
                     Show Less
@@ -983,7 +971,7 @@ const FreelancerSelfProfile = () => {
               id="freeselfpro"
             >
               <div className="flex items-center justify-between">
-                <h1 className="font-cardo mr-1 text-[21px] font-normal text-[#031136]">
+                <h1 className="mr-1 text-[21px] font-normal text-[#031136]">
                   Portfolio ({ProjectCount})
                 </h1>
                 <div className="flex items-center space-x-2">
@@ -1093,9 +1081,7 @@ const FreelancerSelfProfile = () => {
             </div>
             <div className="border-b border-gray-200 border-opacity-30 px-2 py-8 pt-3 text-left md:px-8">
               <div className="flex items-center justify-between pb-3">
-                <h1 className="font-cardo mr-1 text-[21px] font-normal text-[#031136]">
-                  Skills & Expertise
-                </h1>
+                <h1 className="mr-1 text-[21px] font-normal text-[#031136]">Skills & Expertise</h1>
                 <div className="flex items-center space-x-2">
                   {freelancerselfprofile &&
                   freelancerselfprofile &&
@@ -1125,16 +1111,14 @@ const FreelancerSelfProfile = () => {
               </div>
 
               {freelancerselfprofile && freelancerselfprofile && freelancerselfprofile.skills
-                ? JSON.parse(freelancerselfprofile.skills.replace(/'/g, '"')).map(
+                ? JSON.parse(freelancerselfprofile.skills.replace(/'/g, '"') ?? "[]").map(
                     (skill: string, index: number) => (
-                      <Link
+                      <span
                         key={index}
-                        href=""
+                        className="font-inter my-2 mr-2 inline-block rounded border border-gray-300 px-4 py-1 text-[13px] text-[#0A142F]/70"
                       >
-                        <span className="font-inter my-2 mr-2 inline-block rounded border border-gray-300 px-4 py-1 text-[13px] text-[#0A142F] opacity-50">
-                          {skill}
-                        </span>
-                      </Link>
+                        {skill}
+                      </span>
                     )
                   )
                 : null}
@@ -1143,9 +1127,7 @@ const FreelancerSelfProfile = () => {
         </div>
         <div className="my-6 border border-gray-200 border-opacity-40 bg-[#FFFFFF] px-2 py-8 md:px-8">
           <div className="flex items-center justify-between">
-            <h1 className="font-cardo mr-1 text-[21px] font-normal text-[#031136]">
-              Employment history
-            </h1>
+            <h1 className="mr-1 text-[21px] font-normal text-[#031136]">Employment history</h1>
             <div className="flex items-center space-x-2">
               <button
                 className="h-6 w-6 cursor-pointer rounded-full border border-gray-200 bg-white p-1"
@@ -1169,14 +1151,14 @@ const FreelancerSelfProfile = () => {
                 alt=""
                 className="mx-auto mt-5"
               />
-              <h1 className="font-cardo py-3 text-center text-2xl">No Data Found</h1>
+              <h1 className="py-3 text-center text-2xl">No Data Found</h1>
             </>
           ) : (
             visibleEmp.map((emp, index) => (
               <>
                 <div key={index}>
                   <div className="flex items-center justify-between">
-                    <h1 className="font-cardo mr-1 text-[18px] font-normal text-[#031136]">
+                    <h1 className="mr-1 text-[18px] font-normal text-[#031136]">
                       {emp.Company_Designation} | {emp.Freelancer_Company_Name}
                     </h1>
                     <div className="flex items-center space-x-2">
