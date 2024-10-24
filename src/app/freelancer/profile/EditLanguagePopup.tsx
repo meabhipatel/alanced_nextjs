@@ -76,32 +76,6 @@ const EditLanguagePopup: React.FC<IEditLanguagePopupProps> = ({ closeEditLanguag
 
   return (
     <>
-      <style>
-        {`
-    .dropdown-list {
-        border: 1px solid #ccc;
-        max-height: 200px;
-        overflow-y: auto;
-        position: absolute;
-        width: 100%;
-        z-index: 1000;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        background-color: #fff;
-        margin-top:11px;
-    }
-    
-    .dropdown-list li {
-        padding: 10px;
-        cursor: pointer;
-    }
-
-    .dropdown-list li:hover {
-        background-color: #f7f7f7;
-    }
-    `}
-      </style>
       <div className="fixed inset-0 z-10 mt-10 overflow-y-auto sm:overflow-visible">
         <div className="fixed inset-0 bg-black opacity-50"></div>
         <div className="flex min-h-screen items-center justify-center">
@@ -151,11 +125,12 @@ const EditLanguagePopup: React.FC<IEditLanguagePopupProps> = ({ closeEditLanguag
                     placeholder="Search & Select Languages"
                   />
                   {isOpenLanguage && (
-                    <ul className="dropdown-list w-full">
+                    <ul className="absolute z-50 mt-[11px] max-h-[200px] w-full list-none overflow-y-auto border border-[#ccc] bg-white p-0">
                       {filteredLanguages.length > 0 ? (
                         filteredLanguages.map((language, index) => (
                           <li key={index}>
                             <button
+                              className="h-full w-full px-4 py-1 text-start hover:bg-[#f7f7f7]"
                               onClick={() => {
                                 if (Language.length < 8) {
                                   setLanguage((prev) => [...prev, language]);
