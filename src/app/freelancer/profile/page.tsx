@@ -28,7 +28,7 @@ import { useAppSelector } from "@/store/hooks";
 import toast from "react-hot-toast";
 import { axiosIntance } from "@/utils/axiosIntance";
 
-interface Employment {
+export interface IEmployment {
   emp_id: number;
   Freelancer_Company_Name: string;
   Company_Designation: string;
@@ -42,7 +42,7 @@ interface RatingReview {
   review: string;
 }
 
-interface IReview {
+export interface IReview {
   Reviewee: string;
   Reviewer: string;
   rating: number;
@@ -74,8 +74,8 @@ const FreelancerSelfProfile = () => {
   const [reviews, setReviews] = useState([]);
   const [bid, setBid] = useState([]);
   const [freelancerproject, setfreelancerproject] = useState<FreelanceProject[]>([]);
-  const [freelanceremployment, setfreelanceremployment] = useState<Employment[]>([]);
-  const id = freelancerselfprofile && freelancerselfprofile.id ? freelancerselfprofile.id : "";
+  const [freelanceremployment, setfreelanceremployment] = useState<IEmployment[]>([]);
+  const id = freelancerselfprofile.id;
 
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
@@ -198,7 +198,7 @@ const FreelancerSelfProfile = () => {
   // const commonStyle = "inline-block text-sm py-[10px] mt-4 lg:mt-0 border rounded font-semibold";
 
   const [selectedProject, setSelectedProject] = useState<FreelanceProject | null>(null);
-  const [selectedEmp, setSelectedEmp] = useState<Employment | null>(null);
+  const [selectedEmp, setSelectedEmp] = useState<IEmployment | null>(null);
 
   function calculateJobSuccess(reviews: RatingReview[]) {
     if (!reviews || reviews.length === 0) {
@@ -251,7 +251,7 @@ const FreelancerSelfProfile = () => {
     setIsEditFreeProjectOpen(false);
   };
 
-  const openEditEmployment = (employment: Employment) => {
+  const openEditEmployment = (employment: IEmployment) => {
     setSelectedEmp(employment);
     setIsEditEmploymentOpen(true);
   };
