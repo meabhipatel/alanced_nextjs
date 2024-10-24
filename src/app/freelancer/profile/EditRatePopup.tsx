@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 
-import { useAppSelector } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { axiosWithAuth } from "@/utils/axiosWithAuth";
 import toast from "react-hot-toast";
 import { IoClose } from "react-icons/io5";
+import { handleGetUpdatedProfileAsync } from "@/store/features/auth/authApi";
 
 interface IEditRatePopupProps {
   closeHrRate: () => void;
 }
 
 const EditHrRatePopup: React.FC<IEditRatePopupProps> = ({ closeHrRate }) => {
+  const dispatch = useAppDispatch();
   const freelancerselfprofile = useAppSelector((state) => state.auth.userProfile);
   const [userInput, setUserInput] = useState<string>("$0.00");
   const [hourlyRate, setHourlyRate] = useState(
@@ -43,6 +45,7 @@ const EditHrRatePopup: React.FC<IEditRatePopupProps> = ({ closeHrRate }) => {
     const formData = new FormData();
     formData.append("hourly_rate", hourlyRate.toString());
     const res = await axiosWithAuth.put("/account/freelancer/profile/update", formData);
+    dispatch(handleGetUpdatedProfileAsync());
     toast.success(res.data.message);
 
     closeHrRate();
