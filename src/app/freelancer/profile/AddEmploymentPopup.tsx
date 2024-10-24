@@ -1,14 +1,11 @@
 import React, { ChangeEvent, useState } from "react";
-
 import DesignationList from "@/constant/allSelectionData/DesignationList";
 import { IoClose } from "react-icons/io5";
 import { axiosWithAuth } from "@/utils/axiosWithAuth";
 import toast from "react-hot-toast";
 import { FaCheck } from "react-icons/fa6";
-
-interface IAddEmploymentPopup {
-  closeAddEmployment: () => void;
-}
+import { errorLog } from "@/utils/errorLog";
+import { AxiosError } from "axios";
 
 interface IEmploymentDetails {
   Freelancer_Company_Name: string;
@@ -17,7 +14,12 @@ interface IEmploymentDetails {
   Company_Leaving_date: string;
 }
 
-const AddEmploymentPopup: React.FC<IAddEmploymentPopup> = ({ closeAddEmployment }) => {
+interface IProps {
+  closeAddEmployment: () => void;
+  handleFetchEmployment: () => void;
+}
+
+const AddEmploymentPopup: React.FC<IProps> = ({ closeAddEmployment, handleFetchEmployment }) => {
   const [AddEmployment, setAddEmployment] = useState<IEmploymentDetails>({
     Freelancer_Company_Name: "",
     Company_Designation: "",
@@ -26,16 +28,32 @@ const AddEmploymentPopup: React.FC<IAddEmploymentPopup> = ({ closeAddEmployment 
   });
 
   const AddEmploymentData = async () => {
+    const isAllField =
+      AddEmployment.Company_Designation &&
+      AddEmployment.Company_Joining_date &&
+      AddEmployment.Company_Leaving_date &&
+      AddEmployment.Freelancer_Company_Name;
+    if (!isAllField) {
+      toast.error("All fields are requried.");
+      return;
+    }
     const formData = new URLSearchParams();
     formData.append("Freelancer_Company_Name", AddEmployment.Freelancer_Company_Name);
     formData.append("Company_Designation", AddEmployment.Company_Designation);
     formData.append("Company_Joining_date", AddEmployment.Company_Joining_date);
     formData.append("Company_Leaving_date", AddEmployment.Company_Leaving_date);
 
-    const res = await axiosWithAuth.post("freelance/Add/Freelancer/Employment", formData);
-    toast.success(res.data.message);
-
-    closeAddEmployment();
+    try {
+      const res = await axiosWithAuth.post("freelance/Add/Freelancer/Employment", formData);
+      toast.success(res.data.message);
+      handleFetchEmployment();
+      closeAddEmployment();
+    } catch (error) {
+      errorLog(error);
+      if (error instanceof AxiosError) {
+        toast.error(error.response?.data.message);
+      }
+    }
   };
 
   const onChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {

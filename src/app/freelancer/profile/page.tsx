@@ -1125,7 +1125,10 @@ const FreelancerSelfProfile = () => {
                 />
               </button>
               {isAddEmploymentOpen && (
-                <AddEmploymentPopup closeAddEmployment={closeAddEmployment} />
+                <AddEmploymentPopup
+                  closeAddEmployment={closeAddEmployment}
+                  handleFetchEmployment={handleFetchEmployment}
+                />
               )}
             </div>
           </div>
