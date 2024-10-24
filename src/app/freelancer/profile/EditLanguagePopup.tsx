@@ -1,21 +1,19 @@
 import React, { useEffect, useRef, useState } from "react";
-
 import LanguageList from "@/constant/allSelectionData/languageList";
-
-import { useAppSelector } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { IoClose } from "react-icons/io5";
 import { axiosWithAuth } from "@/utils/axiosWithAuth";
 import toast from "react-hot-toast";
+import { handleGetUpdatedProfileAsync } from "@/store/features/auth/authApi";
 
 interface IEditLanguagePopupProps {
   closeEditLanguage: () => void;
 }
 
 const EditLanguagePopup: React.FC<IEditLanguagePopupProps> = ({ closeEditLanguage }) => {
+  const dispatch = useAppDispatch();
   const freelancerselfprofile = useAppSelector((state) => state.auth.userProfile);
-
   const [Language, setLanguage] = useState<string[]>([]);
-
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -45,6 +43,7 @@ const EditLanguagePopup: React.FC<IEditLanguagePopupProps> = ({ closeEditLanguag
       formData.append(key, formattedLanguage[key]);
     });
     const res = await axiosWithAuth.put("/account/freelancer/profile/update", formData);
+    dispatch(handleGetUpdatedProfileAsync());
     toast.success(res.data.message);
 
     closeEditLanguage();
