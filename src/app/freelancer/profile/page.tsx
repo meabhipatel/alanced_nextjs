@@ -1036,8 +1036,8 @@ const FreelancerSelfProfile = () => {
                       }}
                     >
                       <RxArrowLeft
-                        strokeWidth={2}
-                        className="h-4 w-4 text-white"
+                        strokeWidth={0.3}
+                        className="text-2xl text-white"
                       />
                     </button>
 
@@ -1071,8 +1071,8 @@ const FreelancerSelfProfile = () => {
                       }}
                     >
                       <RxArrowRight
-                        strokeWidth={2}
-                        className="h-4 w-4 text-white"
+                        strokeWidth={0.3}
+                        className="text-2xl text-white"
                       />
                     </button>
                   </div>
