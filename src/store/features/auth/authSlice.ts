@@ -1,6 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { handleLoginAsync, handleLoginWithGoogleAsync } from "./authApi";
+import {
+  handleGetUpdatedProfileAsync,
+  handleLoginAsync,
+  handleLoginWithGoogleAsync,
+} from "./authApi";
 import { IUserProfile } from "@/interfaces";
 import cookies from "js-cookie";
 
@@ -44,11 +48,6 @@ interface IInitialState {
   loginMethod: ELoginMethod;
 }
 
-// const localUserProfile = localStorage.getItem("@userProfile");
-// const userProfile = localUserProfile
-//   ? (JSON.parse(localUserProfile) as IUserProfile)
-//   : userProfileObj;
-
 const initialState: IInitialState = {
   isLoggedIn: false,
   isloading: false,
@@ -77,6 +76,15 @@ export const authSlice = createSlice({
       state.userProfile = action.payload.userProfile;
       state.loginMethod = action.payload.loginMethod;
       state.userType = action.payload.userType;
+    },
+    setUpdatedUserProfile: (
+      state,
+      action: PayloadAction<{
+        userProfile: IUserProfile;
+      }>
+    ) => {
+      state.isLoggedIn = true;
+      state.userProfile = action.payload.userProfile;
     },
     handleLogoutUserAction: (state) => {
       state.isLoggedIn = false;
@@ -129,8 +137,26 @@ export const authSlice = createSlice({
       const payload = actions.payload as { message: string };
       state.error = payload.message;
     });
+
+    /** ---> Cases for fetch updated profile */
+    builder
+      .addCase(handleGetUpdatedProfileAsync.pending, (state) => {
+        state.isloading = true;
+      })
+      .addCase(handleGetUpdatedProfileAsync.fulfilled, (state, actions) => {
+        state.isloading = false;
+        const userProfile = actions.payload as IUserProfile;
+        state.userProfile = userProfile;
+        localStorage.setItem("@userProfile", JSON.stringify(userProfile));
+      })
+      .addCase(handleGetUpdatedProfileAsync.rejected, (state, actions) => {
+        state.isloading = false;
+        const payload = actions.payload as { message: string };
+        state.error = payload.message;
+      });
   },
 });
 
-export const { setIsLoggedIn, setUserAuthProfile, handleLogoutUserAction } = authSlice.actions;
+export const { setIsLoggedIn, setUserAuthProfile, setUpdatedUserProfile, handleLogoutUserAction } =
+  authSlice.actions;
 export default authSlice.reducer;
