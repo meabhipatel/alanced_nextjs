@@ -13,7 +13,7 @@ const FAQ = () => {
   return (
     <div className="container mb-4 px-4 py-5 sm:px-5 md:px-10 lg:px-20">
       <div className="max-h-screen overflow-y-auto">
-        <div className="my-2 mb-5 mt-12 h-[500px] border border-gray-200 border-opacity-30 bg-[#FFFFFF] md:flex">
+        <div className="mb-5 h-[500px] md:flex">
           {/* Image Section */}
           <div className="relative flex-1">
             <Image
