@@ -141,7 +141,7 @@ const FreelancerAfterLogin = () => {
         </div>
 
         {/* --- > Body */}
-        <div className="mx-5 mb-5 flex flex-col md:flex-row">
+        <div className="mb-5 flex flex-col md:flex-row">
           {/* --- > Side container */}
           <div className="w-full border-b border-l border-gray-200 border-opacity-30 bg-[#FFFFFF] py-8 pt-3 text-left md:w-[30%]">
             <Link href="/freelancer/saved-jobs">
@@ -213,7 +213,7 @@ const FreelancerAfterLogin = () => {
                     Jobs You Might Like
                   </div>
                 </div>
-                <div className="flex items-center">
+                <div className="flex items-center sm:flex-col">
                   <div className="mr-1 flex w-[200px] items-center space-x-1 rounded-md border p-1">
                     <Image
                       src={search}
