@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 
-import { useAppSelector } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { IoClose } from "react-icons/io5";
 import { axiosWithAuth } from "@/utils/axiosWithAuth";
 import toast from "react-hot-toast";
+import { handleGetUpdatedProfileAsync } from "@/store/features/auth/authApi";
 interface IEditEducationPopupProps {
   closeEditEducation: () => void;
   qualification: string;
 }
 
 const EditEducationPopup: React.FC<IEditEducationPopupProps> = ({ closeEditEducation }) => {
+  const dispatch = useAppDispatch();
   const [qualification, setqualification] = useState("");
 
   const freelancerselfprofile = useAppSelector((state) => state.auth.userProfile);
@@ -23,6 +25,7 @@ const EditEducationPopup: React.FC<IEditEducationPopupProps> = ({ closeEditEduca
     const formData = new FormData();
     formData.append("qualification", qualification);
     const res = await axiosWithAuth.put("/account/freelancer/profile/update", formData);
+    dispatch(handleGetUpdatedProfileAsync());
     toast.success(res.data.message);
 
     closeEditEducation();
