@@ -1,20 +1,10 @@
-// import axios from "axios";
 import React, { useState, useEffect } from "react";
-
-// import { useDispatch, useSelector } from "react-redux";
-// import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
-// import { GetFreelancerSelfProfileAction } from "../../../redux/Freelancer/FreelancerAction";
 import DesignationList from "@/constant/allSelectionData/DesignationList";
 import { errorLog } from "@/utils/errorLog";
 import { axiosWithAuth } from "@/utils/axiosWithAuth";
 import { IoClose } from "react-icons/io5";
 import { FaCheck } from "react-icons/fa6";
-
-interface IAddEmploymentPopup {
-  closeEditEmployment: () => void;
-  employment: IEmployment | null;
-}
 
 interface IEmployment {
   emp_id: number;
@@ -25,12 +15,17 @@ interface IEmployment {
   design_by: string | null;
 }
 
-const EditEmploymentPopup: React.FC<IAddEmploymentPopup> = ({
+interface IProps {
+  closeEditEmployment: () => void;
+  employment: IEmployment | null;
+  handleFetchEmployment: () => void;
+}
+
+const EditEmploymentPopup: React.FC<IProps> = ({
   closeEditEmployment,
   employment,
+  handleFetchEmployment,
 }) => {
-  //   const dispatch = useDispatch();
-
   const formatToYYYYMMDD = (dateStr: string) => {
     if (!dateStr) return "";
     const [day, month, year] = dateStr.split("-");
@@ -43,11 +38,8 @@ const EditEmploymentPopup: React.FC<IAddEmploymentPopup> = ({
     return `${day}-${month}-${year}`;
   };
 
-  const [isCurrentlyWorking, setIsCurrentlyWorking] = useState(!employment?.Company_Leaving_date);
-
   const id = employment?.emp_id;
-  // const accessToken = useSelector(state => state.login.accessToken);
-  // const accessToken = "access token";
+  const [isCurrentlyWorking, setIsCurrentlyWorking] = useState(!employment?.Company_Leaving_date);
   const [companyname, setCompanyname] = useState(employment?.Freelancer_Company_Name || "");
   const [designation, setDesignation] = useState(employment?.Company_Designation || "");
   const [joindate, setJoindate] = useState(
@@ -73,27 +65,12 @@ const EditEmploymentPopup: React.FC<IAddEmploymentPopup> = ({
       const res = await axiosWithAuth.put(
         `/freelance/update/Freelancer/Employment/${id}`,
         updatedData
-        // {
-        //   headers: {
-        //     Authorization: `Bearer ${accessToken}`,
-        //   },
-        // }
       );
-      // const res = await axiosWithAuth.put("/account/freelancer/profile/update", formData);
       toast.success(res.data.message);
-      if (res.data.status === 200) {
-        toast.success("Employment Data Updated");
-        closeEditEmployment();
-        // dispatch(GetFreelancerSelfProfileAction(accessToken));
-      } else {
-        errorLog(res.data.message || "Error updating the employment");
-      }
-    } catch (err) {
-      if (err instanceof Error) {
-        errorLog(err.message);
-      } else {
-        errorLog("An unknown error occurred");
-      }
+      handleFetchEmployment();
+      closeEditEmployment();
+    } catch (error) {
+      errorLog(error);
     }
   };
 
@@ -110,7 +87,6 @@ const EditEmploymentPopup: React.FC<IAddEmploymentPopup> = ({
               onClick={closeEditEmployment}
               className="text-gray-500 hover:text-gray-700"
             >
-              {/* <i className="bi bi-x-lg"></i> */}
               <IoClose className="text-3xl" />
             </button>
           </div>
@@ -129,7 +105,7 @@ const EditEmploymentPopup: React.FC<IAddEmploymentPopup> = ({
             <h1 className="font-cardo text-left text-[20px] font-normal text-[#031136]">
               Designation
             </h1>
-            {/* <input type="text" className='border mt-2 mb-6 py-1.5 px-2 rounded-md w-full focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600' placeholder='Python Developer' onChange={e => setDesignation(e.target.value)} name='Company_Designation' value={designation}/> */}
+
             <select
               onChange={(e) => setDesignation(e.target.value)}
               className="mb-6 mt-2 w-full rounded-md border bg-white px-2 py-1.5 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
@@ -191,7 +167,6 @@ const EditEmploymentPopup: React.FC<IAddEmploymentPopup> = ({
               />
               <div className="checkbox-border-gradient mr-3 flex h-5 w-5 items-center justify-center rounded bg-transparent">
                 <span className="checkmark hidden">
-                  {/* <i className="bi bi-check-lg pr-2 pt-2"></i> */}
                   <FaCheck className="text-sm" />
                 </span>
               </div>

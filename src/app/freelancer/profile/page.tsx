@@ -1161,6 +1161,7 @@ const FreelancerSelfProfile = () => {
                         <EditEmploymentPopup
                           employment={selectedEmp}
                           closeEditEmployment={closeEditEmployment}
+                          handleFetchEmployment={handleFetchEmployment}
                         />
                       )}
                     </div>
