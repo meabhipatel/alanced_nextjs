@@ -1,16 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import CategoryList from "@/constant/allSelectionData/categoryList";
-import { useAppSelector } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { axiosWithAuth } from "@/utils/axiosWithAuth";
 import toast from "react-hot-toast";
 import { IoClose } from "react-icons/io5";
+import { handleGetUpdatedProfileAsync } from "@/store/features/auth/authApi";
 
 interface IEditTitlePoup {
   closeEditTitle: () => void;
 }
 
 const EditTitlePopup: React.FC<IEditTitlePoup> = ({ closeEditTitle }) => {
+  const dispatch = useAppDispatch();
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
 
@@ -29,6 +31,7 @@ const EditTitlePopup: React.FC<IEditTitlePoup> = ({ closeEditTitle }) => {
     formData.append("about", description);
 
     const res = await axiosWithAuth.put("/account/freelancer/profile/update", formData);
+    dispatch(handleGetUpdatedProfileAsync());
     toast.success(res.data.message);
 
     closeEditTitle();
@@ -59,32 +62,6 @@ const EditTitlePopup: React.FC<IEditTitlePoup> = ({ closeEditTitle }) => {
 
   return (
     <>
-      <style>
-        {`
-    .dropdown-list {
-        border: 1px solid #ccc;
-        max-height: 200px;
-        overflow-y: auto;
-        position: absolute;
-        width: 90%;
-        z-index: 1000;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        background-color: #fff;
-    }
-    
-    .dropdown-list li {
-        padding: 10px;
-        cursor: pointer;
-    }
-
-    .dropdown-list li:hover {
-        background-color: #f7f7f7;
-    }
-    `}
-      </style>
-
       <div className="fixed inset-0 z-10 mt-12 overflow-y-auto">
         <div className="fixed inset-0 bg-black opacity-50"></div>
         <div className="flex min-h-screen items-center justify-center">
@@ -98,16 +75,16 @@ const EditTitlePopup: React.FC<IEditTitlePoup> = ({ closeEditTitle }) => {
                 onClick={closeEditTitle}
                 className="text-gray-500 hover:text-gray-700"
               >
-                {/* <i className="bi bi-x-lg"></i> */}
                 <IoClose className="text-3xl" />
               </button>
             </div>
             <div className="mt-8">
-              <h1 className="font-cardo text-left text-[20px] font-normal text-[#031136]">
-                Your Designation
-              </h1>
+              <h1 className="text-left text-[20px] font-normal text-[#031136]">Your Designation</h1>
 
-              <div ref={wrapperRef}>
+              <div
+                ref={wrapperRef}
+                className="relative"
+              >
                 <input
                   type="text"
                   value={category}
@@ -121,11 +98,12 @@ const EditTitlePopup: React.FC<IEditTitlePoup> = ({ closeEditTitle }) => {
                   placeholder="Select Category"
                 />
                 {isOpen && (
-                  <ul className="dropdown-list">
+                  <ul className="absolute z-50 max-h-[200px] w-full list-none overflow-y-auto border border-[#ccc] bg-white p-0">
                     {filteredCategories.length > 0 ? (
                       filteredCategories.map((cat, index) => (
                         <li key={index}>
                           <button
+                            className="h-full w-full px-4 py-1 text-start hover:bg-[#f7f7f7]"
                             onClick={() => {
                               setSearchTerm(cat);
                               setCategory(cat);
