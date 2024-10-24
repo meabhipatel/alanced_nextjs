@@ -70,13 +70,14 @@ export interface FreelanceProject {
 
 const FreelancerSelfProfile = () => {
   const freelancerselfprofile = useAppSelector((state) => state.auth.userProfile);
+  const id = freelancerselfprofile.id;
 
-  const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState<IReview[]>([]);
+  const [visibleReviews, setVisibleReviews] = useState<IReview[]>([]);
   const [bid, setBid] = useState([]);
   const [freelancerproject, setfreelancerproject] = useState<FreelanceProject[]>([]);
   const [freelanceremployment, setfreelanceremployment] = useState<IEmployment[]>([]);
-  const id = freelancerselfprofile.id;
-
+  const [visibleEmployment, setVisibleEmployment] = useState<IEmployment[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [ProjectCount, setProjectCount] = useState(0);
@@ -87,21 +88,18 @@ const FreelancerSelfProfile = () => {
   };
 
   useEffect(() => {
-    if (id) {
-      axiosIntance
-        .get(`/freelance/View-all/Review/${id}`)
-        .then((response) => {
-          if (response.data.status === 200) {
-            setReviews(response.data.data);
-          } else {
-            errorLog(response.data.message || "Error fetching reviews");
-          }
-        })
-        .catch((err) => {
-          errorLog(err.message);
-        });
-    }
+    handleFetchReviews();
   }, [id]);
+
+  const handleFetchReviews = async () => {
+    try {
+      const res = await axiosIntance.get(`/freelance/View-all/Review/${id}`);
+      setReviews(res.data.data);
+      setVisibleReviews(res.data.data?.slice(0, 3));
+    } catch (error) {
+      errorLog(error);
+    }
+  };
 
   useEffect(() => {
     const queryParameters = [];
@@ -123,21 +121,22 @@ const FreelancerSelfProfile = () => {
   }, [currentPage, id]);
 
   useEffect(() => {
-    if (id) {
-      axiosIntance
-        .get(`/freelance/View-all/Freelancer/Employment/${id}`)
-        .then((response) => {
-          if (response.data.status === 200) {
-            setfreelanceremployment(response.data.data);
-          } else {
-            errorLog(response.data.message || "Error fetching Employment data");
-          }
-        })
-        .catch((err) => {
-          errorLog(err.message);
-        });
-    }
+    handleFetchEmployment();
   }, [id]);
+
+  const handleFetchEmployment = async () => {
+    try {
+      const res = await axiosIntance.get(`/freelance/View-all/Freelancer/Employment/${id}`);
+      const sortedEmployments = (res.data.data as IEmployment[]).sort(
+        (a, b) =>
+          new Date(b.Company_Joining_date).getDate() - new Date(a.Company_Joining_date).getDate()
+      );
+      setfreelanceremployment(sortedEmployments);
+      setVisibleEmployment(sortedEmployments?.slice(0, 3));
+    } catch (error) {
+      errorLog(error);
+    }
+  };
 
   useEffect(() => {
     axiosWithAuth
@@ -166,32 +165,23 @@ const FreelancerSelfProfile = () => {
     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   };
 
-  const [startIdx, setStartIdx] = useState(0);
+  /** ---> Show Either More or Less */
 
-  const showMoreHandler = () => {
-    setStartIdx((prevIdx) => prevIdx + 4);
+  const showMoreReviews = () => {
+    setVisibleReviews(reviews);
   };
 
-  const showLessHandler = () => {
-    setStartIdx(0);
+  const showLessReviews = () => {
+    setVisibleReviews(reviews.slice(0, 3));
   };
 
-  const visibleReviews: IReview[] = reviews.slice(startIdx, startIdx + 4);
-
-  const sortedEmployments = [...freelanceremployment].sort(
-    (a, b) =>
-      new Date(b.Company_Joining_date).getDate() - new Date(a.Company_Joining_date).getDate()
-  );
-
-  const showMoreHandlers = () => {
-    setStartIdx((prevIdx) => prevIdx + 3);
+  const showMoreEmployment = () => {
+    setVisibleEmployment(freelanceremployment);
   };
 
-  const showLessHandlers = () => {
-    setStartIdx(0);
+  const showLessEmployment = () => {
+    setVisibleEmployment(freelanceremployment.slice(0, 3));
   };
-
-  const visibleEmp = sortedEmployments.slice(startIdx, startIdx + 3);
 
   // const [selectedButton, setSelectedButton] = useState("All Work");
   // const [selectedButtons, setSelectedButtons] = useState("Github");
@@ -312,10 +302,6 @@ const FreelancerSelfProfile = () => {
   const openAddEducation = () => {
     // setIsAddEducationOpen(true);
   };
-
-  // const closeAddEducation = () => {
-  //   setIsAddEducationOpen(false);
-  // };
 
   const openEditTitle = () => {
     setIsEditTitleOpen(true);
@@ -949,18 +935,18 @@ const FreelancerSelfProfile = () => {
                   </div>
                 </>
               ))}
-              {reviews.length > 4 &&
-                (startIdx + 4 < reviews.length ? (
+              {reviews.length > 3 &&
+                (visibleReviews.length < reviews.length ? (
                   <button
-                    className="cursor-pointer text-right text-[20px] font-normal text-[#031136]"
-                    onClick={showMoreHandler}
+                    className="cursor-pointer text-right text-sm font-semibold text-blue-500"
+                    onClick={showMoreReviews}
                   >
                     Show More
                   </button>
                 ) : (
                   <button
-                    className="cursor-pointer text-right text-[20px] font-normal text-[#031136]"
-                    onClick={showLessHandler}
+                    className="cursor-pointer text-right text-sm font-semibold text-blue-500"
+                    onClick={showLessReviews}
                   >
                     Show Less
                   </button>
@@ -1144,7 +1130,7 @@ const FreelancerSelfProfile = () => {
             </div>
           </div>
           <div className="my-3 border-b opacity-50"></div>
-          {visibleEmp.length === 0 ? (
+          {visibleEmployment.length === 0 ? (
             <>
               <Image
                 src={fileIcon}
@@ -1154,7 +1140,7 @@ const FreelancerSelfProfile = () => {
               <h1 className="py-3 text-center text-2xl">No Data Found</h1>
             </>
           ) : (
-            visibleEmp.map((emp, index) => (
+            visibleEmployment.map((emp, index) => (
               <>
                 <div key={index}>
                   <div className="flex items-center justify-between">
@@ -1190,19 +1176,19 @@ const FreelancerSelfProfile = () => {
           )}
 
           {freelanceremployment.length > 3 &&
-            (startIdx + 3 < freelanceremployment.length ? (
+            (visibleEmployment.length < freelanceremployment.length ? (
               <button
                 className="mx-auto cursor-pointer text-sm font-semibold text-blue-500"
-                onClick={showMoreHandlers}
+                onClick={showMoreEmployment}
               >
-                Show Less
+                Show More
               </button>
             ) : (
               <button
                 className="cursor-pointe mx-auto text-sm font-semibold text-blue-500"
-                onClick={showLessHandlers}
+                onClick={showLessEmployment}
               >
-                Show More
+                Show Less
               </button>
             ))}
         </div>
