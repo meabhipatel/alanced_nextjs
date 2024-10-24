@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import CityList from "@/constant/allSelectionData/cityList";
-import { useAppSelector } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { IoClose } from "react-icons/io5";
 import { axiosWithAuth } from "@/utils/axiosWithAuth";
 import toast from "react-hot-toast";
+import { handleGetUpdatedProfileAsync } from "@/store/features/auth/authApi";
 
 interface IAvailableOffPopupProps {
   isAvailable: string;
@@ -16,8 +17,8 @@ const AvailableOffPopup: React.FC<IAvailableOffPopupProps> = ({
   setIsAvailable,
   closeAvailableOff,
 }) => {
+  const dispatch = useAppDispatch();
   const freelancerselfprofile = useAppSelector((state) => state.auth.userProfile);
-
   const [localAvailability, setLocalAvailability] = useState(isAvailable);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -40,6 +41,7 @@ const AvailableOffPopup: React.FC<IAvailableOffPopupProps> = ({
     formData.append("availableStatus", localAvailability);
 
     const res = await axiosWithAuth.put("/account/freelancer/profile/update", formData);
+    dispatch(handleGetUpdatedProfileAsync());
     toast.success(res.data.message);
     closeAvailableOff();
   };
@@ -69,31 +71,6 @@ const AvailableOffPopup: React.FC<IAvailableOffPopupProps> = ({
 
   return (
     <>
-      <style>
-        {`
-    .dropdown-list {
-        border: 1px solid #ccc;
-        max-height: 200px;
-        overflow-y: auto;
-        position: absolute;
-        width: 86%;
-        z-index: 1000;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        background-color: #fff;
-    }
-    
-    .dropdown-list li {
-        padding: 10px;
-        cursor: pointer;
-    }
-
-    .dropdown-list li:hover {
-        background-color: #f7f7f7;
-    }
-    `}
-      </style>
       <div className="fixed inset-0 z-10 mt-10 overflow-y-auto">
         <div className="fixed inset-0 bg-black opacity-50"></div>
         <div className="flex min-h-screen items-center justify-center">
@@ -134,7 +111,10 @@ const AvailableOffPopup: React.FC<IAvailableOffPopupProps> = ({
                 Location
               </h1>
 
-              <div ref={wrapperRefAddress}>
+              <div
+                ref={wrapperRefAddress}
+                className="relative"
+              >
                 <input
                   type="text"
                   value={address}
@@ -148,11 +128,12 @@ const AvailableOffPopup: React.FC<IAvailableOffPopupProps> = ({
                   placeholder="Select City"
                 />
                 {isOpenAddress && (
-                  <ul className="dropdown-list">
+                  <ul className="absolute z-50 max-h-[200px] w-full list-none overflow-y-auto border border-[#ccc] bg-white p-0">
                     {filteredCities.length > 0 ? (
                       filteredCities.map((city, index) => (
                         <li key={index}>
                           <button
+                            className="h-full w-full px-4 py-1 text-start hover:bg-[#f7f7f7]"
                             onClick={() => {
                               setSearchTermAddress(city);
                               setAddress(city);
